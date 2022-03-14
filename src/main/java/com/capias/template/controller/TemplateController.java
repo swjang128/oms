@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.capias.config.CommonUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Front End Design Templates를 관리하는 컨트롤러
  * @author swjang128
@@ -15,6 +17,7 @@ import com.capias.config.CommonUtil;
  */
 @Controller
 @RequestMapping("template")
+@Slf4j
 public class TemplateController {
 	@Autowired
 	CommonUtil commonUtil;
@@ -24,15 +27,16 @@ public class TemplateController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("tables")
-  	public String tables(Model model) {
+	@GetMapping("projects")
+  	public String projects(Model model) {
 		// ServletPath, CurrentLocation 설정 
 		String servletPath = commonUtil.getServletPath();
 		String currentLocation = commonUtil.getCurrentLocation();
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
 		
-  		return "tables";
+		log.info("dddd");		
+  		return "projects";
   	}
 	
 	/**
