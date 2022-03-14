@@ -1,0 +1,77 @@
+<div class="modal fade" id="productModal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<!-- Modal Content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="modal-title" class="modal-title"></h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<input type="hidden" id="id">
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table" id="productTable" width="100%" cellspacing="0">
+						<tr>
+							<td>물품명</td>
+							<td><input class="form-control" id="name" type="text"></td>
+						</tr>
+						<tr>
+							<td>유형</td>
+							<td><select id="type" class="form-control">
+									<option value="HW">하드웨어</option>
+									<option value="SW">소프트웨어</option>
+									<option value="ETC">기타</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>분류</td>
+							<td><select id="category" class="form-control">
+									<option value="PC">PC</option>
+									<option value="NI">NI</option>
+									<option value="SO">SO</option>
+									<option value="MS">MS</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>가격 (단위: 원)</td>
+							<td><input type="number" min="0" class="form-control"
+								id="price"></td>
+						</tr>
+						<tr>
+							<td>매입가 (단위: 원)</td>
+							<td><input type="number" min="0" class="form-control"
+								id="cost"></td>
+						</tr>
+						<tr>
+							<td>제한등급</td>
+							<td><select id="rated" class="form-control">
+									<option value="0">전체</option>
+									<option value="7">7세 이상</option>
+									<option value="12">12세 이상</option>
+									<option value="15">15세 이상</option>
+									<option value="18">18세 이상</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>재고</td>
+							<td><input type="number" min="0" class="form-control"
+								id="stock"></td>
+						</tr>
+						<tr>
+							<td>발매일자</td>
+							<td><input type="date" class="form-control" id="releaseDate"></td>
+						</tr>
+						<tr>
+							<td>할인율 (단위: %)</td>
+							<td><input type="number" min="0" class="form-control"
+								id="discountRate"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="submitProduct" class="btn btn-primary">등록</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>

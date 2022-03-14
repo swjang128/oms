@@ -1,0 +1,74 @@
+<div class="modal fade" id="task-modal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<!-- Modal Content -->
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h4 id="modal-title" class="modal-title text-light">
+					<span id="modal-title1">업무 관리</span>
+				</h4>
+				<button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table" id="taskTable" width="100%" cellspacing="0">
+						<tr id="tr-title">
+							<td class="text-info">제목</td>
+							<td><input class="form-control" id="title" type="text"></td>
+						</tr>
+						<tr id="tr-content">
+							<td class="text-info">업무내용</td>
+							<td><textarea rows="4" cols="1" class="form-control"
+									id="content"></textarea></td>
+						</tr>
+						{{#parentList}}
+						<tr id="tr-parent-task">
+							<td class="text-info">상위일감</td>
+							<td><select id="parent-task" class="form-control">
+									<option value="{{id}}">{{title}}</option>
+							</select></td>
+						</tr>
+						{{/parentList}}
+						<tr id="tr-type">
+							<td class="text-info">업무종류</td>
+							<td><select id="type" class="form-control">
+									<option value="신규개발">신규개발</option>
+									<option value="기능수정">기능수정</option>
+									<option value="기능제거">기능제거</option>
+							</select></td>
+						</tr>
+						<tr id="tr-status">
+							<td class="text-info">진행상황</td>
+							<td><select id="status" class="form-control">
+									<option value="준비">준비</option>
+									<option value="진행">진행</option>
+									<option value="보류">보류</option>
+									<option value="완료">완료</option>
+							</select></td>
+						</tr>
+						<tr id="tr-manager">
+							<td class="text-info">관리자</td>
+							<td><select id="manager" class="form-control"></select></td>
+						</tr>
+						<tr id="tr-worker">
+							<td class="text-info">작업자</td>
+							<td><select id="worker" class="form-control"></select></td>
+						</tr>
+						<tr id="tr-start-date">
+							<td class="text-info">시작일</td>
+							<td><input type="date" class="form-control" id="startDate"></td>
+						</tr>
+						<tr id="tr-end-date">
+							<td class="text-info">완료일</td>
+							<td><input type="date" class="form-control" id="endDate"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<label id="modal-message" class="text-danger mb-6"></label>
+				<button type="button" id="submit" class="btn btn-primary"
+					onClick="submitTask()">등록</button>
+			</div>
+		</div>
+	</div>
+</div>

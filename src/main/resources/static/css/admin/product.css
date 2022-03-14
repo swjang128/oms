@@ -1,0 +1,13 @@
+thead {
+	background-color: rgb(192, 192, 192);
+	color: black;
+}
+
+table#productTable.dataTable tbody tr:hover {
+	background-color: silver;
+}
+
+table#productTable.dataTable tbody tr.selected {
+	background-color: black;
+	color: white;
+}

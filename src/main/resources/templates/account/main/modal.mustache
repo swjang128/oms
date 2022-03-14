@@ -1,0 +1,101 @@
+<div class="modal fade" id="accountModal" role="dialog">
+	<div class="modal-dialog" role="document">
+		<!-- Modal Content -->
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h4 id="modal-title" class="modal-title text-light">
+					<span id="modal-title1"></span>
+					<span id="modal-title2"></span>					
+				</h4>
+				<button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+			</div>							
+			<div class="modal-body">
+				<table id="accountTable" class="table">
+					<tr id="tr-email" class="display-none">
+						<td><input type="email" class="form-control form-control-user" id="usermail" placeholder="이메일을 입력하세요." onkeyup="enterCheckEmail()"></td>
+					</tr>
+					<tr id="tr-password" class="display-none">
+						<td class="text-info">비밀번호</td>
+						<td><input type="password" class="form-control" id="pwd"></td>
+					</tr>
+					<tr id="tr-checkPassword" class="display-none">
+						<td class="text-info">비밀번호 확인</td>
+						<td><input type="password" class="form-control" id="checkPwd"></td>
+					</tr>
+					<tr id="tr-name" class="display-none">
+						<td class="text-info">이름</td>
+						<td><input class="form-control" id="name" type="text"></td>
+					</tr>
+					<tr id="tr-department" class="display-none">
+						<td class="text-info">부서</td>
+						<td>
+							<select id="department" class="form-control">
+								<option value="매장">매장</option>
+								<option value="회계">회계</option>															
+								<option value="영업">영업</option>
+								<option value="법무">법무</option>
+								<option value="총무">총무</option>
+								<option value="재무">재무</option>
+								<option value="물류">물류</option>
+								<option value="전산">전산</option>
+								<option value="인사">인사</option>
+								<option value="경영">경영</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="tr-position" class="display-none">
+						<td class="text-info">직급</td>
+						<td>
+							<select id="position"  class="form-control">
+								<option value="사원">사원</option>
+								<option value="주임">주임</option>
+								<option value="대리">대리</option>
+								<option value="과장">과장</option>
+								<option value="차장">차장</option>
+								<option value="부장">부장</option>
+								<option value="이사">이사</option>
+								<option value="상무">상무</option>
+								<option value="전무">전무</option>
+								<option value="대표">대표</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="tr-photo" class="display-none">
+						<td class="text-info">사진</td>
+						<td><input type="file" class="form-control" id="photo"></td>
+					</tr>
+					<tr id="tr-phone" class="display-none">
+						<td class="text-info">연락처</td>
+						<td><input type="tel" class="form-control" id="phone"></td>
+					</tr>
+					<tr id="tr-emergencyContact" class="display-none">
+						<td class="text-info">비상연락처</td>
+						<td><input type="tel" class="form-control" id="emergencyContact"></td>
+					</tr>
+					<tr id="tr-birthday" class="display-none">
+						<td class="text-info">생일</td>
+						<td><input type="date" class="form-control" id="birthday"></td>
+					</tr>
+					<tr id="tr-hireDate" class="display-none">
+						<td class="text-info">입사일</td>
+						<td><input type="date" class="form-control" id="hireDate"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<label id="modal-message" class="text-danger mb-6"></label>
+				<!-- Email Submit Buttons -->
+				<button type="button" id="emailSubmit" class="btn btn-primary display-none" onClick="checkEmail()">다음</button>
+				<!-- Private Submit Buttons -->
+				<button type="button" id="privateCancel" class="btn btn-secondary display-none" onClick="createEmail()">이전</button>
+				<button type="button" id="privateSubmit" class="btn btn-primary display-none" onClick="checkPrivate()">다음</button>
+				<!-- Employee Submit Buttons -->
+				<button type="button" id="employeeCancel" class="btn btn-secondary display-none" onClick="createPrivate()">이전</button>
+				<button type="button" id="employeeSubmit" class="btn btn-primary display-none" onClick="checkEmployee()">다음</button>
+				<!-- Password Submit Buttons -->
+				<button type="button" id="passwordCancel" class="btn btn-secondary display-none" onClick="createEmployee()">이전</button>
+				<button type="button" id="passwordSubmit" class="btn btn-primary display-none" onClick="checkPassword()">다음</button>
+			</div>
+		</div>
+	</div>
+</div>

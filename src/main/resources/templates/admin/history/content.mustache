@@ -1,0 +1,35 @@
+<div class="container-fluid">
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="table-responsive-xl">
+				<table class="table table-bordered" id="table" width="100%" cellspacing="0" style="text-align: center">
+					<thead>
+						<tr>
+							<th></th>
+							<th>호출자</th>
+							<th>호출IP</th>
+							<th>호출URI</th>
+							<th>Method</th>
+							<th>요청시각</th>
+							<th>응답코드</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						{{#historyList}}
+						<tr>
+							<td><hidden id="historyId">{{id}}</hidden></td>
+							<td>{{host}}</td>
+							<td>{{clientIp}}</td>
+							<td>{{requestUri}}</td>
+							<td>{{method}}</td>
+							<td>{{requestDate}}</td>
+							<td>{{status}}</td>							
+						</tr>
+						{{/historyList}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="table-responsive-xl">
+				<table class="table table-bordered" id="table" width="100%" cellspacing="0" style="text-align: center">
+					<thead>
+						<tr>
+							<th></th>
+							<th>대분류</th>
+							<th>소분류</th>
+							<th>메뉴명</th>
+							<th>아이콘</th>							
+							<th>상세정보</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						{{#menuList}}
+						<tr>
+							<td>
+								<hidden id="menuId">{{id}}</hidden>
+								<label>{{id}}</label>
+							</td>
+							<td>mainMenu</td>
+							<td>parentMenu</td>
+							<td>{{name}}</td>
+							<td>{{icon}}</td>
+							<td>
+								<button	class="btn btn-sm btn-info shadow-sm updateModal">
+									<i class="fas fa-search fa-sm text-white-100"></i>
+								</button>
+							</td>
+						</tr>
+						{{/menuList}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

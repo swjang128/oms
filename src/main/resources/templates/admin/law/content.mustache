@@ -1,0 +1,41 @@
+<div class="container-fluid">
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-body">
+			<div class="table-responsive-xl">
+				<table class="table table-bordered" id="lawTable" width="100%" cellspacing="0" style="text-align: center">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Round</th>
+							<th>First</th>
+							<th>Second</th>
+							<th>Third</th>
+							<th>Fourth</th>
+							<th>Fifth</th>
+							<th>Sixth</th>
+							<th>WildCard</th>
+							<th>상세정보</th>
+						</tr>
+					</thead>
+					<tbody id="tbody">
+						{{#lawList}}
+						<tr>
+							<td></td>							
+							<td id="lawId">{{id}}</td>
+							<td>{{first}}</td>
+							<td>{{second}}</td>
+							<td>{{third}}</td>
+							<td>{{fourth}}</td>
+							<td>{{fifth}}</td>
+							<td>{{sixth}}</td>
+							<td>{{wildCard}}</td>							
+							<td><button	class="btn btn-sm btn-info shadow-sm updateModal"><i class="fas fa-search fa-sm text-white-100"></i></button></td>
+						</tr>
+						{{/lawList}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

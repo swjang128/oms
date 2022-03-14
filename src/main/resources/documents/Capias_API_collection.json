@@ -1,0 +1,496 @@
+{
+	"info": {
+		"_postman_id": "c75cfee9-6c37-4c0b-b084-20e8e47c9baa",
+		"name": "Capias",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "상품 목록",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/product",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상품 등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"aaaaaaadddbc\",\r\n    \"type\": \"HW\",\r\n    \"category\": \"PC\",\r\n    \"price\": \"222\",\r\n    \"cost\": \"5000\",\r\n    \"rated\": \"7\",\r\n    \"stock\": \"34\",\r\n    \"releaseDate\": \"2021-12-02\",\r\n    \"discountRate\": \"11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/product",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상품 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"84\",\r\n    \"name\": \"수정된 상품명\",\r\n    \"type\": \"HW\",\r\n    \"category\": \"PC\",\r\n    \"price\": \"2222\",\r\n    \"cost\": \"111\",\r\n    \"rated\": \"0\",\r\n    \"stock\": \"44\",\r\n    \"releaseDate\": \"2022-01-21\",\r\n    \"discountRate\": \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/product",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "상품 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/product/84",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"product",
+								"84"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "관리자 목록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BDF797106CB98FEDD6D044D903C35B4D",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 정보 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 정보 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member/4",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "카테고리 목록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BDF797106CB98FEDD6D044D903C35B4D",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/category",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "하위 카테고리 조회",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BDF797106CB98FEDD6D044D903C35B4D",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/category/0",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"category",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "카테고리 등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "카테고리 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "카테고리 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/member/4",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"member",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Law",
+			"item": [
+				{
+					"name": "법안 목록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BD02FD7DFCF441CEB023DAD76EC7277C",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9575/api/law",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"law"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "계정 중복 체크",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9575/api/account/swjang12",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"account",
+								"swjang12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "History",
+			"item": [
+				{
+					"name": "호출내역 목록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BD02FD7DFCF441CEB023DAD76EC7277C",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9575/api/history",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
