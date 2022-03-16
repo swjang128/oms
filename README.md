@@ -1,5 +1,5 @@
-# CapiasManagementService
-Capias Management Service
+# OMS
+O-Management System
 
 # Front-End
 - Java Script
