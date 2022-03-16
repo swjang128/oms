@@ -27,16 +27,15 @@ public class TemplateController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("projects")
-  	public String projects(Model model) {
+	@GetMapping("project")
+  	public String project(Model model) {
 		// ServletPath, CurrentLocation 설정 
 		String servletPath = commonUtil.getServletPath();
 		String currentLocation = commonUtil.getCurrentLocation();
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
 		
-		log.info("dddd");		
-  		return "projects";
+  		return "project";
   	}
 	
 	/**
@@ -44,7 +43,7 @@ public class TemplateController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("buttons")
+	@GetMapping("dashboard")
   	public String buttons(Model model) {
 		// ServletPath, CurrentLocation 설정 
 		String servletPath = commonUtil.getServletPath();
@@ -52,23 +51,9 @@ public class TemplateController {
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
 		
-  		return "buttons";
+  		return "dashboard";
   	}
 	
-	/**
-	 * Card Sample
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("cards")
-  	public String cards(Model model) {
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
-		
-  		return "cards";
-  	}
+
 	
 }
