@@ -3,803 +3,692 @@
 <head>
 <!-- Required Meta Tags Always Come First -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Title -->
 <title>OMS</title>
-
 <!-- Favicon -->
 <link rel="shortcut icon" href="/img/oms.ico">
-
 <!-- Font -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-	rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <!-- CSS Implementing Plugins -->
-<link rel="stylesheet"
-	href="/vendor/bootstrap-icons/font/bootstrap-icons.css">
-
-<link rel="stylesheet"
-	href="/vendor/tom-select/dist/css/tom-select.bootstrap5.css">
+<link rel="stylesheet" href="/vendor/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/vendor/tom-select/dist/css/tom-select.bootstrap5.css">
 <link rel="stylesheet" href="/vendor/quill/dist/quill.snow.css">
-
 <!-- CSS Front Template -->
-
-<link rel="preload" href="/css/theme.min.css"
-	data-hs-appearance="default" as="style">
-<link rel="preload" href="/css/theme-dark.min.css"
-	data-hs-appearance="dark" as="style">
-
-<style data-hs-appearance-onload-styles>
+<link rel="preload" href="/css/theme.min.css" data-hs-appearance="default" as="style">
+<link rel="preload" href="/css/theme-dark.min.css" data-hs-appearance="dark" as="style">
+<style data-hs-appearance-onload-styles="data-hs-appearance-onload-styles">
 * {
 	transition: unset !important;
 }
-
 body {
 	opacity: 0;
 }
 </style>
-
 <!-- Common Design JS -->
 <script src="/js/common.js"></script>
-
+<script src="/js/hs.theme-appearance.js"></script>
+<script src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside-mini-cache.js"></script>
 </head>
 
-<body
-	class="has-navbar-vertical-aside navbar-vertical-aside-show-xl   footer-offset">
-	<script src="/js/hs.theme-appearance.js"></script>
-	<script
-		src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside-mini-cache.js"></script>
-
-	<!-- ========== HEADER ========== -->
-
-	<header id="header"
-		class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
+<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl   footer-offset">
+	<!-- Header -->
+	<header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
 		<div class="navbar-nav-wrap">
-			<!-- Logo -->
-			<a class="navbar-brand" href="/template/projects" aria-label="Front">
-				<img class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo"
-				data-hs-theme-appearance="default"> <img
-				class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo"
-				data-hs-theme-appearance="dark"> <img
-				class="navbar-brand-logo-mini" src="/img/oms_logo.png" alt="Logo"
-				data-hs-theme-appearance="default"> <img
-				class="navbar-brand-logo-mini" src="/img/oms_logo.png" alt="Logo"
-				data-hs-theme-appearance="dark">
+			<!-- 로고(모바일) -->
+			<a class="navbar-brand" href="/template/project" aria-label="Front">
+				<img class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo" data-hs-theme-appearance="default">
+				<img class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo" data-hs-theme-appearance="dark">
+				<img class="navbar-brand-logo-mini" src="/img/oms_logo.png" alt="Logo" data-hs-theme-appearance="default">
+				<img class="navbar-brand-logo-mini" src="/img/oms_logo.png" alt="Logo" data-hs-theme-appearance="dark">
 			</a>
-			<!-- End Logo -->
-
+			<!-- End 로고(모바일) -->
+			<!-- 사이드바 토글 + 기능 검색 영역 -->
 			<div class="navbar-nav-wrap-content-start">
 				<!-- 사이드바 토글 -->
-				<button type="button"
-					class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
-					<i class="bi-arrow-bar-left navbar-toggler-short-align"
-						data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-						data-bs-toggle="tooltip" data-bs-placement="right" title="닫기"></i>
-					<i class="bi-arrow-bar-right navbar-toggler-full-align"
-						data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-						data-bs-toggle="tooltip" data-bs-placement="right" title="열기"></i>
+				<button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
+					<i class="bi-arrow-bar-left navbar-toggler-short-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title="닫기"></i>
+					<i class="bi-arrow-bar-right navbar-toggler-full-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title="열기"></i>
 				</button>
-				<!-- End 사이드바 토글 -->
+				<!-- END 사이드바 토글 -->
 
-				<div class="navbar-nav-wrap-content-end">
-					<!-- Navbar -->
-					<ul class="navbar-nav">
-						<li class="nav-item d-none d-sm-inline-block">
-							<!-- Notification -->
-							<div class="dropdown">
-								<button type="button"
-									class="btn btn-ghost-secondary btn-icon rounded-circle"
-									id="navbarNotificationsDropdown" data-bs-toggle="dropdown"
-									aria-expanded="false" data-bs-auto-close="outside"
-									data-bs-dropdown-animation>
-									<i class="bi-bell"></i> <span
-										class="btn-status btn-sm-status btn-status-danger"></span>
-								</button>
-
-								<div
-									class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless"
-									aria-labelledby="navbarNotificationsDropdown"
-									style="width: 25rem;">
-									<!-- Header -->
-									<div class="card-header card-header-content-between">
-										<h4 class="card-title mb-0">Notifications</h4>
-
-										<!-- Unfold -->
-										<div class="dropdown">
-											<button type="button"
-												class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle"
-												id="navbarNotificationsDropdownSettings"
-												data-bs-toggle="dropdown" aria-expanded="false">
-												<i class="bi-three-dots-vertical"></i>
-											</button>
-
-											<div
-												class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless"
-												aria-labelledby="navbarNotificationsDropdownSettings">
-												<span class="dropdown-header">Settings</span> <a
-													class="dropdown-item" href="#"> <i
-													class="bi-archive dropdown-item-icon"></i> Archive all
-												</a> <a class="dropdown-item" href="#"> <i
-													class="bi-check2-all dropdown-item-icon"></i> Mark all as
-													read
-												</a> <a class="dropdown-item" href="#"> <i
-													class="bi-toggle-off dropdown-item-icon"></i> Disable
-													notifications
-												</a> <a class="dropdown-item" href="#"> <i
-													class="bi-gift dropdown-item-icon"></i> What's new?
-												</a>
-												<div class="dropdown-divider"></div>
-												<span class="dropdown-header">Feedback</span> <a
-													class="dropdown-item" href="#"> <i
-													class="bi-chat-left-dots dropdown-item-icon"></i> Report
-												</a>
-											</div>
-										</div>
-										<!-- End Unfold -->
-									</div>
-									<!-- End Header -->
-
-									<!-- Nav -->
-									<ul class="nav nav-tabs nav-justified" id="notificationTab"
-										role="tablist">
-										<li class="nav-item"><a class="nav-link active"
-											href="#notificationNavOne" id="notificationNavOne-tab"
-											data-bs-toggle="tab" data-bs-target="#notificationNavOne"
-											role="tab" aria-controls="notificationNavOne"
-											aria-selected="true">Messages (3)</a></li>
-										<li class="nav-item"><a class="nav-link"
-											href="#notificationNavTwo" id="notificationNavTwo-tab"
-											data-bs-toggle="tab" data-bs-target="#notificationNavTwo"
-											role="tab" aria-controls="notificationNavTwo"
-											aria-selected="false">Archived</a></li>
-									</ul>
-									<!-- End Nav -->
-
-									<!-- Body -->
-									<div class="card-body-height">
-										<!-- Tab Content -->
-										<div class="tab-content" id="notificationTabContent">
-											<div class="tab-pane fade show active"
-												id="notificationNavOne" role="tabpanel"
-												aria-labelledby="notificationNavOne-tab">
-												<!-- List Group -->
-												<ul
-													class="list-group list-group-flush navbar-card-list-group">
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck1" checked> <label
-																			class="form-check-label" for="notificationCheck1"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<img class="avatar avatar-sm avatar-circle"
-																		src="/img/160x160/img3.jpg" alt="Image Description">
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Brian Warner</h5>
-																<p class="text-body fs-5">
-																	changed an issue from "In Progress" to <span
-																		class="badge bg-success">Review</span>
-																</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">2hr</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck2" checked> <label
-																			class="form-check-label" for="notificationCheck2"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div
-																		class="avatar avatar-sm avatar-soft-dark avatar-circle">
-																		<span class="avatar-initials">K</span>
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Klara Hampton</h5>
-																<p class="text-body fs-5">mentioned you in a comment</p>
-																<blockquote class="blockquote blockquote-sm">
-																	Nice work, love! You really nailed it. Keep it up!</blockquote>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">10hr</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck3" checked> <label
-																			class="form-check-label" for="notificationCheck3"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div class="avatar avatar-sm avatar-circle">
-																		<img class="avatar-img" src="/img/160x160/img10.jpg"
-																			alt="Image Description">
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Ruby Walter</h5>
-																<p class="text-body fs-5">joined the Slack group HS
-																	Team</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">3dy</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck4"> <label
-																			class="form-check-label" for="notificationCheck4"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div class="avatar avatar-sm avatar-circle">
-																		<img class="avatar-img"
-																			src="/svg/brands/google-icon.svg"
-																			alt="Image Description">
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">from Google</h5>
-																<p class="text-body fs-5">Start using forms to
-																	capture the information of prospects visiting your
-																	Google website</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">17dy</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck5"> <label
-																			class="form-check-label" for="notificationCheck5"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div class="avatar avatar-sm avatar-circle">
-																		<img class="avatar-img" src="/img/160x160/img7.jpg"
-																			alt="Image Description">
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Sara Villar</h5>
-																<p class="text-body fs-5">
-																	completed <i
-																		class="bi-journal-bookmark-fill text-primary"></i>
-																	FD-7 task
-																</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">2mn</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-												</ul>
-												<!-- End List Group -->
-											</div>
-
-											<div class="tab-pane fade" id="notificationNavTwo"
-												role="tabpanel" aria-labelledby="notificationNavTwo-tab">
-												<!-- List Group -->
-												<ul
-													class="list-group list-group-flush navbar-card-list-group">
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck6"> <label
-																			class="form-check-label" for="notificationCheck6"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div
-																		class="avatar avatar-sm avatar-soft-dark avatar-circle">
-																		<span class="avatar-initials">A</span>
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Anne Richard</h5>
-																<p class="text-body fs-5">accepted your invitation
-																	to join Notion</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">1dy</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck7"> <label
-																			class="form-check-label" for="notificationCheck7"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div class="avatar avatar-sm avatar-circle">
-																		<img class="avatar-img" src="/img/160x160/img5.jpg"
-																			alt="Image Description">
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Finch Hoot</h5>
-																<p class="text-body fs-5">left Slack group HS
-																	projects</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">1dy</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck8"> <label
-																			class="form-check-label" for="notificationCheck8"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div class="avatar avatar-sm avatar-dark avatar-circle">
-																		<span class="avatar-initials">HS</span>
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Htmlstream</h5>
-																<p class="text-body fs-5">
-																	you earned a "Top endorsed" <i
-																		class="bi-patch-check-fill text-primary"></i> badge
-																</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">6dy</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck9"> <label
-																			class="form-check-label" for="notificationCheck9"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div class="avatar avatar-sm avatar-circle">
-																		<img class="avatar-img" src="/img/160x160/img8.jpg"
-																			alt="Image Description">
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Linda Bates</h5>
-																<p class="text-body fs-5">Accepted your connection</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">17dy</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-
-													<!-- Item -->
-													<li class="list-group-item form-check-select">
-														<div class="row">
-															<div class="col-auto">
-																<div class="d-flex align-items-center">
-																	<div class="form-check">
-																		<input class="form-check-input" type="checkbox"
-																			value="" id="notificationCheck10"> <label
-																			class="form-check-label" for="notificationCheck10"></label>
-																		<span class="form-check-stretched-bg"></span>
-																	</div>
-																	<div
-																		class="avatar avatar-sm avatar-soft-dark avatar-circle">
-																		<span class="avatar-initials">L</span>
-																	</div>
-																</div>
-															</div>
-															<!-- End Col -->
-
-															<div class="col ms-n2">
-																<h5 class="mb-1">Lewis Clarke</h5>
-																<p class="text-body fs-5">
-																	completed <i
-																		class="bi-journal-bookmark-fill text-primary"></i>
-																	FD-134 task
-																</p>
-															</div>
-															<!-- End Col -->
-
-															<small class="col-auto text-muted text-cap">2mts</small>
-															<!-- End Col -->
-														</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
-													</li>
-													<!-- End Item -->
-												</ul>
-												<!-- End List Group -->
-											</div>
-										</div>
-										<!-- End Tab Content -->
-									</div>
-									<!-- End Body -->
-
-									<!-- Card Footer -->
-									<a class="card-footer text-center" href="#"> View all
-										notifications <i class="bi-chevron-right"></i>
-									</a>
-									<!-- End Card Footer -->
+				<!-- 기능 검색 영역 -->
+				<div class="dropdown ms-2">
+					<!-- 검색어 탭 -->
+					<div class="d-none d-lg-block">
+						<div class="input-group input-group-merge input-group-borderless input-group-hover-light navbar-input-group">
+							<div class="input-group-prepend input-group-text">
+								<i class="bi-search"></i>
+							</div>
+							<input type="search" class="js-form-search form-control" placeholder="기능 검색" aria-label="Search in front" 
+										data-hs-form-search-options=' {"clearIcon": "#clearSearchResultsIcon",
+																				                      "dropMenuElement": "#searchDropdownMenu",
+																				                      "dropMenuOffset": 20,
+																				                      "toggleIconOnFocus": true,
+																				                      "activeClass": "focus"
+																				                   }'>
+							<a class="input-group-append input-group-text" href="javascript:;"> <i id="clearSearchResultsIcon" class="bi-x-lg" style="display: none;"></i>
+							</a>
+						</div>
+					</div>
+					<button class="js-form-search js-form-search-mobile-toggle btn btn-ghost-secondary btn-icon rounded-circle d-lg-none" type="button"
+									data-hs-form-search-options=' {
+																			                  	"clearIcon": "#clearSearchResultsIcon",
+																			                 	"dropMenuElement": "#searchDropdownMenu",
+																			                  	"dropMenuOffset": 20,
+																								"toggleIconOnFocus": true,
+																								"activeClass": "focus"
+																			                   }'>
+						<i class="bi-search"></i>
+					</button>
+					<!-- End 검색어 탭 -->
+					<!-- 최근 검색어 -->
+					<div id="searchDropdownMenu" class="hs-form-search-menu-content dropdown-menu dropdown-menu-form-search navbar-dropdown-menu-borderless">
+						<!-- Body -->						
+						<div class="d-lg-none">
+							<div class="input-group input-group-merge navbar-input-group mb-5">
+								<div class="input-group-prepend input-group-text">
+									<i class="bi-search"></i>
 								</div>
-							</div> <!-- End Notification -->
-						</li>
+								<input type="search" class="form-control" placeholder="Search in front" aria-label="Search in front">
+								<a class="input-group-append input-group-text" href="javascript:;"><i class="bi-x-lg"></i></a>
+							</div>
+						</div>
+						<span class="dropdown-header">최근 검색</span>
+						<div class="dropdown-item bg-transparent text-wrap">
+							<a class="btn btn-soft-dark btn-xs rounded-pill" href="/index.html">인사관리<i class="bi-search ms-1"></i></a>
+							<a class="btn btn-soft-dark btn-xs rounded-pill"	href="/index.html">프로젝트<i class="bi-search ms-1"></i></a>
+						</div>
+					</div>
+					<!-- End 최근 검색어 -->
+				</div>
+				<!-- End 기능 검색 영역 -->
+			</div>
+			<!-- End 사이드바 토글 + 기능 검색 영역 -->
 
-						<li class="nav-item d-none d-sm-inline-block">
-							<!-- Apps -->
-							<div class="dropdown">
-								<button type="button"
-									class="btn btn-icon btn-ghost-secondary rounded-circle"
-									id="navbarAppsDropdown" data-bs-toggle="dropdown"
-									aria-expanded="false" data-bs-dropdown-animation>
-									<i class="bi-app-indicator"></i>
-								</button>
-
-								<div
-									class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless"
-									aria-labelledby="navbarAppsDropdown" style="width: 25rem;">
-									<!-- Header -->
-									<div class="card-header">
-										<h4 class="card-title">Web apps &amp; services</h4>
-									</div>
-									<!-- End Header -->
-
-									<!-- Body -->
-									<div class="card-body card-body-height">
-										<a class="dropdown-item" href="#">
-											<div class="d-flex align-items-center">
-												<div class="flex-shrink-0">
-													<img class="avatar avatar-xs avatar-4x3"
-														src="/svg/brands/atlassian-icon.svg"
-														alt="Image Description">
-												</div>
-												<div class="flex-grow-1 text-truncate ms-3">
-													<h5 class="mb-0">Atlassian</h5>
-													<p class="card-text text-body">Security and control
-														across Cloud</p>
-												</div>
-											</div>
-										</a> <a class="dropdown-item" href="#">
-											<div class="d-flex align-items-center">
-												<div class="flex-shrink-0">
-													<img class="avatar avatar-xs avatar-4x3"
-														src="/svg/brands/slack-icon.svg" alt="Image Description">
-												</div>
-												<div class="flex-grow-1 text-truncate ms-3">
-													<h5 class="mb-0">
-														Slack <span
-															class="badge bg-primary rounded-pill text-uppercase ms-1">Try</span>
-													</h5>
-													<p class="card-text text-body">Email collaboration
-														software</p>
-												</div>
-											</div>
-										</a> <a class="dropdown-item" href="#">
-											<div class="d-flex align-items-center">
-												<div class="flex-shrink-0">
-													<img class="avatar avatar-xs avatar-4x3"
-														src="/svg/brands/google-webdev-icon.svg"
-														alt="Image Description">
-												</div>
-												<div class="flex-grow-1 text-truncate ms-3">
-													<h5 class="mb-0">Google webdev</h5>
-													<p class="card-text text-body">Work involved in
-														developing a website</p>
-												</div>
-											</div>
-										</a> <a class="dropdown-item" href="#">
-											<div class="d-flex align-items-center">
-												<div class="flex-shrink-0">
-													<img class="avatar avatar-xs avatar-4x3"
-														src="/svg/brands/frontapp-icon.svg"
-														alt="Image Description">
-												</div>
-												<div class="flex-grow-1 text-truncate ms-3">
-													<h5 class="mb-0">Frontapp</h5>
-													<p class="card-text text-body">The inbox for teams</p>
-												</div>
-											</div>
-										</a> <a class="dropdown-item" href="#">
-											<div class="d-flex align-items-center">
-												<div class="flex-shrink-0">
-													<img class="avatar avatar-xs avatar-4x3"
-														src="/svg/illustrations/review-rating-shield.svg"
-														alt="Image Description">
-												</div>
-												<div class="flex-grow-1 text-truncate ms-3">
-													<h5 class="mb-0">HS Support</h5>
-													<p class="card-text text-body">Customer service and
-														support</p>
-												</div>
-											</div>
-										</a> <a class="dropdown-item" href="#">
-											<div class="d-flex align-items-center">
-												<div class="flex-shrink-0">
-													<div class="avatar avatar-sm avatar-soft-dark">
-														<span class="avatar-initials"><i class="bi-grid"></i></span>
-													</div>
-												</div>
-												<div class="flex-grow-1 text-truncate ms-3">
-													<h5 class="mb-0">More Front products</h5>
-													<p class="card-text text-body">Check out more HS
-														products</p>
-												</div>
-											</div>
-										</a>
-									</div>
-									<!-- End Body -->
-
-									<!-- Footer -->
-									<a class="card-footer text-center" href="#"> View all apps
-										<i class="bi-chevron-right"></i>
-									</a>
-									<!-- End Footer -->
-								</div>
-							</div> <!-- End Apps -->
-						</li>
-
-						<li class="nav-item d-none d-sm-inline-block">
-							<!-- Activity -->
-							<button class="btn btn-ghost-secondary btn-icon rounded-circle"
-								type="button" data-bs-toggle="offcanvas"
-								data-bs-target="#offcanvasActivityStream"
-								aria-controls="offcanvasActivityStream">
-								<i class="bi-x-diamond"></i>
-							</button> <!-- Activity -->
-						</li>
-
-						<li class="nav-item">
-							<!-- Account -->
-							<div class="dropdown">
-								<a class="navbar-dropdown-account-wrapper" href="javascript:;"
-									id="accountNavbarDropdown" data-bs-toggle="dropdown"
-									aria-expanded="false" data-bs-auto-close="outside"
-									data-bs-dropdown-animation>
-									<div class="avatar avatar-sm avatar-circle">
-										<img class="avatar-img" src="/img/160x160/img6.jpg"
-											alt="Image Description"> <span
-											class="avatar-status avatar-sm-status avatar-status-success"></span>
-									</div>
-								</a>
-
-								<div
-									class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account"
-									aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
-									<div class="dropdown-item-text">
-										<div class="d-flex align-items-center">
-											<div class="avatar avatar-sm avatar-circle">
-												<img class="avatar-img" src="/img/160x160/img6.jpg"
-													alt="Image Description">
-											</div>
-											<div class="flex-grow-1 ms-3">
-												<h5 class="mb-0">Mark Williams</h5>
-												<p class="card-text text-body">mark@site.com</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="dropdown-divider"></div>
-
-									<!-- Dropdown -->
+			<!-- 알림함 + 할일 + 마이페이지 -->
+			<div class="navbar-nav-wrap-content-end">
+				<!-- Navbar -->
+				<ul class="navbar-nav">
+					<li class="nav-item d-none d-sm-inline-block">
+						<!-- 상단 아이콘 모음 -->
+						<div class="dropdown">
+							<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown"	aria-expanded="false" data-bs-auto-close="outside"	data-bs-dropdown-animation="data-bs-dropdown-animation">
+								<i class="bi-bell"></i>
+								<span class="btn-status btn-sm-status btn-status-danger"></span>
+							</button>
+							<div class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="navbarNotificationsDropdown" style="width: 25rem;">
+								<!-- 알림함 -->
+								<div class="card-header card-header-content-between">
+									<h4 class="card-title mb-0">알림함</h4>
+									<!-- 알림함 상단탭 -->
 									<div class="dropdown">
-										<a
-											class="navbar-dropdown-submenu-item dropdown-item dropdown-toggle"
-											href="javascript:;" id="navSubmenuPagesAccountDropdown1"
-											data-bs-toggle="dropdown" aria-expanded="false">Set
-											status</a>
-
-										<div
-											class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-sub-menu"
-											aria-labelledby="navSubmenuPagesAccountDropdown1">
-											<a class="dropdown-item" href="#"> <span
-												class="legend-indicator bg-success me-1"></span> Available
-											</a> <a class="dropdown-item" href="#"> <span
-												class="legend-indicator bg-danger me-1"></span> Busy
-											</a> <a class="dropdown-item" href="#"> <span
-												class="legend-indicator bg-warning me-1"></span> Away
-											</a>
+										<button type="button" class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle" id="navbarNotificationsDropdownSettings" data-bs-toggle="dropdown" aria-expanded="false">
+											<i class="bi-three-dots-vertical"></i>
+										</button>
+										<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless"	aria-labelledby="navbarNotificationsDropdownSettings">
+											<span class="dropdown-header">설정</span>
+												<a class="dropdown-item" href="#"><i class="bi-archive dropdown-item-icon"></i>전체</a>
+												<a class="dropdown-item" href="#"><i class="bi-check2-all dropdown-item-icon"></i>미열람</a>
+												<a class="dropdown-item" href="#"><i class="bi-toggle-off dropdown-item-icon"></i>열람</a>												
 											<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="#"> Reset status </a>
+											<span class="dropdown-header">피드백</span>
+												<a class="dropdown-item" href="#"><i class="bi-chat-left-dots dropdown-item-icon"></i>작성</a>
 										</div>
 									</div>
-									<!-- End Dropdown -->
+									<!-- End 알림함 상단탭 -->
+								</div>
+								<!-- End 알림함 -->
 
-									<a class="dropdown-item" href="#">Profile &amp; account</a> <a
-										class="dropdown-item" href="#">Settings</a>
+								<!-- 알림함 헤더탭 -->
+								<ul class="nav nav-tabs nav-justified" id="notificationTab" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" href="#notificationNavOne" id="notificationNavOne-tab" data-bs-toggle="tab" data-bs-target="#notificationNavOne"	role="tab" aria-controls="notificationNavOne" aria-selected="true">메시지 (3)</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#notificationNavTwo" id="notificationNavTwo-tab" data-bs-toggle="tab" data-bs-target="#notificationNavTwo"	role="tab" aria-controls="notificationNavTwo" aria-selected="false">활동알림</a>
+									</li>
+								</ul>
+								<!-- End 알림함 헤더탭 -->
 
-									<div class="dropdown-divider"></div>
+								<!-- 알림함 내용 -->
+								<div class="card-body-height">
+									<!-- Tab Content -->
+									<div class="tab-content" id="notificationTabContent">
+										<div class="tab-pane fade show active" id="notificationNavOne" role="tabpanel" aria-labelledby="notificationNavOne-tab">
+											<!-- 메시지 목록 -->
+											<ul class="list-group list-group-flush navbar-card-list-group">
+												<!-- 메시지 항목 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck1" checked="checked">
+																	<label class="form-check-label" for="notificationCheck1"></label><span class="form-check-stretched-bg"></span>
+																</div>
+																<img class="avatar avatar-sm avatar-circle" src="/img/160x160/img3.jpg" alt="Image Description">
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원459</h5>
+															<p class="text-body fs-5">
+																<i class="bi-journal-bookmark-fill text-primary"></i>982번 프로젝트를<span class="badge bg-success">진행중</span>으로 변경했습니다.
+															</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">2시간전</small>
+														<!-- End Col -->
+													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End 메시지 항목 -->
 
+												<!-- 메시지 항목 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"	value="" id="notificationCheck2" checked="checked">
+																	<label class="form-check-label" for="notificationCheck2"></label> <span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-soft-dark avatar-circle">
+																	<span class="avatar-initials">성욱</span>
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">성욱</h5>
+															<p class="text-body fs-5">메시지를 받았습니다</p>
+															<blockquote class="blockquote blockquote-sm">안녕하세요. <i class="bi-journal-bookmark-fill text-primary"></i> 1193번 프로젝트 진행상황을 공유바랍니다. 감사합니다.</blockquote>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">10시간전</small>
+														<!-- End Col -->
+													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End Item -->
+
+												<!-- 메시지 항목 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox"	value="" id="notificationCheck3" checked="checked">
+																	<label class="form-check-label" for="notificationCheck3"></label> <span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-circle">
+																	<img class="avatar-img" src="/img/160x160/img10.jpg" alt="Image Description">
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원82</h5>
+															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i> 1193번 프로젝트에 참여하였습니다.</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">3일전</small>
+														<!-- End Col -->
+													</div> 
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End Item -->
+
+												<!-- Item -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck5">
+																	<label class="form-check-label" for="notificationCheck5"></label>
+																	<span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-circle">
+																	<img class="avatar-img" src="/img/160x160/img7.jpg" alt="Image Description">
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원142</h5>
+															<p class="text-body fs-5">
+																<i class="bi-journal-bookmark-fill text-primary"></i> 781번 프로젝트를 완료했습니다.
+															</p>
+														</div>
+														<!-- End Col -->
+
+														<small class="col-auto text-muted text-cap">9일전</small>
+														<!-- End Col -->
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End Item -->
+											</ul>
+											<!-- End 메시지 목록 -->
+										</div>
+
+										<div class="tab-pane fade" id="notificationNavTwo"
+											role="tabpanel" aria-labelledby="notificationNavTwo-tab">
+											<!-- 활동알림 목록 -->
+											<ul class="list-group list-group-flush navbar-card-list-group">
+												<!-- 활동알림 내용 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck6">
+																	<label class="form-check-label" for="notificationCheck6"></label>
+																	<span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-soft-dark avatar-circle">
+																	<span class="avatar-initials">A</span>
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원39</h5>
+															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i>961번 프로젝트 정보를 변경했습니다.</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">1일전</small>
+														<!-- End Col -->
+													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End 활동알림 내용 -->
+												
+												<!-- 활동알림 내용 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck7">
+																	<label class="form-check-label" for="notificationCheck7"></label>
+																	<span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-circle">
+																	<img class="avatar-img" src="/img/160x160/img5.jpg" alt="Image Description">
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원110</h5>
+															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i>334번 프로젝트에서 제외되었습니다.</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">3일전</small>
+														<!-- End Col -->
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End 활동알림 내용 -->
+
+												<!-- 활동알림 내용 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck8">
+																	<label class="form-check-label" for="notificationCheck8"></label>
+																	<span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-dark avatar-circle">
+																	<span class="avatar-initials">HS</span>
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원800</h5>
+															<p class="text-body fs-5">이 달의 <i class="bi-patch-check-fill text-primary"></i>우수 직원으로 선정되었습니다</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">5일전</small>
+														<!-- End Col -->
+													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End 활동알림 내용 -->
+
+												<!-- 활동알림 내용 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck9">
+																	<label class="form-check-label" for="notificationCheck9"></label>
+																	<span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-circle">
+																	<img class="avatar-img" src="/img/160x160/img8.jpg" alt="Image Description">
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원2214</h5>
+															<p class="text-body fs-5">신규 입사하였습니다. 환영해주세요</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">17일전</small>
+														<!-- End Col -->
+													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End 활동알림 내용 -->
+
+												<!-- 활동알림 내용 -->
+												<li class="list-group-item form-check-select">
+													<div class="row">
+														<div class="col-auto">
+															<div class="d-flex align-items-center">
+																<div class="form-check">
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck10">
+																	<label class="form-check-label" for="notificationCheck10"></label>
+																	<span class="form-check-stretched-bg"></span>
+																</div>
+																<div class="avatar avatar-sm avatar-soft-dark avatar-circle">
+																	<span class="avatar-initials">991</span>
+																</div>
+															</div>
+														</div>
+														<!-- End Col -->
+														<div class="col ms-n2">
+															<h5 class="mb-1">직원991</h5>
+															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i>134번 업무를 완료하였습니다.</p>
+														</div>
+														<!-- End Col -->
+														<small class="col-auto text-muted text-cap">2달전</small>
+														<!-- End Col -->
+													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+												</li>
+												<!-- End 활동알림 내용 -->
+											</ul>
+											<!-- End 활동알림 목록 -->
+										</div>
+									</div>
+									<!-- End 알림함 목록 -->
+								</div>
+								<!-- End 알림함 내용 -->
+
+								<!-- 알림함 하단 -->
+								<a class="card-footer text-center" href="#">더 보기<i class="bi-chevron-right"></i>
+								</a>
+								<!-- End 알림함 하단 -->
+							</div>
+						</div>
+						<!-- End 알림함 -->
+					</li>
+
+					<!-- <li class="nav-item d-none d-sm-inline-block">
+						Apps
+						<div class="dropdown">
+							<button type="button" class="btn btn-icon btn-ghost-secondary rounded-circle" id="navbarAppsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="data-bs-dropdown-animation">
+								<i class="bi-app-indicator"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="navbarAppsDropdown" style="width: 25rem;">
+								Header
+								<div class="card-header">
+									<h4 class="card-title">Web apps &amp; Services</h4>
+								</div>
+								End Header
+
+								Body
+								<div class="card-body card-body-height">
 									<a class="dropdown-item" href="#">
 										<div class="d-flex align-items-center">
 											<div class="flex-shrink-0">
-												<div class="avatar avatar-sm avatar-dark avatar-circle">
-													<span class="avatar-initials">HS</span>
+												<img class="avatar avatar-xs avatar-4x3"
+													src="/svg/brands/atlassian-icon.svg"
+													alt="Image Description">
+											</div>
+											<div class="flex-grow-1 text-truncate ms-3">
+												<h5 class="mb-0">Atlassian</h5>
+												<p class="card-text text-body">Security and control
+													across Cloud</p>
+											</div>
+										</div>
+									</a> <a class="dropdown-item" href="#">
+										<div class="d-flex align-items-center">
+											<div class="flex-shrink-0">
+												<img class="avatar avatar-xs avatar-4x3"
+													src="/svg/brands/slack-icon.svg" alt="Image Description">
+											</div>
+											<div class="flex-grow-1 text-truncate ms-3">
+												<h5 class="mb-0">
+													Slack <span
+														class="badge bg-primary rounded-pill text-uppercase ms-1">Try</span>
+												</h5>
+												<p class="card-text text-body">Email collaboration
+													software</p>
+											</div>
+										</div>
+									</a> <a class="dropdown-item" href="#">
+										<div class="d-flex align-items-center">
+											<div class="flex-shrink-0">
+												<img class="avatar avatar-xs avatar-4x3"
+													src="/svg/brands/google-webdev-icon.svg"
+													alt="Image Description">
+											</div>
+											<div class="flex-grow-1 text-truncate ms-3">
+												<h5 class="mb-0">Google webdev</h5>
+												<p class="card-text text-body">Work involved in
+													developing a website</p>
+											</div>
+										</div>
+									</a> <a class="dropdown-item" href="#">
+										<div class="d-flex align-items-center">
+											<div class="flex-shrink-0">
+												<img class="avatar avatar-xs avatar-4x3"
+													src="/svg/brands/frontapp-icon.svg" alt="Image Description">
+											</div>
+											<div class="flex-grow-1 text-truncate ms-3">
+												<h5 class="mb-0">Frontapp</h5>
+												<p class="card-text text-body">The inbox for teams</p>
+											</div>
+										</div>
+									</a> <a class="dropdown-item" href="#">
+										<div class="d-flex align-items-center">
+											<div class="flex-shrink-0">
+												<img class="avatar avatar-xs avatar-4x3"
+													src="/svg/illustrations/review-rating-shield.svg"
+													alt="Image Description">
+											</div>
+											<div class="flex-grow-1 text-truncate ms-3">
+												<h5 class="mb-0">HS Support</h5>
+												<p class="card-text text-body">Customer service and
+													support</p>
+											</div>
+										</div>
+									</a> <a class="dropdown-item" href="#">
+										<div class="d-flex align-items-center">
+											<div class="flex-shrink-0">
+												<div class="avatar avatar-sm avatar-soft-dark">
+													<span class="avatar-initials"> <i class="bi-grid"></i>
+													</span>
 												</div>
 											</div>
-											<div class="flex-grow-1 ms-2">
-												<h5 class="mb-0">
-													Htmlstream <span
-														class="badge bg-primary rounded-pill text-uppercase ms-1">PRO</span>
-												</h5>
-												<span class="card-text">hs.example.com</span>
+											<div class="flex-grow-1 text-truncate ms-3">
+												<h5 class="mb-0">More Front products</h5>
+												<p class="card-text text-body">Check out more HS
+													products</p>
 											</div>
 										</div>
 									</a>
+								</div>
+								End Body
 
-									<div class="dropdown-divider"></div>
+								Footer
+								<a class="card-footer text-center" href="#"> View all apps <i
+									class="bi-chevron-right"></i>
+								</a>
+								End Footer
+							</div>
+						</div> End Apps
+					</li> -->
 
-									<!-- Dropdown -->
-									<div class="dropdown">
-										<a
-											class="navbar-dropdown-submenu-item dropdown-item dropdown-toggle"
-											href="javascript:;" id="navSubmenuPagesAccountDropdown2"
-											data-bs-toggle="dropdown" aria-expanded="false">Customization</a>
+					<li class="nav-item d-none d-sm-inline-block">
+						<!-- Activity -->
+						<button class="btn btn-ghost-secondary btn-icon rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasActivityStream" aria-controls="offcanvasActivityStream">
+							<i class="bi-x-diamond"></i>
+						</button> <!-- Activity -->
+					</li>
 
-										<div
-											class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-sub-menu"
-											aria-labelledby="navSubmenuPagesAccountDropdown2">
-											<a class="dropdown-item" href="#"> Invite people </a> <a
-												class="dropdown-item" href="#"> Analytics <i
-												class="bi-box-arrow-in-up-right"></i>
-											</a> <a class="dropdown-item" href="#"> Customize Front <i
-												class="bi-box-arrow-in-up-right"></i>
-											</a>
+					<li class="nav-item">
+						<!-- Account -->
+						<div class="dropdown">
+							<a class="navbar-dropdown-account-wrapper" href="javascript:;"
+								id="accountNavbarDropdown" data-bs-toggle="dropdown"
+								aria-expanded="false" data-bs-auto-close="outside"
+								data-bs-dropdown-animation="data-bs-dropdown-animation">
+								<div class="avatar avatar-sm avatar-circle">
+									<img class="avatar-img" src="/img/160x160/img6.jpg"
+										alt="Image Description"> <span
+										class="avatar-status avatar-sm-status avatar-status-success"></span>
+								</div>
+							</a>
+
+							<div
+								class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account"
+								aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
+								<div class="dropdown-item-text">
+									<div class="d-flex align-items-center">
+										<div class="avatar avatar-sm avatar-circle">
+											<img class="avatar-img" src="/img/160x160/img6.jpg"
+												alt="Image Description">
+										</div>
+										<div class="flex-grow-1 ms-3">
+											<h5 class="mb-0">Mark Williams</h5>
+											<p class="card-text text-body">mark@site.com</p>
 										</div>
 									</div>
-									<!-- End Dropdown -->
-
-									<a class="dropdown-item" href="#">Manage team</a>
-
-									<div class="dropdown-divider"></div>
-
-									<a class="dropdown-item" href="#">Sign out</a>
 								</div>
-							</div> <!-- End Account -->
-						</li>
-					</ul>
-					<!-- End Navbar -->
-				</div>
-			</div>
+
+								<div class="dropdown-divider"></div>
+
+								<!-- Dropdown -->
+								<div class="dropdown">
+									<a
+										class="navbar-dropdown-submenu-item dropdown-item dropdown-toggle"
+										href="javascript:;" id="navSubmenuPagesAccountDropdown1"
+										data-bs-toggle="dropdown" aria-expanded="false">Set status</a>
+
+									<div
+										class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-sub-menu"
+										aria-labelledby="navSubmenuPagesAccountDropdown1">
+										<a class="dropdown-item" href="#"> <span
+											class="legend-indicator bg-success me-1"></span> Available
+										</a> <a class="dropdown-item" href="#"> <span
+											class="legend-indicator bg-danger me-1"></span> Busy
+										</a> <a class="dropdown-item" href="#"> <span
+											class="legend-indicator bg-warning me-1"></span> Away
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#"> Reset status </a>
+									</div>
+								</div>
+								<!-- End Dropdown -->
+
+								<a class="dropdown-item" href="#">Profile &amp; account</a> <a
+									class="dropdown-item" href="#">Settings</a>
+
+								<div class="dropdown-divider"></div>
+
+								<a class="dropdown-item" href="#">
+									<div class="d-flex align-items-center">
+										<div class="flex-shrink-0">
+											<div class="avatar avatar-sm avatar-dark avatar-circle">
+												<span class="avatar-initials">HS</span>
+											</div>
+										</div>
+										<div class="flex-grow-1 ms-2">
+											<h5 class="mb-0">
+												Htmlstream <span
+													class="badge bg-primary rounded-pill text-uppercase ms-1">PRO</span>
+											</h5>
+											<span class="card-text">hs.example.com</span>
+										</div>
+									</div>
+								</a>
+
+								<div class="dropdown-divider"></div>
+
+								<!-- Dropdown -->
+								<div class="dropdown">
+									<a
+										class="navbar-dropdown-submenu-item dropdown-item dropdown-toggle"
+										href="javascript:;" id="navSubmenuPagesAccountDropdown2"
+										data-bs-toggle="dropdown" aria-expanded="false">Customization</a>
+
+									<div
+										class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-sub-menu"
+										aria-labelledby="navSubmenuPagesAccountDropdown2">
+										<a class="dropdown-item" href="#"> Invite people </a> <a
+											class="dropdown-item" href="#"> Analytics <i
+											class="bi-box-arrow-in-up-right"></i>
+										</a> <a class="dropdown-item" href="#"> Customize Front <i
+											class="bi-box-arrow-in-up-right"></i>
+										</a>
+									</div>
+								</div>
+								<!-- End Dropdown -->
+
+								<a class="dropdown-item" href="#">나의 업무</a>
+
+								<div class="dropdown-divider"></div>
+
+								<a class="dropdown-item" href="#">로그아웃</a>
+							</div>
+						</div> <!-- End Account -->
+					</li>
+				</ul>
+				<!-- End Navbar -->
+			</div>			
+			<!-- End 알림 + 할일 + 마이페이지 -->
+		</div>
 	</header>
+	<!-- End Header -->
 
 	<!-- Sidebar -->
-	<aside
-		class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl navbar-bordered bg-white  ">
+	<aside class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl navbar-bordered bg-white">
 		<div class="navbar-vertical-container">
 			<div class="navbar-vertical-footer-offset">
 				<!-- Logo -->
-
 				<a class="navbar-brand" href="/template/projects" aria-label="Front">
-					<!-- <img class="navbar-brand-logo" src="/svg/logos/logo.svg" alt="Logo" data-hs-theme-appearance="default">
-					<img class="navbar-brand-logo" src="/svg/logos-light/logo.svg" alt="Logo" data-hs-theme-appearance="dark">
-					<img class="navbar-brand-logo-mini" src="/svg/logos/logo-short.svg" alt="Logo" data-hs-theme-appearance="default">
-					<img class="navbar-brand-logo-mini"	src="/svg/logos-light/logo-short.svg" alt="Logo" data-hs-theme-appearance="dark"> -->
-					<img class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo"
-					data-hs-theme-appearance="default"> <img
-					class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo"
-					data-hs-theme-appearance="dark"> <img
-					class="navbar-brand-logo-mini" src="/img/oms.png" alt="Logo"
-					data-hs-theme-appearance="default"> <img
-					class="navbar-brand-logo-mini" src="/img/oms.png" alt="Logo"
-					data-hs-theme-appearance="dark">
+					<img class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo" data-hs-theme-appearance="default">
+					<img class="navbar-brand-logo" src="/img/oms_logo.png" alt="Logo" data-hs-theme-appearance="dark">
+					<img class="navbar-brand-logo-mini" src="/img/oms.png" alt="Logo" data-hs-theme-appearance="default">
+					<img class="navbar-brand-logo-mini" src="/img/oms.png" alt="Logo" data-hs-theme-appearance="dark">
 				</a>
-
 				<!-- End Logo -->
 
 				<!-- Navbar Vertical Toggle -->
-				<button type="button"
-					class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
+				<button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
 					<i class="bi-arrow-bar-left navbar-toggler-short-align"
 						data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
 						data-bs-toggle="tooltip" data-bs-placement="right"
-						title="Collapse"></i> <i
-						class="bi-arrow-bar-right navbar-toggler-full-align"
+						title="Collapse"></i>
+					<i class="bi-arrow-bar-right navbar-toggler-full-align"
 						data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
 						data-bs-toggle="tooltip" data-bs-placement="right" title="Expand"></i>
 				</button>
-
 				<!-- End Navbar Vertical Toggle -->
 
 				<!-- Content -->
 				<div class="navbar-vertical-content">
-					<div id="navbarVerticalMenu"
-						class="nav nav-pills nav-vertical card-navbar-nav">
+					<div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
 						<!-- Collapse -->
 						<div class="nav-item">
 							<a class="nav-link dropdown-toggle "
@@ -807,21 +696,22 @@ body {
 								data-bs-toggle="collapse"
 								data-bs-target="#navbarVerticalMenuDashboards"
 								aria-expanded="false"
-								aria-controls="navbarVerticalMenuDashboards"> <i
-								class="bi-house-door nav-icon"></i> <span class="nav-link-title">대시보드</span>
+								aria-controls="navbarVerticalMenuDashboards">
+								<i	class="bi-house-door nav-icon"></i><span class="nav-link-title">대시보드</span>
 							</a>
-
 							<div id="navbarVerticalMenuDashboards"
 								class="nav-collapse collapse "
 								data-bs-parent="#navbarVerticalMenu">
-								<a class="nav-link " href="./index.html">기본</a> <a
-									class="nav-link " href="./dashboard-alternative.html">변형</a>
+								<a class="nav-link " href="./index.html">기본</a>
+								<a class="nav-link " href="./dashboard-alternative.html">변형</a>
 							</div>
 						</div>
 						<!-- End Collapse -->
 
-						<span class="dropdown-header mt-4">Pages</span> <small
-							class="bi-three-dots nav-subtitle-replacer"></small>
+						<!-- 메뉴 대분류 -->
+						<span class="dropdown-header mt-4">경영</span>
+						<small class="bi-three-dots nav-subtitle-replacer"></small>
+						<!-- End 메뉴 대분류 -->
 
 						<!-- Collapse -->
 						<div class="navbar-nav nav-compact"></div>
@@ -833,18 +723,18 @@ body {
 									data-bs-toggle="collapse"
 									data-bs-target="#navbarVerticalMenuPagesUsersMenu"
 									aria-expanded="false"
-									aria-controls="navbarVerticalMenuPagesUsersMenu"> <i
-									class="bi-people nav-icon"></i> <span class="nav-link-title">Users</span>
+									aria-controls="navbarVerticalMenuPagesUsersMenu">
+									<i class="bi-people nav-icon"></i> <span class="nav-link-title">인사관리</span>
 								</a>
 
 								<div id="navbarVerticalMenuPagesUsersMenu"
 									class="nav-collapse collapse "
 									data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./users.html">Overview</a> <a
-										class="nav-link " href="./users-leaderboard.html">Leaderboard</a>
-									<a class="nav-link " href="./users-add-user.html">Add User
-										<span class="badge bg-info rounded-pill ms-1">Hot</span>
-									</a>
+									<a class="nav-link " href="./user-profile-my-profile.html">마이페이지</a>
+									<a class="nav-link " href="/template/users">직원목록</a>
+									<a class="nav-link " href="./user-profile-teams.html">부서목록</a>									
+									<a class="nav-link " href="#">직원등록</a>
+									
 								</div>
 							</div>
 							<!-- End Collapse -->
@@ -857,41 +747,24 @@ body {
 									data-bs-target="#navbarVerticalMenuPagesUserProfileMenu"
 									aria-expanded="false"
 									aria-controls="navbarVerticalMenuPagesUserProfileMenu"> <i
-									class="bi-person nav-icon"></i> <span class="nav-link-title">User
-										Profile <span class="badge bg-primary rounded-pill ms-1">5</span>
-								</span>
+									class="bi-person nav-icon"></i> <span class="nav-link-title">업무관리</span>
 								</a>
 
-								<div id="navbarVerticalMenuPagesUserProfileMenu"
-									class="nav-collapse collapse "
-									data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./user-profile.html">Profile</a> <a
-										class="nav-link " href="./user-profile-teams.html">Teams</a> <a
-										class="nav-link " href="./user-profile-projects.html">Projects</a>
-									<a class="nav-link " href="./user-profile-connections.html">Connections</a>
-									<a class="nav-link " href="./user-profile-my-profile.html">My
-										Profile</a>
+								<div id="navbarVerticalMenuPagesUserProfileMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
+									<a class="nav-link " href="./user-profile-projects.html">나의업무</a>									
+									<a class="nav-link " href="./user-profile-connections.html">추가기능</a>
 								</div>
 							</div>
 							<!-- End Collapse -->
 
 							<!-- Collapse -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle "
-									href="#navbarVerticalMenuPagesAccountMenu" role="button"
-									data-bs-toggle="collapse"
-									data-bs-target="#navbarVerticalMenuPagesAccountMenu"
-									aria-expanded="false"
-									aria-controls="navbarVerticalMenuPagesAccountMenu"> <i
-									class="bi-person-badge nav-icon"></i> <span
-									class="nav-link-title">Account</span>
+								<a class="nav-link dropdown-toggle "	href="#navbarVerticalMenuPagesAccountMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesAccountMenu" aria-expanded="false"	aria-controls="navbarVerticalMenuPagesAccountMenu">
+									<i	class="bi-person-badge nav-icon"></i> <span class="nav-link-title">계정</span>
 								</a>
-
-								<div id="navbarVerticalMenuPagesAccountMenu"
-									class="nav-collapse collapse "
-									data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./account-settings.html">Settings</a>
-									<a class="nav-link " href="./account-billing.html">Billing</a>
+								<div id="navbarVerticalMenuPagesAccountMenu" class="nav-collapse collapse "	data-bs-parent="#navbarVerticalMenuPagesMenu">
+									<a class="nav-link " href="./account-settings.html">설정</a>
+									<a class="nav-link " href="./account-billing.html">결제방법</a>
 									<a class="nav-link " href="./account-invoice.html">Invoice</a>
 								</div>
 							</div>
@@ -1253,7 +1126,8 @@ body {
 								<button type="button"
 									class="btn btn-ghost-secondary btn-icon rounded-circle"
 									id="selectThemeDropdown" data-bs-toggle="dropdown"
-									aria-expanded="false" data-bs-dropdown-animation></button>
+									aria-expanded="false"
+									data-bs-dropdown-animation="data-bs-dropdown-animation"></button>
 
 								<div
 									class="dropdown-menu navbar-dropdown-menu navbar-dropdown-menu-borderless"
@@ -1281,7 +1155,8 @@ body {
 								<button type="button"
 									class="btn btn-ghost-secondary btn-icon rounded-circle"
 									id="otherLinksDropdown" data-bs-toggle="dropdown"
-									aria-expanded="false" data-bs-dropdown-animation>
+									aria-expanded="false"
+									data-bs-dropdown-animation="data-bs-dropdown-animation">
 									<i class="bi-info-circle"></i>
 								</button>
 
@@ -1321,7 +1196,8 @@ body {
 								<button type="button"
 									class="btn btn-ghost-secondary btn-icon rounded-circle"
 									id="selectLanguageDropdown" data-bs-toggle="dropdown"
-									aria-expanded="false" data-bs-dropdown-animation>
+									aria-expanded="false"
+									data-bs-dropdown-animation="data-bs-dropdown-animation">
 									<img class="avatar avatar-xss avatar-circle"
 										src="/vendor/flag-icon-css/flags/1x1/us.svg"
 										alt="United States Flag">
