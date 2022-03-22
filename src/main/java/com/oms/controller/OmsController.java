@@ -1,4 +1,4 @@
-package com.oms.template.controller;
+package com.oms.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +16,14 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Controller
-@RequestMapping("template")
+@RequestMapping("oms")
 @Slf4j
-public class TemplateController {
+public class OmsController {
 	@Autowired
 	CommonUtil commonUtil;
 	
 	/**
-	 * Table Sample
+	 * Project
 	 * @param model
 	 * @return
 	 */
@@ -39,12 +39,12 @@ public class TemplateController {
   	}
 	
 	/**
-	 * Button Sample
+	 * Dashboard
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("dashboard")
-  	public String buttons(Model model) {
+  	public String dashboard(Model model) {
 		// ServletPath, CurrentLocation 설정 
 		String servletPath = commonUtil.getServletPath();
 		String currentLocation = commonUtil.getCurrentLocation();
@@ -54,6 +54,20 @@ public class TemplateController {
   		return "dashboard";
   	}
 	
-
+	/**
+	 * Task(Kanban)
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("task")
+  	public String task(Model model) {
+		// ServletPath, CurrentLocation 설정 
+		String servletPath = commonUtil.getServletPath();
+		String currentLocation = commonUtil.getCurrentLocation();
+		model.addAttribute("servletPath", servletPath);
+		model.addAttribute("currentLocation", currentLocation);
+		
+  		return "task";
+  	}
 	
 }
