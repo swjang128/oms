@@ -23,6 +23,22 @@ public class OmsController {
 	CommonUtil commonUtil;
 	
 	/**
+	 * Member
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("member")
+  	public String member(Model model) {
+		// ServletPath, CurrentLocation 설정 
+		String servletPath = commonUtil.getServletPath();
+		String currentLocation = commonUtil.getCurrentLocation();
+		model.addAttribute("servletPath", servletPath);
+		model.addAttribute("currentLocation", currentLocation);
+		
+  		return "member";
+  	}
+	
+	/**
 	 * Project
 	 * @param model
 	 * @return

@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
@@ -56,8 +59,9 @@ public class Project {
 	@Column()
 	private String status;																			// 상태 (ready, processing, complete)
 	
-	@OneToMany(mappedBy="id")	
-	private List<Member> members;													// 구성원
+	@ManyToOne(targetEntity=Member.class, fetch=FetchType.LAZY)
+	@JoinColumn(name="member_id")
+	private Member member;																// 구성원
 	
 	@Column(updatable=false)
 	@CreatedDate
