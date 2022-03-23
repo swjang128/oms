@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editUserModalLabel">직원 정보</h5>
+          <h5 class="modal-title" id="editUserModalLabel">직원 등록</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -26,12 +26,12 @@
             <!-- Nav -->
             <ul class="js-tabs-to-dropdown nav nav-segment nav-fill mb-5" id="editUserModalTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" href="#profile" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab" aria-selected="true">
+                <a class="nav-link active" href="#profile-required" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-required" role="tab" aria-selected="true">
                   <i class="bi-person me-1"></i> 개인정보 (필수)
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#billing-address" id="billing-address-tab" data-bs-toggle="tab" data-bs-target="#billing-address" role="tab" aria-selected="false">
+                <a class="nav-link" href="#profile-optional" id="billing-address-tab" data-bs-toggle="tab" data-bs-target="#profile-optional" role="tab" aria-selected="false">
                   <i class="bi-building me-1"></i> 개인정보 (선택)
                 </a>
               </li>
@@ -52,8 +52,8 @@
 
           <!-- Tab Content -->
           <div class="tab-content" id="editUserModalTabContent">
-            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <form>
+            <div class="tab-pane fade show active" id="profile-required" role="tabpanel" aria-labelledby="profile-required-tab">
+              <!-- <form> -->
                 <!-- Profile Cover -->
                 <div class="profile-cover">
                   <div class="profile-cover-img-wrapper">
@@ -94,121 +94,142 @@
                 </label>
                 <!-- End Avatar -->
 
-                <!-- Form -->
+                <!-- 이름 -->
                 <div class="row mb-4">
-                  <label for="editFirstNameModalLabel" class="col-sm-3 col-form-label form-label">Full name <i class="tio-help-outlined text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front."></i></label>
-
+                  <label for="editFirstNameModalLabel" class="col-sm-3 col-form-label form-label">이름<i class="tio-help-outlined text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front."></i></label>
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <input type="text" class="form-control" name="editFirstNameModal" id="editFirstNameModalLabel" placeholder="Your first name" aria-label="Your first name" value="Ella">
-                      <input type="text" class="form-control" name="editLastNameModal" id="editLastNameModalLabel" placeholder="Your last name" aria-label="Your last name" value="Lauda">
+                      <input type="text" class="form-control" name="editFirstNameModal" id="editFirstNameModalLabel" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">                      
                     </div>
                   </div>
                 </div>
-                <!-- End Form -->
+                <!-- End 이름 -->
 
-                <!-- Form -->
+                <!-- 이메일 -->
                 <div class="row mb-4">
-                  <label for="editEmailModalLabel" class="col-sm-3 col-form-label form-label">Email</label>
-
+                  <label for="editEmailModalLabel" class="col-sm-3 col-form-label form-label">이메일</label>
                   <div class="col-sm-9">
-                    <input type="email" class="form-control" name="editEmailModal" id="editEmailModalLabel" placeholder="Email" aria-label="Email" value="ella@site.com">
+                    <input type="email" class="form-control" name="editEmailModal" id="editEmailModalLabel" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">
                   </div>
                 </div>
-                <!-- End Form -->
+                <!-- End 이메일 -->
 
-                <!-- Form -->
+                <!-- 연락처 -->
                 <div class="row mb-4">
-                  <label for="editPhoneLabel" class="col-sm-3 col-form-label form-label">Phone <span class="form-label-secondary">(Optional)</span></label>
-
+                  <label for="editPhoneLabel" class="col-sm-3 col-form-label form-label">연락처</label>
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <input type="text" class="js-masked-input form-control" name="phone" id="editPhoneLabel" placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" value="1(609)972-22-22" data-hs-mask-options='{
-                                 "template": "+0(000)000-00-00"
+                      <input type="text" class="js-masked-input form-control" name="phone" id="editPhoneLabel" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                                 "template": "010-0000-0000"
                                }'>
+                    </div>
+                  </div>
+                </div>
+                <!-- End 연락처 -->
+                
+                <!-- 비상연락처 -->
+                <div class="row mb-4">
+                  <label for="editPhoneLabel" class="col-sm-3 col-form-label form-label">비상연락처<span class="form-label-secondary">(선택)</span></label>
+                  <div class="col-sm-9">
+                    <div class="input-group input-group-sm-vertical">
+                      <input type="text" class="js-masked-input form-control" name="emergency-call" id="editPhoneLabel" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                                 "template": "010-0000-0000"
+                               }'>
+                    </div>
+                  </div>
+                </div>
+                <!-- End 비상연락처 -->
 
-                      <!-- Select -->
-                      <div class="tom-select-custom">
-                        <select class="js-select form-select" autocomplete="off" name="editPhoneSelect" data-hs-tom-select-options='{
-                                  "searchInDropdown": false,
-                                  "hideSearch": true
-                                }'>
-                          <option value="Mobile" selected>Mobile</option>
-                          <option value="Home">Home</option>
-                          <option value="Work">Work</option>
-                          <option value="Fax">Fax</option>
-                          <option value="Direct">Direct</option>
+                <!-- 직급 -->
+                <div class="row mb-4">
+					<label for="editOrganizationModalLabel" class="col-sm-3 col-form-label form-label">직급</label>
+					<div class="col-sm-9">
+					<div class="tom-select-custom">
+						<select class="js-select form-select" autocomplete="off" name="position" data-hs-tom-select-options='{
+                                  "searchInDropdown": true,
+                                  "hideSearch": false
+                         		}'>							
+							<option value="사원">사원</option>
+							<option value="주임">주임</option>
+							<option value="대리">대리</option>
+							<option value="과장">과장</option>
+							<option value="차장">차장</option>
+							<option value="부장">부장</option>
+							<option value="이사">이사</option>
+							<option value="상무">상무</option>
+							<option value="전무">전무</option>
+							<option value="대표">대표</option>
                         </select>
                       </div>
-                      <!-- End Select -->
-                    </div>
                   </div>
                 </div>
-                <!-- End Form -->
+                <!-- End 직급 -->
 
-                <!-- Form -->
+                <!-- 부서 -->
                 <div class="row mb-4">
-                  <label for="editOrganizationModalLabel" class="col-sm-3 col-form-label form-label">Organization</label>
-
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" name="editOrganizationModal" id="editOrganizationModalLabel" placeholder="Your organization" aria-label="Your organization" value="Htmlstream">
-                  </div>
+                  <label for="editDepartmentModalLabel" class="col-sm-3 col-form-label form-label">부서</label>
+					<div class="tom-select-custom">
+						<select class="js-select form-select" autocomplete="off" name="department" data-hs-tom-select-options='{
+                                  "searchInDropdown": true,
+                                  "hideSearch": false
+                         		}'>							
+							<option value="매장">매장</option>
+							<option value="경영">경영</option>
+							<option value="전산">전산</option>
+							<option value="총무">총무</option>
+							<option value="물류">물류</option>
+							<option value="회계">회계</option>
+							<option value="영업">영업</option>
+							<option value="홍보">홍보</option>
+							<option value="고객센터">고객센터</option>
+							<option value="법무">법무</option>
+                        </select>
+                      </div>
                 </div>
-                <!-- End Form -->
+                <!-- End 부서 -->
 
                 <!-- Form -->
-                <div class="row mb-4">
-                  <label for="editDepartmentModalLabel" class="col-sm-3 col-form-label form-label">Department</label>
-
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" name="editDepartmentModal" id="editDepartmentModalLabel" placeholder="Your department" aria-label="Your department">
-                  </div>
-                </div>
-                <!-- End Form -->
-
-                <!-- Form -->
-                <div class="row mb-4">
+<!--                 <div class="row mb-4">
                   <label class="col-sm-3 col-form-label form-label">Account type</label>
 
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <!-- Radio Check -->
+                      Radio Check
                       <label class="form-control" for="editUserModalAccountTypeModalRadio1">
                         <span class="form-check">
                           <input type="radio" class="form-check-input" name="editUserModalAccountTypeModalRadio" id="editUserModalAccountTypeModalRadio1" checked>
                           <span class="form-check-label">Individual</span>
                         </span>
                       </label>
-                      <!-- End Radio Check -->
+                      End Radio Check
 
-                      <!-- Radio Check -->
+                      Radio Check
                       <label class="form-control" for="editUserModalAccountTypeModalRadio2">
                         <span class="form-check">
                           <input type="radio" class="form-check-input" name="editUserModalAccountTypeModalRadio" id="editUserModalAccountTypeModalRadio2">
                           <span class="form-check-label">Company</span>
                         </span>
                       </label>
-                      <!-- End Radio Check -->
+                      End Radio Check
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- End Form -->
 
                 <div class="d-flex justify-content-end">
                   <div class="d-flex gap-3">
-                    <button type="button" class="btn btn-white" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+                    <button class="btn btn-primary" onClick="profileOptional()" id="profile-optional-button">다음</button>                    
                   </div>
                 </div>
-              </form>
+              <!-- </form> -->
             </div>
 
-            <div class="tab-pane fade" id="billing-address" role="tabpanel" aria-labelledby="billing-address-tab">
+            <div class="tab-pane fade" id="profile-optional" role="tabpanel" aria-labelledby="profile-optional-tab">
               <form>
-                <!-- Form -->
+                <!-- 주소 -->
                 <div class="row mb-4">
-                  <label for="editLocationModalLabel" class="col-sm-3 col-form-label form-label">Location</label>
-
+                  <label for="editLocationModalLabel" class="col-sm-3 col-form-label form-label">주소</label>
                   <div class="col-sm-9">
                     <!-- Select -->
                     <div class="tom-select-custom mb-4">
@@ -873,5 +894,5 @@
         <!-- End Body -->
       </div>
     </div>
-  </div>
+  </div>  
   <!-- End Edit user -->
