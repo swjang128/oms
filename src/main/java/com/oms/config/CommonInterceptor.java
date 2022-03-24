@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.oms.admin.dto.HistoryDTO;
-import com.oms.admin.entity.History;
-import com.oms.admin.service.HistoryService;
+import com.oms.dto.HistoryDTO;
+import com.oms.entity.History;
+import com.oms.service.HistoryService;
 
 import lombok.extern.slf4j.Slf4j;
 

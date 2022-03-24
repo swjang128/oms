@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.oms.admin.dto.MemberDTO;
-import com.oms.admin.entity.Member;
-import com.oms.admin.repository.MemberRepository;
-import com.oms.admin.service.AccountService;
-import com.oms.security.config.AccountRole;
-import com.oms.security.config.AccountStatus;
+import com.oms.config.AccountRole;
+import com.oms.config.AccountStatus;
+import com.oms.dto.AccountDTO;
+import com.oms.entity.Account;
+import com.oms.repository.AccountRepository;
+import com.oms.service.AccountService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ public class OmsApplication {
 	@Value("${spring.profiles.active}")
 	private String profile;
 	@Autowired
-	MemberRepository memberRepository;
+	AccountRepository memberRepository;
 	@Autowired
 	AccountService accountService;
 
@@ -37,12 +37,12 @@ public class OmsApplication {
 	 */
 	@PostConstruct
 	public void init() {
-		List<Member> memberList = memberRepository.findAll();
+		List<Account> memberList = memberRepository.findAll();
 		String initEmail = "admin";
 		String initPassword = "admin";
 		if (memberList.size() == 0) {
 			log.info("****** 계정 정보가 존재하지 않습니다. 테스트용 계정을 생성합니다.");
-			MemberDTO memberDTO = new MemberDTO();
+			AccountDTO memberDTO = new AccountDTO();
 			Date date = new Date();
 			memberDTO.setEmail(initEmail);
 			memberDTO.setPassword(initPassword);

@@ -7,19 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.oms.admin.dto.HistoryDTO;
-import com.oms.admin.dto.LawDTO;
-import com.oms.admin.dto.MemberDTO;
-import com.oms.admin.dto.MenuDTO;
-import com.oms.admin.dto.ProductDTO;
-import com.oms.admin.dto.TaskDTO;
-import com.oms.admin.service.AccountService;
-import com.oms.admin.service.HistoryService;
-import com.oms.admin.service.LawService;
-import com.oms.admin.service.MenuService;
-import com.oms.admin.service.ProductService;
-import com.oms.admin.service.TaskService;
 import com.oms.config.CommonUtil;
+import com.oms.dto.HistoryDTO;
+import com.oms.dto.LawDTO;
+import com.oms.dto.AccountDTO;
+import com.oms.dto.MenuDTO;
+import com.oms.dto.ProductDTO;
+import com.oms.dto.TaskDTO;
+import com.oms.service.HistoryService;
+import com.oms.service.LawService;
+import com.oms.service.AccountService;
+import com.oms.service.MenuService;
+import com.oms.service.ProductService;
+import com.oms.service.TaskService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -107,7 +107,7 @@ public class AdminController {
 		model.addAttribute("currentLocation", currentLocation);
 		
 		// 직원 목록 조회
-		List<MemberDTO> memberList = accountService.read();
+		List<AccountDTO> memberList = accountService.read();
 		model.addAttribute("memberList", memberList);
 		
 		return model;
