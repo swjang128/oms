@@ -12,7 +12,7 @@
 
 <!-- JS Plugins Init. -->
 <script>
-    (function() {
+   	$(function() {
       window.onload = function () {
         // INITIALIZATION OF BOOTSTRAP VALIDATION
         // =======================================================
@@ -21,14 +21,14 @@
             data.event.preventDefault()
             alert('Submited')
           }
-        })
+        });
 
 
         // INITIALIZATION OF TOGGLE PASSWORD
         // =======================================================
         new HSTogglePassword('.js-toggle-password')
-
-    })()
+      }
+    });
   </script>
 </body>
 </html>

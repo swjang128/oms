@@ -15,7 +15,6 @@
   <script src="/vendor/hs-counter/dist/hs-counter.min.js"></script>
   <script src="/vendor/appear/dist/appear.min.js"></script>
   <script src="/vendor/imask/dist/imask.min.js"></script>
-  <script src="/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
   <script src="/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
   <script src="/vendor/datatables.net.extensions/select/select.min.js"></script>
   <script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -134,11 +133,6 @@
         HSBsDropdown.init()
 
 
-        // INITIALIZATION OF SELECT
-        // =======================================================
-        HSCore.components.HSTomSelect.init('.js-select')
-
-
         // INITIALIZATION OF INPUT MASK
         // =======================================================
         HSCore.components.HSMask.init('.js-input-mask')
@@ -184,7 +178,7 @@
             }
 
             $item.classList.remove('active')
-          })
+          });
         }
 
         // Add a click event to all items of the dropdown to set the style
@@ -192,16 +186,16 @@
           $item.addEventListener('click', function () {
             HSThemeAppearance.setAppearance($item.getAttribute('data-value'))
           })
-        })
+        });
 
         // Call the setActiveStyle on load page
-        setActiveStyle()
+        setActiveStyle();
 
         // Add event listener on change style to call the setActiveStyle function
         window.addEventListener('on-hs-appearance-change', function () {
           setActiveStyle()
-        })
-      })()
+        });
+      });
     </script>
 
   <!-- End Style Switcher JS -->
