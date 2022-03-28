@@ -82,7 +82,7 @@ public class AccountService {
 	
 	/** 
 	 * 직원 목록 조회 (READ)
-	 * @return List<Member>
+	 * @return List<Account>
 	 */
 	public List<AccountDTO> read() {
 		// 직원 목록 조회

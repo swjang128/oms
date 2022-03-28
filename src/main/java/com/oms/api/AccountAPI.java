@@ -26,16 +26,16 @@ import com.oms.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Member 서비스에 대한 Rest API
+ * Account 서비스에 대한 Rest API
  * @author capias J
  *
  */
 @RestController
 @Slf4j
-@RequestMapping("api/member")
+@RequestMapping("api/account")
 public class AccountAPI {
 	@Autowired
-	AccountService memberService;
+	AccountService accountService;
 	
 	/**
 	 * 이메일 중복 체크
@@ -53,7 +53,7 @@ public class AccountAPI {
 		
 		// email이 존재하는지 확인
 		try {
-			status = memberService.checkEmail(email);
+			status = accountService.checkEmail(email);
 			switch(status) {
 				case ResponseCode.Status.OK -> message = ResponseCode.Message.OK;
 				case ResponseCode.Status.ACCOUNT_DUPLICATE  -> message = ResponseCode.Message.ACCOUNT_DUPLICATE;
@@ -77,17 +77,17 @@ public class AccountAPI {
 	 * @param request
 	 * @return 
 	 */
-	@GetMapping("member")
+	@GetMapping("account")
 	public Map<String, Object> read() {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<AccountDTO> memberList = new ArrayList<AccountDTO>();
+		List<AccountDTO> accountList = new ArrayList<AccountDTO>();
 		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
 		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
 		
 		// 상품 목록 조회
 		try {
-			memberList = memberService.read();
+			accountList = accountService.read();
 			status = ResponseCode.Status.OK;
 			message = ResponseCode.Message.OK;
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class AccountAPI {
 		}
 		
 		// RESTful API 결과를 리턴
-		resultMap.put("memberList", memberList);
+		resultMap.put("accountList", accountList);
 		resultMap.put("message", message);
 		resultMap.put("status", status);
 		
@@ -107,16 +107,16 @@ public class AccountAPI {
 	 * @param RequestBody
 	 * @throws IOException 
 	 */
-	@PostMapping("member")
-	public Map<String, Object> create(@Valid @RequestBody AccountDTO memberDTO) {
+	@PostMapping("account")
+	public Map<String, Object> create(@Valid @RequestBody AccountDTO accountDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
 		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
 		
 		// 관리자 등록
-		log.info("**** {}", memberDTO.getBirthday());
-		status = memberService.create(memberDTO);
+		log.info("**** {}", accountDTO.getBirthday());
+		status = accountService.create(accountDTO);
 		if (status == ResponseCode.Status.CREATED) {			
 			message = ResponseCode.Message.CREATED;	
 		}
@@ -133,7 +133,7 @@ public class AccountAPI {
 	 * @param PathVariable
 	 * @return 
 	 */
-	@DeleteMapping("member/{id}")
+	@DeleteMapping("account/{id}")
 	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
 		log.info("**** delete called");
 		// 기본 변수 설정
@@ -144,7 +144,7 @@ public class AccountAPI {
 		
 		// 관리자 정보 삭제
 		try {
-			result = memberService.delete(param);
+			result = accountService.delete(param);
 			if (result > 0) {
 				status = ResponseCode.Status.OK;
 				message = ResponseCode.Message.OK;	
@@ -165,8 +165,8 @@ public class AccountAPI {
 	 * @param RequestBody
 	 * @return 
 	 */
-	@PutMapping("member")
-	public Map<String, Object> update(@RequestBody AccountDTO memberDTO) {
+	@PutMapping("account")
+	public Map<String, Object> update(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
@@ -175,7 +175,7 @@ public class AccountAPI {
 		
 		// 관리자 정보 수정
 		try {
-			result = memberService.update(memberDTO);
+			result = accountService.update(accountDTO);
 			if (result == 1) {
 				status = ResponseCode.Status.OK;
 				message = ResponseCode.Message.OK;
