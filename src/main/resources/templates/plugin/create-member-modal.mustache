@@ -173,7 +173,7 @@
 						<select class="js-select form-select" autocomplete="off" name="department" data-hs-tom-select-options='{
                                   "searchInDropdown": true,
                                   "hideSearch": false
-                         		}'>							
+                         		}'>
 							<option value="매장">매장</option>
 							<option value="경영">경영</option>
 							<option value="전산">전산</option>
@@ -895,5 +895,31 @@
         <!-- End Body -->
       </div>
     </div>
-  </div>  
+  </div>
   <!-- End Edit user -->
+  
+<!-- 직원 등록/수정 모달 전용 플러그인 -->
+<script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
+<script src="/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script src="/js/member.js"></script>
+
+<!-- JS Plugins Init. -->
+<script>
+    (function() {
+      window.onload = function () {
+         // INITIALIZATION OF FORM SEARCH
+        // =======================================================
+        new HSFormSearch('.js-form-search')
+
+
+        // INITIALIZATION OF BOOTSTRAP DROPDOWN
+        // =======================================================
+        HSBsDropdown.init()
+
+
+        // INITIALIZATION OF SELECT
+        // =======================================================
+        HSCore.components.HSTomSelect.init('.js-select')
+      }
+    })()
+  </script>
