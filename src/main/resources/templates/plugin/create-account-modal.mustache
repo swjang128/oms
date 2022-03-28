@@ -1,9 +1,9 @@
   <!-- 직원 등록/수정 모달 -->
-  <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal fade" id="create-account-modal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editUserModalLabel">직원 등록</h5>
+          <h5 class="modal-title" id="create-account-title">직원 등록</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -96,10 +96,10 @@
 
                 <!-- 이름 -->
                 <div class="row mb-4">
-                  <label id="label-name" for="name" class="col-sm-3 col-form-label form-label">이름<i class="tio-help-outlined text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front."></i></label>
+                  <label id="label-name" for="account-name" class="col-sm-3 col-form-label form-label">이름<i class="tio-help-outlined text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front."></i></label>
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <input type="text" onChange="nameCheck()" class="form-control" name="name" id="name" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">                      
+                      <input type="text" onChange="nameCheck()" class="form-control" name="account-name" id="account-name" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">                      
                     </div>
                   </div>
                 </div>
@@ -107,19 +107,19 @@
 
                 <!-- 이메일 -->
                 <div class="row mb-4">                	
-                	<label id="label-email" for="email" class="col-sm-3 col-form-label form-label">이메일</label>
+                	<label id="label-email" for="account-email" class="col-sm-3 col-form-label form-label">이메일</label>
                   	<div class="col-sm-9">
-                    	<input type="email" onChange="emailCheck()" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">                    
+                    	<input type="email" onChange="emailCheck()" class="form-control" name="account-email" id="account-email" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">                    
                   	</div>
                 </div>
                 <!-- End 이메일 -->
 
                 <!-- 연락처 -->
                 <div class="row mb-4">
-                  <label id="label-phone" for="phone" class="col-sm-3 col-form-label form-label">연락처</label>
+                  <label id="label-phone" for="account-phone" class="col-sm-3 col-form-label form-label">연락처</label>
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <input type="text" class="js-masked-input form-control" name="phone" id="name" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                      <input type="text" onInput="autoHyphen(this)" onChange="phoneCheck()" class="js-masked-input form-control" name="account-phone" id="account-phone" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
                                  "template": "010-0000-0000"
                                }'>
                     </div>
@@ -129,10 +129,10 @@
                 
                 <!-- 비상연락처 -->
                 <div class="row mb-4">
-                  <label for="editPhoneLabel" class="col-sm-3 col-form-label form-label">비상연락처<span class="form-label-secondary">(선택)</span></label>
+                  <label id="label-emergency-call" for="account-emergency-call" class="col-sm-3 col-form-label form-label">비상연락처<span class="form-label-secondary">(선택)</span></label>
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <input type="text" class="js-masked-input form-control" name="emergency-call" id="editPhoneLabel" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                      <input type="text" onInput="autoHyphen(this)" onChange="emergencyCallCheck()" class="js-masked-input form-control" name="account-emergency-call" id="account-emergency-call" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
                                  "template": "010-0000-0000"
                                }'>
                     </div>
@@ -142,9 +142,10 @@
 
                 <!-- 직급 -->
                 <div class="row mb-4">
-					<label for="position" class="col-sm-3 col-form-label form-label">직급</label>
+					<label id="label-position" for="account-position" class="col-sm-3 col-form-label form-label">직급</label>
 					<div class="col-sm-9">						
-						<select class="form-select" name="position" id="position">
+						<select onChange="positionCheck()" class="form-select" name="account-position" id="account-position">
+							<option value="">직급을 선택하세요</option>
                         </select>
 					</div>
                 </div>
@@ -152,9 +153,10 @@
 
                 <!-- 부서 -->
                 <div class="row mb-4">
-					<label for="department" class="col-sm-3 col-form-label form-label">부서</label>
-					<div class="col-sm-9">						
-						<select class="form-select" name="department" id="department">
+					<label id="label-department" for="account-department" class="col-sm-3 col-form-label form-label">부서</label>
+					<div class="col-sm-9">
+						<select onChange="departmentCheck()" class="form-select" name="account-department" id="account-department">
+							<option value="">부서를 선택하세요</option>
                         </select>
 					</div>
                 </div>
@@ -871,7 +873,7 @@
   <!-- 직원 등록/수정 모달 전용 플러그인 -->
 <script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
 <script src="/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
-<script src="/js/member.js"></script>
+<script src="/js/account.js"></script>
 
 <!-- JS Plugins Init. -->
 <script>
@@ -890,7 +892,7 @@
         	datatype: 'json',
         	success: function(result) {
     			for (var d=0; d<result.departmentList.length; d++) {    				
-    				$('#department').append('<option value=" '+result.departmentList[d].name+' ">'+result.departmentList[d].name+'</option>');
+    				$('#account-department').append('<option value=" '+result.departmentList[d].name+' ">'+result.departmentList[d].name+'</option>');
         		}
         	},
         	error: function() {
@@ -907,7 +909,7 @@
         	datatype: 'json',
         	success: function(result) {
     			for (var d=0; d<result.positionList.length; d++) {    				
-    				$('#position').append('<option value=" '+result.positionList[d].name+' ">'+result.positionList[d].name+'</option>');
+    				$('#account-position').append('<option value=" '+result.positionList[d].name+' ">'+result.positionList[d].name+'</option>');
         		}
         	},
         	error: function() {

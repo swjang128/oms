@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-@RequestMapping("api/account")
+@RequestMapping("api")
 public class AccountAPI {
 	@Autowired
 	AccountService accountService;
@@ -43,7 +43,7 @@ public class AccountAPI {
 	 * @return
 	 */
 	@ResponseBody
-	@GetMapping("/{email}")
+	@GetMapping("account/{email}")
 	public Map<String, Object> checkEmail(@PathVariable("email") String email) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();

@@ -43,7 +43,7 @@ public class OmsController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("member")
+	@GetMapping("account")
   	public String member(Model model) {
 		// ServletPath, CurrentLocation 설정 
 		String servletPath = commonUtil.getServletPath();
@@ -51,7 +51,7 @@ public class OmsController {
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
 		
-  		return "member";
+  		return "account";
   	}
 	
 	/**

@@ -43,13 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 										.anyRequest().authenticated()					
 					.and()					
 					// /login URL로 요청이 들어오면 스프링 시큐리티가 로그인 처리를 한다
-					.formLogin().loginPage("/account").loginProcessingUrl("/account/login").successHandler(authSuccessHandler).failureHandler(authFailureHandler)
+					.formLogin().loginPage("/oms").loginProcessingUrl("/login").successHandler(authSuccessHandler).failureHandler(authFailureHandler)
 					.and()
 					// 로그아웃하면 인증정보 및 세션 무효화, 리턴 URL, 로그아웃 URL, JSESSIONID, remember-me 쿠키 삭제
-					.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/account").invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me").permitAll()
+					.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/oms").invalidateHttpSession(true).deleteCookies("JSESSIONID", "remember-me").permitAll()
 					.and()
 					// 세션 최대 허용수(-1은 무제한 세션 허용), 중복 로그인시 처리(true: 중복 로그인 막음, false: 기존 세션을 해제), 세션이 만료된 경우 이동할 페이지 지정 
-					.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/account")
+					.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/oms")
 					.and()
 					// 로그인 유지, 항상 세션을 기억할 것인지 여부, 토큰 정보 지속시간(24시간), 쿠키 이름 지정(remember-me)
 					.and().rememberMe().alwaysRemember(false).tokenValiditySeconds(86400).rememberMeParameter("remember-me")
