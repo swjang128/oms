@@ -37,9 +37,10 @@ public class OmsController {
 		
   		return "login";
   	}
-	
+
+
 	/**
-	 * Member
+	 * Account
 	 * @param model
 	 * @return
 	 */
