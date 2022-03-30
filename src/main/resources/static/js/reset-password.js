@@ -12,7 +12,7 @@ function enter() {
 *******************/
 function resetPassword() {
 	// ajax 통신을 위한 변수 설정
-	url = '/account/resetPassword';
+	url = '/api/account/resetPassword';
 	type = 'POST';	
 	email = JSON.stringify({
 		email: $('#reset-email').val()
@@ -36,7 +36,7 @@ function resetPassword() {
 		timeout: 60000,
 		success: function(result) {			
 			if (result.status == 200) {
-				location.replace('/account');				
+				location.replace('');				
 				alert('등록한 계정의 이메일로 임시 비밀번호를 전송하였습니다.');
 			}
 			$('#reset-email-feedback').text(result.message);

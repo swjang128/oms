@@ -72,6 +72,31 @@ public class AccountAPI {
 	}
 	
 	/**
+	 * 비밀번호 초기화
+	 */
+	@ResponseBody
+	@PostMapping("account/resetPassword")
+	public Map<String, Object> resetPassword(@RequestBody AccountDTO memberDTO) {
+		// 기본 변수 선언
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
+		String message = "존재하지 않거나 잘못된 메일 형식입니다.";
+		
+		status = accountService.resetPassword(memberDTO);
+		
+		log.info("status: {}", status);
+		
+		if (status == ResponseCode.Status.OK) {
+			message = ResponseCode.Message.OK;
+		}
+
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+
+		return resultMap;
+	}
+	
+	/**
 	 * 관리자 목록 조회
 	 * @param model
 	 * @param request

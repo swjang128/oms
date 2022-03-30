@@ -35,8 +35,8 @@
 						<!-- Form -->
 						<div class="mb-4">
 							<label class="form-label" for="signinSrEmail">계정(이메일)</label>
-							<input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="email@address.com" aria-label="email@address.com" required>
-							<span class="invalid-feedback">Please enter a valid email address.</span>
+							<input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="이메일을 입력하세요" aria-label="email@address.com" required>
+							<span class="invalid-feedback">이메일을 입력하세요</span>
 						</div>
 						<div class="mb-4">
 							<label class="form-label w-100" for="signupSrPassword" tabindex="0">
@@ -51,7 +51,7 @@
 								<input type="password"
 									class="js-toggle-password form-control form-control-lg"
 									name="password" id="signupSrPassword"
-									placeholder="8+ characters required"
+									placeholder="8자 이상 대소문자, 숫자, 특수문자 포함"
 									aria-label="8+ characters required" required minlength="8"
 									data-hs-toggle-password-options='{
                            "target": "#changePassTarget",
@@ -82,26 +82,26 @@
 							<button type="submit" class="btn btn-primary btn-lg">로그인</button>
 						</div>
 					</form>
-						<hr>
-						<div class="d-grid mb-1">
-							<button class="btn btn-success btn-lg" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#create-account-modal">신규 등록</button>
-						</div>
-						<div class="d-grid mb-1">
-							<button  class="btn btn-danger btn-lg">비밀번호 초기화</button>
-						</div>
-						<hr>
-						<div class="d-grid mb-1">							
-							<button class="btn btn-white btn-lg"><img class="avatar avatar-xs me-2" src="/svg/brands/google-icon.svg" alt="Google">구글 계정으로 로그인</button>
-						</div>
-						<div class="d-grid mb-1">
-							<button class="btn btn-white btn-lg"><img class="avatar avatar-xs me-2" src="/svg/brands/naver-icon.svg" alt="Naver">네이버 계정으로 로그인</button>
-						</div>
-						<div class="d-grid mb-1">						
-							<button class="btn btn-white btn-lg"><img class="avatar avatar-xs me-2" src="/svg/brands/kakao-icon.svg" alt="Kakao">카카오 계정으로 로그인</button>
-						</div>
-						
-					
 					<!-- End Form -->
+					<!-- 추가 기능 버튼 -->
+					<hr>
+					<div class="d-grid mb-1">
+						<button class="btn btn-success btn-lg" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#create-account-modal">신규 등록</button>
+					</div>
+					<div class="d-grid mb-1">
+						<button class="btn btn-danger btn-lg"  data-bs-toggle="modal" data-bs-target="#reset-password-modal">비밀번호 초기화</button>
+					</div>
+					<hr>
+					<div class="d-grid mb-1">							
+						<button class="btn btn-dark btn-lg"><img class="avatar avatar-xs me-2" src="/svg/brands/google-icon.svg" alt="Google">구글 계정으로 로그인</button>
+					</div>
+					<div class="d-grid mb-1">
+						<button class="btn btn-dark btn-lg"><img class="avatar avatar-xs me-2" src="/svg/brands/naver-icon.svg" alt="Naver">네이버 계정으로 로그인</button>
+					</div>
+					<div class="d-grid mb-1">						
+						<button class="btn btn-dark btn-lg"><img class="avatar avatar-xss me-2" src="/svg/brands/kakao.png" alt="Kakao">카카오 계정으로 로그인</button>
+					</div>
+					<!-- End 추가 기능 버튼 -->
 				</div>
 			</div>
 			<!-- End Card -->

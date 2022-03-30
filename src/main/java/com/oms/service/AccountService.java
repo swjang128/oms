@@ -246,6 +246,8 @@ public class AccountService {
 		simpleMailMessage.setSubject(mailDTO.getTitle());
 		simpleMailMessage.setText(mailDTO.getMessage());
 		
+		log.info("************** result: {}", simpleMailMessage);
+		
 		javaMailSender.send(simpleMailMessage);
 	}
 }
