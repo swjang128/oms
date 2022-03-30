@@ -1,3 +1,48 @@
+/*****************
+* 부서, 직급 조회 *
+******************/
+function initAccountModal() {
+	// 부서 옵션이 존재하지 않을 때만 ajax 호출
+	if ($('#account-department option').length < 2) {
+		// 부서 조회 후 셀렉스박스 옵션에 append
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			url: '/api/department',
+			type: 'GET',
+			cache: false,
+			datatype: 'json',
+			success: function(result) {
+				for (var d = 0; d < result.departmentList.length; d++) {
+					$('#account-department').append('<option value=" ' + result.departmentList[d].name + ' ">' + result.departmentList[d].name + '</option>');
+				}
+			},
+			error: function() {
+				alert('서버와의 통신에 실패했습니다.');
+			}
+		});
+	}
+
+	// 직급 옵션이 존재하지 않을 때만 ajax 호출
+	if ($('#account-position option').length < 2) {
+		// 직급 조회 후 셀렉스박스 옵션에 append
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			url: '/api/position',
+			type: 'GET',
+			cache: false,
+			datatype: 'json',
+			success: function(result) {
+				for (var d = 0; d < result.positionList.length; d++) {
+					$('#account-position').append('<option value=" ' + result.positionList[d].name + ' ">' + result.positionList[d].name + '</option>');
+				}
+			},
+			error: function() {
+				alert('서버와의 통신에 실패했습니다.');
+			}
+		});
+	}
+}
+
 /****************************
 * 연락처 입력시 자동 하이픈 *
  ****************************/
@@ -90,7 +135,7 @@ function emailCheck() {
 				$('#label-email').addClass('text-danger');
 				$('#label-email').html('<i class="bi-exclamation-triangle me-1"></i> 중복된 이메일');
 			} else {
-				alert('서버가 응답하지 않습니다.');	
+				alert('서버가 응답하지 않습니다.');
 			}
 		},
 		error: function() {
@@ -143,7 +188,7 @@ function emergencyContactCheck() {
 	if (validateEmergencyContact.test(emergencyContact) == false) {
 		$('#label-emergency-contact').removeClass('text-success');
 		$('#label-emergency-contact').addClass('text-danger');
-		$('#label-emergency-contact').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 비상연락처 형식');		
+		$('#label-emergency-contact').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 비상연락처 형식');
 	} else {	// 올바른 emergencyContact validation 일 때
 		$('#label-emergency-contact').removeClass('text-danger');
 		$('#label-emergency-contact').addClass('text-success');
@@ -190,16 +235,16 @@ function departmentCheck() {
 *****************/
 function searchAddress() {
 	new daum.Postcode({
-        oncomplete: function(data) {
-        	// address에 받아온 주소 넣기
-            $('#account-address').val(data.address);
-            $('#label-address').removeClass('text-danger');
+		oncomplete: function(data) {
+			// address에 받아온 주소 넣기
+			$('#account-address').val(data.address);
+			$('#label-address').removeClass('text-danger');
 			$('#label-address').addClass('text-success');
 			$('#label-address').html('<i class="bi-check-lg me-1"></i> 주소');
-        	// 상세입력 focus
-        	document.querySelector('input[name=account-address-detail]').focus();
-        }
-    }).open();
+			// 상세입력 focus
+			document.querySelector('input[name=account-address-detail]').focus();
+		}
+	}).open();
 }
 
 /****************
@@ -211,11 +256,11 @@ function addressDetailCheck() {
 	if (!addressDetail) {
 		$('#label-address-detail').removeClass('text-success');
 		$('#label-address-detail').removeClass('text-danger');
-		$('#label-address-detail').html('상세주소 <span class="form-label-secondary">(선택)</span>');		
+		$('#label-address-detail').html('상세주소 <span class="form-label-secondary">(선택)</span>');
 	} else {	// addressDetail 값을 입력했을 때
 		$('#label-address-detail').removeClass('text-danger');
 		$('#label-address-detail').addClass('text-success');
-		$('#label-address-detail').html('<i class="bi-check-lg me-1"></i> 상세주소 <span class="form-label-secondary">(선택)</span>');		
+		$('#label-address-detail').html('<i class="bi-check-lg me-1"></i> 상세주소 <span class="form-label-secondary">(선택)</span>');
 	}
 }
 
@@ -228,18 +273,18 @@ function roleCheck() {
 	if (!role) {
 		$('#label-role').removeClass('text-success');
 		$('#label-role').removeClass('text-danger');
-		$('#label-role').html('권한');		
+		$('#label-role').html('권한');
 	} else {	// role을 선택했을 때
 		$('#label-role').removeClass('text-danger');
 		$('#label-role').addClass('text-success');
-		$('#label-role').html('<i class="bi-check-lg me-1"></i> 권한');		
+		$('#label-role').html('<i class="bi-check-lg me-1"></i> 권한');
 	}
 }
 
 /****************
 * 비밀번호 검증 *
 *****************/
-function passwordCheck() {	
+function passwordCheck() {
 	// password 파라미터 검증
 	var validatePassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 	var password = $('#account-password').val();
@@ -290,7 +335,7 @@ function passwordConfirmCheck() {
 /**************************
 *  기본 비밀번호 사용 여부 *
 ***************************/
-function defaultPasswordCheck() {	
+function defaultPasswordCheck() {
 	var defaultPassword = $('#account-default-password').is(':checked');
 	// 기본 비밀번호를 사용하는 경우
 	if (defaultPassword == true) {
@@ -298,7 +343,7 @@ function defaultPasswordCheck() {
 		$('#div-password-confirm').addClass('d-none');
 		$('#span-password-default').removeClass('d-none');
 		$('#account-password').val('');
-		$('#account-password-confirm').val('');		
+		$('#account-password-confirm').val('');
 	} else {	// 기본 비밀번호 체크해제
 		$('#div-password').removeClass('d-none');
 		$('#div-password-confirm').removeClass('d-none');
@@ -309,7 +354,7 @@ function defaultPasswordCheck() {
 	passwordCheck();
 	passwordConfirmCheck();
 }
- 
+
 /**************
 *  입사일 검증 *
 ***************/
@@ -319,11 +364,11 @@ function hiredateCheck() {
 	if (!hiredate) {
 		$('#label-hiredate').removeClass('text-success');
 		$('#label-hiredate').removeClass('text-danger');
-		$('#label-hiredate').html('입사일 <span class="form-label-secondary">(선택)</span>');		
+		$('#label-hiredate').html('입사일 <span class="form-label-secondary">(선택)</span>');
 	} else {	// addressDetail 값을 입력했을 때
 		$('#label-hiredate').removeClass('text-danger');
 		$('#label-hiredate').addClass('text-success');
-		$('#label-hiredate').html('<i class="bi-check-lg me-1"></i> 입사일 <span class="form-label-secondary">(선택)</span>');		
+		$('#label-hiredate').html('<i class="bi-check-lg me-1"></i> 입사일 <span class="form-label-secondary">(선택)</span>');
 	}
 }
 

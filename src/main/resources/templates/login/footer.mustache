@@ -3,8 +3,14 @@
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
 <script src="/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
+<script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
 
-<!-- JS Implementing Plugins -->
+<!-- 직원 등록/수정 모달 전용 플러그인 -->
+<script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
+<script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/account-modal.js"></script>
 
 <!-- JS Front -->
 <script src="/js/theme.min.js"></script>
@@ -22,11 +28,14 @@
           }
         });
         
+        // INITIALIZATION OF FORM SEARCH
+        // =======================================================
+        new HSFormSearch('.js-form-search')
+        
+        
         // INITIALIZATION OF TOGGLE PASSWORD
         // =======================================================
         new HSTogglePassword('.js-toggle-password')
-       
-        
 
       }
     });

@@ -1,35 +1,39 @@
 
-  <!-- JS Global Compulsory  -->
-  <script src="/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
-  <script src="/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- JS Global Compulsory  -->
+<script src="/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- JS Implementing Plugins -->
-  <script src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside.min.js"></script>
-  <script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside.min.js"></script>
+<script src="/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
+<script src="/vendor/hs-nav-scroller/dist/hs-nav-scroller.min.js"></script>
+<script src="/vendor/hs-step-form/dist/hs-step-form.min.js"></script>
+<script src="/vendor/hs-counter/dist/hs-counter.min.js"></script>
+<script src="/vendor/appear/dist/appear.min.js"></script>
+<script src="/vendor/imask/dist/imask.min.js"></script>
+<script src="/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables.net.extensions/select/select.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/vendor/jszip/dist/jszip.min.js"></script>
+<script src="/vendor/pdfmake/build/pdfmake.min.js"></script>
+<script src="/vendor/pdfmake/build/vfs_fonts.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
-  <script src="/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
-  <script src="/vendor/hs-nav-scroller/dist/hs-nav-scroller.min.js"></script>
-  <script src="/vendor/hs-step-form/dist/hs-step-form.min.js"></script>
-  <script src="/vendor/hs-counter/dist/hs-counter.min.js"></script>
-  <script src="/vendor/appear/dist/appear.min.js"></script>
-  <script src="/vendor/imask/dist/imask.min.js"></script>
-  <script src="/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
-  <script src="/vendor/datatables.net.extensions/select/select.min.js"></script>
-  <script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-  <script src="/vendor/jszip/dist/jszip.min.js"></script>
-  <script src="/vendor/pdfmake/build/pdfmake.min.js"></script>
-  <script src="/vendor/pdfmake/build/vfs_fonts.js"></script>
-  <script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-  <script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-  <script src="/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<!-- 직원 등록/수정 모달 전용 플러그인 -->
+<script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
+<script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/account-modal.js"></script>
 
-  <!-- JS Front -->
-  <script src="/js/theme.min.js"></script>
+<!-- JS Front -->
+<script src="/js/theme.min.js"></script>
 
-  <!-- JS Plugins Init. -->
-  <script>
+<!-- JS Plugins Init. -->
+<script>
     $(document).on('ready', function () {
       // INITIALIZATION OF DATATABLES
       // =======================================================
@@ -109,8 +113,8 @@
     });
   </script>
 
-  <!-- JS Plugins Init. -->
-  <script>
+<!-- JS Plugins Init. -->
+<script>
     (function() {
       window.onload = function () {
         
@@ -123,6 +127,11 @@
         // INITIALIZATION OF FORM SEARCH
         // =======================================================
         new HSFormSearch('.js-form-search')
+
+        
+        // INITIALIZATION OF TOGGLE PASSWORD
+        // =======================================================
+        new HSTogglePassword('.js-toggle-password')
 
 
         // INITIALIZATION OF BOOTSTRAP DROPDOWN
@@ -153,44 +162,44 @@
     })()
   </script>
 
-  <!-- Style Switcher JS -->
+<!-- Style Switcher JS -->
 
-  <script>
-      (function () {
-        // STYLE SWITCHER
-        // =======================================================
-        const $dropdownBtn = document.getElementById('selectThemeDropdown') // Dropdowon trigger
-        const $variants = document.querySelectorAll(`[aria-labelledby="selectThemeDropdown"] [data-icon]`) // All items of the dropdown
+<script>
+(function () {
+    // STYLE SWITCHER
+    // =======================================================
+    const $dropdownBtn = document.getElementById('selectThemeDropdown') // Dropdowon trigger
+    const $variants = document.querySelectorAll(`[aria-labelledby="selectThemeDropdown"] [data-icon]`) // All items of the dropdown
 
-        // Function to set active style in the dorpdown menu and set icon for dropdown trigger
-        const setActiveStyle = function () {
-          $variants.forEach($item => {
-            if ($item.getAttribute('data-value') === HSThemeAppearance.getOriginalAppearance()) {
-              $dropdownBtn.innerHTML = `<i class="${$item.getAttribute('data-icon')}" />`
-              return $item.classList.add('active')
-            }
-
-            $item.classList.remove('active')
-          });
+    // Function to set active style in the dorpdown menu and set icon for dropdown trigger
+    const setActiveStyle = function () {
+      $variants.forEach($item => {
+        if ($item.getAttribute('data-value') === HSThemeAppearance.getOriginalAppearance()) {
+          $dropdownBtn.innerHTML = `<i class="${$item.getAttribute('data-icon')}" />`
+          return $item.classList.add('active')
         }
 
-        // Add a click event to all items of the dropdown to set the style
-        $variants.forEach(function ($item) {
-          $item.addEventListener('click', function () {
-            HSThemeAppearance.setAppearance($item.getAttribute('data-value'))
-          })
-        });
+        $item.classList.remove('active')
+      })
+    }
 
-        // Call the setActiveStyle on load page
-        setActiveStyle();
+    // Add a click event to all items of the dropdown to set the style
+    $variants.forEach(function ($item) {
+      $item.addEventListener('click', function () {
+        HSThemeAppearance.setAppearance($item.getAttribute('data-value'))
+      })
+    })
 
-        // Add event listener on change style to call the setActiveStyle function
-        window.addEventListener('on-hs-appearance-change', function () {
-          setActiveStyle()
-        });
-      });
+    // Call the setActiveStyle on load page
+    setActiveStyle()
+
+    // Add event listener on change style to call the setActiveStyle function
+    window.addEventListener('on-hs-appearance-change', function () {
+      setActiveStyle()
+    })
+  })()
     </script>
 
-  <!-- End Style Switcher JS -->
+<!-- End Style Switcher JS -->
 </body>
 </html>

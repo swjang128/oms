@@ -227,7 +227,7 @@
                 <div class="d-flex justify-content-end">
                   <div class="d-flex gap-3">
                     <button type="button" class="btn btn-white" data-bs-dismiss="modal" aria-label="Close">닫기</button>                    
-                    <button class="btn btn-primary" onClick="createOrUpdate()" id="profile-optional-button">저장</button>                    
+                    <button class="btn btn-primary" onClick="createOrUpdate()" id="profile-optional-button">등록</button>                    
                   </div>
                 </div>
                 <!-- End 하단 버튼 -->
@@ -241,60 +241,3 @@
     </div>
   </div>
   <!-- End Edit user -->
-  
-  <!-- 직원 등록/수정 모달 전용 플러그인 -->
-<script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
-<script src="/vendor/tom-select/dist/js/tom-select.complete.min.js"></script>
-<script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/js/account-modal.js"></script>
-
-
-<!-- JS Plugins Init. -->
-<script>
-    (function() {
-      window.onload = function () {
-         // INITIALIZATION OF FORM SEARCH
-        // =======================================================
-        new HSFormSearch('.js-form-search')
-         
-        // INITIALIZATION OF TOGGLE PASSWORD
-        // =======================================================
-        new HSTogglePassword('.js-toggle-password')
-
-        // 부서 조회 후 셀렉스박스 옵션에 append
-        $.ajax({
-        	contentType: 'application/json; charset=utf-8',
-        	url: '/api/department',
-        	type: 'GET',
-        	cache: false,
-        	datatype: 'json',
-        	success: function(result) {
-    			for (var d=0; d<result.departmentList.length; d++) {    				
-    				$('#account-department').append('<option value=" '+result.departmentList[d].name+' ">'+result.departmentList[d].name+'</option>');
-        		}
-        	},
-        	error: function() {
-        		alert('서버와의 통신에 실패했습니다.');
-        	}
-        });
-         
-        // 직급 조회 후 셀렉스박스 옵션에 append
-        $.ajax({
-        	contentType: 'application/json; charset=utf-8',
-        	url: '/api/position',
-        	type: 'GET',
-        	cache: false,
-        	datatype: 'json',
-        	success: function(result) {
-    			for (var d=0; d<result.positionList.length; d++) {    				
-    				$('#account-position').append('<option value=" '+result.positionList[d].name+' ">'+result.positionList[d].name+'</option>');
-        		}
-        	},
-        	error: function() {
-        		alert('서버와의 통신에 실패했습니다.');
-        	}
-        });
-      }
-    })()
-  </script>
