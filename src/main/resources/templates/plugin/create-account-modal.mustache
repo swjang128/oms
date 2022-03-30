@@ -54,11 +54,12 @@
                 <!-- End Avatar -->
 
                 <!-- 이름 -->
-                <div class="row mb-4">
-                  <label id="label-name" for="account-name" class="col-sm-3 col-form-label form-label">이름<i class="tio-help-outlined text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Displayed on public forums, such as Front."></i></label>
+                <div class="row mb-4">                
+                  <label id="label-name" for="account-name" class="col-sm-3 col-form-label form-label">이름</label>                  
                   <div class="col-sm-9">
                     <div class="input-group input-group-sm-vertical">
-                      <input type="text" onChange="nameCheck()" class="form-control" name="account-name" id="account-name" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">                      
+                      <input type="text" onChange="nameCheck()" class="form-control" name="account-name" id="account-name" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">
+                      <span class="invalid-feedback" id="create-name-feedback"></span> 
                     </div>
                   </div>
                 </div>
@@ -68,7 +69,8 @@
                 <div class="row mb-4">                	
                 	<label id="label-email" for="account-email" class="col-sm-3 col-form-label form-label">이메일</label>
                   	<div class="col-sm-9">
-                    	<input type="email" onChange="emailCheck()" class="form-control" name="account-email" id="account-email" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">                    
+                    	<input type="email" onChange="emailCheck()" class="form-control" name="account-email" id="account-email" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">
+                    	<span class="invalid-feedback" id="create-email-feedback"></span> 
                   	</div>
                 </div>
                 <!-- End 이메일 -->

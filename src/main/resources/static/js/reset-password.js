@@ -34,12 +34,13 @@ function resetPassword() {
 		data: email,
 		cache: false,
 		timeout: 60000,
-		success: function(result) {			
+		success: function(result) {
 			if (result.status == 200) {
 				location.replace('');				
 				alert('등록한 계정의 이메일로 임시 비밀번호를 전송하였습니다.');
+			} else {
+				$('#reset-email-feedback').text(result.message);
 			}
-			$('#reset-email-feedback').text(result.message);
 		},
 		error: function() {
 			alert('서버와의 통신에 실패했습니다.');
