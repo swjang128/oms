@@ -41,8 +41,7 @@
 						<div class="mb-4">
 							<label class="form-label w-100" for="signupSrPassword" tabindex="0">
 							<span class="d-flex justify-content-between align-items-center">
-								<span>비밀번호</span>
-								<a class="form-label-link mb-0" href="./authentication-reset-password-basic.html">Forgot Password?</a>
+								<span>비밀번호</span>								
 							</span>
 							</label>
 
@@ -69,11 +68,15 @@
 						<!-- End Form -->
 
 						<!-- Form Check -->
-						<div class="form-check mb-4">
-							<input class="form-check-input" type="checkbox" value=""
-								id="termsCheckbox"> <label class="form-check-label"
-								for="termsCheckbox"> Remember me </label>
+						<div class="mb-4">
+							<label class="row form-check form-switch" for="remember-me">
+								<span class="col-12 col-sm-12 text-end">								
+									<span class="text-muted mb-1" id="remember-me-message">아이디 저장</span>
+									<input type="checkbox" onClick="rememberMeCheck()" class="form-check-input" id="remember-me">									
+				                </span>
+							</label>
 						</div>
+
 						<!-- End Form Check -->
 
 						<div class="d-grid mb-1">

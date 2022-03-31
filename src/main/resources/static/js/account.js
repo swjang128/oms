@@ -1,3 +1,17 @@
+/*************************
+* remember-me Check *
+**************************/
+function rememberMeCheck() {
+	var rememberMe = $('#remember-me').is(':checked');
+	if (rememberMe == false) {
+		$('#remember-me-message').removeClass('text-dark');
+		$('#remember-me-message').addClass('text-muted');
+	} else {
+		$('#remember-me-message').removeClass('text-muted');
+		$('#remember-me-message').addClass('text-dark');
+	}
+}
+
 /*****************
 * 부서, 직급 조회 *
 ******************/
