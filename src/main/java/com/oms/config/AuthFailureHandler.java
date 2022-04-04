@@ -60,7 +60,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 			// Exception Manager에서 계정 관련 예외처리 메시지를 리턴하는 메소드를 호출
 			String result = exceptionManager.authenticationExceptionHandler(exception);
 			// 로그인 실패 후 이동할 URL
-			setDefaultFailureUrl("/account?result="+result);
+			setDefaultFailureUrl("/oms?result="+result);
 				
 			super.onAuthenticationFailure(request, response, exception);
 		}

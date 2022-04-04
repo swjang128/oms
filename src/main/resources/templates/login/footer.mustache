@@ -20,17 +20,8 @@
 
 <!-- JS Plugins Init. -->
 <script>
-   	$(function() {
+   	(function() {
       window.onload = function () {
-        // INITIALIZATION OF BOOTSTRAP VALIDATION
-        // =======================================================
-        HSBsValidation.init('.js-validate', {
-          onSubmit: data => {
-            data.event.preventDefault()
-            alert('Submited')
-          }
-        });
-        
         // INITIALIZATION OF FORM SEARCH
         // =======================================================
         new HSFormSearch('.js-form-search')
@@ -41,7 +32,7 @@
         new HSTogglePassword('.js-toggle-password')
 
       }
-    });
+    })()
   </script>
 </body>
 </html>

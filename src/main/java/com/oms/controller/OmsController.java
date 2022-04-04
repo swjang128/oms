@@ -23,7 +23,7 @@ public class OmsController {
 	CommonUtil commonUtil;
 	
 	/**
-	 * 메인페이지(로그인)
+	 * 메인페이지(로그인 페이지)
 	 * @param model
 	 * @return
 	 */
@@ -37,7 +37,6 @@ public class OmsController {
 		
   		return "login";
   	}
-
 
 	/**
 	 * Account

@@ -214,7 +214,7 @@ public class AccountService {
 	 * 이메일로 임시 비밀번호를 발송할 내용 설정
 	 */
 	public MailDTO setMail(String email, String tempPassword) {
-		String title = "[CMS 발송] "+email+" 계정의 임시 비밀번호 안내 메일입니다.";
+		String title = "[OMS 발송] "+email+" 계정의 임시 비밀번호 안내 메일입니다.";
 		String message = """
 						 안녕하세요, %email 계정의 임시 비밀번호를 아래와 같이 보내드립니다.
 						 임시 비밀번호로 접속하시면 비밀번호 초기화로 안내드리겠습니다.

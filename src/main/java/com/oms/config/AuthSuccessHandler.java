@@ -42,6 +42,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		log.info("****** 로그인 시작 ");
 		// Member 객체 생성
 		Account member = memberRepository.findByEmail(authentication.getName())
 				.orElseThrow(() -> new UsernameNotFoundException("존재하지 않은 계정입니다." + authentication.getName()));
@@ -73,7 +74,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		session.setAttribute("hireDate", memberDTO.getHireDate());
 		
 		//  모든 작업이 끝나고 이동할 url 설정
-		setDefaultTargetUrl("/admin/dashboard");
+		setDefaultTargetUrl("/oms/project");
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
 

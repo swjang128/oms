@@ -14,22 +14,22 @@ import com.oms.entity.Account;
 public interface AccountRepository extends JpaRepository<Account, Long>{
 	/*********************** JPA Native Queries ***********************/
 	static final String UPDATE_MEMBER_LAST_LOGIN = """
-													UPDATE TB_MEMBER
+													UPDATE TB_ACCOUNT
 													SET LAST_LOGIN_TIME = :lastLoginTime
 													WHERE EMAIL = :email
 												   """;
 	static final String UPDATE_FAIL_COUNT = """
-											UPDATE TB_MEMBER
+											UPDATE TB_ACCOUNT
 											SET FAIL_COUNT = FAIL_COUNT + 1
 											WHERE EMAIL = :email
 											""";
 	static final String UPDATE_FAIL_COUNT_RESET = """
-													UPDATE TB_MEMBER
+													UPDATE TB_ACCOUNT
 													SET FAIL_COUNT = 0
 													WHERE EMAIL = :email
 													""";
 	static final String UPDATE_STATUS = """
-										UPDATE TB_MEMBER
+										UPDATE TB_ACCOUNT
 										SET STATUS = :status
 										WHERE EMAIL = :email
 										""";

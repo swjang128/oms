@@ -24,7 +24,7 @@
 			<div class="card card-lg mb-5">
 				<div class="card-body">
 					<!-- Form -->
-					<form class="js-validate needs-validation" novalidate>
+					<form action="/login" method="post" encType="application/x-www-form-urlencoded">
 						<div class="text-center">
 <!-- 							<div class="mb-5">
 								<h1 class="display-5"><a class="link" href="./authentication-signup-basic.html">계정 등록</a></h1>								
@@ -34,12 +34,12 @@
 
 						<!-- Form -->
 						<div class="mb-4">
-							<label class="form-label" for="signinSrEmail">계정(이메일)</label>
-							<input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="이메일을 입력하세요" aria-label="email@address.com" required>
+							<label class="form-label" for="email">계정(이메일)</label>
+							<input type="email" class="form-control form-control-lg" name="email" id="email" tabindex="1" placeholder="이메일을 입력하세요" aria-label="email@address.com" required>
 							<span class="invalid-feedback"></span>
 						</div>
 						<div class="mb-4">
-							<label class="form-label w-100" for="signupSrPassword" tabindex="0">
+							<label class="form-label w-100" for="password" tabindex="0">
 							<span class="d-flex justify-content-between align-items-center">
 								<span>비밀번호</span>								
 							</span>
@@ -49,7 +49,7 @@
 								data-hs-validation-validate-class>
 								<input type="password"
 									class="js-toggle-password form-control form-control-lg"
-									name="password" id="signupSrPassword"
+									name="password" id="password"
 									placeholder="8자 이상 대소문자, 숫자, 특수문자 포함"
 									aria-label="8+ characters required" required minlength="8"
 									data-hs-toggle-password-options='{
