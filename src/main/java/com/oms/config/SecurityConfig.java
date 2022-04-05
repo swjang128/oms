@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {		
 		httpSecurity.csrf().disable()	// csrf 토큰 비활성화
 					// 해당 경로들은 인증이 없어도 접근을 허용
-					.authorizeRequests().antMatchers("/**", "/api/**", "/account/**", "/shop/**").permitAll()
+					.authorizeRequests().antMatchers("/api/position", "/api/department", "/api/account/**", "/shop/**").permitAll()
 										// 이외의 다른 모든 요청은 인증된 유저만 접근 허용
 										.anyRequest().authenticated()					
 					.and()					
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/js/**", "/scss/**", "/img/**", "/fonts/**", "/vendor/**");
+		web.ignoring().antMatchers("/css/**", "/js/**", "/scss/**", "/img/**", "/fonts/**", "/vendor/**", "/svg/**");
 	}
 	
 	
