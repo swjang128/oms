@@ -3,8 +3,7 @@ O-Management System
 
 # Front-End
 - Java Script
-- JQuery (제외 예정)
-- Vue.js (추가 예정)
+- JQuery
 - Mustache
 - HTML5 & CSS5
 
@@ -42,7 +41,7 @@ O-Management System
 + 프로젝트가 있는 root directory를 설정하고 Next.
 + Gradle 프로젝트가 정상적으로 build가 되면 Finish.
 + 프로젝트를 우클릭하고 Gradle - Refresh Gradle Project.
-+ CMS는 기본적으로 local, dev, staging, prod Environment가 있습니다. 아래와 같이 Run Configuration을 설정합니다.
++ OMS는 기본적으로 local, dev, staging, prod Environment가 있습니다. 아래와 같이 Run Configuration을 설정합니다.
   + (Spring Boot App - Arguments - Spring Boot)
     + local: Profile을 local로 합니다.
     + dev: Profile을 dev로 합니다.
