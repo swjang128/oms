@@ -30,7 +30,7 @@ public class AccountService {
 	@Autowired
 	ModelMapper modelMapper;
 	@Autowired
-	AccountRepository memberRepository;
+	AccountRepository accountRepository;
 	@Autowired
 	BCryptPasswordEncoder encoder;
 	@Autowired
@@ -46,7 +46,7 @@ public class AccountService {
 	 */
 	public int checkEmail(String email) {
 		int status = ResponseCode.Status.OK;
-		if (memberRepository.existsByEmail(email)) {
+		if (accountRepository.existsByEmail(email)) {
 			status = ResponseCode.Status.ACCOUNT_DUPLICATE; 
 		};
 		
@@ -55,22 +55,24 @@ public class AccountService {
 	
 	/**
 	 * 직원 등록
-	 * @param memberDTO
+	 * @param accountDTO
 	 * @return
 	 */
 	@Transactional
-	public int create(AccountDTO memberDTO) {		
+	public int create(AccountDTO accountDTO) {		
 		int status = ResponseCode.Status.OK;
 		// 임시 Role은 Admin으로 Set, Status는 Active로 Set
-		memberDTO.setRole(AccountRole.ADMIN);
-		memberDTO.setStatus(AccountStatus.ACTIVE);
+		if ("admin@oms.com".equals(accountDTO.getEmail())) {
+			accountDTO.setRole(AccountRole.ADMIN);				
+		}
+		accountDTO.setStatus(AccountStatus.ACTIVE);
 		// 입력받아온 비밀번호는 암호화
-		memberDTO.setPassword(encoder.encode(memberDTO.getPassword()));
-		// memberDTO를 Entity로 변환
-		Account member = memberDTO.toEntity();
+		accountDTO.setPassword(encoder.encode(accountDTO.getPassword()));
+		// accountDTO를 Entity로 변환
+		Account account = accountDTO.toEntity();
 		// 회원 가입 진행
 		try {
-			memberRepository.save(member);	
+			accountRepository.save(account);	
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
@@ -86,9 +88,9 @@ public class AccountService {
 	 */
 	public List<AccountDTO> read() {
 		// 직원 목록 조회
-		List<Account> memberList = memberRepository.findAll();
-		List<AccountDTO> result = memberList.stream()											 
-											.map(member -> modelMapper.map(member, AccountDTO.class))
+		List<Account> accountList = accountRepository.findAll();
+		List<AccountDTO> result = accountList.stream()											 
+											.map(account -> modelMapper.map(account, AccountDTO.class))
 											.collect(Collectors.toList());
 
 		return result;
@@ -101,15 +103,15 @@ public class AccountService {
 	 * @return 
 	 */
 	@Transactional
-	public Integer update(AccountDTO memberDTO) {
+	public Integer update(AccountDTO accountDTO) {
 		int result = 0;
-		Long id = memberDTO.getId();
+		Long id = accountDTO.getId();
 		// 직원 정보 수정 (UPDATE)
 		try {
 			// 해당 직원이 있는지 확인
-			memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: "+id));
+			accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: "+id));
 			// 있으면 UPDATE 실행
-			memberRepository.save(memberDTO.toEntity());			
+			accountRepository.save(accountDTO.toEntity());			
 			result = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -128,7 +130,7 @@ public class AccountService {
 		// 직원 정보 삭제 (DELETE)
 		try {
 			for (int m=0; m<payload.size(); m++) {
-				memberRepository.deleteById(payload.get(m));
+				accountRepository.deleteById(payload.get(m));
 				result++;
 			}
 		} catch (Exception e) {
@@ -142,22 +144,22 @@ public class AccountService {
 	/**
 	 * 비밀번호 초기화
 	 * 참조: https://kitty-geno.tistory.com/43
-	 * @param memberDTO
+	 * @param accountDTO
 	 * @return
 	 */
-	public Integer resetPassword(AccountDTO memberDTO) {
+	public Integer resetPassword(AccountDTO accountDTO) {
 		// 기본 변수 선언
 		int result = 500;
-		String email = memberDTO.getEmail();
+		String email = accountDTO.getEmail();
 		// 임시 비밀번호 생성
 		String tempPassword = getTempPassword();
-		// member 객체 선언
-		Account member = null;
+		// account 객체 선언
+		Account account = null;
 		
 		// 임시 비밀번호 발송 내용 설정 및 메일 발송 처리
 		try {
 			// 존재하는 이메일인지 확인
-			member = memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: "+email));
+			account = accountRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: "+email));
 			// 이메일로 임시 비밀번호를 발송할 내용 설정
 			MailDTO mailDTO = setMail(email, tempPassword);
 			// 임시 비밀번호 메일 발송
@@ -173,12 +175,12 @@ public class AccountService {
 		// 해당 사용자의 비밀번호를 임시 비밀번호로 변경
 		try {
 			// 이메일 정보를 담은 Entity 값을 DTO에 set
-			memberDTO.setId(member.getId());
-			memberDTO.setPassword(encoder.encode(tempPassword));
-			memberDTO.setFailCount(0);
-			memberDTO.setStatus(AccountStatus.ACTIVE);
+			accountDTO.setId(account.getId());
+			accountDTO.setPassword(encoder.encode(tempPassword));
+			accountDTO.setFailCount(0);
+			accountDTO.setStatus(AccountStatus.ACTIVE);
 			// 비밀번호 초기화 (DTO -> Entity)
-			memberRepository.save(memberDTO.toEntity());
+			accountRepository.save(accountDTO.toEntity());
 			result = 200;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -216,12 +218,12 @@ public class AccountService {
 	public MailDTO setMail(String email, String tempPassword) {
 		String title = "[OMS 발송] "+email+" 계정의 임시 비밀번호 안내 메일입니다.";
 		String message = """
-						 안녕하세요, %email 계정의 임시 비밀번호를 아래와 같이 보내드립니다.
+						 안녕하세요. %email 계정의 임시 비밀번호를 아래와 같이 보내드립니다.
 						 임시 비밀번호로 접속하시면 비밀번호 초기화로 안내드리겠습니다.
 						 
-						 ====================================================						 
+						 =============================
 						  ◆ 계정의 임시 비밀번호: %tempPassword
-						 ====================================================
+						 =============================
 						 
 						 감사합니다!
 						 """.replace("%tempPassword", tempPassword)

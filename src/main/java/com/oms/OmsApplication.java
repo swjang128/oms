@@ -25,7 +25,7 @@ public class OmsApplication {
 	@Value("${spring.profiles.active}")
 	private String profile;
 	@Autowired
-	AccountRepository memberRepository;
+	AccountRepository accountRepository;
 	@Autowired
 	AccountService accountService;
 
@@ -37,27 +37,29 @@ public class OmsApplication {
 	 */
 	@PostConstruct
 	public void init() {
-		List<Account> memberList = memberRepository.findAll();
-		String initEmail = "admin";
-		String initPassword = "admin";
-		if (memberList.size() == 0) {
+		List<Account> accountList = accountRepository.findAll();
+		String initEmail = "admin@oms.com";
+		String initPassword = "1q2w3e4r";
+		if (accountList.size() == 0) {
 			log.info("****** 계정 정보가 존재하지 않습니다. 테스트용 계정을 생성합니다.");
-			AccountDTO memberDTO = new AccountDTO();
+			AccountDTO accountDTO = new AccountDTO();
 			Date date = new Date();
-			memberDTO.setEmail(initEmail);
-			memberDTO.setPassword(initPassword);
-			memberDTO.setName("admin");
-			memberDTO.setBirthday(date);
-			memberDTO.setHireDate(date);
-			memberDTO.setPhone("01000000000");
-			memberDTO.setEmergencyContact("01000000000");
-			memberDTO.setPhoto("");
-			memberDTO.setPosition("사원");
-			memberDTO.setStatus(AccountStatus.ACTIVE);
-			memberDTO.setRole(AccountRole.ADMIN);
-			memberDTO.setDepartment("판매");
+			accountDTO.setEmail(initEmail);			
+			accountDTO.setPassword(initPassword);
+			accountDTO.setName("admin");
+			accountDTO.setAddress("주소");
+			accountDTO.setAddressDetail("상세주소");
+			accountDTO.setBirthday(date);
+			accountDTO.setHireDate(date);
+			accountDTO.setPhone("01000000000");
+			accountDTO.setEmergencyContact("01000000000");
+			accountDTO.setPhoto("");
+			accountDTO.setPosition("사원");
+			accountDTO.setStatus(AccountStatus.ACTIVE);
+			accountDTO.setRole(AccountRole.ADMIN);
+			accountDTO.setDepartment("판매");
 			
-			accountService.create(memberDTO);
+			accountService.create(accountDTO);
 		}
 		
 		if (!"prod".equals(profile)) {

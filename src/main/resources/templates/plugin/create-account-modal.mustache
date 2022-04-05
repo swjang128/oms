@@ -172,7 +172,8 @@
 	             	<label class="row form-check form-switch" for="account-default-password">
 						<span class="col-8 col-sm-9 ms-0">
 							<span class="d-block text-dark mb-1">기본 비밀번호
-								<span class="fs-12 text-muted d-none" id="span-password-default">: 0000</span>
+								<span class="fs-12 text-muted d-none" id="span-default-password-comma">:</span>
+								<span class="fs-12 text-muted d-none" id="span-default-password">!Q2w3e4r</span>								
 							</span>							
 		                </span>
 						<span class="col-4 col-sm-3 text-end">
@@ -216,11 +217,20 @@
 					<!-- End 비밀번호 확인 -->
 				</div>
 				
-                <!-- 입사일 -->
+				<!-- 생일 -->
                 <div class="row mb-4">                	
-                	<label id="label-hiredate" for="account-hiredate" class="col-sm-3 col-form-label form-label">입사일 (선택)</label>
+                	<label id="label-birthday" for="account-birthday" class="col-sm-3 col-form-label form-label">생년월일<span class="form-label-secondary"> (선택)</span></label>
                   	<div class="col-sm-9">
-                    	<input type="date" onChange="hiredateCheck()" class="form-control" name="account-hiredate" id="account-hiredate" placeholder="이메일을 입력하세요" aria-label="Input hiredate" value="">                    
+                    	<input type="date" onChange="birthdayCheck()" class="form-control" name="account-birthday" id="account-birthday" placeholder="생년월일을 입력하세요" aria-label="Input birthday" value="">                    
+                  	</div>
+                </div>
+                <!-- End 생일 -->
+                
+				<!-- 입사일 -->
+                <div class="row mb-4">                	
+                	<label id="label-hire-date" for="account-hire-date" class="col-sm-3 col-form-label form-label">입사일<span class="form-label-secondary"> (선택)</span></label>
+                  	<div class="col-sm-9">
+                    	<input type="date" onChange="hireDateCheck()" class="form-control" name="account-hire-date" id="account-hire-date" placeholder="이메일을 입력하세요" aria-label="Input hire date" value="">                    
                   	</div>
                 </div>
                 <!-- End 입사일 -->
@@ -229,7 +239,7 @@
                 <div class="d-flex justify-content-end">
                   <div class="d-flex gap-3">
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">닫기</button>                    
-                    <button class="btn btn-primary" onClick="createOrUpdate()" id="profile-optional-button">등록</button>                    
+                    <button class="btn btn-primary" onClick="createAccount()" id="profile-optional-button">등록</button>                    
                   </div>
                 </div>
                 <!-- End 하단 버튼 -->

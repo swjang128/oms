@@ -27,7 +27,7 @@ function initAccountModal() {
 			datatype: 'json',
 			success: function(result) {
 				for (var d = 0; d < result.departmentList.length; d++) {
-					$('#account-department').append('<option value=" ' + result.departmentList[d].name + ' ">' + result.departmentList[d].name + '</option>');
+					$('#account-department').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
 				}
 			},
 			error: function() {
@@ -47,7 +47,7 @@ function initAccountModal() {
 			datatype: 'json',
 			success: function(result) {
 				for (var d = 0; d < result.positionList.length; d++) {
-					$('#account-position').append('<option value=" ' + result.positionList[d].name + ' ">' + result.positionList[d].name + '</option>');
+					$('#account-position').append('<option value="'+result.positionList[d].name+'">'+result.positionList[d].name+'</option>');
 				}
 			},
 			error: function() {
@@ -95,19 +95,21 @@ function nameCheck() {
 	// name 값이 비어있을 때
 	if (!name) {
 		$('#label-name').removeClass('text-success');
-		$('#label-name').removeClass('text-danger');
-		$('#label-name').html('이름');
+		$('#label-name').addClass('text-danger');
+		$('#label-name').html('<i class="bi-exclamation-triangle me-1"></i> 이름을 입력하세요');
 		return;
 	}
 	// name validation이 false 일 때
 	if (validateName.test(name) == false) {
 		$('#label-name').removeClass('text-success');
 		$('#label-name').addClass('text-danger');
-		$('#label-name').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이름 형식');
+		$('#label-name').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이름 형식');		
+		return;
 	} else {	// 올바른 name validation 일 때
 		$('#label-name').removeClass('text-danger');
 		$('#label-name').addClass('text-success');
 		$('#label-name').html('<i class="bi-check-lg me-1"></i> 이름');
+		return name;
 	}
 }
 
@@ -121,8 +123,8 @@ function emailCheck() {
 	// email 값이 비어있을 때
 	if (!email) {
 		$('#label-email').removeClass('text-success');
-		$('#label-email').removeClass('text-danger');
-		$('#label-email').html('이메일');
+		$('#label-email').addClass('text-danger');
+		$('#label-email').html('<i class="bi-exclamation-triangle me-1"></i> 이메일을 입력하세요');
 		return;
 	}
 	// email validate가 false 일 때
@@ -144,18 +146,26 @@ function emailCheck() {
 				$('#label-email').removeClass('text-danger');
 				$('#label-email').addClass('text-success');
 				$('#label-email').html('<i class="bi-check-lg me-1"></i> 이메일');
+				return email;				
 			} else if (result.status == 1004) {	// 중복되는 이메일인 경우
 				$('#label-email').removeClass('text-success');
 				$('#label-email').addClass('text-danger');
-				$('#label-email').html('<i class="bi-exclamation-triangle me-1"></i> 중복된 이메일');
+				$('#label-email').html('<i class="bi-exclamation-triangle me-1"></i> 중복된 이메일');				
+				return;
 			} else {
 				alert('서버가 응답하지 않습니다.');
+				return;
 			}
 		},
 		error: function() {
-			alert('서버와의 통신에 실패했습니다.');
+			alert('서버와의 통신에 실패했습니다.');			
+			return;
 		}
 	});
+	
+	if (email) {
+		return email;		
+	}	
 }
 
 /**************
@@ -168,8 +178,8 @@ function phoneCheck() {
 	// phone 값이 비어있을 때
 	if (!phone) {
 		$('#label-phone').removeClass('text-success');
-		$('#label-phone').removeClass('text-danger');
-		$('#label-phone').html('연락처');
+		$('#label-phone').addClass('text-danger');
+		$('#label-phone').html('<i class="bi-exclamation-triangle me-1"></i> 연락처를 입력하세요');
 		return;
 	}
 	// phone validation이 false 일 때
@@ -177,10 +187,13 @@ function phoneCheck() {
 		$('#label-phone').removeClass('text-success');
 		$('#label-phone').addClass('text-danger');
 		$('#label-phone').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 연락처 형식');
+		return;
 	} else {	// 올바른 phone validation 일 때
 		$('#label-phone').removeClass('text-danger');
 		$('#label-phone').addClass('text-success');
 		$('#label-phone').html('<i class="bi-check-lg me-1"></i> 연락처');
+		phone = phone.replaceAll('-', '');
+		return phone;
 	}
 }
 
@@ -203,10 +216,13 @@ function emergencyContactCheck() {
 		$('#label-emergency-contact').removeClass('text-success');
 		$('#label-emergency-contact').addClass('text-danger');
 		$('#label-emergency-contact').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 비상연락처 형식');
+		return;
 	} else {	// 올바른 emergencyContact validation 일 때
 		$('#label-emergency-contact').removeClass('text-danger');
 		$('#label-emergency-contact').addClass('text-success');
 		$('#label-emergency-contact').html('<i class="bi-check-lg me-1"></i> 비상연락처 <span class="form-label-secondary">(선택)</span>');
+		emergencyContact = emergencyContact.replaceAll('-', '');
+		return emergencyContact;
 	}
 }
 
@@ -218,12 +234,14 @@ function positionCheck() {
 	// position 값이 비어있을 때
 	if (!position) {
 		$('#label-position').removeClass('text-success');
-		$('#label-position').removeClass('text-danger');
-		$('#label-position').html('직급');
+		$('#label-position').addClass('text-danger');
+		$('#label-position').html('<i class="bi-exclamation-triangle me-1"></i> 직급을 선택하세요');
+		return;
 	} else {	// position을 선택했을 때
 		$('#label-position').removeClass('text-danger');
 		$('#label-position').addClass('text-success');
 		$('#label-position').html('<i class="bi-check-lg me-1"></i> 직급');
+		return position;
 	}
 }
 
@@ -235,12 +253,14 @@ function departmentCheck() {
 	// department 값이 비어있을 때
 	if (!department) {
 		$('#label-department').removeClass('text-success');
-		$('#label-department').removeClass('text-danger');
-		$('#label-department').html('부서');
+		$('#label-department').addClass('text-danger');
+		$('#label-department').html('<i class="bi-exclamation-triangle me-1"></i> 부서를 선택하세요');
+		return;
 	} else {	// department을 선택했을 때
 		$('#label-department').removeClass('text-danger');
 		$('#label-department').addClass('text-success');
 		$('#label-department').html('<i class="bi-check-lg me-1"></i> 부서');
+		return department;
 	}
 }
 
@@ -261,6 +281,25 @@ function searchAddress() {
 	}).open();
 }
 
+/************
+* 주소 검증 *
+*************/
+function addressCheck() {
+	var address = $('#account-address').val();
+	// address 값이 비어있을 때
+	if (!address) {
+		$('#label-address').removeClass('text-success');
+		$('#label-address').addClass('text-danger');
+		$('#label-address').html('<i class="bi-exclamation-triangle me-1"></i> 주소를 입력하세요');
+		return;
+	} else {
+		$('#label-address').removeClass('text-danger');
+		$('#label-address').addClass('text-success');
+		$('#label-address').html('<i class="bi-check-lg me-1"></i> 주소');
+		return address;
+	}
+}
+
 /****************
 *  상세주소 검증 *
 *****************/
@@ -276,6 +315,7 @@ function addressDetailCheck() {
 		$('#label-address-detail').addClass('text-success');
 		$('#label-address-detail').html('<i class="bi-check-lg me-1"></i> 상세주소 <span class="form-label-secondary">(선택)</span>');
 	}
+	return addressDetail;
 }
 
 /************
@@ -286,12 +326,14 @@ function roleCheck() {
 	// role을 선택하지 않았을 때
 	if (!role) {
 		$('#label-role').removeClass('text-success');
-		$('#label-role').removeClass('text-danger');
-		$('#label-role').html('권한');
+		$('#label-role').addClass('text-danger');
+		$('#label-role').html('<i class="bi-exclamation-triangle me-1"></i> 권한을 선택해주세요');
+		return;
 	} else {	// role을 선택했을 때
 		$('#label-role').removeClass('text-danger');
 		$('#label-role').addClass('text-success');
 		$('#label-role').html('<i class="bi-check-lg me-1"></i> 권한');
+		return role;
 	}
 }
 
@@ -305,8 +347,8 @@ function passwordCheck() {
 	// password 값이 비어있을 때
 	if (!password) {
 		$('#label-password').removeClass('text-success');
-		$('#label-password').removeClass('text-danger');
-		$('#label-password').html('비밀번호');
+		$('#label-password').addClass('text-danger');
+		$('#label-password').html('<i class="bi-exclamation-triangle me-1"></i> 비밀번호를 입력하세요');
 		return;
 	}
 	// password validate가 false 일 때
@@ -314,11 +356,27 @@ function passwordCheck() {
 		$('#label-password').removeClass('text-success');
 		$('#label-password').addClass('text-danger');
 		$('#label-password').html('<i class="bi-exclamation-triangle me-1"></i> 비밀번호는 8자 이상의 대,소문자, 특수문자, 숫자를 포함해야합니다');
+		return;
 	} else {
 		$('#label-password').removeClass('text-danger');
 		$('#label-password').addClass('text-success');
 		$('#label-password').html('<i class="bi-check-lg me-1"></i> 비밀번호');
+		// password와 passwordConfirm의 값이 다를 때
+		var passwordConfirm = $('#account-password-confirm').val();
+		if (password != passwordConfirm) {
+			$('#label-password-confirm').removeClass('text-success');
+			$('#label-password-confirm').addClass('text-danger');
+			$('#label-password-confirm').html('<i class="bi-exclamation-triangle me-1"></i> 동일한 비밀번호를 입력하세요');
+			$('#account-password-confirm').focus();
+			return;
+		} else {
+			$('#label-password-confirm').removeClass('text-danger');
+			$('#label-password-confirm').addClass('text-success');
+			$('#label-password-confirm').html('<i class="bi-check-lg me-1"></i> 비밀번호 확인');
+			return password;
+		}
 	}
+	
 }
 
 /*********************
@@ -330,8 +388,9 @@ function passwordConfirmCheck() {
 	// passwordConfirm 값이 비어있을 때
 	if (!passwordConfirm) {
 		$('#label-password-confirm').removeClass('text-success');
-		$('#label-password-confirm').removeClass('text-danger');
-		$('#label-password-confirm').html('비밀번호 확인');
+		$('#label-password-confirm').addClass('text-danger');
+		$('#label-password-confirm').html('<i class="bi-exclamation-triangle me-1"></i> 비밀번호 확인을 입력하세요');
+		$('#account-password-confirm').focus();
 		return;
 	}
 	// password와 passwordConfirm의 값이 다를 때
@@ -339,10 +398,13 @@ function passwordConfirmCheck() {
 		$('#label-password-confirm').removeClass('text-success');
 		$('#label-password-confirm').addClass('text-danger');
 		$('#label-password-confirm').html('<i class="bi-exclamation-triangle me-1"></i> 동일한 비밀번호를 입력하세요');
+		$('#account-password-confirm').focus();
+		return;
 	} else {
 		$('#label-password-confirm').removeClass('text-danger');
 		$('#label-password-confirm').addClass('text-success');
 		$('#label-password-confirm').html('<i class="bi-check-lg me-1"></i> 비밀번호 확인');
+		return passwordConfirm;
 	}
 }
 
@@ -355,40 +417,161 @@ function defaultPasswordCheck() {
 	if (defaultPassword == true) {
 		$('#div-password').addClass('d-none');
 		$('#div-password-confirm').addClass('d-none');
-		$('#span-password-default').removeClass('d-none');
+		$('#span-default-password-comma').removeClass('d-none');
+		$('#span-default-password').removeClass('d-none');
 		$('#account-password').val('');
 		$('#account-password-confirm').val('');
+		return defaultPassword;		
 	} else {	// 기본 비밀번호 체크해제
 		$('#div-password').removeClass('d-none');
 		$('#div-password-confirm').removeClass('d-none');
-		$('#span-password-default').addClass('d-none');
+		$('#span-default-password-comma').addClass('d-none');
+		$('#span-default-password').addClass('d-none');
 		$('#account-password').val('');
 		$('#account-password-confirm').val('');
+		return;		
 	}
-	passwordCheck();
-	passwordConfirmCheck();
+}
+
+/****************
+*  생년월일 검증 *
+*****************/
+function birthdayCheck() {
+	var birthday = $('#account-birthday').val();
+	// addressDetail 값이 비어있을 때
+	if (!birthday) {
+		$('#label-birthday').removeClass('text-success');
+		$('#label-birthday').removeClass('text-danger');
+		$('#label-birthday').html('생년월일 <span class="form-label-secondary">(선택)</span>');		
+	} else {	// addressDetail 값을 입력했을 때
+		$('#label-birthday').removeClass('text-danger');
+		$('#label-birthday').addClass('text-success');
+		$('#label-birthday').html('<i class="bi-check-lg me-1"></i> 생년월일');
+	}
+	return birthday;
 }
 
 /**************
 *  입사일 검증 *
 ***************/
-function hiredateCheck() {
-	var hiredate = $('#account-hiredate').val();
-	// addressDetail 값이 비어있을 때
-	if (!hiredate) {
-		$('#label-hiredate').removeClass('text-success');
-		$('#label-hiredate').removeClass('text-danger');
-		$('#label-hiredate').html('입사일 <span class="form-label-secondary">(선택)</span>');
+function hireDateCheck() {
+	var hireDate = $('#account-hire-date').val();
+	// hireDate 값이 비어있을 때
+	if (!hireDate) {
+		$('#label-hire-date').removeClass('text-success');
+		$('#label-hire-date').removeClass('text-danger');
+		$('#label-hire-date').html('입사일 <span class="form-label-secondary">(선택)</span>');		
 	} else {	// addressDetail 값을 입력했을 때
-		$('#label-hiredate').removeClass('text-danger');
-		$('#label-hiredate').addClass('text-success');
-		$('#label-hiredate').html('<i class="bi-check-lg me-1"></i> 입사일 <span class="form-label-secondary">(선택)</span>');
+		$('#label-hire-date').removeClass('text-danger');
+		$('#label-hire-date').addClass('text-success');
+		$('#label-hire-date').html('<i class="bi-check-lg me-1"></i> 입사일 <span class="form-label-secondary">(선택)</span>');
 	}
+	return hireDate;
 }
 
 /**************
 *  등록 / 수정 *
 ***************/
-function createOrUpdate() {
-	alert('등록/수정');
+function createAccount() {
+	// 이름 검증 (필수)
+	var name = nameCheck();
+	if (!name) {
+		$('#account-name').focus();
+		return;	
+	}
+	// 이메일 검증 (필수)
+	var email = emailCheck();
+	if (!email) {
+		$('#account-email').focus();
+		return;
+	}
+	// 연락처 검증 (필수)
+	var phone = phoneCheck();
+	if (!phone) {
+		$('#account-phone').focus();
+		return;	
+	}
+	// 비상연락처 검증 (선택)
+	var emergencyContact = emergencyContactCheck();
+	// 직급 검증 (필수)
+	var position = positionCheck();
+	if (!position) {
+		$('#account-position').focus();
+		return;	
+	}
+	// 부서 검증 (필수)
+	var department = departmentCheck();
+	if (!department) {
+		$('#account-department').focus();
+		return;
+	}
+	// 주소 검증 (필수)
+	var address = addressCheck();
+	if (!address) {
+		$('#account-address').focus();
+		return;
+	}
+	// 상세주소 검증 (선택)
+	var addressDetail = addressDetailCheck();
+	// 권한 검증 (필수)
+	var role = roleCheck();
+	if (!role) {
+		$('#account-role').focus();
+		return;	
+	}
+	// 비밀번호 검증 (필수)
+	var defaultPassword = $('#account-default-password').is(':checked');
+	if (defaultPassword == true) { // 기본 비밀번호를 사용하는 경우
+		var password = $('#span-default-password').text();
+	} else { // 일반 비밀번호를 사용하는 경우
+		var password = passwordCheck();
+		if (!password) {
+			$('#account-password').focus();
+			return;
+		}
+	}
+	// 생일 검증 (선택)
+	var birthday = birthdayCheck();
+	// 입사일 검증 (선택)
+	var hireDate = hireDateCheck();
+
+	// 입력받은 모든 정보를 accountData(payload)에 추가
+	var accountData = JSON.stringify({
+		hireDate: hireDate,
+		birthday: birthday,
+		password: password,
+		role: role,
+		addressDetail: addressDetail,
+		address: address,
+		position: position,
+		department: department,
+		emergencyContact: emergencyContact,
+		phone: phone,
+		email: email,
+		name: name
+	});
+	
+	alert(accountData);
+	
+	// 직원 등록 처리
+	$.ajax({
+		contentType: 'application/json; charset=utf-8',
+		url: '/api/account',
+		type: 'POST',
+		data: accountData,
+		cache: false,
+		success: function(result) {
+			if (result.status == 200) {				
+				alert('계정을 정상적으로 등록하였습니다');
+			} else {
+				alert('내부 서버 오류가 발생하였습니다');
+			}
+		},
+		error: function() {
+			alert('서버와의 통신에 실패했습니다.');
+		},
+		complete: function() {
+			location.reload();
+		}
+	});
 }

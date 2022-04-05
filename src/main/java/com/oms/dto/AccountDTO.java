@@ -41,6 +41,12 @@ public class AccountDTO {
 	@Size(min=1, max=64, message="이메일은 64자 이하로 입력해주세요.")
 	@Email(message="이메일 형식에 맞지 않습니다.")
     private String email;									// 이메일
+	
+	@Size(max=128, message="주소 값이 너무 깁니다")
+	private String address;								// 주소
+	
+	@Size(max=128, message="상세주소 값이 너무 깁니다")
+	private String addressDetail;					// 상세주소
     
 	@NotBlank(message="비밀번호를 입력해주세요.")
 	@Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
@@ -70,7 +76,7 @@ public class AccountDTO {
 
 	/**
 	 * (Request) DTO -> Entity
-	 * memberDTO를 Entity로 변환 
+	 * accountDTO를 Entity로 변환 
 	 * @return
 	 */
 	public Account toEntity() {
@@ -81,6 +87,8 @@ public class AccountDTO {
 				.photo(photo)
 				.name(name)
 				.email(email)
+				.address(address)
+				.addressDetail(addressDetail)
 				.password(password)
 				.status(status)
 				.role(role)
@@ -93,24 +101,26 @@ public class AccountDTO {
 	
 	/**
 	 * (Response) Entity -> DTO
-	 * member Entity 정보를 DTO로 받아 응답받는 메소드
-	 * @param member
+	 * account Entity 정보를 DTO로 받아 응답받는 메소드
+	 * @param account
 	 */
-	public AccountDTO (Account member) {
-		this.id = member.getId();
-		this.department = member.getDepartment();
-		this.position = member.getPosition();
-		this.photo = member.getPhoto();
-		this.name = member.getName();
-		this.email = member.getEmail();
-		this.password = member.getPassword();
-		this.failCount = member.getFailCount();
-		this.status = member.getStatus();
-		this.role = member.getRole();
-		this.phone = member.getPhone();
-		this.emergencyContact = member.getEmergencyContact();
-		this.birthday = member.getBirthday();
-		this.hireDate = member.getHireDate();
+	public AccountDTO (Account account) {
+		this.id = account.getId();
+		this.department = account.getDepartment();
+		this.position = account.getPosition();
+		this.photo = account.getPhoto();
+		this.name = account.getName();
+		this.email = account.getEmail();
+		this.address = account.getAddress();
+		this.addressDetail = account.getAddressDetail();
+		this.password = account.getPassword();
+		this.failCount = account.getFailCount();
+		this.status = account.getStatus();
+		this.role = account.getRole();
+		this.phone = account.getPhone();
+		this.emergencyContact = account.getEmergencyContact();
+		this.birthday = account.getBirthday();
+		this.hireDate = account.getHireDate();
 	}
 	
 }

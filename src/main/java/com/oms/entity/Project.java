@@ -60,8 +60,8 @@ public class Project {
 	private String status;																			// 상태 (ready, processing, complete)
 	
 	@ManyToOne(targetEntity=Account.class, fetch=FetchType.LAZY)
-	@JoinColumn(name="member_id")
-	private Account member;																// 구성원
+	@JoinColumn(name="account_id")
+	private Account account;																// 구성원
 	
 	@Column(updatable=false)
 	@CreatedDate

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "c75cfee9-6c37-4c0b-b084-20e8e47c9baa",
-		"name": "Capias",
+		"name": "OMS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -137,10 +137,141 @@
 			]
 		},
 		{
-			"name": "Member",
+			"name": "Department",
 			"item": [
 				{
-					"name": "관리자 목록",
+					"name": "부서 목록",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/department",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "부서 등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"전산\",\r\n    \"useYn\": \"1\",\r\n    \"registDate\": \"2022-03-28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/department",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "부서 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"84\",\r\n    \"name\": \"수정된 상품명\",\r\n    \"type\": \"HW\",\r\n    \"category\": \"PC\",\r\n    \"price\": \"2222\",\r\n    \"cost\": \"111\",\r\n    \"rated\": \"0\",\r\n    \"stock\": \"44\",\r\n    \"releaseDate\": \"2022-01-21\",\r\n    \"discountRate\": \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/department",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"department"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "부서 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/department/84",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"department",
+								"84"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "직원 목록",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -155,7 +286,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member",
+							"raw": "http://10.0.100.15:9575/api/account",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -166,14 +297,14 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member"
+								"account"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "관리자 등록",
+					"name": "직원 등록",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -182,7 +313,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member",
+							"raw": "http://10.0.100.15:9575/api/account",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -193,19 +324,19 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member"
+								"account"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "관리자 정보 수정",
+					"name": "직원 정보 수정",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member",
+							"raw": "http://10.0.100.15:9575/api/account",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -216,19 +347,19 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member"
+								"account"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "관리자 정보 삭제",
+					"name": "직원 정보 삭제",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member/4",
+							"raw": "http://10.0.100.15:9575/api/account/4",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -239,7 +370,7 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member",
+								"account",
 								"4"
 							]
 						}
@@ -391,6 +522,148 @@
 			]
 		},
 		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "업무 목록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BDF797106CB98FEDD6D044D903C35B4D",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/task",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "하위 업무 목록",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "BDF797106CB98FEDD6D044D903C35B4D",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/task/0",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"task",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "업무 등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/task",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "업무 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/task",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "업무 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/task/4",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"task",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Law",
 			"item": [
 				{
@@ -434,7 +707,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:9575/api/account/swjang12",
+							"raw": "http://127.0.0.1:9575/api/account/swjang128@gmail.com",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -446,7 +719,40 @@
 							"path": [
 								"api",
 								"account",
-								"swjang12"
+								"swjang128@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 초기화",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"swjang128@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9575/api/account/resetPassword",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"account",
+								"resetPassword"
 							]
 						}
 					},

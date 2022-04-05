@@ -1,7 +1,7 @@
 /*********************
 * 엔터키 입력 이벤트 *
 **********************/
-function enter() {
+function enterResetPassword() {
 	if (window.event.keyCode == 13) {		
 		resetPassword();
 	}
@@ -18,15 +18,14 @@ function resetPassword() {
 		email: $('#reset-email').val()
 		});
 		
-	// Front-End Validation
+	// 이메일 입력 체크
 	if (!$('#reset-email').val()) {
 		$('#reset-email-feedback').text('가입하신 이메일을 입력해주세요!');
 		$('#reset-email').focus();
 		return;
 	}
 
-	// 로그인 컨트롤러 호출
-	// 직원 등록/수정 처리
+	// 비밀번호 초기화 api 호출
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
 		url: url,
@@ -36,14 +35,14 @@ function resetPassword() {
 		timeout: 60000,
 		success: function(result) {
 			if (result.status == 200) {
+				alert($('#reset-email').val()+'계정으로 초기화 비밀번호를 보내드렸습니다. 이메일을 확인해주세요');
 				location.replace('');				
-				alert('등록한 계정의 이메일로 임시 비밀번호를 전송하였습니다.');
 			} else {
 				$('#reset-email-feedback').text(result.message);
 			}
 		},
 		error: function() {
-			alert('서버와의 통신에 실패했습니다.');
+			$('#reset-email-feedback').text(result.message);
 		}	
 	});
 }

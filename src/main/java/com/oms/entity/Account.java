@@ -57,6 +57,12 @@ public class Account {
 	@Column(length=64, nullable=false, unique=true)
     private String email;								// 이메일
 	
+	@Column(length=128, updatable=false)
+	private String address;							// 주소
+	
+	@Column(length=128, updatable=false)
+	private String addressDetail;				// 상세주소
+	
 	@Column(length=64, insertable=true)
 	private String password;							// 비밀번호
 	

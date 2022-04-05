@@ -139,7 +139,7 @@ public class AccountAPI {
 		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
 		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
 		
-		// 관리자 등록
+		// 직원 등록
 		log.info("**** {}", accountDTO.getBirthday());
 		status = accountService.create(accountDTO);
 		if (status == ResponseCode.Status.CREATED) {			
