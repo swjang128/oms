@@ -27,7 +27,7 @@
 						<div class="mb-4">
 							<label class="form-label" for="email">계정(이메일)</label>
 							<input type="email" class="form-control form-control-lg" name="email" id="email" tabindex="0" placeholder="이메일을 입력하세요" aria-label="email@address.com" required>
-							<span class="invalid-feedback" id="login-email-feedback"></span>							
+							<span class="text-cap text-danger" id="login-email-feedback"></span>							
 						</div>
 						<div class="mb-4">
 							<label class="form-label w-100" for="password" tabindex="1">비밀번호</label>
@@ -37,20 +37,22 @@
 									data-hs-toggle-password-options=' { "target": "#changePassTarget", "defaultClass": "bi-eye-slash", "showClass": "bi-eye", "classChangeTarget": "#changePassIcon"	} '>
 								<a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;" tabindex="-1"><i id="changePassIcon" class="bi-eye"></i></a>
 							</div>
-							<span class="invalid-feedback" id="login-password-feedback"></span>
+							<span class="text-cap text-danger" id="login-password-feedback"></span>
 						</div>
 						<!-- End 입력폼 -->
 
 						<!-- Remember-Me -->
-						<div class="mb-4">
+						<div class="mb-4">							
 							<label class="row form-check form-switch" for="remember-me">
-								<span class="col-12 col-sm-12 text-end">								
+								<span class="col-12 col-sm-12 text-end">
 									<span class="text-muted mb-1" id="remember-me-message">아이디 저장</span>
 									<input type="checkbox" onClick="rememberMeCheck()" class="form-check-input" id="remember-me" name="remember-me">									
 				                </span>
 							</label>
+							<span class="text-cap text-danger" id="login-result-feedback">{{message}}</span>
 						</div>
 						<!-- End Remember-Me -->
+						
 						<!-- 로그인 버튼 -->
 						<div class="d-grid mb-1">
 							<button type="submit" class="btn btn-primary btn-lg" tabindex="2">로그인</button>

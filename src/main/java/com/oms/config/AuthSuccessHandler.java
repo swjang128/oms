@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,10 +48,16 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		// Member 객체 생성
 		Account member = memberRepository.findByEmail(authentication.getName())
 				.orElseThrow(() -> new UsernameNotFoundException("존재하지 않은 계정입니다." + authentication.getName()));
-		// 로그인한 계정의 상태가 ACTIVE가 아니면 계정이 잠겼다고 LockedException 예외 throw
-		if (!"ACTIVE".equals(member.getStatus().getKey())) {
-			log.info("member 상태: {}", member.getStatus().getKey());
-			throw new LockedException("");
+		// 로그인한 계정의 상태가 BLOCKED면 LockedException 예외 throw
+		switch(member.getStatus().getKey()) {
+			case "BLOCKED" -> {
+				log.info("member 상태: {}", member.getStatus().getKey());
+				throw new LockedException("계정이 정지 상태입니다");
+			}
+			case "EXPIRED" -> {
+				log.info("member 상태: {}", member.getStatus().getKey());
+				throw new AccountExpiredException("계정이 만료 상태입니다");
+			}
 		}
 		
 		// 로그인하면 현재 시간으로 lastLogin 시간 변경

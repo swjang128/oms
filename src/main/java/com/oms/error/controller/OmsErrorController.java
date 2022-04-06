@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class CapiasErrorController implements ErrorController{
+public class OmsErrorController implements ErrorController{
 	/**
 	 * 에러 발생시 처리하는 컨트롤러 
 	 * @param request

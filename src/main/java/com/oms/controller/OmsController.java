@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oms.config.CommonUtil;
 
@@ -28,12 +29,22 @@ public class OmsController {
 	 * @return
 	 */
 	@GetMapping("")
-  	public String main(Model model) {
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
+  	public String main(Model model, @RequestParam(value="result", required=false) String result) {
+		String message = "";
+		log.info("**** result: {}", result);
+		if (result != null) {
+			switch(result) {
+				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요.";
+				case "accountExpired" -> message = "만료된 계정입니다.";
+				case "credentialsExpired" -> message = "비밀번호가 만료되었습니다. 재설정 해주세요.";
+				case "disabled" -> message = "휴면 계정입니다.";
+				case "locked" -> message = "계정이 잠겨있습니다.";
+				default -> message = "로그인 중 에러가 발생하였습니다.";
+			}
+		}
+		
+		log.info("**** message: {}", message);
+		model.addAttribute("message", message);
 		
   		return "login";
   	}

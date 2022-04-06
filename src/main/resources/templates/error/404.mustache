@@ -1,36 +1,42 @@
-<!-- Header -->
-{{>error/layout/header}}
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- 404 Error Text -->
-                    <div class="text-center">
-                        <div class="error mx-auto" data-text="404">404</div>
-                        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-                        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-                        <a class="collapse-item" href="/admin/dashboard">&larr; Back to Main</a>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-
-<!-- Footer -->
-{{>error/layout/footer}}
+<!-- ========== HEADER ========== -->
+{{>error/header}}
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+	<!-- Content -->
+	<div class="container">
+		<a class="position-absolute top-0 start-0 end-0 py-4" href="/">
+			<img class="avatar avatar-xl avatar-4x3 avatar-centered" src="/img/oms_logo.png" alt="Image Description" data-hs-theme-appearance="default">
+			<img class="avatar avatar-xl avatar-4x3 avatar-centered" src="/img/oms_logo.png" alt="Image Description" data-hs-theme-appearance="dark">
+		</a>
+		<div class="footer-height-offset d-flex justify-content-center align-items-center flex-column">
+			<div class="row justify-content-center align-items-sm-center w-100">
+				<div class="col-9 col-sm-6 col-lg-4">
+					<div class="text-center text-sm-end me-sm-4 mb-5 mb-sm-0">
+						<img class="img-fluid" src="/svg/illustrations/oc-thinking.svg" alt="Image Description" data-hs-theme-appearance="default">
+						<img class="img-fluid" src="/svg/illustrations-light/oc-thinking.svg" alt="Image Description" data-hs-theme-appearance="dark">
+					</div>
+				</div>
+				<!-- End Col -->
+				<div class="col-sm-6 col-lg-4 text-center text-sm-start">
+					<h1 class="display-1 mb-0">404</h1>
+					<p class="lead">요청하신 페이지를 찾을 수 없습니다</p>
+					<a class="btn btn-primary" href="/">메인 페이지로 돌아가기</a>
+				</div>
+				<!-- End Col -->
+			</div>
+			<!-- End Row -->
+		</div>
+	</div>
+	<!-- End Content -->
+	<!-- Footer -->
+	<div class="footer text-center">
+		<ul class="list-inline list-separator">
+			<li class="list-inline-item"><a class="list-separator-link" href="#">OMS Support</a></li>
+			<li class="list-inline-item"><a class="list-separator-link" href="#">OMS Status</a></li>
+			<li class="list-inline-item"><a class="list-separator-link" href="#">Get Help</a></li>
+		</ul>
+	</div>
+	<!-- End Footer -->
+</main>
+<!-- ========== FOOTER ========== -->
+{{>error/footer}}
