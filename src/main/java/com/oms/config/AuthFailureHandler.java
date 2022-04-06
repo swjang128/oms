@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 로그인 실패 핸들러
  * 
- * @author capias.J
+ * @author sw.jang
  *
  */
 @RequiredArgsConstructor

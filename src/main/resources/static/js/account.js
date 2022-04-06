@@ -469,9 +469,9 @@ function hireDateCheck() {
 	return hireDate;
 }
 
-/**************
-*  등록 / 수정 *
-***************/
+/************
+*  직원 등록 *
+*************/
 function createAccount() {
 	// 이름 검증 (필수)
 	var name = nameCheck();
