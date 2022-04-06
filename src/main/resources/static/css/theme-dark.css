@@ -4,6 +4,11 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
+  @font-face {
+	font-family: 'notoSansKR';
+	src: url('/fonts/NotoSansKR-Regular.woff') format('woff');
+}
 :root {
   --bs-blue: #377dff;
   --bs-indigo: #6610f2;
@@ -57,7 +62,7 @@
     rgba(255, 255, 255, 0.15),
     rgba(255, 255, 255, 0)
   );
-  --bs-body-font-family: Inter, sans-serif;
+  --bs-body-font-family: notoSansKR, Inter, sans-serif;
   --bs-body-font-size: 0.875rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
