@@ -391,6 +391,35 @@ function passwordCheck() {
 	}
 }
 
+/*********************
+* 비밀번호 확인 검증 *
+**********************/
+function passwordConfirmCheck() {
+	var password = $('#account-password').val();
+	var passwordConfirm = $('#account-password-confirm').val();
+	// passwordConfirm 값이 비어있을 때
+	if (!passwordConfirm) {
+		$('#label-password-confirm').removeClass('text-success');
+		$('#label-password-confirm').addClass('text-danger');
+		$('#label-password-confirm').html('<i class="bi-exclamation-triangle me-1"></i> 비밀번호 확인을 입력하세요');
+		$('#account-password-confirm').focus();
+		return;
+	}
+	// password와 passwordConfirm의 값이 다를 때
+	if (password != passwordConfirm) {
+		$('#label-password-confirm').removeClass('text-success');
+		$('#label-password-confirm').addClass('text-danger');
+		$('#label-password-confirm').html('<i class="bi-exclamation-triangle me-1"></i> 동일한 비밀번호를 입력하세요');
+		$('#account-password-confirm').focus();
+		return;
+	} else {
+		$('#label-password-confirm').removeClass('text-danger');
+		$('#label-password-confirm').addClass('text-success');
+		$('#label-password-confirm').html('<i class="bi-check-lg me-1"></i> 비밀번호 확인');
+		return passwordConfirm;
+	}
+}
+
 /**************************
 *  기본 비밀번호 사용 여부 *
 ***************************/
@@ -472,7 +501,7 @@ function createAccount() {
 		return;	
 	}
 	// 비상연락처 검증 (선택)
-	emergencyContactCheck();
+	var emergencyContact = emergencyContactCheck();
 	// 직급 검증 (필수)
 	var position = positionCheck();
 	if (!position) {
@@ -489,7 +518,7 @@ function createAccount() {
 		return;
 	}
 	// 상세주소 검증 (선택)
-	addressDetailCheck();
+	var addressDetail = addressDetailCheck();
 	// 권한 검증 (필수)	
 	var role = roleCheck();
 	if (!role) {		
@@ -506,9 +535,9 @@ function createAccount() {
 		}
 	}
 	// 생일 검증 (선택)
-	birthdayCheck();
+	var birthday = birthdayCheck();
 	// 입사일 검증 (선택)
-	hireDateCheck();
+	var hireDate = hireDateCheck();
 
 	// 입력받은 모든 정보를 accountData(payload)에 추가
 	var accountData = JSON.stringify({
