@@ -76,23 +76,28 @@ public class AccountAPI {
 	 */
 	@ResponseBody
 	@PostMapping("account/resetPassword")
-	public Map<String, Object> resetPassword(@RequestBody AccountDTO memberDTO) {
+	public Map<String, Object> resetPassword(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = "존재하지 않거나 잘못된 메일 형식입니다.";
 		
-		status = accountService.resetPassword(memberDTO);
+		// 비밀번호 초기화
+		resultMap = accountService.resetPassword(accountDTO, resultMap);
 		
-		log.info("status: {}", status);
+		return resultMap;
+	}
+	
+	/**
+	 * 비밀번호 변경
+	 */
+	@ResponseBody
+	@PostMapping("account/changePassword")
+	public Map<String, Object> changePassword(@RequestBody AccountDTO accountDTO) {
+		// 기본 변수 선언
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		if (status == ResponseCode.Status.OK) {
-			message = ResponseCode.Message.OK;
-		}
-
-		resultMap.put("status", status);
-		resultMap.put("message", message);
-
+		// 비밀번호 변경
+		resultMap = accountService.changePassword(accountDTO, resultMap);
+		log.info("****** resultMap: {}", resultMap);
 		return resultMap;
 	}
 	

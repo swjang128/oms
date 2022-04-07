@@ -1,6 +1,7 @@
 package com.oms.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.oms.config.AccountRole;
 import com.oms.config.AccountStatus;
 import com.oms.config.ResponseCode;
+import com.oms.config.ResponseCode.Status;
 import com.oms.dto.MailDTO;
 import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
@@ -139,7 +141,6 @@ public class AccountService {
 		
 		return result;
 	}
-	
 
 	/**
 	 * 비밀번호 초기화
@@ -147,46 +148,59 @@ public class AccountService {
 	 * @param accountDTO
 	 * @return
 	 */
-	public Integer resetPassword(AccountDTO accountDTO) {
+	public Map<String, Object> resetPassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
 		// 기본 변수 선언
-		int result = 500;
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
 		String email = accountDTO.getEmail();
 		// 임시 비밀번호 생성
 		String tempPassword = getTempPassword();
 		// account 객체 선언
 		Account account = null;
 		
-		// 임시 비밀번호 발송 내용 설정 및 메일 발송 처리
+		// 계정이 존재하는지 확인
 		try {
-			// 존재하는 이메일인지 확인
 			account = accountRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: "+email));
+		} catch (Exception e) {	// 계정이 존재하지 않는 경우
+			e.printStackTrace();
+			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
+			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
+			resultMap.put("status",  status);
+			resultMap.put("message",  message);
+			return resultMap;
+		}
+		
+		// 임시 비밀번호 메일 발송
+		try {
 			// 이메일로 임시 비밀번호를 발송할 내용 설정
 			MailDTO mailDTO = setMail(email, tempPassword);
 			// 임시 비밀번호 메일 발송
-			sendMail(mailDTO);
-			log.info(email+"로 임시 비밀번호를 발송했습니다.");
+			sendMail(mailDTO);			
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.info("임시 비밀번호 발송 실패");
-			
-			return result;
+			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
+			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			resultMap.put("status",  status);
+			resultMap.put("message",  message);
+			return resultMap;
 		}
 		
 		// 해당 사용자의 비밀번호를 임시 비밀번호로 변경
 		try {
-			// 이메일 정보를 담은 Entity 값을 DTO에 set
 			accountDTO.setId(account.getId());
 			accountDTO.setPassword(encoder.encode(tempPassword));
 			accountDTO.setFailCount(0);
-			accountDTO.setStatus(AccountStatus.ACTIVE);
-			// 비밀번호 초기화 (DTO -> Entity)
+			accountDTO.setStatus(AccountStatus.EXPIRED);
 			accountRepository.save(accountDTO.toEntity());
-			result = 200;
 		} catch (Exception e) {
 			e.printStackTrace();
+			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
+			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
 		}
 		
-		return result;
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		return resultMap;
 	}
 	
 	/**
@@ -248,8 +262,74 @@ public class AccountService {
 		simpleMailMessage.setSubject(mailDTO.getTitle());
 		simpleMailMessage.setText(mailDTO.getMessage());
 		
-		log.info("************** result: {}", simpleMailMessage);
-		
 		javaMailSender.send(simpleMailMessage);
 	}
+	
+	/**
+	 * 비밀번호 변경
+	 * @param accountDTO
+	 * @return status
+	 */
+	public Map<String, Object> changePassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
+		// 기본 변수 선언
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		String email = accountDTO.getEmail();
+		String password = encoder.encode(accountDTO.getPassword());
+		String oldPassword = accountDTO.getOldPassword();
+		Account account = null;
+
+		// 계정의 유무 확인
+		try {
+			account = accountRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다. email: "+email));	
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
+			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+		
+		// 계정의 상태가 BLOCKED인 경우 비밀번호 변경이 불가능
+		if (account.getStatus() == AccountStatus.BLOCKED) {
+			status = ResponseCode.Status.ACCOUNT_BLOCKED;
+			message = ResponseCode.Message.ACCOUNT_BLOCKED;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+		
+		// 기존 비밀번호 확인
+		if (encoder.matches(oldPassword, account.getPassword())) {		
+			// 해당 사용자의 비밀번호를 신규 비밀번호로 변경
+			try {
+				// 이메일 정보를 담은 Entity 값을 DTO에 set
+				accountDTO.setId(account.getId());
+				accountDTO.setPassword(password);
+				accountDTO.setFailCount(0);
+				accountDTO.setStatus(AccountStatus.ACTIVE);
+				// 비밀번호 초기화 (DTO -> Entity)
+				accountRepository.save(accountDTO.toEntity());
+			} catch (Exception e) {
+				e.printStackTrace();
+				status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
+				message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+				resultMap.put("status", status);
+				resultMap.put("message", message);
+				return resultMap;
+			}
+			resultMap.put("status",  status);
+			resultMap.put("message", message);
+			return resultMap;
+		} else {
+			status = ResponseCode.Status.ACCOUNT_OLD_PASSWORD_NOT_MATCH;
+			message = ResponseCode.Message.ACCOUNT_OLD_PASSWORD_NOT_MATCH;
+			resultMap.put("status",  status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+		
+	}
 }
+

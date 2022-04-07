@@ -87,16 +87,16 @@ public class ExceptionManager {
 	public String authenticationExceptionHandler(AuthenticationException exception) {
 		String result = "error";
 
-		if (exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
-			result = "notFoundOrBadCredentials";
+		if (exception instanceof LockedException) {
+			result = "blocked";
         } else if (exception instanceof AccountExpiredException) {
         	result = "accountExpired";
         } else if (exception instanceof CredentialsExpiredException) {
         	result = "accountExpired";
         } else if (exception instanceof DisabledException) {
         	result = "disabled";
-        } else if (exception instanceof LockedException) {
-        	result = "locked";
+        } else if (exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
+        	result = "notFoundOrBadCredentials";
         }
 		
 		return result;

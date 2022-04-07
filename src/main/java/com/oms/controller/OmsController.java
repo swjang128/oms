@@ -34,12 +34,12 @@ public class OmsController {
 		log.info("**** result: {}", result);
 		if (result != null) {
 			switch(result) {
-				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요.";
-				case "accountExpired" -> message = "만료된 계정입니다.";
-				case "credentialsExpired" -> message = "비밀번호가 만료되었습니다. 재설정 해주세요.";
-				case "disabled" -> message = "휴면 계정입니다.";
-				case "locked" -> message = "계정이 잠겨있습니다.";
-				default -> message = "로그인 중 에러가 발생하였습니다.";
+				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요";
+				case "accountExpired" -> message = "만료된 계정입니다. 비밀번호를 변경해주세요";
+				case "credentialsExpired" -> message = "만료된 계정입니다. 비밀번호를 변경해주세요";
+				case "disabled" -> message = "휴면 계정입니다";
+				case "blocked" -> message = "계정이 잠겨있습니다. 비밀번호를 초기화해주세요";
+				default -> message = "로그인 중 에러가 발생하였습니다";
 			}
 		}
 		

@@ -1,185 +1,169 @@
 <!-- ========== HEADER ========== -->
 {{>common/header}}
 <!-- ========== CONTENT ========== -->
-	<main id="content" role="main" class="main">
-		<!-- Content -->
-		<div class="content container-fluid">
-			<!-- Page Header -->
-			<div class="page-header">
-				<div class="row align-items-end">
-					<!-- Bread Crumb -->
-					<div class="col-sm mb-2 mb-sm-0">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb breadcrumb-no-gutter">
-								<li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">공통</a></li>
-								<li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">업무관리</a></li>
-								<li class="breadcrumb-item active" aria-current="page">전체목록</li>
-							</ol>
-						</nav>
-						<!-- <h1 class="page-header-title">프로젝트(전체)</h1> -->
-					</div>
-					<!-- End Bread Crumb -->
-					<!-- 신규 프로젝트 -->
-					<div class="col-sm-auto">
-						<a class="btn btn-primary" href="javascript:;" data-bs-toggle="modal" data-bs-target="#newProjectModal"> 
-							<i class="bi-plus me-1"></i>신규 프로젝트
-						</a>
-					</div>
-					<!-- End신규 프로젝트 -->					
+<main id="content" role="main" class="main">
+	<!-- Content -->
+	<div class="content container-fluid">
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row align-items-end">
+				<!-- Bread Crumb -->
+				<div class="col-sm mb-2 mb-sm-0">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb breadcrumb-no-gutter">
+							<li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">공통</a></li>
+							<li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">업무관리</a></li>
+							<li class="breadcrumb-item active" aria-current="page">전체목록</li>
+						</ol>
+					</nav>
+					<!-- <h1 class="page-header-title">프로젝트(전체)</h1> -->
 				</div>
-				<!-- End Row -->
-
-				<!-- Nav -->
-				<ul class="nav nav-tabs page-header-tabs">
-					<li class="nav-item"><a class="nav-link active"	 href="./projects.html">전체 <span class="badge bg-soft-dark text-dark ms-1">24</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="./projects.html">경영 <span class="badge bg-soft-dark text-dark ms-1">7</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="./projects.html">영업 <span class="badge bg-soft-dark text-dark ms-1">4</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="./projects.html">총무 <span class="badge bg-soft-dark text-dark ms-1">8</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="./projects.html">인사 <span class="badge bg-soft-dark text-dark ms-1">2</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="./projects.html">매장 <span class="badge bg-soft-dark text-dark ms-1">3</span></a></li>
-					<!-- <li class="nav-item"><a class="nav-link" href="./projects-timeline.html"> Timeline </a></li> -->
-				</ul>
-				<!-- End Nav -->
+				<!-- End Bread Crumb -->
+				<!-- 신규 프로젝트 -->
+				<div class="col-sm-auto">
+					<a class="btn btn-primary" href="javascript:;" data-bs-toggle="modal" data-bs-target="#newProjectModal"> <i class="bi-plus me-1"></i>신규 프로젝트
+					</a>
+				</div>
+				<!-- End신규 프로젝트 -->
 			</div>
-			<!-- End Page Header -->
-
-			<!-- Card -->
-			<div class="card mb-3 mb-lg-5">
-				<!-- Body -->
-				<div class="card-body">
-					<div class="d-flex align-items-md-center">
-						<div class="flex-shrink-0">
-							<span class="display-3 text-dark">24</span>
-						</div>
-
-						<div class="flex-grow-1 ms-3">
-							<div class="row mx-md-n3">
-								<div class="col-md px-md-4">
-									<span class="d-block">개의 프로젝트</span>
-									<span class="badge bg-soft-danger text-danger rounded-pill p-1">
-										<i class="bi-graph-down"></i>-2일 남음
-									</span>
-								</div>
-								<!-- End Col -->
-
-								<div class="col-md-9 col-lg-10 column-md-divider px-md-4">
-									<!-- 요약 -->
-									<div class="row justify-content-start mb-2">
-										<div class="col-auto">
-											<span class="legend-indicator bg-warning"></span>준비 (6)
-										</div>										
-										<div class="col-auto">
-											<span class="legend-indicator bg-primary"></span>진행중 (10)
-										</div>
-										<div class="col-auto">
-											<span class="legend-indicator bg-success"></span>완료 (4)
-										</div>										
-									</div>									
-									<!-- End 요약 -->
-
-									<!-- Progress -->
-									<div class="progress rounded-pill">
-										<div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>										
-										<div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-										<div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-									<!-- End Progress -->
-								</div>
-								<!-- End Col -->
+			<!-- End Row -->
+			<!-- Nav -->
+			<ul class="nav nav-tabs page-header-tabs">
+				<li class="nav-item"><a class="nav-link active" href="./projects.html">전체 <span class="badge bg-soft-dark text-dark ms-1">24</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="./projects.html">경영 <span class="badge bg-soft-dark text-dark ms-1">7</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="./projects.html">영업 <span class="badge bg-soft-dark text-dark ms-1">4</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="./projects.html">총무 <span class="badge bg-soft-dark text-dark ms-1">8</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="./projects.html">인사 <span class="badge bg-soft-dark text-dark ms-1">2</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="./projects.html">매장 <span class="badge bg-soft-dark text-dark ms-1">3</span></a></li>
+				<!-- <li class="nav-item"><a class="nav-link" href="./projects-timeline.html"> Timeline </a></li> -->
+			</ul>
+			<!-- End Nav -->
+		</div>
+		<!-- End Page Header -->
+		<!-- Card -->
+		<div class="card mb-3 mb-lg-5">
+			<!-- Body -->
+			<div class="card-body">
+				<div class="d-flex align-items-md-center">
+					<div class="flex-shrink-0">
+						<span class="display-3 text-dark">24</span>
+					</div>
+					<div class="flex-grow-1 ms-3">
+						<div class="row mx-md-n3">
+							<div class="col-md px-md-4">
+								<span class="d-block">개의 프로젝트</span> <span class="badge bg-soft-danger text-danger rounded-pill p-1"> <i class="bi-graph-down"></i>-2일 남음
+								</span>
 							</div>
-							<!-- End Row -->
+							<!-- End Col -->
+							<div class="col-md-9 col-lg-10 column-md-divider px-md-4">
+								<!-- 요약 -->
+								<div class="row justify-content-start mb-2">
+									<div class="col-auto">
+										<span class="legend-indicator bg-warning"></span>준비 (6)
+									</div>
+									<div class="col-auto">
+										<span class="legend-indicator bg-primary"></span>진행중 (10)
+									</div>
+									<div class="col-auto">
+										<span class="legend-indicator bg-success"></span>완료 (4)
+									</div>
+								</div>
+								<!-- End 요약 -->
+								<!-- Progress -->
+								<div class="progress rounded-pill">
+									<div class="progress-bar bg-warning" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<!-- End Progress -->
+							</div>
+							<!-- End Col -->
 						</div>
+						<!-- End Row -->
 					</div>
 				</div>
-				<!-- End Body -->
 			</div>
-			<!-- End Card -->
-
-			<!-- Card -->
-			<div class="card">
-				<!-- Header -->
-				<div class="card-header card-header-content-md-between">
-					<div class="mb-2 mb-md-0">
-						<form>
-							<!-- Search -->
-							<div class="input-group input-group-merge input-group-flush">
-								<div class="input-group-prepend input-group-text">
-									<i class="bi-search"></i>
-								</div>
-								<input id="datatableSearch" type="search" class="form-control" placeholder="프로젝트 검색" aria-label="Search users">
+			<!-- End Body -->
+		</div>
+		<!-- End Card -->
+		<!-- Card -->
+		<div class="card">
+			<!-- Header -->
+			<div class="card-header card-header-content-md-between">
+				<div class="mb-2 mb-md-0">
+					<form>
+						<!-- Search -->
+						<div class="input-group input-group-merge input-group-flush">
+							<div class="input-group-prepend input-group-text">
+								<i class="bi-search"></i>
 							</div>
-							<!-- End Search -->
-						</form>
+							<input id="datatableSearch" type="search" class="form-control" placeholder="프로젝트 검색" aria-label="Search users">
+						</div>
+						<!-- End Search -->
+					</form>
+				</div>
+				<div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
+					<!-- Datatable Info -->
+					<div id="datatableCounterInfo" style="display: none;">
+						<div class="d-flex align-items-center">
+							<span class="fs-5 me-3"><span id="datatableCounter">0</span>선택됨</span> <a class="btn btn-outline-danger btn-sm" href="javascript:;"> <i class="bi-trash"></i>삭제
+							</a>
+						</div>
 					</div>
-
-					<div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
-						<!-- Datatable Info -->
-						<div id="datatableCounterInfo" style="display: none;">
-							<div class="d-flex align-items-center">
-								<span class="fs-5 me-3"><span id="datatableCounter">0</span>선택됨</span>
-								<a class="btn btn-outline-danger btn-sm" href="javascript:;">	<i class="bi-trash"></i>삭제	</a>
-							</div>
+					<!-- End Datatable Info -->
+					<!-- 출력 드랍다운 -->
+					<div class="dropdown">
+						<button type="button" class="btn btn-white btn-sm dropdown-toggle w-100" id="usersExportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi-download me-2"></i>출력
+						</button>
+						<div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="usersExportDropdown">
+							<span class="dropdown-header">옵션</span> <a id="export-copy" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/illustrations/copy-icon.svg" alt="Image Description">복사</a> <a id="export-print" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/illustrations/print-icon.svg" alt="Image Description">인쇄 </a>
+							<div class="dropdown-divider"></div>
+							<span class="dropdown-header">다운로드</span> <a id="export-excel" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/brands/excel-icon.svg" alt="Image Description">Excel</a> <a id="export-csv" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/components/placeholder-csv-format.svg" alt="Image Description">CSV</a> <a id="export-pdf" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/brands/pdf-icon.svg" alt="Image Description">PDF</a>
 						</div>
-						<!-- End Datatable Info -->
-
-						<!-- 출력 드랍다운 -->
-						<div class="dropdown">
-							<button type="button" class="btn btn-white btn-sm dropdown-toggle w-100" id="usersExportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="bi-download me-2"></i>출력
-							</button>
-							<div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="usersExportDropdown"><span class="dropdown-header">옵션</span>
-								<a id="export-copy" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/illustrations/copy-icon.svg" alt="Image Description">복사</a>
-								<a id="export-print" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/illustrations/print-icon.svg" alt="Image Description">인쇄	</a>
-							<div class="dropdown-divider"></div><span class="dropdown-header">다운로드</span>
-								<a id="export-excel" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/brands/excel-icon.svg" alt="Image Description">Excel</a>
-								<a id="export-csv" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/components/placeholder-csv-format.svg" alt="Image Description">CSV</a>
-								<a id="export-pdf" class="dropdown-item" href="javascript:;"><img class="avatar avatar-xss avatar-4x3 me-2" src="/svg/brands/pdf-icon.svg" alt="Image Description">PDF</a>
-							</div>
-						</div>
-						<!-- End 출력 드랍다운 -->
-
-						<!-- 필터 드랍다운 -->
-						<div class="dropdown">
-							<button type="button" class="btn btn-white btn-sm w-100" id="usersFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="bi-filter me-1"></i>필터<span class="badge bg-soft-dark text-dark rounded-circle ms-1">2</span>
-							</button>
-							<div class="dropdown-menu dropdown-menu-sm-end dropdown-card card-dropdown-filter-centered" aria-labelledby="usersFilterDropdown" style="min-width: 22rem;">
-								<!-- Card -->
-								<div class="card">
-									<div class="card-header card-header-content-between">
-										<h5 class="card-header-title">조건</h5>										
-										<button type="button" class="btn btn-ghost-secondary btn-icon btn-sm ms-2"><i class="bi-x-lg"></i></button>
-									</div>
-									<div class="card-body">
-										<form>
-											<!-- 부서 -->
-											<div class="mb-4">
-												<small class="text-cap text-body">부서</small>
-												<div class="row">													
-													<div class="col">
-														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="all" id="usersFilterCheckAll" checked>
-															<label class="form-check-label" for="usersFilterCheckAll">전체</label>
-														</div>
+					</div>
+					<!-- End 출력 드랍다운 -->
+					<!-- 필터 드랍다운 -->
+					<div class="dropdown">
+						<button type="button" class="btn btn-white btn-sm w-100" id="usersFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi-filter me-1"></i>필터<span class="badge bg-soft-dark text-dark rounded-circle ms-1">2</span>
+						</button>
+						<div class="dropdown-menu dropdown-menu-sm-end dropdown-card card-dropdown-filter-centered" aria-labelledby="usersFilterDropdown" style="min-width: 22rem;">
+							<!-- Card -->
+							<div class="card">
+								<div class="card-header card-header-content-between">
+									<h5 class="card-header-title">조건</h5>
+									<button type="button" class="btn btn-ghost-secondary btn-icon btn-sm ms-2">
+										<i class="bi-x-lg"></i>
+									</button>
+								</div>
+								<div class="card-body">
+									<form>
+										<!-- 부서 -->
+										<div class="mb-4">
+											<small class="text-cap text-body">부서</small>
+											<div class="row">
+												<div class="col">
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox" value="all" id="usersFilterCheckAll" checked> <label class="form-check-label" for="usersFilterCheckAll">전체</label>
 													</div>
-													<div class="col">
-														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="management" id="usersFilterCheckLeader">
-															<label class="form-check-label" for="usersFilterCheckLeader">경영</label>
-														</div>
+												</div>
+												<div class="col">
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox" value="management" id="usersFilterCheckLeader"> <label class="form-check-label" for="usersFilterCheckLeader">경영</label>
 													</div>
-													<div class="col">
-														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="system" id="usersFilterCheckCrew">
-															<label class="form-check-label" for="usersFilterCheckCrew">전산</label>
-														</div>														
+												</div>
+												<div class="col">
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox" value="system" id="usersFilterCheckCrew"> <label class="form-check-label" for="usersFilterCheckCrew">전산</label>
 													</div>
 												</div>
 											</div>
-											<!-- End 부서 -->
-											<!-- 진행상황, 구성원 -->
-											<div class="row">
-<!-- 												<div class="col-sm mb-4">
+										</div>
+										<!-- End 부서 -->
+										<!-- 진행상황, 구성원 -->
+										<div class="row">
+											<!-- 												<div class="col-sm mb-4">
 													<small class="text-cap text-body">부서</small>
 													Select
 													<div class="tom-select-custom">
@@ -200,74 +184,69 @@
 														End Select
 													</div>
 												</div> -->
-												<!-- End Col -->
-												<!-- 진행상황 -->
-												<div class="col-sm mb-4">
-													<small class="text-cap text-body">진행상황</small>
-													<!-- Select -->
-													<div class="tom-select-custom">
-														<select class="js-select js-datatable-filter form-select form-select-sm" data-target-column-index="4"
-																		data-hs-tom-select-options='{
+											<!-- End Col -->
+											<!-- 진행상황 -->
+											<div class="col-sm mb-4">
+												<small class="text-cap text-body">진행상황</small>
+												<!-- Select -->
+												<div class="tom-select-custom">
+													<select class="js-select js-datatable-filter form-select form-select-sm" data-target-column-index="4" data-hs-tom-select-options='{
 																							                                      "placeholder": "Any status",
 																							                                      "searchInDropdown": false,
 																							                                      "hideSearch": true,
 																							                                      "dropdownWidth": "10rem"
 																							                                    }'>
-															<option value="all">전체</option>															
-															<option value="ready" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>준비</span>'>준비</option>
-															<option value="processing" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-primary"></span>진행중</span>'>진행중</option>
-															<option value="complete" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>완료</span>'>완료</option>
-															
-															
-														</select>
-													</div>
-													<!-- End Select -->
+														<option value="all">전체</option>
+														<option value="ready" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>준비</span>'>준비</option>
+														<option value="processing" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-primary"></span>진행중</span>'>진행중</option>
+														<option value="complete" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>완료</span>'>완료</option>
+													</select>
 												</div>
-												<!-- End 진행상황 -->
-												<!-- 구성원 -->
-												<div class="col-12 mb-4">
-													<small class="text-cap text-body">구성원</small>
-													<!-- Select -->
-													<div class="tom-select-custom">
-														<select class="js-select form-select" autocomplete="off"
-																	multiple data-hs-tom-select-options='{
+												<!-- End Select -->
+											</div>
+											<!-- End 진행상황 -->
+											<!-- 구성원 -->
+											<div class="col-12 mb-4">
+												<small class="text-cap text-body">구성원</small>
+												<!-- Select -->
+												<div class="tom-select-custom">
+													<select class="js-select form-select" autocomplete="off" multiple data-hs-tom-select-options='{
 																										                                      "singleMultiple": true,
 																										                                      "hideSelected": false,
 																										                                      "placeholder": "검색"
 																										                                    }'>
-															<option label="empty"></option>
-															<option value="AH" selected data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img10.jpg" alt="Image Description" /><span class="text-truncate">Amanda Harvey</span></span>'>Amanda Harvey</option>
-															<option value="DH" selected data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img3.jpg" alt="Image Description" /><span class="text-truncate">David Harrison</span></span>'>David Harrison</option>
-															<option value="SK" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img4.jpg" alt="Image Description" /><span class="text-truncate">Sam Kart</span></span>'> Sam Kart</option>
-															<option value="FH" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img5.jpg" alt="Image Description" /><span class="text-truncate">Finch Hoot</span></span>'>Finch Hoot</option>
-															<option value="CQ" selected data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img6.jpg" alt="Image Description" /><span class="text-truncate">Costa Quinn</span></span>'>Costa Quinn</option>
-														</select>
-													</div>
-													<!-- End Select -->
+														<option label="empty"></option>
+														<option value="AH" selected data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img10.jpg" alt="Image Description" /><span class="text-truncate">Amanda Harvey</span></span>'>Amanda Harvey</option>
+														<option value="DH" selected data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img3.jpg" alt="Image Description" /><span class="text-truncate">David Harrison</span></span>'>David Harrison</option>
+														<option value="SK" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img4.jpg" alt="Image Description" /><span class="text-truncate">Sam Kart</span></span>'>Sam Kart</option>
+														<option value="FH" data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img5.jpg" alt="Image Description" /><span class="text-truncate">Finch Hoot</span></span>'>Finch Hoot</option>
+														<option value="CQ" selected data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="/img/160x160/img6.jpg" alt="Image Description" /><span class="text-truncate">Costa Quinn</span></span>'>Costa Quinn</option>
+													</select>
 												</div>
-												<!-- End 구성원 -->
+												<!-- End Select -->
 											</div>
-											<!-- End Row -->
-											<!-- 적용 버튼 -->
-											<div class="d-grid">
-												<a class="btn btn-primary" href="javascript:;">적용</a>
-											</div>
-											<!-- End 적용 버튼 -->
-										</form>
-									</div>
+											<!-- End 구성원 -->
+										</div>
+										<!-- End Row -->
+										<!-- 적용 버튼 -->
+										<div class="d-grid">
+											<a class="btn btn-primary" href="javascript:;">적용</a>
+										</div>
+										<!-- End 적용 버튼 -->
+									</form>
 								</div>
-								<!-- End Card -->
 							</div>
+							<!-- End Card -->
 						</div>
-						<!-- End Dropdown -->
 					</div>
+					<!-- End Dropdown -->
 				</div>
-				<!-- End Header -->
-
-				<!-- 프로젝트 목록 -->
-				<div class="table-responsive datatable-custom">
-					<table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
-								data-hs-datatables-options='{
+			</div>
+			<!-- End Header -->
+			<!-- 프로젝트 목록 -->
+			<div class="table-responsive datatable-custom">
+				<table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+					data-hs-datatables-options='{
 																						  "columnDefs": [{
 																		                      "targets": [0, 2, 3, 6, 7],
 																		                      "orderable": false
@@ -282,203 +261,178 @@
 																			                "isResponsive": false,
 																			                "isShowPaging": false,
 																			                "pagination": "datatablePagination"
-																			              }'>
-						<thead class="thead-light">
-							<tr>
-								<th class="table-column-pe-0">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="datatableCheckAll">
-										<label class="form-check-label" for="datatableCheckAll"></label>
+																			              }'
+				>
+					<thead class="thead-light">
+						<tr>
+							<th class="table-column-pe-0">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="datatableCheckAll"> <label class="form-check-label" for="datatableCheckAll"></label>
+								</div>
+							</th>
+							<th class="table-column-ps-0">프로젝트</th>
+							<th>부서</th>
+							<th>PM</th>
+							<th>구성원</th>
+							<th>상태</th>
+							<th>진행업무</th>
+							<th>진행상황</th>
+							<th>개시일</th>
+							<th>마감일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="table-column-pe-0">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="usersDataCheck1"> <label class="form-check-label" for="usersDataCheck1"></label>
+								</div>
+							</td>
+							<td class="table-column-ps-0"><a class="d-flex align-items-center" href="./project.html"> <img class="avatar" src="/svg/brands/guideline-icon.svg" alt="Image Description">
+									<div class="ms-3">
+										<span class="d-block h5 text-inherit mb-0">OMS 고도화</span><span class="d-block fs-6 text-body">2분전</span>
 									</div>
-								</th>
-								<th class="table-column-ps-0">프로젝트</th>
-								<th>부서</th>
-								<th>PM</th>
-								<th>구성원</th>
-								<th>상태</th>
-								<th>진행업무</th>
-								<th>진행상황</th>
-								<th>개시일</th>
-								<th>마감일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="table-column-pe-0">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="usersDataCheck1">
-										<label class="form-check-label" for="usersDataCheck1"></label>
+							</a></td>
+							<td>전산</td>
+							<td>
+								<div class="avatar-group avatar-group-xs avatar-circle">
+									<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a>
+								</div>
+							</td>
+							<td>
+								<div class="avatar-group avatar-group-xs avatar-circle">
+									<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a> <a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="David Harrison"><img class="avatar-img" src="/img/160x160/img3.jpg" alt="Image Description"></a> <a class="avatar avatar-soft-dark" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Antony Taylor"><span class="avatar-initials">A</span></a> <a class="avatar avatar-soft-info" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sara Iwens"><span class="avatar-initials">S</span></a> <a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Finch Hoot"><img class="avatar-img" src="/img/160x160/img5.jpg" alt="Image Description"></a>
+								</div>
+							</td>
+							<td><span class="legend-indicator bg-primary"></span>진행중</td>
+							<td>
+								<div class="d-flex align-items-center">
+									120<a class="badge bg-soft-dark text-dark ms-1" href="javascript:;" data-bs-toggle="tooltip" data-bs-placement="top" title="tasks completed today">+2</a>
+								</div>
+							</td>
+							<td>
+								<div class="d-flex align-items-center">
+									<span class="fs-6 me-2">35%</span>
+									<div class="progress table-progress">
+										<div class="progress-bar bg-primary" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
-								</td>
-								<td class="table-column-ps-0">
-									<a class="d-flex align-items-center" href="./project.html"> <img class="avatar" src="/svg/brands/guideline-icon.svg" alt="Image Description">
-										<div class="ms-3"><span class="d-block h5 text-inherit mb-0">OMS 고도화</span><span class="d-block fs-6 text-body">2분전</span></div>
-									</a>
-								</td>
-								<td>전산</td>
-								<td>
-									<div class="avatar-group avatar-group-xs avatar-circle">
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a>
+								</div>
+							</td>
+							<td>2021-09-07</td>
+							<td>2022-05-15</td>
+						</tr>
+						<tr>
+							<td class="table-column-pe-0">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="usersDataCheck1"> <label class="form-check-label" for="usersDataCheck1"></label>
+								</div>
+							</td>
+							<td class="table-column-ps-0"><a class="d-flex align-items-center" href="./project.html"> <img class="avatar" src="/svg/brands/guideline-icon.svg" alt="Image Description">
+									<div class="ms-3">
+										<span class="d-block h5 text-inherit mb-0">신규 사업 준비</span><span class="d-block fs-6 text-body">10시간전</span>
 									</div>
-								</td>
-								<td>									
-									<div class="avatar-group avatar-group-xs avatar-circle">
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a>
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="David Harrison"><img class="avatar-img" src="/img/160x160/img3.jpg" alt="Image Description"></a>
-										<a class="avatar avatar-soft-dark" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Antony Taylor"><span class="avatar-initials">A</span></a>
-										<a class="avatar avatar-soft-info" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sara Iwens"><span class="avatar-initials">S</span></a>
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Finch Hoot"><img class="avatar-img"src="/img/160x160/img5.jpg" alt="Image Description"></a>
+							</a></td>
+							<td>경영</td>
+							<td>
+								<div class="avatar-group avatar-group-xs avatar-circle">
+									<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a>
+								</div>
+							</td>
+							<td>
+								<div class="avatar-group avatar-group-xs avatar-circle">
+									<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a> <a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="David Harrison"><img class="avatar-img" src="/img/160x160/img3.jpg" alt="Image Description"></a> <a class="avatar avatar-soft-dark" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Antony Taylor"><span class="avatar-initials">A</span></a> <a class="avatar avatar-soft-info" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sara Iwens"><span class="avatar-initials">S</span></a> <a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Finch Hoot"><img class="avatar-img" src="/img/160x160/img5.jpg" alt="Image Description"></a>
+								</div>
+							</td>
+							<td><span class="legend-indicator bg-primary"></span>진행중</td>
+							<td>
+								<div class="d-flex align-items-center">42</div>
+							</td>
+							<td>
+								<div class="d-flex align-items-center">
+									<span class="fs-6 me-2">78%</span>
+									<div class="progress table-progress">
+										<div class="progress-bar bg-primary" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
-								</td>
-								<td><span class="legend-indicator bg-primary"></span>진행중</td>
-								<td>
-									<div class="d-flex align-items-center">120<a class="badge bg-soft-dark text-dark ms-1" href="javascript:;" data-bs-toggle="tooltip" data-bs-placement="top" title="tasks completed today">+2</a></div>
-								</td>
-								<td>
-									<div class="d-flex align-items-center">
-										<span class="fs-6 me-2">35%</span>
-										<div class="progress table-progress">
-											<div class="progress-bar bg-primary" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</td>
-								<td>2021-09-07</td>
-								<td>2022-05-15</td>
-							</tr>
-
-							<tr>
-								<td class="table-column-pe-0">
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="usersDataCheck1">
-										<label class="form-check-label" for="usersDataCheck1"></label>
-									</div>
-								</td>
-								<td class="table-column-ps-0">
-									<a class="d-flex align-items-center" href="./project.html"> <img class="avatar" src="/svg/brands/guideline-icon.svg" alt="Image Description">
-										<div class="ms-3"><span class="d-block h5 text-inherit mb-0">신규 사업 준비</span><span class="d-block fs-6 text-body">10시간전</span></div>
-									</a>
-								</td>
-								<td>경영</td>
-								<td>
-									<div class="avatar-group avatar-group-xs avatar-circle">
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a>
-									</div>
-								</td>
-								<td>									
-									<div class="avatar-group avatar-group-xs avatar-circle">
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Ella Lauda"><img class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"></a>
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="David Harrison"><img class="avatar-img" src="/img/160x160/img3.jpg" alt="Image Description"></a>
-										<a class="avatar avatar-soft-dark" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Antony Taylor"><span class="avatar-initials">A</span></a>
-										<a class="avatar avatar-soft-info" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Sara Iwens"><span class="avatar-initials">S</span></a>
-										<a class="avatar" href="./user-profile.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Finch Hoot"><img class="avatar-img"src="/img/160x160/img5.jpg" alt="Image Description"></a>
-									</div>
-								</td>
-								<td><span class="legend-indicator bg-primary"></span>진행중</td>
-								<td>
-									<div class="d-flex align-items-center">42</div>
-								</td>
-								<td>
-									<div class="d-flex align-items-center">
-										<span class="fs-6 me-2">78%</span>
-										<div class="progress table-progress">
-											<div class="progress-bar bg-primary" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</div>
-								</td>
-								<td>2021-06-22</td>
-								<td>2022-12-10</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<!-- End Table -->
-
-				<!-- Footer -->
-				<div class="card-footer">
-					<div class="row justify-content-center justify-content-sm-between align-items-sm-center">
-						<div class="col-sm mb-2 mb-sm-0">
-							<div
-								class="d-flex justify-content-center justify-content-sm-start align-items-center">
-								<span class="me-2">페이지당:</span>
-								<div class="tom-select-custom">
-									<select id="datatableEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off"
-												data-hs-tom-select-options='{
+								</div>
+							</td>
+							<td>2021-06-22</td>
+							<td>2022-12-10</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- End Table -->
+			<!-- Footer -->
+			<div class="card-footer">
+				<div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+					<div class="col-sm mb-2 mb-sm-0">
+						<div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+							<span class="me-2">페이지당:</span>
+							<div class="tom-select-custom">
+								<select id="datatableEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
 																										"searchInDropdown": false,
                             																			"hideSearch": true
                           																				}'>
-										<option value="10">10</option>
-										<option value="25" selected>25</option>
-										<option value="50">50</option>
-									</select>
-								</div>
-								<span class="text-secondary me-2">전체:</span>
-								<!-- Pagination Quantity -->
-								<span id="datatableWithPaginationInfoTotalQty"></span>개
+									<option value="10">10</option>
+									<option value="25" selected>25</option>
+									<option value="50">50</option>
+								</select>
 							</div>
+							<span class="text-secondary me-2">전체:</span>
+							<!-- Pagination Quantity -->
+							<span id="datatableWithPaginationInfoTotalQty"></span>개
 						</div>
-						<!-- End Col -->
-						<div class="col-sm-auto">
-							<div class="d-flex justify-content-center justify-content-sm-end">
-								<!-- Pagination -->
-								<nav id="datatablePagination" aria-label="Activity pagination"></nav>
-							</div>
-						</div>
-						<!-- End Col -->
 					</div>
-					<!-- End Row -->
+					<!-- End Col -->
+					<div class="col-sm-auto">
+						<div class="d-flex justify-content-center justify-content-sm-end">
+							<!-- Pagination -->
+							<nav id="datatablePagination" aria-label="Activity pagination"></nav>
+						</div>
+					</div>
+					<!-- End Col -->
 				</div>
-				<!-- End Footer -->
+				<!-- End Row -->
 			</div>
-			<!-- End Card -->
+			<!-- End Footer -->
 		</div>
-		<!-- End Content -->
-	</main>
-	<!-- ========== END CONTENT ========== -->
-
-	<!-- ========== FOOTER ========== -->
-	<!-- Footer -->
-	<div class="footer">
-		<div class="row justify-content-between align-items-center">
-			<div class="col">
-				<p class="fs-6 mb-0">
-					&copy; OMS<span class="d-none d-sm-inline-block">2022
-						O-Atelier</span>
-				</p>
-			</div>
-			<!-- End Col -->
-
-			<div class="col-auto">
-				<div class="d-flex justify-content-end">
-					<!-- List Separator -->
-					<ul class="list-inline list-separator">
-						<li class="list-inline-item"><a class="list-separator-link"
-							href="#">FAQ</a></li>
-
-						<li class="list-inline-item"><a class="list-separator-link"
-							href="#">License</a></li>
-
-						<li class="list-inline-item">
-							<!-- Keyboard Shortcuts Toggle -->
-							<button
-								class="btn btn-ghost-secondary btn btn-icon btn-ghost-secondary rounded-circle"
-								type="button" data-bs-toggle="offcanvas"
-								data-bs-target="#offcanvasKeyboardShortcuts"
-								aria-controls="offcanvasKeyboardShortcuts">
-								<i class="bi-command"></i>
-							</button> <!-- End Keyboard Shortcuts Toggle -->
-						</li>
-					</ul>
-					<!-- End List Separator -->
-				</div>
-			</div>
-			<!-- End Col -->
-		</div>
-		<!-- End Row -->
+		<!-- End Card -->
 	</div>
-	<!-- End Footer -->
-
+	<!-- End Content -->
+</main>
+<!-- ========== END CONTENT ========== -->
+<!-- ========== FOOTER ========== -->
+<!-- Footer -->
+<div class="footer">
+	<div class="row justify-content-between align-items-center">
+		<div class="col">
+			<p class="fs-6 mb-0">
+				&copy; OMS<span class="d-none d-sm-inline-block">2022 O-Atelier</span>
+			</p>
+		</div>
+		<!-- End Col -->
+		<div class="col-auto">
+			<div class="d-flex justify-content-end">
+				<!-- List Separator -->
+				<ul class="list-inline list-separator">
+					<li class="list-inline-item"><a class="list-separator-link" href="#">FAQ</a></li>
+					<li class="list-inline-item"><a class="list-separator-link" href="#">License</a></li>
+					<li class="list-inline-item">
+						<!-- Keyboard Shortcuts Toggle -->
+						<button class="btn btn-ghost-secondary btn btn-icon btn-ghost-secondary rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasKeyboardShortcuts" aria-controls="offcanvasKeyboardShortcuts">
+							<i class="bi-command"></i>
+						</button> <!-- End Keyboard Shortcuts Toggle -->
+					</li>
+				</ul>
+				<!-- End List Separator -->
+			</div>
+		</div>
+		<!-- End Col -->
+	</div>
+	<!-- End Row -->
+</div>
+<!-- End Footer -->
 <!-- ========== PLUGIN ========== -->
 {{>project/plugin}}
-
 <!-- ========== FOOTER ========== -->
 {{>project/footer}}

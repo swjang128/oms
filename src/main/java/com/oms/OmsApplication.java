@@ -44,7 +44,7 @@ public class OmsApplication {
 			log.info("****** 계정 정보가 존재하지 않습니다. 테스트용 계정을 생성합니다.");
 			AccountDTO accountDTO = new AccountDTO();
 			Date date = new Date();
-			accountDTO.setEmail(initEmail);			
+			accountDTO.setEmail(initEmail);
 			accountDTO.setPassword(initPassword);
 			accountDTO.setName("admin");
 			accountDTO.setAddress("주소");
