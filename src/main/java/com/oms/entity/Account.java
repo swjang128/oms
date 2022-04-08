@@ -14,15 +14,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.oms.config.AccountRole;
-import com.oms.config.AccountStatus;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * 관리자
@@ -30,6 +29,7 @@ import lombok.NoArgsConstructor;
  *
  */
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -66,16 +66,20 @@ public class Account {
 	@Column(length=64, insertable=true)
 	private String password;							// 비밀번호
 	
-	@Column(length=64)
+	@Column(length=1)
 	private int failCount;								// 비밀번호 틀린 횟수
 	
 	@Column(length=8, insertable=true)
 	@Enumerated(EnumType.STRING)
-	private AccountStatus status;								// 상태
+	private Status status;								// 상태 (계정)
+	
+	@Column(length=8, insertable=true)
+	@Enumerated(EnumType.STRING)
+	private UserStatus userStatus;								// 상태 (사용자)
 	
 	@Column(length=8, insertable=true, updatable=false)
 	@Enumerated(EnumType.STRING)
-	private AccountRole role;									// 권한
+	private Role role;									// 권한
 	
 	@Column(length=16, insertable=true, updatable=false)
     private String phone;								// 연락처
@@ -94,6 +98,54 @@ public class Account {
 	@Column(updatable=false)
 	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
 	
+	/**
+	 * Account 테이블의 계정 상태(status)에 대한 정의
+	 * @author jsw
+	 *
+	 */
+	@Getter
+	@RequiredArgsConstructor
+	public enum Status {
+		ACTIVE("ACTIVE", "활성화"),
+		BLOCKED("BLOCKED", "잠김"),
+		EXPIRED("EXPIRED", "만료됨");
+		
+		private final String key;
+		private final String value;
+	}
+	
+	/**
+	 * Account 테이블의 사용자의 상태(userStatus)에 대한 정의
+	 * @author jsw
+	 *
+	 */
+	@Getter
+	@RequiredArgsConstructor
+	public enum UserStatus {
+		ONLINE("ONLINE", "온라인"),
+		OFFLINE("OFFLINE", "오프라인"),
+		AFK("AFK", "자리비움"),
+		BUSY("BUSY", "다른용무중");
+		
+		private final String key;
+		private final String value;
+	}
+	
+	/**
+	 * Account 테이블의 권한(role)에 대한 정의
+	 * @author jsw
+	 *
+	 */
+	@Getter
+	@RequiredArgsConstructor
+	public enum Role {
+		USER("ROLE_USER", "직원"),
+		MANAGER("ROLE_MANAGER", "팀장"),
+		ADMIN("ROLE_ADMIN", "관리자");
+		
+		private final String key;
+		private final String value;
+	}
 }
 
 

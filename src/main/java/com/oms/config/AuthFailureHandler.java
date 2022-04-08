@@ -1,15 +1,12 @@
 package com.oms.config;
 
 import java.io.IOException;
-import java.util.Optional;
-
-import javax.security.auth.login.AccountExpiredException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +16,6 @@ import com.oms.repository.AccountRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.utility.dispatcher.JavaDispatcher.Instance;
 
 // 참조: https://velog.io/@ewan/Spring-security-success-failure-handler
 
@@ -35,7 +31,7 @@ import net.bytebuddy.utility.dispatcher.JavaDispatcher.Instance;
 public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Autowired
 	ExceptionManager exceptionManager;	
-	private final AccountRepository memberRepository;
+	private final AccountRepository accountRepository;
 	
 	/**
 	 * 로그인 실패시 실행될 작업에 대한 메소드
@@ -46,13 +42,14 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		String email = request.getParameter("email");
 		// 로그인 실패 횟수가 5번 이상이 되면 계정을 BLOCKED 상태로 바꾸고 이외에는 로그인 실패 횟수 증가	
 		try {
-			Optional<Account> member = memberRepository.findByEmail(email);
-			int failCount = member.get().getFailCount();
+			Account account = accountRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + email));
+			int failCount = account.getFailCount();
 			if (failCount < 5) {
-				memberRepository.updateFailCount(email);
+				account.setFailCount(failCount+1);
 			} else {
-				memberRepository.updateStatus(email, AccountStatus.BLOCKED.getKey());
+				account.setStatus(Account.Status.BLOCKED);
 			}
+			accountRepository.save(account);
 		} catch (Exception e) {	// 계정이 존재하지 않을 경우
 			log.info("{}는 존재하지 않는 계정입니다.", email);
 		} finally {	// 실패 정보를 파라미터로 넘겨서 완료			

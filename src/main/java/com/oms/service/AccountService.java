@@ -13,10 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.oms.config.AccountRole;
-import com.oms.config.AccountStatus;
 import com.oms.config.ResponseCode;
-import com.oms.config.ResponseCode.Status;
 import com.oms.dto.MailDTO;
 import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
@@ -65,9 +62,10 @@ public class AccountService {
 		int status = ResponseCode.Status.OK;
 		// 임시 Role은 Admin으로 Set, Status는 Active로 Set
 		if ("admin@oms.com".equals(accountDTO.getEmail())) {
-			accountDTO.setRole(AccountRole.ADMIN);				
+			accountDTO.setRole(Account.Role.ADMIN);				
 		}
-		accountDTO.setStatus(AccountStatus.ACTIVE);
+		accountDTO.setStatus(Account.Status.ACTIVE);
+		accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
 		// 입력받아온 비밀번호는 암호화
 		accountDTO.setPassword(encoder.encode(accountDTO.getPassword()));
 		// accountDTO를 Entity로 변환
@@ -190,7 +188,7 @@ public class AccountService {
 			accountDTO.setId(account.getId());
 			accountDTO.setPassword(encoder.encode(tempPassword));
 			accountDTO.setFailCount(0);
-			accountDTO.setStatus(AccountStatus.EXPIRED);
+			accountDTO.setStatus(Account.Status.EXPIRED);
 			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -292,7 +290,7 @@ public class AccountService {
 		}
 		
 		// 계정의 상태가 BLOCKED인 경우 비밀번호 변경이 불가능
-		if (account.getStatus() == AccountStatus.BLOCKED) {
+		if (account.getStatus() == Account.Status.BLOCKED) {
 			status = ResponseCode.Status.ACCOUNT_BLOCKED;
 			message = ResponseCode.Message.ACCOUNT_BLOCKED;
 			resultMap.put("status", status);
@@ -308,7 +306,7 @@ public class AccountService {
 				accountDTO.setId(account.getId());
 				accountDTO.setPassword(password);
 				accountDTO.setFailCount(0);
-				accountDTO.setStatus(AccountStatus.ACTIVE);
+				accountDTO.setStatus(Account.Status.ACTIVE);
 				// 비밀번호 초기화 (DTO -> Entity)
 				accountRepository.save(accountDTO.toEntity());
 			} catch (Exception e) {

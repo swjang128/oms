@@ -1,22 +1,13 @@
 package com.oms.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.springframework.data.annotation.CreatedDate;
-
-import com.oms.config.AccountRole;
-import com.oms.config.AccountStatus;
-import com.oms.dto.HistoryDTO.HistoryDTOBuilder;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

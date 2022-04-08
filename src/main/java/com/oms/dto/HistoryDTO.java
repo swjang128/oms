@@ -2,10 +2,6 @@ package com.oms.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-
-import org.springframework.data.annotation.CreatedDate;
-
 import com.oms.entity.History;
 
 import lombok.AllArgsConstructor;

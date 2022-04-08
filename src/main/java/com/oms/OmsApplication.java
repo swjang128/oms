@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.oms.config.AccountRole;
-import com.oms.config.AccountStatus;
 import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
 import com.oms.repository.AccountRepository;
@@ -39,7 +37,7 @@ public class OmsApplication {
 	public void init() {
 		List<Account> accountList = accountRepository.findAll();
 		String initEmail = "admin@oms.com";
-		String initPassword = "1q2w3e4r";
+		String initPassword = "!Q2w3e4r";
 		if (accountList.size() == 0) {
 			log.info("****** 계정 정보가 존재하지 않습니다. 테스트용 계정을 생성합니다.");
 			AccountDTO accountDTO = new AccountDTO();
@@ -55,11 +53,16 @@ public class OmsApplication {
 			accountDTO.setEmergencyContact("01000000000");
 			accountDTO.setPhoto("");
 			accountDTO.setPosition("사원");
-			accountDTO.setStatus(AccountStatus.ACTIVE);
-			accountDTO.setRole(AccountRole.ADMIN);
+			accountDTO.setStatus(Account.Status.ACTIVE);
+			accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
+			accountDTO.setRole(Account.Role.ADMIN);
 			accountDTO.setDepartment("판매");
 			
 			accountService.create(accountDTO);
+		} else {
+			// 모든 계정의 상태를 OFFLINE으로 변경
+			accountRepository.updateAllUserStatus(Account.UserStatus.OFFLINE.getKey());
+			log.info("dddd");
 		}
 		
 		if (!"prod".equals(profile)) {

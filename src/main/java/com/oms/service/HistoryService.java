@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.oms.dto.HistoryDTO;
-import com.oms.dto.MenuDTO;
 import com.oms.entity.History;
-import com.oms.entity.Menu;
 import com.oms.repository.HistoryRepository;
 
 import lombok.extern.slf4j.Slf4j;

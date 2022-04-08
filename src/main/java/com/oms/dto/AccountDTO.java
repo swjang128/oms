@@ -7,9 +7,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.oms.config.AccountRole;
-import com.oms.config.AccountStatus;
 import com.oms.entity.Account;
+import com.oms.entity.Account.Role;
+import com.oms.entity.Account.Status;
+import com.oms.entity.Account.UserStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,9 +58,11 @@ public class AccountDTO {
 	
 	private int failCount;									// 비밀번호 틀린 횟수
 	
-	private AccountStatus status;									// 상태
+	private Status status;									// 상태(계정)
 	
-	private AccountRole role;										// 권한
+	private UserStatus userStatus;									// 상태(사용자)
+	
+	private Role role;										// 권한
 	
 	@NotBlank(message="연락처를 입력해주세요.")
 	@Pattern(regexp="(01[016789])(\\d{3,4})(\\d{4})",

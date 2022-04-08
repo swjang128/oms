@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.oms.entity.Department;
 import com.oms.entity.Position;
 
 public interface PositionRepository extends JpaRepository<Position, Long>{
