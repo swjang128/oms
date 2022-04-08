@@ -22,23 +22,32 @@
 					<form action="/login" method="post" encType="application/x-www-form-urlencoded">
 						<!-- 입력폼 -->
 						<div class="mb-4">
-							<label class="form-label" for="email">계정(이메일)</label> <input type="email" class="form-control form-control-lg" name="email" id="email" tabindex="0" placeholder="이메일을 입력하세요" aria-label="email@address.com" required> <span class="text-cap text-danger" id="login-email-feedback"></span>
+							<label class="form-label" for="email">계정(이메일)</label>
+							<input type="email" class="form-control form-control-lg" name="email" id="email" tabindex="0" placeholder="이메일을 입력하세요" aria-label="email@address.com" required>
 						</div>
 						<div class="mb-4">
 							<label class="form-label w-100" for="password" tabindex="1">비밀번호</label>
 							<div class="input-group input-group-merge" data-hs-validation-validate-class>
-								<input type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="8자 이상 대소문자, 숫자, 특수문자 포함" aria-label="8+ characters required" required minlength="8" data-hs-toggle-password-options=' { "target": "#changePassTarget", "defaultClass": "bi-eye-slash", "showClass": "bi-eye", "classChangeTarget": "#changePassIcon"	} '> <a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;" tabindex="-1"><i id="changePassIcon" class="bi-eye"></i></a>
+								<input type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="8자 이상 대소문자, 숫자, 특수문자 포함" aria-label="8+ characters required" required minlength="8" data-hs-toggle-password-options=' { "target": "#changePassTarget", "defaultClass": "bi-eye-slash", "showClass": "bi-eye", "classChangeTarget": "#changePassIcon"	} '>
+								<a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;" tabindex="-1">
+									<i id="changePassIcon" class="bi-eye"></i>
+								</a>
 							</div>
-							<span class="text-cap text-danger" id="login-password-feedback"></span>
 						</div>
 						<!-- End 입력폼 -->
 						<!-- Remember-Me -->
 						<div class="mb-4">
-							<label class="row form-check form-switch" for="remember-me"> <span class="col-12 col-sm-12 text-end"> <span class="text-muted mb-1" id="remember-me-message">아이디 저장</span> <input type="checkbox" onClick="rememberMeCheck()" class="form-check-input" id="remember-me" name="remember-me">
+							<label class="row form-check form-switch" for="rememberMe">
+							<span class="col-12 col-sm-12 text-end">
+								<span class="text-muted mb-1" id="rememberMeMessage">아이디 저장</span>
+								<input type="checkbox" onClick="rememberMeCheck()" class="form-check-input" id="rememberMe" name="rememberMe">
 							</span>
-							</label> <span class="text-cap text-danger" id="login-result-feedback">{{message}}</span>
-						</div>
+							</label>
+						</div>						
 						<!-- End Remember-Me -->
+						<!-- 로그인 결과 메시지 -->
+						<span class="text-cap text-danger" id="loginResultFeedback">{{message}}</span>
+						<!-- End 로그인 결과 메시지 -->
 						<!-- 로그인 버튼 -->
 						<div class="d-grid mb-1">
 							<button type="submit" class="btn btn-primary btn-lg" tabindex="2">로그인</button>
@@ -48,13 +57,13 @@
 					<!-- End Form -->
 					<!-- 추가 기능 버튼 -->
 					<div class="d-grid mb-1">
-						<button class="btn btn-success btn-lg" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#create-account-modal">신규 등록</button>
+						<button class="btn btn-success btn-lg" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#createAccountModal">신규 등록</button>
 					</div>
 					<div class="d-grid mb-1">
-						<button class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#change-password-modal">비밀번호 변경</button>
+						<button class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#changePasswordModal">비밀번호 변경</button>
 					</div>
 					<div class="d-grid mb-1">
-						<button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#reset-password-modal">비밀번호 초기화</button>
+						<button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">비밀번호 초기화</button>
 					</div>
 					<hr>
 					<div class="d-grid mb-1">

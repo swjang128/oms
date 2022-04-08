@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +36,7 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
+@DynamicUpdate
 @EqualsAndHashCode(of="id")
 @Table(name="TB_ACCOUNT")
 public class Account {
@@ -42,25 +45,25 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;									// 사번
 	
-	@Column(length=16, updatable=false)
+	@Column(length=16)
 	private String department;							// 부서
 	
-	@Column(length=16, updatable=false)
+	@Column(length=16)
 	private String position;							// 직책
 	
-	@Column(length=1024, updatable=false)
+	@Column(length=1024)
 	private String photo;								// 사진
 	
-	@Column(length=64, updatable=false)
+	@Column(length=64)
 	private String name;				 				// 이름
 
-	@Column(length=64, nullable=false, unique=true)
+	@Column(length=64, unique=true)
     private String email;								// 이메일
 	
-	@Column(length=128, updatable=false)
+	@Column(length=128)
 	private String address;							// 주소
 	
-	@Column(length=128, updatable=false)
+	@Column(length=128)
 	private String addressDetail;				// 상세주소
 	
 	@Column(length=64, insertable=true)
@@ -77,25 +80,25 @@ public class Account {
 	@Enumerated(EnumType.STRING)
 	private UserStatus userStatus;								// 상태 (사용자)
 	
-	@Column(length=8, insertable=true, updatable=false)
+	@Column(length=8, insertable=true)
 	@Enumerated(EnumType.STRING)
 	private Role role;									// 권한
 	
-	@Column(length=16, insertable=true, updatable=false)
+	@Column(length=16, insertable=true)
     private String phone;								// 연락처
 	
-	@Column(length=16, insertable=true, updatable=false)
+	@Column(length=16, insertable=true)
 	private String emergencyContact;					// 비상연락처
 	
 	@Temporal(TemporalType.DATE)
-	@Column(updatable=false)
+	@Column()
 	private Date birthday;								// 생일
 	
 	@Temporal(TemporalType.DATE)
-	@Column(insertable=true, updatable=false)
+	@Column(insertable=true)
 	private Date hireDate;								// 입사일
 	
-	@Column(updatable=false)
+	@Column()
 	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
 	
 	/**

@@ -1,0 +1,220 @@
+<!-- 직원 등록/수정 모달 -->
+<div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="createAccountTitle">직원 등록</h5>
+				<button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<!-- Body -->
+			<div class="modal-body">
+				<!-- Tab Content -->
+				<div class="tab-content" id="editUserModalTabContent">
+					<div class="tab-pane fade show active" id="profileRequired" role="tabpanel" aria-labelledby="profile-required-tab">
+						<!-- <form> -->
+						<!-- Profile Cover -->
+						<div class="profile-cover">
+							<div class="profile-cover-img-wrapper">
+								<img id="editProfileCoverImgModal" class="profile-cover-img" src="/img/1920x400/img1.jpg" alt="Image Description">
+								<!-- Custom File Cover -->
+								<div class="profile-cover-content profile-cover-uploader p-3">
+									<input type="file" class="js-file-attach profile-cover-uploader-input" id="editProfileCoverUplaoderModal" data-hs-file-attach-options='{
+                                  "textTarget": "#editProfileCoverImgModal",
+                                  "mode": "image",
+                                  "targetAttr": "src",
+                                  "allowTypes": [".png", ".jpeg", ".jpg"]
+                               }'> <label class="profile-cover-uploader-label btn btn-sm btn-white" for="editProfileCoverUplaoderModal"> <i class="bi-camera-fill"></i> <span class="d-none d-sm-inline-block ms-1">Upload header</span>
+									</label>
+								</div>
+								<!-- End Custom File Cover -->
+							</div>
+						</div>
+						<!-- End Profile Cover -->
+						<!-- Avatar -->
+						<label class="avatar avatar-xxl avatar-circle avatar-uploader profile-cover-avatar mb-5" for="editAvatarUploaderModal"> <!-- <img id="editAvatarImgModal" class="avatar-img" src="/img/160x160/img9.jpg" alt="Image Description"> --> <input type="file" class="js-file-attach avatar-uploader-input" id="editAvatarUploaderModal" data-hs-file-attach-options='{
+                              "textTarget": "#editAvatarImgModal",
+                              "mode": "image",
+                              "targetAttr": "src",
+                              "allowTypes": [".png", ".jpeg", ".jpg"]
+                           }'> <span class="avatar-uploader-trigger"> <i class="bi-pencil-fill avatar-uploader-icon shadow-sm"></i>
+						</span>
+						</label>
+						<!-- End Avatar -->
+						<!-- 이름 -->
+						<div class="row mb-4">
+							<label id="labelName" for="accountEame" class="col-sm-3 col-form-label form-label">이름</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<input type="text" onChange="nameCheck()" class="form-control" name="accountName" id="accountName" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">
+								</div>
+							</div>
+						</div>
+						<!-- End 이름 -->
+						<!-- 이메일 -->
+						<div class="row mb-4">
+							<label id="labelEmail" for="accountEmail" class="col-sm-3 col-form-label form-label">이메일</label>
+							<div class="col-sm-9">
+								<input type="email" onChange="emailCheck()" class="form-control" name="accountEmail" id="accountEmail" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">
+							</div>
+						</div>
+						<!-- End 이메일 -->
+						<!-- 연락처 -->
+						<div class="row mb-4">
+							<label id="labelPhone" for="accountPhone" class="col-sm-3 col-form-label form-label">연락처</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<input type="text" onInput="autoHyphen(this)" onChange="phoneCheck()" class="js-masked-input form-control" name="accountPhone" id="accountPhone" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                                 "template": "010-0000-0000"
+                               }'>
+								</div>
+							</div>
+						</div>
+						<!-- End 연락처 -->
+						<!-- 비상연락처 -->
+						<div class="row mb-4">
+							<label id="labelEmergencyContact" for="accountEmergencyContact" class="col-sm-3 col-form-label form-label">비상연락처<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<input type="text" onInput="autoHyphen(this)" onChange="emergencyContactCheck()" class="js-masked-input form-control" name="accountEmergencyContact" id="accountEmergencyContact" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                                 "template": "010-0000-0000"
+                               }'>
+								</div>
+							</div>
+						</div>
+						<!-- End 비상연락처 -->
+						<!-- 직급 -->
+						<div class="row mb-4">
+							<label id="labelPosition" for="accountPosition" class="col-sm-3 col-form-label form-label">직급</label>
+							<div class="col-sm-9">
+								<select onChange="positionCheck()" class="form-select" name="accountPosition" id="accountPosition">
+									<option value="">직급을 선택하세요</option>
+								</select>
+							</div>
+						</div>
+						<!-- End 직급 -->
+						<!-- 부서 -->
+						<div class="row mb-4">
+							<label id="labelDepartment" for="accountDepartment" class="col-sm-3 col-form-label form-label">부서</label>
+							<div class="col-sm-9">
+								<select onChange="departmentCheck()" class="form-select" name="accountDepartment" id="accountDepartment">
+									<option value="">부서를 선택하세요</option>
+								</select>
+							</div>
+						</div>
+						<!-- End 부서 -->
+						<!-- 주소 + 상세주소 -->
+						<div class="row mb-4">
+							<label id="labelAddress" class="col-sm-3 col-form-label form-label">주소<i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="주소 검색 선택시 주소 검색창이 열립니다"></i></label>
+							<div class="col-sm-9">
+								<input type="search" onInput="addressCheck()" onClick="searchAddress()" class="form-control" name="accountAddress" id="accountAddress" value="" placeholder="주소 검색" readonly>
+							</div>
+						</div>
+						<div class="row mb-4">
+							<label id="labelAddressDetail" for="accountAddressDetail" class="col-sm-3 col-form-label form-label">상세주소<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<input type="text" onChange="addressDetailCheck()" class="form-control" name="accountAddressDetail" id="accountAddressDetail" placeholder="상세주소는 선택항목입니다" value="">
+							</div>
+						</div>
+						<!-- End 주소 -->
+						<!-- 권한 -->
+						<div class="row mb-4">
+							<label id="labelRole" class="col-sm-3 col-form-label form-label">권한</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<label class="form-control" for="accountRoleAdmin">
+										<span class="form-check"><input type="radio" onClick="roleCheck()" class="form-check-input" name="accountRole" id="accountRoleAdmin" value="ADMIN">
+											<span class="form-check-label">관리자(Admin)</span>
+										</span>
+									</label>
+									<label class="form-control" for="accountRoleManager">
+										<span class="form-check"><input type="radio" onClick="roleCheck()" class="form-check-input" name="accountRole" id="accountRoleManager" value="MANAGER">
+											<span class="form-check-label">팀장(Manager)</span>
+										</span>
+									</label>
+									<label class="form-control" for="accountRoleUser">
+										<span class="form-check"><input type="radio" onClick="roleCheck()" class="form-check-input" name="accountRole" id="accountRoleUser" value="USER">
+											<span class="form-check-label">직원(User)</span>
+										</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<!-- End 권한 -->
+						<!-- 기본 비밀번호 사용여부 -->
+						<div class="d-grid gap-3 mb-4">
+							<label class="row form-check form-switch" for="accountDefaultPassword">
+								<span class="col-8 col-sm-9 ms-0">
+									<span class="d-block text-dark mb-1">기본 비밀번호
+										<span class="fs-12 text-muted d-none" id="spanDefaultPasswordComma">:</span>
+										<span class="fs-12 text-muted d-none" id="spanDefaultPassword">!Q2w3e4r</span>
+									</span>
+								</span>
+								<span class="col-4 col-sm-3 text-end">
+									<input type="checkbox" onClick="defaultPasswordCheck()" class="form-check-input" id="accountDefaultPassword">
+								</span>
+							</label>
+							<!-- End 기본 비밀번호 사용여부 -->
+							<!-- 비밀번호 -->
+							<div class="row mb-4" id="divPassword">
+								<label id="labelPassword" for="accountPassword" class="col-sm-3 col-form-label form-label">비밀번호</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<input type="password" onChange="passwordCheck()" class="js-toggle-password form-control" name="accountPassword" id="accountPassword" placeholder="비밀번호는 최소 8자 이상, 영어대소문자, 특수문자, 숫자를 포함" aria-label="Enter password" data-hs-toggle-password-options='{
+											"target": "#accountPasswordToggle",
+											"defaultClass": "bi-eye-slash",
+											"showClass": "bi-eye",
+											"classChangeTarget": "#accountPasswordToggleIcon" }'>
+										<a id="accountPasswordToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
+											<i id="accountPasswordToggleIcon" class="bi-eye"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- End 비밀번호 -->
+							<!-- 비밀번호 확인 -->
+							<div class="row mb-4" id="divPasswordConfirm">
+								<label id="labelPasswordConfirm" for="accountPasswordConfirm" class="col-sm-3 col-form-label form-label">비밀번호 확인</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<input type="password" onChange="passwordConfirmCheck()" class="js-toggle-password form-control" name="accountPasswordConfirm" id="accountPasswordConfirm" placeholder="비밀번호는 최소 8자 이상, 영어대소문자, 특수문자, 숫자를 포함" aria-label="Confirm password" data-hs-toggle-password-options='{
+											"target": "#accountPasswordConfirmToggle",
+											"defaultClass": "bi-eye-slash",
+											"showClass": "bi-eye",
+											"classChangeTarget": "#accountPasswordConfirmToggleIcon" }'>
+										<a id="accountPasswordConfirmToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
+											<i id="accountPasswordConfirmToggleIcon" class="bi-eye"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- End 비밀번호 확인 -->
+						</div>
+						<!-- 생일 -->
+						<div class="row mb-4">
+							<label id="labelBirthday" for="accountBirthday" class="col-sm-3 col-form-label form-label">생년월일<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<input type="date" onChange="birthdayCheck()" class="form-control" name="accountBirthday" id="accountBirthday" placeholder="생년월일을 입력하세요" aria-label="Input birthday" value="">
+							</div>
+						</div>
+						<!-- End 생일 -->
+						<!-- 입사일 -->
+						<div class="row mb-4">
+							<label id="labelHireDate" for="accountHireDate" class="col-sm-3 col-form-label form-label">입사일<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<input type="date" onChange="hireDateCheck()" class="form-control" name="accountHireDate" id="accountHireDate" placeholder="이메일을 입력하세요" aria-label="Input hire date" value="">
+							</div>
+						</div>
+						<!-- End 입사일 -->
+						<!-- 하단 버튼 -->
+						<div class="d-grid gap-2">
+							<button class="btn btn-primary" onClick="createAccount()" id="createAccountButton">등록</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+						</div>
+						<!-- End 하단 버튼 -->
+					</div>
+				</div>
+			</div>
+			<!-- End Body -->
+		</div>
+	</div>
+</div>

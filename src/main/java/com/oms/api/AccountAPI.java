@@ -47,27 +47,8 @@ public class AccountAPI {
 	public Map<String, Object> checkEmail(@PathVariable("email") String email) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;		
-		log.info("****** 전달받은 email: {}", email);
-		
 		// email이 존재하는지 확인
-		try {
-			status = accountService.checkEmail(email);
-			switch(status) {
-				case ResponseCode.Status.OK -> message = ResponseCode.Message.OK;
-				case ResponseCode.Status.ACCOUNT_DUPLICATE  -> message = ResponseCode.Message.ACCOUNT_DUPLICATE;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();			
-		}
-		
-		log.info("****** status: {}", status);
-		log.info("****** message: {}", message);
-		
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
+		resultMap = accountService.checkEmail(email, resultMap);
 		return resultMap;
 	}
 	
@@ -140,21 +121,10 @@ public class AccountAPI {
 	@PostMapping("account")
 	public Map<String, Object> create(@Valid @RequestBody AccountDTO accountDTO) {
 		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
-		
+		Map<String, Object> resultMap = new HashMap<String, Object>();		
 		// 직원 등록
-		log.info("**** {}", accountDTO.getBirthday());
-		status = accountService.create(accountDTO);
-		if (status == ResponseCode.Status.CREATED) {			
-			message = ResponseCode.Message.CREATED;	
-		}
-		
+		resultMap = accountService.create(accountDTO, resultMap);
 		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
 		return resultMap;
 	}
 	
@@ -165,28 +135,11 @@ public class AccountAPI {
 	 */
 	@DeleteMapping("account/{id}")
 	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
-		log.info("**** delete called");
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.NOT_FOUND;		
-		String message = ResponseCode.Message.NOT_FOUND;
-		
 		// 관리자 정보 삭제
-		try {
-			result = accountService.delete(param);
-			if (result > 0) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;	
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
+		resultMap = accountService.delete(param, resultMap);
+		// 결과 리턴
 		return resultMap;
 	}
 	
@@ -199,25 +152,9 @@ public class AccountAPI {
 	public Map<String, Object> update(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
-		
 		// 관리자 정보 수정
-		try {
-			result = accountService.update(accountDTO);
-			if (result == 1) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		resultMap = accountService.update(accountDTO, resultMap);
 		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
 		return resultMap;
 	}
 

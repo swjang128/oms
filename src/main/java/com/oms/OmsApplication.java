@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
@@ -26,6 +27,8 @@ public class OmsApplication {
 	AccountRepository accountRepository;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	BCryptPasswordEncoder encoder;
 
 	public static void main(String[] args) {		
 		SpringApplication.run(OmsApplication.class, args);		
@@ -43,7 +46,7 @@ public class OmsApplication {
 			AccountDTO accountDTO = new AccountDTO();
 			Date date = new Date();
 			accountDTO.setEmail(initEmail);
-			accountDTO.setPassword(initPassword);
+			accountDTO.setPassword(encoder.encode(initPassword));
 			accountDTO.setName("admin");
 			accountDTO.setAddress("주소");
 			accountDTO.setAddressDetail("상세주소");
@@ -58,11 +61,16 @@ public class OmsApplication {
 			accountDTO.setRole(Account.Role.ADMIN);
 			accountDTO.setDepartment("판매");
 			
-			accountService.create(accountDTO);
+			// 기본 계정을 등록
+			Account account = accountDTO.toEntity();
+			try {
+				accountRepository.save(account);				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			// 모든 계정의 상태를 OFFLINE으로 변경
 			accountRepository.updateAllUserStatus(Account.UserStatus.OFFLINE.getKey());
-			log.info("dddd");
 		}
 		
 		if (!"prod".equals(profile)) {

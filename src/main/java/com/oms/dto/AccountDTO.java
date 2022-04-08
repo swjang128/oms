@@ -96,6 +96,7 @@ public class AccountDTO {
 				.addressDetail(addressDetail)
 				.password(password)
 				.status(status)
+				.userStatus(userStatus)
 				.role(role)
 				.phone(phone)
 				.emergencyContact(emergencyContact)
@@ -121,6 +122,7 @@ public class AccountDTO {
 		this.password = account.getPassword();
 		this.failCount = account.getFailCount();
 		this.status = account.getStatus();
+		this.userStatus = account.getUserStatus();
 		this.role = account.getRole();
 		this.phone = account.getPhone();
 		this.emergencyContact = account.getEmergencyContact();
