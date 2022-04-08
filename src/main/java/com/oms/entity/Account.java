@@ -36,7 +36,6 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
-@DynamicUpdate
 @EqualsAndHashCode(of="id")
 @Table(name="TB_ACCOUNT")
 public class Account {
