@@ -1,5 +1,6 @@
 package com.oms.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.validation.constraints.Email;
@@ -78,6 +79,8 @@ public class AccountDTO {
 	private Date birthday;									// 생일
 	
 	private Date hireDate;									// 입사일
+	
+	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
 
 	/**
 	 * (Request) DTO -> Entity
@@ -102,6 +105,7 @@ public class AccountDTO {
 				.emergencyContact(emergencyContact)
 				.birthday(birthday)
 				.hireDate(hireDate)
+				.lastLoginTime(lastLoginTime)
 				.build();
 	}
 	
@@ -128,6 +132,7 @@ public class AccountDTO {
 		this.emergencyContact = account.getEmergencyContact();
 		this.birthday = account.getBirthday();
 		this.hireDate = account.getHireDate();
+		this.lastLoginTime = account.getLastLoginTime();
 	}
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Service;
 
+import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
 import com.oms.repository.AccountRepository;
 
@@ -30,8 +31,9 @@ public class AuthLogoutSuccessHandler implements LogoutSuccessHandler {
 		// 해당 계정의 상태를 OFFLINE으로 전환
 		try {			
 			Account account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않은 계정입니다." + authentication.getName()));
-			account.setUserStatus(Account.UserStatus.OFFLINE);
-			accountRepository.save(account);
+			AccountDTO accountDTO = new AccountDTO(account);
+			accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
+			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

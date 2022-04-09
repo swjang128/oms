@@ -27,15 +27,15 @@ import lombok.Setter;
 
 /**
  * 관리자
- * @author Capias J
+ * @author jsw
  *
  */
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
+@DynamicUpdate
 @EqualsAndHashCode(of="id")
 @Table(name="TB_ACCOUNT")
 public class Account {

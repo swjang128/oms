@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
 import com.oms.error.controller.ExceptionManager;
 import com.oms.repository.AccountRepository;
@@ -43,13 +44,15 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		// 로그인 실패 횟수가 5번 이상이 되면 계정을 BLOCKED 상태로 바꾸고 이외에는 로그인 실패 횟수 증가	
 		try {
 			Account account = accountRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + email));
+			AccountDTO accountDTO = new AccountDTO(account);
 			int failCount = account.getFailCount();
 			if (failCount < 5) {
-				account.setFailCount(failCount+1);
+				accountDTO.setFailCount(failCount+1);
 			} else {
-				account.setStatus(Account.Status.BLOCKED);
+				accountDTO.setStatus(Account.Status.BLOCKED);
 			}
-			accountRepository.save(account);
+			accountDTO.setEmail(email);
+			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {	// 계정이 존재하지 않을 경우
 			log.info("{}는 존재하지 않는 계정입니다.", email);
 		} finally {	// 실패 정보를 파라미터로 넘겨서 완료			
