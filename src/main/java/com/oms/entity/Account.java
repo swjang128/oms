@@ -14,10 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.DynamicUpdate;
-
-import com.oms.dto.AccountDTO.AccountDTOBuilder;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,7 +32,6 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
-@DynamicUpdate
 @EqualsAndHashCode(of="id")
 @Table(name="TB_ACCOUNT")
 public class Account {

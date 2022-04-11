@@ -107,8 +107,7 @@ public class AccountService {
 		// 직원 목록 조회
 		List<Account> accountList = accountRepository.findAll();
 		List<AccountDTO> result = accountList.stream().map(account -> modelMapper.map(account, AccountDTO.class))
-				.collect(Collectors.toList());
-
+																								 .collect(Collectors.toList());
 		return result;
 	}
 

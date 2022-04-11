@@ -1,5 +1,7 @@
 package com.oms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oms.config.CommonUtil;
+import com.oms.dto.AccountDTO;
+import com.oms.dto.LawDTO;
+import com.oms.service.AccountService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +27,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OmsController {
 	@Autowired
 	CommonUtil commonUtil;
+	@Autowired
+	AccountService accountService;
 	
 	/**
 	 * 메인페이지(로그인 페이지)
@@ -61,6 +68,11 @@ public class OmsController {
 		String currentLocation = commonUtil.getCurrentLocation();
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
+		
+		// 계정 목록을 model에 담기
+		List<AccountDTO> accountList = accountService.read();
+		log.info("******* account 목록: {}", accountList);
+		model.addAttribute("accountList", accountList);
 		
   		return "account";
   	}

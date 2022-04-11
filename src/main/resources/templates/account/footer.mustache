@@ -1,9 +1,7 @@
-
 <!-- JS Global Compulsory  -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
 <script src="/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
 <!-- JS Implementing Plugins -->
 <script src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside.min.js"></script>
 <script src="/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
@@ -22,16 +20,15 @@
 <script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
 <script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-
 <!-- 직원 등록/수정 모달 전용 플러그인 -->
 <script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
 <script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/js/account.js"></script>
-
+<script src="/js/create-account.js"></script>
+<script src="/js/change-password.js"></script>
+<script src="/js/update-account.js"></script>
 <!-- JS Front -->
 <script src="/js/theme.min.js"></script>
-
 <!-- JS Plugins Init. -->
 <script>
     $(document).on('ready', function () {
@@ -112,13 +109,10 @@
       });
     });
   </script>
-
 <!-- JS Plugins Init. -->
 <script>
     (function() {
       window.onload = function () {
-        
-
         // INITIALIZATION OF NAVBAR VERTICAL ASIDE
         // =======================================================
         new HSSideNav('.js-navbar-vertical-aside').init()
@@ -161,9 +155,7 @@
       }
     })()
   </script>
-
 <!-- Style Switcher JS -->
-
 <script>
 (function () {
     // STYLE SWITCHER
@@ -199,7 +191,6 @@
     })
   })()
     </script>
-
 <!-- End Style Switcher JS -->
 </body>
 </html>
