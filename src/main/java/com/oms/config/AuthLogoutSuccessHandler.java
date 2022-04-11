@@ -30,10 +30,7 @@ public class AuthLogoutSuccessHandler implements LogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		// 해당 계정의 상태를 OFFLINE으로 전환
 		try {			
-			Account account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않은 계정입니다." + authentication.getName()));
-			AccountDTO accountDTO = new AccountDTO(account);
-			accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
-			accountRepository.save(accountDTO.toEntity());
+			accountRepository.updateUserStatus(authentication.getName(), Account.UserStatus.OFFLINE.getKey());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

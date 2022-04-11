@@ -1,5 +1,6 @@
 package com.oms.repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,22 +11,86 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.oms.entity.Account;
 
-public interface AccountRepository extends JpaRepository<Account, Long>{
+public interface AccountRepository extends JpaRepository<Account, Long> {
 	/*********************** JPA Native Queries ***********************/
 	static final String UPDATE_ALL_USER_STATUS = """
-													UPDATE TB_ACCOUNT
-													SET USER_STATUS = :userStatus
-												   """;
-	
-	Optional<Account> findByEmail(String email);	// 해당 유저가 있는지 확인
-	boolean existsByEmail(String email);	// 해당 email을 가진 유저가 있는지 확인
-	
+			UPDATE TB_ACCOUNT
+			SET USER_STATUS = :userStatus
+			  """;
+	static final String UPDATE_LAST_LOGIN_TIME = """
+			UPDATE TB_ACCOUNT
+			SET LAST_LOGIN_TIME = :lastLoginTime
+			WHERE EMAIL = :email
+			  """;
+	static final String UPDATE_FAIL_COUNT = """
+			UPDATE TB_ACCOUNT
+			SET FAIL_COUNT = :failCount
+			WHERE EMAIL = :email
+			""";	
+	static final String UPDATE_STATUS = """
+			UPDATE TB_ACCOUNT
+			SET STATUS = :status
+			WHERE EMAIL = :email
+			""";
+	static final String UPDATE_USER_STATUS = """
+			UPDATE TB_ACCOUNT
+			SET USER_STATUS = :userStatus
+			WHERE EMAIL = :email
+			""";
+
 	/**
 	 * 모든 유저의 UserStatus를 변경
-	 * @param enum UserStatus
+	 * @param String UserStatus
 	 */
 	@Transactional
 	@Modifying
 	@Query(value=UPDATE_ALL_USER_STATUS, nativeQuery=true)
 	public void updateAllUserStatus(@Param("userStatus") String userStatus);
+	
+	/**
+	 * 특정 사용자의 UserStatus를 변경
+	 * @param String email
+	 * @param String userStatus
+	 */
+	@Transactional
+	@Modifying
+	@Query(value=UPDATE_USER_STATUS, nativeQuery=true)
+	public void updateUserStatus(@Param("email") String email, @Param("userStatus") String userStatus);
+	
+	/**
+	 * 사용자가 로그인하면 마지막 로그인 시간 값을 UPDATE
+	 * @param email
+	 * @param lastLoginTime
+	 * @return
+	 */
+	@Transactional
+	@Modifying
+	@Query(value=UPDATE_LAST_LOGIN_TIME, nativeQuery=true)
+	public void updateLastLogin(@Param("email") String email, @Param("lastLoginTime") LocalDateTime lastLoginTime);
+	
+	/**
+	 * FAIL_COUNT 수정
+	 * @param email
+	 * @param lastLoginTime
+	 * @return
+	 */
+	@Transactional
+	@Modifying
+	@Query(value=UPDATE_FAIL_COUNT, nativeQuery=true)
+	public void updateFailCount(@Param("email") String email, @Param("failCount") Integer failCount);
+	
+	/**
+	 * 계정을 잠금 처리
+	 * @param email
+	 * @param lastLoginTime
+	 * @return
+	 */
+	@Transactional
+	@Modifying
+	@Query(value=UPDATE_STATUS, nativeQuery=true)
+	public void updateStatus(@Param("email") String email, @Param("status") String status);
+	
+	/*********************** JPA  ***********************/
+	Optional<Account> findByEmail(String email); // 해당 유저가 있는지 확인
+	boolean existsByEmail(String email); // 해당 email을 가진 유저가 있는지 확인
 }

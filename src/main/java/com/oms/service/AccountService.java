@@ -125,11 +125,22 @@ public class AccountService {
 		String message = ResponseCode.Message.OK;
 		long id = accountDTO.getId();
 
+		// 해당 직원이 있는지 확인
+		try {
+			accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: " + id));
+			log.info("수정하는 데이터: {}", accountDTO.toEntity());
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
+			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+					
 		// 직원 정보 수정 (UPDATE)
 		try {
-			// 해당 직원이 있는지 확인
-			accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: " + id));
-			// 있으면 UPDATE 실행
+			log.info("****** accountDTO.toEntity(): {}", accountDTO.toEntity().getName());
 			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {
 			e.printStackTrace();

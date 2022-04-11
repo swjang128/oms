@@ -58,15 +58,14 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 			}
 		}
 		
-		AccountDTO accountDTO = new AccountDTO(account);
 		// lastLoginTime(현재시간), 비밀번호 틀린 횟수(0), 사용자 상태(ONLINE)으로 변경
-		accountDTO.setLastLoginTime(LocalDateTime.now());
-		accountDTO.setFailCount(0);
-		accountDTO.setUserStatus(Account.UserStatus.ONLINE);		
-		accountRepository.save(accountDTO.toEntity());
+		accountRepository.updateLastLogin(authentication.getName(), LocalDateTime.now());
+		accountRepository.updateFailCount(authentication.getName(), 0);
+		accountRepository.updateUserStatus(authentication.getName(), Account.UserStatus.ONLINE.getKey());
 		
 		// 로그인한 사용자 정보를 조회하여 세션에 담기
 		account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + authentication.getName()));
+		AccountDTO accountDTO = new AccountDTO(account);
 		session.setAttribute("id", accountDTO.getId());
 		session.setAttribute("department", accountDTO.getDepartment());
 		session.setAttribute("position", accountDTO.getPosition());
