@@ -27,7 +27,7 @@ public class AuthLogoutSuccessHandler implements LogoutSuccessHandler {
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		// 해당 계정의 상태를 OFFLINE으로 전환
-		try {			
+		try {
 			accountRepository.updateUserStatus(authentication.getName(), Account.UserStatus.OFFLINE.getKey());
 		} catch (Exception e) {
 			e.printStackTrace();

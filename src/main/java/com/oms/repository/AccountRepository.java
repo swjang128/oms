@@ -37,7 +37,14 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 			SET USER_STATUS = :userStatus
 			WHERE EMAIL = :email
 			""";
-
+	static final String UPDATE_PASSWORD = """
+			UPDATE TB_ACCOUNT
+			SET PASSWORD = :password,
+					STATUS = :status,
+					USER_STATUS = :userStatus,
+					FAIL_COUNT = :failCount
+			WHERE ID = :id
+			""";
 	/**
 	 * 모든 유저의 UserStatus를 변경
 	 * @param String UserStatus
@@ -80,7 +87,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	public void updateFailCount(@Param("email") String email, @Param("failCount") Integer failCount);
 	
 	/**
-	 * 계정을 잠금 처리
+	 * 계정의 상태 변경
 	 * @param email
 	 * @param lastLoginTime
 	 * @return
@@ -89,6 +96,17 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	@Modifying
 	@Query(value=UPDATE_STATUS, nativeQuery=true)
 	public void updateStatus(@Param("email") String email, @Param("status") String status);
+	
+	/**
+	 * 계정의 비밀번호  변경
+	 * @param email
+	 * @param lastLoginTime
+	 * @return
+	 */
+	@Transactional
+	@Modifying
+	@Query(value=UPDATE_PASSWORD, nativeQuery=true)
+	public void updatePassword(@Param("id") Long id, @Param("password") String password, @Param("failCount") Integer failCount, @Param("status") String status, @Param("userStatus") String userStatus);
 	
 	/*********************** JPA  ***********************/
 	Optional<Account> findByEmail(String email); // 해당 유저가 있는지 확인

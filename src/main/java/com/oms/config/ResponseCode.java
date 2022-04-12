@@ -19,14 +19,17 @@ public class ResponseCode {
 		public static final int DB_ERROR = 600;
 		
 		//  Custom Status
-		/* Product (2xxx) */
-		public static final int PRODUCT_NOT_FOUND = 2404; 
+		/* Common (0xxx) */
+		public static final int ERROR_ABORT = 999;
 		/* Account (1xxx) */
 		public static final int ACCOUNT_EXPIRED = 1003;
 		public static final int ACCOUNT_NOT_FOUND = 1004;
 		public static final int ACCOUNT_OLD_PASSWORD_NOT_MATCH = 1005;
 		public static final int ACCOUNT_DUPLICATE = 1009;
 		public static final int ACCOUNT_BLOCKED = 1023;
+		/* Product (2xxx) */
+		public static final int PRODUCT_NOT_FOUND = 2404; 
+		
 	}
 	
 	/* Message에 대한 정적 클래스 */
@@ -44,6 +47,8 @@ public class ResponseCode {
 		public static final String DB_ERROR = "DB Error";
 
 		// Custom Exception Message (500 에러에 주로 엮여서 사용)
+		/* Common */		
+		public static final String ERROR_ABORT = "서버에서 오류가 발생하였습니다";
 		/* Product */
 		public static final String PRODUCT_NOT_FOUND = "존재하지 않는 상품입니다";
 		/* Account */

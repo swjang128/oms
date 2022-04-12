@@ -48,8 +48,8 @@ public class HistoryAPI {
 			historyList = historyService.read();
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		}
 				
 		// RESTful API 결과를 리턴

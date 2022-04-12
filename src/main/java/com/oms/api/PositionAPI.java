@@ -48,8 +48,8 @@ public class PositionAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<PositionDTO> positionList = new ArrayList<PositionDTO>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;
+		String message = ResponseCode.Message.ERROR_ABORT;
 		int useYn = 1;
 		
 		// 직급 목록 조회
@@ -78,8 +78,8 @@ public class PositionAPI {
 	public Map<String, Object> create(@Valid @RequestBody PositionDTO positionDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 		Position result = null;
 		
 		// 직급 등록
@@ -139,8 +139,8 @@ public class PositionAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 //		Long id = payload.getId();
 		
 		// 직급 수정

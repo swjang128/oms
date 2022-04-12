@@ -61,17 +61,17 @@ public class Account {
 	@Column(length=128)
 	private String addressDetail;				// 상세주소
 	
-	@Column(length=64, insertable=true)
+	@Column(length=64, insertable=true, updatable=false)
 	private String password;							// 비밀번호
 	
-	@Column(length=1)
+	@Column(length=1, updatable=false)
 	private int failCount;								// 비밀번호 틀린 횟수
 	
 	@Column(length=8, insertable=true)
 	@Enumerated(EnumType.STRING)
 	private Status status;								// 상태 (계정)
 	
-	@Column(length=8, insertable=true)
+	@Column(length=8, insertable=true, updatable=false)
 	@Enumerated(EnumType.STRING)
 	private UserStatus userStatus;								// 상태 (사용자)
 	

@@ -48,8 +48,8 @@ public class ProductAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;
+		String message = ResponseCode.Message.ERROR_ABORT;
 		
 		// 상품 목록 조회
 		try {
@@ -77,8 +77,8 @@ public class ProductAPI {
 	public Map<String, Object> create(@Valid @RequestBody ProductDTO productDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 		Product result = null;
 		
 		// 상품 등록
@@ -138,8 +138,8 @@ public class ProductAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 //		Long id = payload.getId();
 		
 		// 상품 수정

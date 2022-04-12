@@ -48,8 +48,8 @@ public class LawAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<LawDTO> lawList = new ArrayList<LawDTO>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;
+		String message = ResponseCode.Message.ERROR_ABORT;
 		
 		// 법안 목록 조회
 		try {
@@ -77,8 +77,8 @@ public class LawAPI {
 	public Map<String, Object> create(@Valid @RequestBody LawDTO lawDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 		Law result = null;
 		
 		// 법안 등록
@@ -138,8 +138,8 @@ public class LawAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 //		Long id = payload.getId();
 		
 		// 법안 수정

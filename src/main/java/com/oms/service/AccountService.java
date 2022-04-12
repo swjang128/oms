@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.oms.config.ResponseCode;
-import com.oms.dto.MailDTO;
 import com.oms.dto.AccountDTO;
+import com.oms.dto.MailDTO;
 import com.oms.entity.Account;
 import com.oms.repository.AccountRepository;
 
@@ -57,8 +57,8 @@ public class AccountService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		} finally {
 			resultMap.put("status", status);
 			resultMap.put("message", message);
@@ -89,8 +89,8 @@ public class AccountService {
 			accountRepository.save(account);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		} finally {
 			resultMap.put("status", status);
 			resultMap.put("message", message);
@@ -107,7 +107,7 @@ public class AccountService {
 		// 직원 목록 조회
 		List<Account> accountList = accountRepository.findAll();
 		List<AccountDTO> result = accountList.stream().map(account -> modelMapper.map(account, AccountDTO.class))
-																								 .collect(Collectors.toList());
+				.collect(Collectors.toList());
 		return result;
 	}
 
@@ -123,11 +123,12 @@ public class AccountService {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		long id = accountDTO.getId();
+		Account account = null;
 
 		// 해당 직원이 있는지 확인
 		try {
-			accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: " + id));
-			log.info("수정하는 데이터: {}", accountDTO.toEntity());
+			account = accountRepository.findById(id)
+					.orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: " + id));
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
@@ -136,15 +137,16 @@ public class AccountService {
 			resultMap.put("message", message);
 			return resultMap;
 		}
-					
+
 		// 직원 정보 수정 (UPDATE)
 		try {
-			log.info("****** accountDTO.toEntity(): {}", accountDTO.toEntity().getName());
-			accountRepository.save(accountDTO.toEntity());
+			account = accountDTO.toEntity();
+			log.info("****** accountDTO.toEntity(): {}", account.getName());
+			accountRepository.save(account);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		} finally {
 			resultMap.put("status", status);
 			resultMap.put("message", message);
@@ -152,8 +154,9 @@ public class AccountService {
 		return resultMap;
 	}
 
-	/** 
+	/**
 	 * 직원 정보 삭제 (DELETE)
+	 * 
 	 * @return http 응답코드
 	 */
 	@Transactional
@@ -165,7 +168,7 @@ public class AccountService {
 
 		// 대상 계정이 존재하는지 확인
 		try {
-			for (int t=0; t<payload.size(); t++) {
+			for (int t = 0; t < payload.size(); t++) {
 				targetAccount = accountRepository.findById(payload.get(t));
 				deleteAccount[t] = targetAccount.get().getEmail();
 			}
@@ -180,13 +183,13 @@ public class AccountService {
 
 		// 모두 존재하는 것을 확인하면 계정 삭제
 		try {
-			for (int d=0; d<payload.size(); d++) {
-				accountRepository.deleteById(payload.get(d));	
+			for (int d = 0; d < payload.size(); d++) {
+				accountRepository.deleteById(payload.get(d));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		} finally {
 			resultMap.put("status", status);
 			resultMap.put("message", message);
@@ -232,8 +235,8 @@ public class AccountService {
 			sendMail(mailDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 			resultMap.put("status", status);
 			resultMap.put("message", message);
 			return resultMap;
@@ -249,8 +252,8 @@ public class AccountService {
 			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		}
 
 		resultMap.put("status", status);
@@ -336,8 +339,7 @@ public class AccountService {
 
 		// 계정의 유무 확인
 		try {
-			account = accountRepository.findByEmail(email)
-					.orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다. email: " + email));
+			account = accountRepository.findByEmail(email)	.orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다. email: " + email));
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
@@ -360,18 +362,13 @@ public class AccountService {
 		if (encoder.matches(oldPassword, account.getPassword())) {
 			// 해당 사용자의 비밀번호를 신규 비밀번호로 변경
 			try {
-				// 이메일 정보를 담은 Entity 값을 DTO에 set
-				accountDTO.setId(account.getId());
-				accountDTO.setPassword(password);
-				accountDTO.setFailCount(0);
-				accountDTO.setStatus(Account.Status.ACTIVE);
-				accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
-				// 비밀번호 초기화 (DTO -> Entity)
-				accountRepository.save(accountDTO.toEntity());
+				Long id = account.getId();
+				accountRepository.updatePassword(id, password, 0, Account.Status.ACTIVE.getKey(),
+						Account.UserStatus.OFFLINE.getKey());
 			} catch (Exception e) {
 				e.printStackTrace();
-				status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-				message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+				status = ResponseCode.Status.ERROR_ABORT;
+				message = ResponseCode.Message.ERROR_ABORT;
 			} finally {
 				resultMap.put("status", status);
 				resultMap.put("message", message);

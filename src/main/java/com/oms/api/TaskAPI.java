@@ -54,8 +54,8 @@ public class TaskAPI {
 			taskList = taskService.read();
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-			message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		}
 				
 		// RESTful API 결과를 리턴
@@ -77,8 +77,8 @@ public class TaskAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<TaskDTO> taskList = new ArrayList<TaskDTO>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;
+		String message = ResponseCode.Message.ERROR_ABORT;
 		
 		// 상위 업무 조회
 		try {
@@ -106,8 +106,8 @@ public class TaskAPI {
 	public Map<String, Object> create(@Valid @RequestBody TaskDTO taskDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 		String result = "";
 		
 		try {
@@ -169,8 +169,8 @@ public class TaskAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;		
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;		
+		String message = ResponseCode.Message.ERROR_ABORT;
 		
 		// 업무 정보 수정
 		try {

@@ -93,8 +93,8 @@ public class AccountAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<AccountDTO> accountList = new ArrayList<AccountDTO>();
-		int status = ResponseCode.Status.INTERNAL_SERVER_ERROR;
-		String message = ResponseCode.Message.INTERNAL_SERVER_ERROR;
+		int status = ResponseCode.Status.ERROR_ABORT;
+		String message = ResponseCode.Message.ERROR_ABORT;
 		
 		// 상품 목록 조회
 		try {
