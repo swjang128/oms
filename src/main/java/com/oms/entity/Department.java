@@ -1,7 +1,6 @@
 package com.oms.entity;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,11 +40,14 @@ public class Department {
 	private String name;					// 부서이름
 
 	@Column(length=1)
-	private int useYn;					// 사용여부
+	@ColumnDefault("1")
+	private Integer useYn;					// 사용여부
 
 	@Column(updatable=false)
 	@CreatedDate
-	@Temporal(TemporalType.DATE)
-	private Date registDate;			// 등록일자
+	private LocalDateTime registDate;			// 등록일자
 
+	@Column()
+	@LastModifiedDate
+	private LocalDateTime updateDate;			// 등록일자
 }

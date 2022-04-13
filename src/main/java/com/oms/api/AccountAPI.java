@@ -38,6 +38,71 @@ public class AccountAPI {
 	AccountService accountService;
 	
 	/**
+	 * 계정 목록 조회
+	 * @param model
+	 * @param request
+	 * @return 
+	 */
+	@GetMapping("account")
+	public Map<String, Object> read() {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 계정 목록 조회
+		try {
+			resultMap = accountService.read(resultMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// RESTful API 결과를 리턴
+		return resultMap;
+	}
+	
+	/**
+	 * 계정 등록 (CREATE)
+	 * @param RequestBody
+	 * @throws IOException 
+	 */
+	@PostMapping("account")
+	public Map<String, Object> create(@Valid @RequestBody AccountDTO accountDTO) {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();		
+		// 직원 등록
+		resultMap = accountService.create(accountDTO, resultMap);
+		// RESTful API 결과를 리턴
+		return resultMap;
+	}
+	
+	/**
+	 * 계정 정보 삭제 (DELETE)
+	 * @param PathVariable
+	 * @return 
+	 */
+	@DeleteMapping("account/{id}")
+	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 계정 정보 삭제
+		resultMap = accountService.delete(param, resultMap);
+		// 결과 리턴
+		return resultMap;
+	}
+	
+	/**
+	 * 계정 정보 수정 (UPDATE)
+	 * @param RequestBody
+	 * @return 
+	 */
+	@PutMapping("account")
+	public Map<String, Object> update(@RequestBody AccountDTO accountDTO) {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 계정 정보 수정
+		resultMap = accountService.update(accountDTO, resultMap);
+		// RESTful API 결과를 리턴
+		return resultMap;
+	}
+
+	/**
 	 * 이메일 중복 체크
 	 * @param email
 	 * @return
@@ -60,10 +125,8 @@ public class AccountAPI {
 	public Map<String, Object> resetPassword(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
 		// 비밀번호 초기화
 		resultMap = accountService.resetPassword(accountDTO, resultMap);
-		
 		return resultMap;
 	}
 	
@@ -75,87 +138,9 @@ public class AccountAPI {
 	public Map<String, Object> changePassword(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
 		// 비밀번호 변경
 		resultMap = accountService.changePassword(accountDTO, resultMap);
 		log.info("****** resultMap: {}", resultMap);
 		return resultMap;
 	}
-	
-	/**
-	 * 관리자 목록 조회
-	 * @param model
-	 * @param request
-	 * @return 
-	 */
-	@GetMapping("account")
-	public Map<String, Object> read() {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<AccountDTO> accountList = new ArrayList<AccountDTO>();
-		int status = ResponseCode.Status.ERROR_ABORT;
-		String message = ResponseCode.Message.ERROR_ABORT;
-		
-		// 상품 목록 조회
-		try {
-			accountList = accountService.read();
-			status = ResponseCode.Status.OK;
-			message = ResponseCode.Message.OK;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("accountList", accountList);
-		resultMap.put("message", message);
-		resultMap.put("status", status);
-		
-		return resultMap;
-	}
-	
-	/**
-	 * 관리자 등록 (CREATE)
-	 * @param RequestBody
-	 * @throws IOException 
-	 */
-	@PostMapping("account")
-	public Map<String, Object> create(@Valid @RequestBody AccountDTO accountDTO) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();		
-		// 직원 등록
-		resultMap = accountService.create(accountDTO, resultMap);
-		// RESTful API 결과를 리턴
-		return resultMap;
-	}
-	
-	/**
-	 * 관리자 정보 삭제 (DELETE)
-	 * @param PathVariable
-	 * @return 
-	 */
-	@DeleteMapping("account/{id}")
-	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		// 관리자 정보 삭제
-		resultMap = accountService.delete(param, resultMap);
-		// 결과 리턴
-		return resultMap;
-	}
-	
-	/**
-	 * 관리자 정보 수정 (UPDATE)
-	 * @param RequestBody
-	 * @return 
-	 */
-	@PutMapping("account")
-	public Map<String, Object> update(@RequestBody AccountDTO accountDTO) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		// 관리자 정보 수정
-		resultMap = accountService.update(accountDTO, resultMap);
-		// RESTful API 결과를 리턴
-		return resultMap;
-	}
-
 }

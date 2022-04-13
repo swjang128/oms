@@ -1,6 +1,8 @@
 package com.oms.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,11 +70,11 @@ public class OmsController {
 		String currentLocation = commonUtil.getCurrentLocation();
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		// 계정 목록을 model에 담기
-		List<AccountDTO> accountList = accountService.read();
-		log.info("******* account 목록: {}", accountList);
-		model.addAttribute("accountList", accountList);
+		resultMap = accountService.read(resultMap);
+		model.addAttribute("accountList", resultMap.get("accountList"));
 		
   		return "account";
   	}

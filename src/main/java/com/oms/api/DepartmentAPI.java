@@ -47,26 +47,8 @@ public class DepartmentAPI {
 	public Map<String, Object> read() {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<DepartmentDTO> departmentList = new ArrayList<DepartmentDTO>();
-		int status = ResponseCode.Status.ERROR_ABORT;
-		String message = ResponseCode.Message.ERROR_ABORT;
-		int useYn = 1;
-		
 		// 부서 목록 조회
-		try {
-			departmentList = departmentService.read(useYn);
-			status = ResponseCode.Status.OK;
-			message = ResponseCode.Message.OK;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("departmentList", departmentList);
-		resultMap.put("message", message);
-		resultMap.put("status", status);
-		
-		return resultMap;
+		return departmentService.read(2, resultMap);
 	}
 	
 	/**
@@ -78,23 +60,8 @@ public class DepartmentAPI {
 	public Map<String, Object> create(@Valid @RequestBody DepartmentDTO departmentDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.ERROR_ABORT;		
-		String message = ResponseCode.Message.ERROR_ABORT;
-		Department result = null;
-		
 		// 부서 등록
-		result = departmentService.create(departmentDTO);
-		if (result != null) {
-			status = ResponseCode.Status.CREATED;
-			message = ResponseCode.Message.CREATED;	
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("result",  result);
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
+		return departmentService.create(departmentDTO, resultMap);
 	}
 	
 	/**
@@ -104,29 +71,10 @@ public class DepartmentAPI {
 	 */
 	@DeleteMapping("department/{id}")
 	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
-		log.info("**** delete called");
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.NOT_FOUND;		
-		String message = ResponseCode.Message.NOT_FOUND;
-		
 		// 부서 삭제
-		try {
-			result = departmentService.delete(param);
-			if (result == 1) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;	
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
+		return departmentService.delete(param, resultMap);
 	}
 	
 	/**
@@ -138,28 +86,21 @@ public class DepartmentAPI {
 	public Map<String, Object> update(@Valid @RequestBody DepartmentDTO departmentDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.ERROR_ABORT;		
-		String message = ResponseCode.Message.ERROR_ABORT;
-//		Long id = payload.getId();
-		
 		// 부서 수정
-		try {
-			result = departmentService.update(departmentDTO);
-			if (result == 1) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-//		resultMap.put("id", id);
-		
-		return resultMap;
+		return departmentService.update(departmentDTO, resultMap);
 	}
 
+	/**
+	 * 사용/미사용 부서 목록 조회
+	 * @param model
+	 * @param request
+	 * @return 
+	 */
+	@GetMapping("department/{useYn}")
+	public Map<String, Object> readByUseYn(@PathVariable("useYn") Integer useYn) {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 부서 목록 조회
+		return departmentService.read(useYn, resultMap);
+	}
 }

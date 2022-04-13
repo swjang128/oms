@@ -40,40 +40,13 @@ public class AccountService {
 	private String FROM_ADDRESS;
 
 	/**
-	 * 이메일 중복 체크
-	 * 
-	 * @param email
-	 * @return Map<String, Object>
-	 */
-	public Map<String, Object> checkEmail(String email, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.ACCOUNT_EXIST;
-		String message = ResponseCode.Message.ACCOUNT_EXIST;
-
-		try {
-			Optional<Account> account = accountRepository.findByEmail(email);
-			if (!account.isPresent()) {
-				status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
-				message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
-		} finally {
-			resultMap.put("status", status);
-			resultMap.put("message", message);
-		}
-		return resultMap;
-	}
-
-	/**
 	 * 특정 계정정보 조회
 	 * 
 	 * @param accountDTO
 	 * @param account
 	 * @return
 	 */
-	public Account getAccount(AccountDTO accountDTO, Account account) {
+	public Account readAccount(AccountDTO accountDTO, Account account) {
 		account = accountRepository.findByEmail(accountDTO.getEmail()).orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다. email: " + accountDTO.getEmail()));
 		return account;
 	}
@@ -115,12 +88,40 @@ public class AccountService {
 	 * 
 	 * @return List<Account>
 	 */
-	public List<AccountDTO> read() {
+	public List<AccountDTO> readBackup() {
 		// 직원 목록 조회
 		List<Account> accountList = accountRepository.findAll();
 		List<AccountDTO> result = accountList.stream().map(account -> modelMapper.map(account, AccountDTO.class))
 				.collect(Collectors.toList());
 		return result;
+	}
+	
+	/**
+	 * 직원 목록 조회 (READ)
+	 * 
+	 * @return List<Account>
+	 */
+	public Map<String, Object> read(Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		List<Account> accounts = null;
+		List<AccountDTO> accountList = null;
+		
+		// 직원 목록 조회
+		try {
+			accounts = accountRepository.findAll();
+			accountList = accounts.stream().map(account -> modelMapper.map(account, AccountDTO.class))
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		
+		// resultMap에 담기
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("accountList", accountList);		
+		return resultMap;
 	}
 
 	/**
@@ -211,7 +212,7 @@ public class AccountService {
 	}
 
 	/**
-	 * 비밀번호 초기화 참조: https://kitty-geno.tistory.com/43
+	 * 비밀번호 초기화
 	 * 
 	 * @param accountDTO
 	 * @return
@@ -228,7 +229,7 @@ public class AccountService {
 
 		// 계정이 존재하는지 확인
 		try {
-			account = getAccount(accountDTO, account);
+			account = readAccount(accountDTO, account);
 		} catch (Exception e) { // 계정이 존재하지 않는 경우
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
@@ -282,7 +283,7 @@ public class AccountService {
 
 		// 계정의 유무 확인
 		try {
-			account = getAccount(accountDTO, account);
+			account = readAccount(accountDTO, account);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
@@ -381,5 +382,31 @@ public class AccountService {
 
 		javaMailSender.send(simpleMailMessage);
 	}
-	
+
+	/**
+	 * 이메일 중복 체크
+	 * 
+	 * @param email
+	 * @return Map<String, Object>
+	 */
+	public Map<String, Object> checkEmail(String email, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.ACCOUNT_EXIST;
+		String message = ResponseCode.Message.ACCOUNT_EXIST;
+
+		try {
+			Optional<Account> account = accountRepository.findByEmail(email);
+			if (!account.isPresent()) {
+				status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
+				message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		} finally {
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+		}
+		return resultMap;
+	}
 }

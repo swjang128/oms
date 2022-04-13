@@ -7,7 +7,7 @@ function initAccountModal() {
 		// 부서 조회 후 셀렉스박스 옵션에 append
 		$.ajax({
 			contentType: 'application/json; charset=utf-8',
-			url: '/api/department',
+			url: '/api/department/1',
 			type: 'GET',
 			cache: false,
 			datatype: 'json',

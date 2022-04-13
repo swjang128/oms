@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.oms.entity.Department;
 
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
-	List<Department> findByUseYn(int useYn);	// 사용하는 부서만 조회
+	List<Department> findByUseYn(Integer useYn);	// 사용하는 부서만 조회
 }
