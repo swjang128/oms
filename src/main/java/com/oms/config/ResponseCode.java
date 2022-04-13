@@ -25,7 +25,7 @@ public class ResponseCode {
 		public static final int ACCOUNT_EXPIRED = 1003;
 		public static final int ACCOUNT_NOT_FOUND = 1004;
 		public static final int ACCOUNT_OLD_PASSWORD_NOT_MATCH = 1005;
-		public static final int ACCOUNT_DUPLICATE = 1009;
+		public static final int ACCOUNT_EXIST = 1009;
 		public static final int ACCOUNT_BLOCKED = 1023;
 		/* Product (2xxx) */
 		public static final int PRODUCT_NOT_FOUND = 2404; 
@@ -55,7 +55,7 @@ public class ResponseCode {
 		public static final String ACCOUNT_EXPIRED = "계정이 만료되었습니다. 비밀번호 변경 또는 초기화를 해주세요";
 		public static final String ACCOUNT_NOT_FOUND = "존재하지 않는 계정입니다";
 		public static final String ACCOUNT_OLD_PASSWORD_NOT_MATCH = "기존 비밀번호가 일치하지 않습니다";
-		public static final String ACCOUNT_DUPLICATE = "이미 존재하는 계정입니다";
+		public static final String ACCOUNT_EXIST = "존재하는 계정입니다";
 		public static final String ACCOUNT_BLOCKED = "계정이 잠겨있습니다. 비밀번호 초기화 후 이용해주세요";
 		
 	}

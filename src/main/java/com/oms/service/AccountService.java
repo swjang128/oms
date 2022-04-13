@@ -46,8 +46,8 @@ public class AccountService {
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> checkEmail(String email, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.ACCOUNT_DUPLICATE;
-		String message = ResponseCode.Message.ACCOUNT_DUPLICATE;
+		int status = ResponseCode.Status.ACCOUNT_EXIST;
+		String message = ResponseCode.Message.ACCOUNT_EXIST;
 
 		try {
 			Optional<Account> account = accountRepository.findByEmail(email);
@@ -66,6 +66,18 @@ public class AccountService {
 		return resultMap;
 	}
 
+	/**
+	 * 특정 계정정보 조회
+	 * 
+	 * @param accountDTO
+	 * @param account
+	 * @return
+	 */
+	public Account getAccount(AccountDTO accountDTO, Account account) {
+		account = accountRepository.findByEmail(accountDTO.getEmail()).orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다. email: " + accountDTO.getEmail()));
+		return account;
+	}
+	
 	/**
 	 * 직원 등록
 	 * 
@@ -216,8 +228,7 @@ public class AccountService {
 
 		// 계정이 존재하는지 확인
 		try {
-			account = accountRepository.findByEmail(email)
-					.orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: " + email));
+			account = getAccount(accountDTO, account);
 		} catch (Exception e) { // 계정이 존재하지 않는 경우
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
@@ -244,18 +255,67 @@ public class AccountService {
 
 		// 해당 사용자의 비밀번호를 임시 비밀번호로 변경
 		try {
-			accountDTO.setId(account.getId());
-			accountDTO.setPassword(encoder.encode(tempPassword));
-			accountDTO.setFailCount(0);
-			accountDTO.setStatus(Account.Status.EXPIRED);
-			accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
-			accountRepository.save(accountDTO.toEntity());
+			accountRepository.updatePassword(account.getId(), encoder.encode(tempPassword), 0, Account.Status.EXPIRED.getKey(), Account.UserStatus.OFFLINE.getKey());	
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
 
+		// resultMap 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		return resultMap;
+	}
+	
+	/**
+	 * 비밀번호 변경
+	 * 
+	 * @param accountDTO
+	 * @return status
+	 */
+	public Map<String, Object> changePassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
+		// 기본 변수 선언
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		Account account = null;
+
+		// 계정의 유무 확인
+		try {
+			account = getAccount(accountDTO, account);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
+			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+
+		// 계정의 상태가 BLOCKED인 경우 비밀번호 변경이 불가능
+		if (account.getStatus() == Account.Status.BLOCKED) {
+			status = ResponseCode.Status.ACCOUNT_BLOCKED;
+			message = ResponseCode.Message.ACCOUNT_BLOCKED;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+
+		// 비밀번호 변경
+		if (encoder.matches(accountDTO.getOldPassword(), account.getPassword())) {
+			// 해당 사용자의 비밀번호를 신규 비밀번호로 변경
+			try {
+				accountRepository.updatePassword(account.getId(), encoder.encode(accountDTO.getPassword()), 0, Account.Status.ACTIVE.getKey(), Account.UserStatus.OFFLINE.getKey());	
+			} catch (Exception e) {
+				e.printStackTrace();
+				status = ResponseCode.Status.ERROR_ABORT;
+				message = ResponseCode.Message.ERROR_ABORT;
+			}
+		} else {
+			status = ResponseCode.Status.ACCOUNT_OLD_PASSWORD_NOT_MATCH;
+			message = ResponseCode.Message.ACCOUNT_OLD_PASSWORD_NOT_MATCH;
+		}
+		
 		resultMap.put("status", status);
 		resultMap.put("message", message);
 		return resultMap;
@@ -292,9 +352,9 @@ public class AccountService {
 				안녕하세요. %email 계정의 임시 비밀번호를 아래와 같이 보내드립니다.
 				임시 비밀번호로 접속하시면 비밀번호 초기화로 안내드리겠습니다.
 
-				==============================
+				==================================
 				◆ 계정의 임시 비밀번호: %tempPassword
-				==============================
+				==================================
 
 				감사합니다!
 				""".replace("%tempPassword", tempPassword).replace("%email", email);
@@ -321,65 +381,5 @@ public class AccountService {
 
 		javaMailSender.send(simpleMailMessage);
 	}
-
-	/**
-	 * 비밀번호 변경
-	 * 
-	 * @param accountDTO
-	 * @return status
-	 */
-	public Map<String, Object> changePassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
-		// 기본 변수 선언
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
-		String email = accountDTO.getEmail();
-		String password = encoder.encode(accountDTO.getPassword());
-		String oldPassword = accountDTO.getOldPassword();
-		Account account = null;
-
-		// 계정의 유무 확인
-		try {
-			account = accountRepository.findByEmail(email)	.orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다. email: " + email));
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
-			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
-			resultMap.put("status", status);
-			resultMap.put("message", message);
-			return resultMap;
-		}
-
-		// 계정의 상태가 BLOCKED인 경우 비밀번호 변경이 불가능
-		if (account.getStatus() == Account.Status.BLOCKED) {
-			status = ResponseCode.Status.ACCOUNT_BLOCKED;
-			message = ResponseCode.Message.ACCOUNT_BLOCKED;
-			resultMap.put("status", status);
-			resultMap.put("message", message);
-			return resultMap;
-		}
-
-		// 기존 비밀번호 확인
-		if (encoder.matches(oldPassword, account.getPassword())) {
-			// 해당 사용자의 비밀번호를 신규 비밀번호로 변경
-			try {
-				Long id = account.getId();
-				accountRepository.updatePassword(id, password, 0, Account.Status.ACTIVE.getKey(),
-						Account.UserStatus.OFFLINE.getKey());
-			} catch (Exception e) {
-				e.printStackTrace();
-				status = ResponseCode.Status.ERROR_ABORT;
-				message = ResponseCode.Message.ERROR_ABORT;
-			} finally {
-				resultMap.put("status", status);
-				resultMap.put("message", message);
-			}
-			return resultMap;
-		} else {
-			status = ResponseCode.Status.ACCOUNT_OLD_PASSWORD_NOT_MATCH;
-			message = ResponseCode.Message.ACCOUNT_OLD_PASSWORD_NOT_MATCH;
-			resultMap.put("status", status);
-			resultMap.put("message", message);
-			return resultMap;
-		}
-	}
+	
 }
