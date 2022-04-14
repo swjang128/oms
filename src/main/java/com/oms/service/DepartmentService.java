@@ -1,7 +1,6 @@
 package com.oms.service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,10 +16,7 @@ import com.oms.dto.DepartmentDTO;
 import com.oms.entity.Department;
 import com.oms.repository.DepartmentRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class DepartmentService {
 	@Autowired
 	ModelMapper modelMapper;
@@ -46,14 +42,13 @@ public class DepartmentService {
 				departments = departmentRepository.findByUseYn(useYn);
 			}
 			departmentList = departments.stream().map(DepartmentDTO::new).collect(Collectors.toList());
+			resultMap.put("departmentList", departmentList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
-
-		// 결과를 리턴
-		resultMap.put("departmentList", departmentList);
+		// 결과 리턴
 		resultMap.put("message", message);
 		resultMap.put("status", status);
 		return resultMap;
@@ -68,8 +63,6 @@ public class DepartmentService {
 	public Map<String, Object> create(@RequestBody DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.CREATED;
 		String message = ResponseCode.Message.CREATED;
-		Department department = null;
-		
 		// 부서 등록 (CREATE)
 		try {
 			LocalDateTime now = LocalDateTime.now();
@@ -77,16 +70,16 @@ public class DepartmentService {
 			if (departmentDTO.getUseYn() == null) {
 				departmentDTO.setUseYn(1);
 			}
-			department = departmentRepository.save(departmentDTO.toEntity());
+			departmentRepository.save(departmentDTO.toEntity());
+			resultMap.put("department", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
-		
+		// 결과 리턴
 		resultMap.put("status", status);
-		resultMap.put("message", message);
-		resultMap.put("department", department);
+		resultMap.put("message", message);		
 		return resultMap;
 	}
 
@@ -100,8 +93,6 @@ public class DepartmentService {
 	public Map<String, Object> update(@RequestBody DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		Department department = null;
-		
 		// 해당 부서가 있는지 확인
 		try {
 			departmentRepository.findById(departmentDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다. id: " + departmentDTO.getId()));	
@@ -118,20 +109,19 @@ public class DepartmentService {
 		try {
 			LocalDateTime now = LocalDateTime.now();
 			departmentDTO.setUpdateDate(now);
-			if (departmentDTO.getUseYn() == null) {
+			if (departmentDTO.getUseYn()!=0 && departmentDTO.getUseYn()!=1) {
 				departmentDTO.setUseYn(1);
 			}
-			department = departmentRepository.save(departmentDTO.toEntity());
+			departmentRepository.save(departmentDTO.toEntity());
+			resultMap.put("department", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
-		
 		// 결과 리턴
 		resultMap.put("status", status);
 		resultMap.put("message", message);
-		resultMap.put("department", department);
 		return resultMap;
 	}
 
@@ -149,13 +139,13 @@ public class DepartmentService {
 			for (int p = 0; p < param.size(); p++) {
 				departmentRepository.deleteById(param.get(p));				
 			}
-			resultMap.put("id", param);
+			resultMap.put("deleteDepartment", param);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
-		
+		// 결과 리턴
 		resultMap.put("status", status);
 		resultMap.put("message", message);
 		return resultMap;

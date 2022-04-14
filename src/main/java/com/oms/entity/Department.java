@@ -34,20 +34,20 @@ import lombok.NoArgsConstructor;
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;							// ID
+	private Long id;															// ID
 
 	@Column
-	private String name;					// 부서이름
+	private String name;													// 부서이름
 
 	@Column(length=1)
 	@ColumnDefault("1")
-	private Integer useYn;					// 사용여부
+	private Integer useYn;												// 사용여부
 
 	@Column(updatable=false)
 	@CreatedDate
-	private LocalDateTime registDate;			// 등록일자
+	private LocalDateTime registDate;							// 등록일자
 
 	@Column()
 	@LastModifiedDate
-	private LocalDateTime updateDate;			// 등록일자
+	private LocalDateTime updateDate;						// 수정일자
 }

@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Department 서비스에 대한 Rest API
- * @author capias J
+ * @author jsw
  *
  */
 @RestController

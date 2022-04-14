@@ -1,5 +1,6 @@
 package com.oms.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -33,17 +36,21 @@ import lombok.NoArgsConstructor;
 public class Position {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;							// ID
+	private Long id;														// ID
 
 	@Column
-	private String name;					// 직급이름
+	private String name;												// 직급이름
 
 	@Column(length=1)
-	private int useYn;						// 사용여부
+	@ColumnDefault("1")
+	private Integer useYn;											// 사용여부
 
 	@Column(updatable=false)
 	@CreatedDate
-	@Temporal(TemporalType.DATE)
-	private Date registDate;			// 등록일자
+	private LocalDateTime registDate;						// 등록일자
+
+	@Column()
+	@LastModifiedDate
+	private LocalDateTime updateDate;					// 수정일자
 
 }
