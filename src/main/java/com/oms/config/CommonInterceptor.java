@@ -12,9 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oms.dto.HistoryDTO;
 import com.oms.service.HistoryService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class CommonInterceptor implements HandlerInterceptor {
 	@Autowired
 	HistoryService historyService;
@@ -30,13 +27,6 @@ public class CommonInterceptor implements HandlerInterceptor {
 	}
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-		log.info("**** uri: {}", request.getRequestURI());
-		log.info("**** ip: {}", request.getRemoteAddr());
-		log.info("**** method: {}", request.getMethod());
-		log.info("**** remoteUser: {}", request.getRemoteUser());
-		log.info("**** response status: {}", response.getStatus());
-		log.info("**** response locale: {}", response.getLocale());
-		
 		// 모든 요청과 응답이 끝나면 접속로그 DB에 적재
 		HistoryDTO historyDTO = new HistoryDTO();
 		historyDTO.setRequestUri(request.getRequestURI());
@@ -49,7 +39,7 @@ public class CommonInterceptor implements HandlerInterceptor {
 		}
 		historyDTO.setStatus(response.getStatus());
 		historyDTO.setRequestDate(LocalDateTime.now());
-		
+		// 접속로그 생성
 		historyService.create(historyDTO);
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}

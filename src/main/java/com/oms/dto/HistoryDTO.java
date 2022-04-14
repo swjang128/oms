@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class HistoryDTO {
-	private Long id;							// 접속로그 ID (기본키)
-	private String host;						// 요청 유저(로그인한 상태라면 계정 email, 세션이 없으면 null)
-	private String clientIp;						// 클라이언트 IP
-	private String requestUri;						// 요청한 URI
-	private String method;						// 요청 메소드
-	private int status;					// 응답코드
-	private LocalDateTime requestDate;					// 요청한 시간
+	private Long id;											// 접속로그 ID (기본키)
+	private String host;										// 요청 유저(로그인한 상태라면 계정 email, 세션이 없으면 null)
+	private String clientIp;								// 클라이언트 IP
+	private String requestUri;							// 요청한 URI
+	private String method;								// 요청 메소드
+	private Integer status;								// 응답코드
+	private LocalDateTime requestDate;		// 요청한 시간
 	
 	/**
 	 * (Request) DTO -> Entity

@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.DepartmentDTO;
 import com.oms.entity.Department;
+import com.oms.entity.Account.Status;
 import com.oms.service.DepartmentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,11 +46,11 @@ public class DepartmentAPI {
 	 * @return 
 	 */
 	@GetMapping("department")
-	public Map<String, Object> read() {
+	public Map<String, Object> read(@RequestParam(required=false) Integer useYn) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 부서 목록 조회
-		return departmentService.read(2, resultMap);
+		return departmentService.read(useYn, resultMap);
 	}
 	
 	/**
@@ -90,17 +92,4 @@ public class DepartmentAPI {
 		return departmentService.update(departmentDTO, resultMap);
 	}
 
-	/**
-	 * 사용/미사용 부서 목록 조회
-	 * @param model
-	 * @param request
-	 * @return 
-	 */
-	@GetMapping("department/{useYn}")
-	public Map<String, Object> readByUseYn(@PathVariable("useYn") Integer useYn) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		// 부서 목록 조회
-		return departmentService.read(useYn, resultMap);
-	}
 }

@@ -17,8 +17,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 접속로그
- * @author Capias J
- *
+ * @author jsw
  */
 @Getter
 @AllArgsConstructor
@@ -29,25 +28,24 @@ import lombok.NoArgsConstructor;
 public class History {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;							// 접속로그 ID (기본키)
+	private Long id;												// 접속로그 ID (기본키)
 
 	@Column()
-	private String host;						// 요청자
+	private String host;											// 요청자
 
 	@Column(nullable=false)
-	private String clientIp;						// 클라이언트 IP
+	private String clientIp;									// 클라이언트 IP
 	
 	@Column()
-	private String requestUri;						// 요청한 URI
+	private String requestUri;								// 요청한 URI
 	
 	@Column()
-	private String method;						// 요청 메소드
+	private String method;									// 요청 메소드
 	
 	@Column()
-	private int status;					// 응답코드
+	private Integer status;									// 응답코드
 	
-	@Column()
+	@Column(updatable=false)
 	@CreatedDate
-	private LocalDateTime requestDate; 			// 호출시간
-	
+	private LocalDateTime requestDate; 		// 호출시간
 }

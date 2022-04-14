@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.AccountDTO;
+import com.oms.entity.Account.Status;
+import com.oms.entity.Account.UserStatus;
 import com.oms.service.AccountService;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Account 서비스에 대한 Rest API
+ * 
  * @author capias J
  *
  */
@@ -36,74 +40,75 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountAPI {
 	@Autowired
 	AccountService accountService;
-	
+
 	/**
 	 * 계정 목록 조회
+	 * 
 	 * @param model
 	 * @param request
-	 * @return 
+	 * @return
 	 */
 	@GetMapping("account")
-	public Map<String, Object> read() {
+	public Map<String, Object> read(@RequestParam(required = false) List<Status> status,
+																 @RequestParam(required = false) List<UserStatus> userStatus) {		
 		// 기본 변수 설정
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// paramMap 담기
+		paramMap.put("status", status);
+		paramMap.put("userStatus", userStatus);
 		// 계정 목록 조회
-		try {
-			resultMap = accountService.read(resultMap);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!paramMap.isEmpty()) {
+			return accountService.readv2(paramMap, resultMap);
 		}
-		// RESTful API 결과를 리턴
-		return resultMap;
+		return accountService.read(resultMap);
 	}
-	
+
 	/**
 	 * 계정 등록 (CREATE)
+	 * 
 	 * @param RequestBody
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@PostMapping("account")
 	public Map<String, Object> create(@Valid @RequestBody AccountDTO accountDTO) {
 		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 직원 등록
-		resultMap = accountService.create(accountDTO, resultMap);
-		// RESTful API 결과를 리턴
-		return resultMap;
+		return accountService.create(accountDTO, resultMap);
 	}
-	
+
 	/**
 	 * 계정 정보 삭제 (DELETE)
+	 * 
 	 * @param PathVariable
-	 * @return 
+	 * @return
 	 */
 	@DeleteMapping("account/{id}")
 	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 계정 정보 삭제
-		resultMap = accountService.delete(param, resultMap);
-		// 결과 리턴
-		return resultMap;
+		return accountService.delete(param, resultMap);
 	}
-	
+
 	/**
 	 * 계정 정보 수정 (UPDATE)
+	 * 
 	 * @param RequestBody
-	 * @return 
+	 * @return
 	 */
 	@PutMapping("account")
 	public Map<String, Object> update(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 계정 정보 수정
-		resultMap = accountService.update(accountDTO, resultMap);
-		// RESTful API 결과를 리턴
-		return resultMap;
+		return accountService.update(accountDTO, resultMap);
 	}
 
 	/**
 	 * 이메일 중복 체크
+	 * 
 	 * @param email
 	 * @return
 	 */
@@ -113,10 +118,9 @@ public class AccountAPI {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// email이 존재하는지 확인
-		resultMap = accountService.checkEmail(email, resultMap);
-		return resultMap;
+		return accountService.checkEmail(email, resultMap);
 	}
-	
+
 	/**
 	 * 비밀번호 초기화
 	 */
@@ -126,10 +130,9 @@ public class AccountAPI {
 		// 기본 변수 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 비밀번호 초기화
-		resultMap = accountService.resetPassword(accountDTO, resultMap);
-		return resultMap;
+		return accountService.resetPassword(accountDTO, resultMap);
 	}
-	
+
 	/**
 	 * 비밀번호 변경
 	 */
@@ -139,8 +142,7 @@ public class AccountAPI {
 		// 기본 변수 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 비밀번호 변경
-		resultMap = accountService.changePassword(accountDTO, resultMap);
-		log.info("****** resultMap: {}", resultMap);
-		return resultMap;
+		return accountService.changePassword(accountDTO, resultMap);
 	}
+
 }

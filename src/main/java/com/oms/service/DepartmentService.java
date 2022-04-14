@@ -1,6 +1,7 @@
 package com.oms.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,18 +32,18 @@ public class DepartmentService {
 	public Map<String, Object> read(Integer useYn, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		List<Department> departments = null;
-		List<DepartmentDTO> departmentList = null;
+		List<Department> department = new ArrayList<Department>();
+		List<DepartmentDTO> departmentDTO = new ArrayList<DepartmentDTO>();
 		
 		// 부서 목록 조회 (0: 사용하지 않는 부서, 1: 사용하는 부서, 그외: 전체 부서)
 		try {
-			if (useYn!=0 && useYn!=1) {
-				departments = departmentRepository.findAll();	
+			if (useYn==null) {
+				department = departmentRepository.findAll();	
 			} else {
-				departments = departmentRepository.findByUseYn(useYn);
+				department = departmentRepository.findByUseYn(useYn);
 			}
-			departmentList = departments.stream().map(DepartmentDTO::new).collect(Collectors.toList());
-			resultMap.put("departmentList", departmentList);
+			departmentDTO = department.stream().map(DepartmentDTO::new).collect(Collectors.toList());
+			resultMap.put("departmentList", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
