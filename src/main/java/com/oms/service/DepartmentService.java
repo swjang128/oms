@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.oms.config.ResponseCode;
 import com.oms.dto.DepartmentDTO;
 import com.oms.entity.Department;
+import com.oms.entity.Department.UseYn;
 import com.oms.repository.DepartmentRepository;
+import com.oms.specification.DepartmentSpecification;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class DepartmentService {
 	@Autowired
 	ModelMapper modelMapper;
@@ -25,24 +31,26 @@ public class DepartmentService {
 	DepartmentRepository departmentRepository;
 
 	/**
-	 * 부서 목록 조회 (READ)
+	 * 부서 조회 (READ)
 	 * 
 	 * @return List<Department>
 	 */
-	public Map<String, Object> read(Integer useYn, Map<String, Object> resultMap) {
+	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		List<Department> department = new ArrayList<Department>();
 		List<DepartmentDTO> departmentDTO = new ArrayList<DepartmentDTO>();
-		
-		// 부서 목록 조회 (0: 사용하지 않는 부서, 1: 사용하는 부서, 그외: 전체 부서)
+		Object useYn = paramMap.get("useYn");
+		Object name = paramMap.get("name");
+		Specification<Department> specification = (root, query, criteriaBuilder) -> null;
+		// 부서 목록 조회
 		try {
-			if (useYn==null) {
-				department = departmentRepository.findAll();	
-			} else {
-				department = departmentRepository.findByUseYn(useYn);
-			}
-			departmentDTO = department.stream().map(DepartmentDTO::new).collect(Collectors.toList());
+			if (useYn != null)
+				specification = specification.and(DepartmentSpecification.findByUseYn(useYn));
+			if (name != null)
+				specification = specification.and(DepartmentSpecification.findByName(name));
+			department = departmentRepository.findAll(specification);
+			departmentDTO = department.stream().map(d -> modelMapper.map(d, DepartmentDTO.class)).collect(Collectors.toList());
 			resultMap.put("departmentList", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,15 +72,16 @@ public class DepartmentService {
 	public Map<String, Object> create(@RequestBody DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.CREATED;
 		String message = ResponseCode.Message.CREATED;
+		Department department = null;
 		// 부서 등록 (CREATE)
 		try {
 			LocalDateTime now = LocalDateTime.now();
 			departmentDTO.setRegistDate(now);
 			if (departmentDTO.getUseYn() == null) {
-				departmentDTO.setUseYn(1);
+				departmentDTO.setUseYn(UseYn.Y);
 			}
-			departmentRepository.save(departmentDTO.toEntity());
-			resultMap.put("department", departmentDTO);
+			department = departmentRepository.save(departmentDTO.toEntity());
+			resultMap.put("department", department);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
@@ -110,8 +119,8 @@ public class DepartmentService {
 		try {
 			LocalDateTime now = LocalDateTime.now();
 			departmentDTO.setUpdateDate(now);
-			if (departmentDTO.getUseYn()!=0 && departmentDTO.getUseYn()!=1) {
-				departmentDTO.setUseYn(1);
+			if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
+				departmentDTO.setUseYn(UseYn.Y);
 			}
 			departmentRepository.save(departmentDTO.toEntity());
 			resultMap.put("department", departmentDTO);

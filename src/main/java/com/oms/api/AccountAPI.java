@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.AccountDTO;
+import com.oms.entity.Account;
+import com.oms.entity.Account.Role;
 import com.oms.entity.Account.Status;
 import com.oms.entity.Account.UserStatus;
 import com.oms.service.AccountService;
@@ -31,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Account 서비스에 대한 Rest API
  * 
- * @author capias J
+ * @author jsw
  *
  */
 @RestController
@@ -49,19 +52,21 @@ public class AccountAPI {
 	 * @return
 	 */
 	@GetMapping("account")
-	public Map<String, Object> read(@RequestParam(required = false) List<Status> status,
-																 @RequestParam(required = false) List<UserStatus> userStatus) {		
+	public Map<String, Object> read(@RequestParam(required=false) List<Status> status,
+																 @RequestParam(required=false) List<UserStatus> userStatus,
+																 @RequestParam(required=false) List<Role> role,
+																 @RequestParam(required=false) List<String> department,
+																 @RequestParam(required=false) List<String> position) {
 		// 기본 변수 설정
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		// paramMap 담기
 		paramMap.put("status", status);
 		paramMap.put("userStatus", userStatus);
+		paramMap.put("role", role);
+		paramMap.put("department", department);
+		paramMap.put("position", position);
 		// 계정 목록 조회
-		if (!paramMap.isEmpty()) {
-			return accountService.readv2(paramMap, resultMap);
-		}
-		return accountService.read(resultMap);
+		return accountService.read(paramMap, resultMap);
 	}
 
 	/**

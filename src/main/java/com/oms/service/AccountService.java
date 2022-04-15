@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,9 +20,11 @@ import com.oms.config.ResponseCode;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.MailDTO;
 import com.oms.entity.Account;
+import com.oms.entity.Account.Role;
 import com.oms.entity.Account.Status;
 import com.oms.entity.Account.UserStatus;
 import com.oms.repository.AccountRepository;
+import com.oms.specification.AccountSpecification;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -91,38 +94,42 @@ public class AccountService {
 	 * 
 	 * @return List<Account>
 	 */
-	public List<AccountDTO> readBackup() {
-		// 직원 목록 조회
-		List<Account> accountList = accountRepository.findAll();
-		List<AccountDTO> result = accountList.stream().map(account -> modelMapper.map(account, AccountDTO.class))
-				.collect(Collectors.toList());
-		return result;
-	}
-	
-	/**
-	 * 직원 목록 조회 (READ)
-	 * 
-	 * @return List<Account>
-	 */
-	public Map<String, Object> read(Map<String, Object> resultMap) {
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		// 기본 변수 설정
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		List<Account> accounts = new ArrayList<Account>();;
-		List<AccountDTO> accountList = new ArrayList<AccountDTO>();
-		
+		List<Account> account = new ArrayList<Account>();;
+		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
+		Object accountStatus = paramMap.get("status");
+		Object userStatus = paramMap.get("userStatus");
+		Object role = paramMap.get("role");
+		Object department = paramMap.get("department");
+		Object position = paramMap.get("position");
+		Specification<Account> specification = (root, query, criteriaBuilder) -> null;
 		// 직원 목록 조회
 		try {
-			accounts = accountRepository.findAll();
-			accountList = accounts.stream().map(account -> modelMapper.map(account, AccountDTO.class)).collect(Collectors.toList());
+			if (accountStatus != null)
+				specification = specification.and(AccountSpecification.findByStatus(accountStatus));
+			if (userStatus != null)
+				specification = specification.and(AccountSpecification.findByUserStatus(userStatus));
+			if (role != null)
+				specification = specification.and(AccountSpecification.findByRole(role));
+			if (department != null)
+				specification = specification.and(AccountSpecification.findByDepartment(department));
+			if (position != null)
+				specification = specification.and(AccountSpecification.findByPosition(position));
+			account = accountRepository.findAll(specification);
+			accountDTO = account.stream().map(a -> modelMapper.map(a, AccountDTO.class)).collect(Collectors.toList());
 		} catch (Exception e) {
+			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
-		
 		// resultMap에 담기
 		resultMap.put("status", status);
 		resultMap.put("message", message);
-		resultMap.put("accountList", accountList);		
+		resultMap.put("accountList", accountDTO);		
 		return resultMap;
 	}
 
@@ -412,22 +419,23 @@ public class AccountService {
 	}
 	
 	/**
-	 * 특정 상태(Status)인 직원 목록 조회 (READ)
+	 * 특정 상태(Status)인 계정 조회 (READ)
 	 * 
 	 * @return List<Account>
 	 */
-	public Map<String, Object> findByStatus(List<Status> statusList, Map<String, Object> resultMap) {
+	public Map<String, Object> findByStatus(List<Status> accountStatus, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		List<Account> account = new ArrayList<Account>();;
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();		
 		// 특정 상태(Status)인 직원
 		try {
-			for (int s=0; s<statusList.size(); s++) {
-				account = accountRepository.findByStatus(statusList.get(s));
+			for (int s=0; s<accountStatus.size(); s++) {
+				account = accountRepository.findByStatus(accountStatus.get(s));
 				accountDTO.addAll(account.stream().map(a -> modelMapper.map(a, AccountDTO.class)).collect(Collectors.toList())) ;
 			}
-			resultMap.put("accountList", accountDTO);			
+			resultMap.put("accountList", accountDTO);
+			resultMap.put("accountSize", accountDTO.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
@@ -440,38 +448,30 @@ public class AccountService {
 	}
 	
 	/**
-	 * 직원 목록 조회 (READ) v2
+	 * 특정 UserStatus인 계정 조회 (READ)
 	 * 
 	 * @return List<Account>
 	 */
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> readv2(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+	public Map<String, Object> findByUserStatus(List<UserStatus> userStatus, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		List<Account> accounts = new ArrayList<Account>();;
-		List<AccountDTO> accountList = new ArrayList<AccountDTO>();
-		List<Status> accountStatus = new ArrayList<Status>();
-		List<UserStatus> userStatus = new ArrayList<UserStatus>();
-		
-		// paramMap에서 각 리스트로 담기
-		accountStatus = (List<Status>) paramMap.get("status");
-		userStatus = (List<UserStatus>) paramMap.get("userStatus");
-		log.info("****** accountStatus: {}", accountStatus);
-		log.info("****** userStatus: {}", userStatus);
-
+		List<Account> account = new ArrayList<Account>();;
+		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
 		// 특정 직원 목록 조회
 		try {
-			accounts = accountRepository.findByStatusAndUserStatus(accountStatus, userStatus);
-			accountList = accounts.stream().map(account -> modelMapper.map(account, AccountDTO.class)).collect(Collectors.toList());
+			for (int u=0; u<userStatus.size(); u++) {
+				account = accountRepository.findByUserStatus(userStatus.get(u));
+				accountDTO.addAll(account.stream().map(a -> modelMapper.map(a, AccountDTO.class)).collect(Collectors.toList()));	
+			}
+			resultMap.put("accountList", accountDTO);
+			resultMap.put("accountSize", accountDTO.size());
 		} catch (Exception e) {
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
-		
 		// resultMap에 담기
 		resultMap.put("status", status);
 		resultMap.put("message", message);
-		resultMap.put("accountList", accountList);		
 		return resultMap;
 	}
 }

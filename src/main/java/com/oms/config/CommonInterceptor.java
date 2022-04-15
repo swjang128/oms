@@ -33,7 +33,7 @@ public class CommonInterceptor implements HandlerInterceptor {
 		historyDTO.setMethod(request.getMethod());
 		historyDTO.setClientIp(request.getRemoteAddr());		
 		if (request.getRemoteUser() == null) {
-			historyDTO.setHost("-");
+			historyDTO.setHost("");
 		} else {
 			historyDTO.setHost(request.getRemoteUser());
 		}

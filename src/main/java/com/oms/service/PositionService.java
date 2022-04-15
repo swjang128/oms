@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.oms.config.ResponseCode;
 import com.oms.dto.PositionDTO;
 import com.oms.entity.Position;
+import com.oms.entity.Position.UseYn;
 import com.oms.repository.PositionRepository;
+import com.oms.specification.PositionSpecification;
 
 @Service
 public class PositionService{
@@ -24,20 +27,23 @@ public class PositionService{
 	 * 직급 목록 조회 (READ)
 	 * @return List<Position>
 	 */
-	public Map<String, Object> read(int useYn, Map<String, Object> resultMap) {
+	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		List<Position> positions =null;
-		List<PositionDTO> positionList = null;
-		// 직급 목록 조회 (사용하는 직급만)
+		List<Position> position =null;
+		List<PositionDTO> positionDTO = null;
+		Object useYn = paramMap.get("useYn");
+		Object name = paramMap.get("name");
+		Specification<Position> specification = (root, query, criteriaBuilder) -> null;
+		// 직급 목록 조회
 		try {
-			if (useYn!=0 && useYn!=1) {
-				positions = positionRepository.findAll();				
-			} else {
-				positions = positionRepository.findByUseYn(useYn);
-			}
-			positionList = positions.stream().map(PositionDTO::new).collect(Collectors.toList());
-			resultMap.put("positionList", positionList);
+			if (useYn != null)
+				specification = specification.and(PositionSpecification.findByUseYn(useYn));
+			if (name != null)
+				specification = specification.and(PositionSpecification.findByName(name));
+			position = positionRepository.findAll(specification);
+			positionDTO = position.stream().map(PositionDTO::new).collect(Collectors.toList());
+			resultMap.put("positionList", positionDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
@@ -57,15 +63,16 @@ public class PositionService{
 	public Map<String, Object> create(@RequestBody PositionDTO positionDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.CREATED;
 		String message = ResponseCode.Message.CREATED;
+		Position position = null;
 		// 직급 등록 (CREATE)
 		try {
 			LocalDateTime now = LocalDateTime.now();
 			positionDTO.setRegistDate(now);
 			if (positionDTO.getUseYn() == null) {
-				positionDTO.setUseYn(1);
+				positionDTO.setUseYn(UseYn.Y);
 			}
-			positionRepository.save(positionDTO.toEntity());
-			resultMap.put("position", positionDTO);
+			position = positionRepository.save(positionDTO.toEntity());
+			resultMap.put("position", position);
 		} catch (Exception e ) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
@@ -102,8 +109,8 @@ public class PositionService{
 		try {
 			LocalDateTime now = LocalDateTime.now();
 			positionDTO.setUpdateDate(now);
-			if (positionDTO.getUseYn()!=0 && positionDTO.getUseYn()!=1) {
-				positionDTO.setUseYn(1);
+			if (positionDTO.getUseYn()!=UseYn.Y && positionDTO.getUseYn()!=UseYn.N) {
+				positionDTO.setUseYn(UseYn.Y);
 			}
 			positionRepository.save(positionDTO.toEntity());
 			resultMap.put("position", positionDTO);

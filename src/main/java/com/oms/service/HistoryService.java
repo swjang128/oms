@@ -7,14 +7,18 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.HistoryDTO;
+import com.oms.entity.Account;
 import com.oms.entity.History;
 import com.oms.repository.HistoryRepository;
+import com.oms.specification.AccountSpecification;
+import com.oms.specification.HistorySpecification;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,14 +41,31 @@ public class HistoryService {
 	 * @param Map<String, Object> resultMap
 	 * @return List<HistoryDTO>
 	 */
-	public Map<String, Object> read(Map<String, Object> resultMap) {
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		List<History> history = new ArrayList<History>();
-		List<HistoryDTO> historyDTO = new ArrayList<HistoryDTO>();		
+		List<HistoryDTO> historyDTO = new ArrayList<HistoryDTO>();
+		List<Integer> httpStatus = (List<Integer>) paramMap.get("status");
+		Object host = paramMap.get("host");
+		Object clientIp = paramMap.get("clientIp");
+		Object method = paramMap.get("method");
+		Object requestUri = paramMap.get("requestUri");
+		Specification<History> specification = (root, query, criteriaBuilder) -> null;
 		// 접속로그 전체 조회
 		try {
-			history = historyRepository.findAll();
+			if (httpStatus != null)
+				specification = specification.and(HistorySpecification.findByStatus(httpStatus));
+			if (host != null)
+				specification = specification.and(HistorySpecification.findByHost(host));
+			if (clientIp != null)
+				specification = specification.and(HistorySpecification.findByClientIp(clientIp));
+			if (method != null)
+				specification = specification.and(HistorySpecification.findByMethod(method));
+			if (requestUri != null)
+				specification = specification.and(HistorySpecification.findByRequestUri(requestUri));
+			history = historyRepository.findAll(specification);
 			historyDTO = history.stream().map(HistoryDTO::new).collect(Collectors.toList());
 			resultMap.put("historyList", historyDTO);
 		} catch (Exception e) {
@@ -65,7 +86,11 @@ public class HistoryService {
 	 */
 	@Transactional
 	public void create(@RequestBody HistoryDTO historyDTO) {
-		historyRepository.save(historyDTO.toEntity());
+		try {
+			historyRepository.save(historyDTO.toEntity());	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -93,33 +118,4 @@ public class HistoryService {
 		return resultMap;
 	}
 	
-	/**
-	 * 특정 Status의 접속로그 조회 (READ)
-	 * @param Map<String, Object> resultMap
-	 * @return List<HistoryDTO>
-	 */
-	public Map<String, Object> findByStatus(List<Integer> httpStatus, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
-		List<History> history = new ArrayList<History>();
-		List<HistoryDTO> historyDTO = new ArrayList<HistoryDTO>();		
-		// 접속로그 전체 조회
-		try {
-			for (int s=0; s<httpStatus.size(); s++) {
-				history = historyRepository.findByStatus(httpStatus.get(s));
-				historyDTO.addAll(history.stream().map(HistoryDTO::new).collect(Collectors.toList()));
-			}
-			resultMap.put("historyList", historyDTO);
-			resultMap.put("httpStatus", httpStatus);
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
-		}
-		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
-		return resultMap;
-	}
-
 }

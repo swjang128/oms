@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +15,7 @@ import com.oms.entity.Account;
 import com.oms.entity.Account.Status;
 import com.oms.entity.Account.UserStatus;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long>, JpaSpecificationExecutor<Account> {
 	/*********************** JPA Native Queries ***********************/
 	static final String UPDATE_ALL_USER_STATUS = """
 			UPDATE TB_ACCOUNT
@@ -116,5 +117,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	boolean existsByEmail(String email); // 해당 email을 가진 유저가 있는지 확인
 	List<Account> findByStatus(Status status);	// 특정 Status의 유저를 조회
 	
-	List<Account> findByStatusAndUserStatus(List<Status> status, List<UserStatus> userStatus);
+	List<Account> findByUserStatus(UserStatus userStatus);	// 특정 UserStatus의 유저를 조회
 }

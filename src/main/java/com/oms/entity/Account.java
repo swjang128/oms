@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 관리자
+ * 계정
  * @author jsw
  *
  */
@@ -137,9 +137,9 @@ public class Account {
 	@Getter
 	@RequiredArgsConstructor
 	public enum Role {
-		USER("ROLE_USER", "직원"),
-		MANAGER("ROLE_MANAGER", "팀장"),
-		ADMIN("ROLE_ADMIN", "관리자");
+		USER("USER", "직원"),
+		MANAGER("MANAGER", "팀장"),
+		ADMIN("ADMIN", "관리자");
 		
 		private final String key;
 		private final String value;

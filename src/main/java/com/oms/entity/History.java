@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  * @author jsw
  */
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity

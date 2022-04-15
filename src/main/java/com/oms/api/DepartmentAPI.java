@@ -1,7 +1,6 @@
 package com.oms.api;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oms.config.ResponseCode;
 import com.oms.dto.DepartmentDTO;
-import com.oms.entity.Department;
-import com.oms.entity.Account.Status;
+import com.oms.entity.Department.UseYn;
 import com.oms.service.DepartmentService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,11 +43,15 @@ public class DepartmentAPI {
 	 * @return 
 	 */
 	@GetMapping("department")
-	public Map<String, Object> read(@RequestParam(required=false) Integer useYn) {
-		// 기본 변수 설정
+	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
+																  @RequestParam(name="name", required=false) List<String> name) {
+		// 기본 변수 설정		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("useYn", useYn);
+		paramMap.put("name", name);
 		// 부서 목록 조회
-		return departmentService.read(useYn, resultMap);
+		return departmentService.read(paramMap, resultMap);
 	}
 	
 	/**

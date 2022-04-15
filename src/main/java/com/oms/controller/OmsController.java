@@ -71,9 +71,10 @@ public class OmsController {
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();		
 		
 		// 계정 목록을 model에 담기
-		resultMap = accountService.read(resultMap);
+		resultMap = accountService.read(paramMap, resultMap);
 		model.addAttribute("accountList", resultMap.get("accountList"));
 		
   		return "account";

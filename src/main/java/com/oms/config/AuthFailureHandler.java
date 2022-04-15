@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import com.oms.dto.AccountDTO;
 import com.oms.entity.Account;
 import com.oms.error.controller.ExceptionManager;
 import com.oms.repository.AccountRepository;

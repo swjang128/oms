@@ -1,18 +1,14 @@
 package com.oms.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -21,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 직급
@@ -28,7 +25,7 @@ import lombok.NoArgsConstructor;
  *
  */
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Builder
@@ -42,8 +39,8 @@ public class Position {
 	private String name;												// 직급이름
 
 	@Column(length=1)
-	@ColumnDefault("1")
-	private Integer useYn;											// 사용여부
+	@Enumerated(EnumType.STRING)
+	private UseYn useYn;											// 사용여부
 
 	@Column(updatable=false)
 	@CreatedDate
@@ -53,4 +50,16 @@ public class Position {
 	@LastModifiedDate
 	private LocalDateTime updateDate;					// 수정일자
 
+	/**
+	 * 직급 사용유무에 대한 정의
+	 * @author jsw
+	 */
+	@Getter
+	@RequiredArgsConstructor
+	public enum UseYn {
+		Y("Y", "사용"),
+		N("N", "미사용");
+		private final String key;
+		private final String value;
+	}
 }

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oms.dto.PositionDTO;
+import com.oms.entity.Position.UseYn;
 import com.oms.service.PositionService;
 
 /**
@@ -38,11 +40,15 @@ public class PositionAPI {
 	 * @return 
 	 */
 	@GetMapping("position")
-	public Map<String, Object> read() {
+	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
+																  @RequestParam(name="name", required=false) List<String> name) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("useYn", useYn);
+		paramMap.put("name", name);
 		// 직급 목록 조회
-		return positionService.read(2, resultMap);
+		return positionService.read(paramMap, resultMap);
 	}
 	
 	/**
