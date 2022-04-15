@@ -1,5 +1,7 @@
 package com.oms.specification;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -88,6 +90,21 @@ public class HistorySpecification {
 			@Override
 			public Predicate toPredicate(Root<History> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				return root.get("status").in(status);
+			}
+		};
+	}
+	
+	/**
+	 * WHERE request_date in (LocalDateTime startDate, LocalDateTime endDate)
+	 * @param LocalDateTime startDate, LocalDateTime endDate
+	 * @return
+	 */
+	public static Specification<History> findByRequestDate(LocalDateTime startDate, LocalDateTime endDate) {
+		return new Specification<History>() {
+			private static final long serialVersionUID = -587488762192925433L;
+			@Override
+			public Predicate toPredicate(Root<History> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				return criteriaBuilder.between(root.get("requestDate"),  startDate, endDate);
 			}
 		};
 	}

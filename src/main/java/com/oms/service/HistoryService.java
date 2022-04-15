@@ -1,5 +1,8 @@
 package com.oms.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +54,15 @@ public class HistoryService {
 		Object host = paramMap.get("host");
 		Object clientIp = paramMap.get("clientIp");
 		Object method = paramMap.get("method");
-		Object requestUri = paramMap.get("requestUri");
+		Object requestUri = paramMap.get("requestUri");	
+		LocalDateTime startDate = LocalDateTime.of(1970, 01, 01, 0, 0, 0);
+		LocalDateTime endDate = LocalDateTime.now();
+		if (paramMap.get("startDate") != null) {
+			startDate = LocalDateTime.parse((String) paramMap.get("startDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));	
+		} 
+		if (paramMap.get("endDate") != null) {
+			endDate = LocalDateTime.parse((String) paramMap.get("endDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		}
 		Specification<History> specification = (root, query, criteriaBuilder) -> null;
 		// 접속로그 전체 조회
 		try {
@@ -65,6 +76,8 @@ public class HistoryService {
 				specification = specification.and(HistorySpecification.findByMethod(method));
 			if (requestUri != null)
 				specification = specification.and(HistorySpecification.findByRequestUri(requestUri));
+			specification = specification.and(HistorySpecification.findByRequestDate(startDate, endDate));
+				
 			history = historyRepository.findAll(specification);
 			historyDTO = history.stream().map(HistoryDTO::new).collect(Collectors.toList());
 			resultMap.put("historyList", historyDTO);
