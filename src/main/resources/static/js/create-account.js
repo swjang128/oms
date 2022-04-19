@@ -7,7 +7,7 @@ function initAccountModal() {
 		// 부서 조회 후 셀렉스박스 옵션에 append
 		$.ajax({
 			contentType: 'application/json; charset=utf-8',
-			url: '/api/department/1',
+			url: '/api/department?use=Y',
 			type: 'GET',
 			cache: false,
 			datatype: 'json',
@@ -27,7 +27,7 @@ function initAccountModal() {
 		// 직급 조회 후 셀렉스박스 옵션에 append
 		$.ajax({
 			contentType: 'application/json; charset=utf-8',
-			url: '/api/position',
+			url: '/api/position?use=Y',
 			type: 'GET',
 			cache: false,
 			datatype: 'json',
