@@ -282,12 +282,11 @@
 				</div>
 			</div>
 			<!-- End Header -->
-			
 			<!-- Table -->
 			<div class="table-responsive datatable-custom position-relative">
 				<table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
-                      "targets": [0, 6, 8],
+                      "targets": [0, 7, 9],
                       "orderable": false
                     }],
                    "order": [],
@@ -309,18 +308,19 @@
 									<label class="form-check-label" for="datatableCheckAll"></label>
 								</div>
 							</th>
-							<th>이름</th>							
-							<th>이메일</th>
-							<th>부서</th>
-							<th>직급</th>
-							<th>상태</th>
-							<th>연락처</th>
-							<th>권한</th>
-							<th></th>
+							<th class="table-column-pe-0">프로필</th>
+							<th class="table-column-pe-0">이름</th>
+							<th class="table-column-pe-0">이메일</th>
+							<th class="table-column-pe-0">부서</th>
+							<th class="table-column-pe-0">직급</th>
+							<th class="table-column-pe-0">상태</th>
+							<th class="table-column-pe-0">연락처</th>
+							<th class="table-column-pe-0">권한</th>
+							<th class="table-column-pe-0">상세</th>
 						</tr>
 					</thead>
 					<tbody id="accountList">
-<!-- 						<tr>
+						<!-- 						<tr>
 							<td class="table-column-pe-0">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" value="" id="datatableCheckAll1">
@@ -364,8 +364,6 @@
 								</button>
 							</td>
 						</tr> -->
-						
-
 						<!-- 사용자 목록 -->
 						{{#accountList}}
 						<tr>
@@ -381,47 +379,36 @@
 									<div class="avatar avatar-circle">
 										<img class="avatar-img" src="{{photo}}" alt="{{photo}}">
 									</div>
-									{{/photo}}
-									{{^photo}}
+									{{/photo}} {{^photo}}
 									<div class="avatar avatar-soft-primary avatar-circle">
 										<span class="avatar-initials">{{name}}</span>
-									</div>									
-									{{/photo}}
-									<div class="ms-3">
-										<span class="d-block h5 text-inherit mb-0">
-											{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Top endorsed"></i>
-										</span>
 									</div>
+									{{/photo}}
 								</a>
+							</td>
+							<td>
+								<span class="d-block h5 text-inherit mb-0">
+									{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Top endorsed"></i>
+								</span>
 							</td>
 							<td>{{email}}</td>
 							<td>{{department}}</td>
 							<td>{{position}}</td>
 							<td>{{userStatus}}</td>
 							<td>{{phone}}</td>
-							<td>
-								<div class="d-flex align-items-center">
-									<span class="fs-5 me-2">{{role}}</span>
-									<div class="progress table-progress">
-										<div class="progress-bar" role="progressbar" style="width: {{id}}%" aria-valuenow="{{id}}" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</td>
+							<td>{{role}}</td>
 							<td>
 								<button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
-									<i class="bi-pencil-fill me-1"></i> 수정
+									<i class="bi-pencil-fill me-1"> 상세</i>
 								</button>
 							</td>
 						</tr>
-						{{/accountList}}
-						
-						{{^accountList}}
+						{{/accountList}} {{^accountList}}
 						<tr>
-							<td colspan="8" class="text-center">No Results</td>							
+							<td colspan="8" class="text-center">No Results</td>
 						</tr>
 						{{/accountList}}
 						<!-- End 사용자 목록 -->
-
 					</tbody>
 				</table>
 			</div>

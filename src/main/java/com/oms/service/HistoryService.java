@@ -1,6 +1,5 @@
 package com.oms.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.HistoryDTO;
-import com.oms.entity.Account;
 import com.oms.entity.History;
 import com.oms.repository.HistoryRepository;
-import com.oms.specification.AccountSpecification;
 import com.oms.specification.HistorySpecification;
 
 import lombok.extern.slf4j.Slf4j;
@@ -115,7 +112,7 @@ public class HistoryService {
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		// 카테고리 삭제 (DELETE)
+		// 접속로그 삭제 (DELETE)
 		try {
 			for (int p = 0; p < param.size(); p++) {
 				historyRepository.deleteById(param.get(p));
