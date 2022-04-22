@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,12 +144,27 @@ public class AccountAPI {
 	 * 비밀번호 변경
 	 */
 	@ResponseBody
-	@PostMapping("account/changePassword")
-	public Map<String, Object> changePassword(@RequestBody AccountDTO accountDTO) {
+	@PostMapping("account/updatePassword")
+	public Map<String, Object> updatePassword(@RequestBody AccountDTO accountDTO) {
 		// 기본 변수 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 비밀번호 변경
-		return accountService.changePassword(accountDTO, resultMap);
+		return accountService.updatePassword(accountDTO, resultMap);
+	}
+	
+	/**
+	 * 상태(userStatus) 변경
+	 */
+	@ResponseBody
+	@PutMapping("account/updateUserStatus")
+	public Map<String, Object> updateUserStatus(@RequestBody AccountDTO accountDTO, HttpSession session) {
+		// 기본 변수 선언
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 비밀번호 변경
+		resultMap = accountService.updateUserStatus(accountDTO, resultMap);
+		// 세션값 변경
+		session.setAttribute("sessionUserStatus", accountDTO.getUserStatus().getValue());
+		return resultMap;
 	}
 
 }

@@ -66,19 +66,15 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		// 로그인한 사용자 정보를 조회하여 세션에 담기
 		account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + authentication.getName()));
 		AccountDTO accountDTO = new AccountDTO(account);
-		session.setAttribute("id", accountDTO.getId());
-		session.setAttribute("department", accountDTO.getDepartment());
-		session.setAttribute("position", accountDTO.getPosition());
-		session.setAttribute("photo", accountDTO.getPhoto());
-		session.setAttribute("name", accountDTO.getName());
-		session.setAttribute("email", accountDTO.getEmail());
-		session.setAttribute("password",  accountDTO.getPassword());
-		session.setAttribute("userStatus",  accountDTO.getUserStatus());
-		session.setAttribute("role",  accountDTO.getRole());
-		session.setAttribute("phone", accountDTO.getPhone());
-		session.setAttribute("emergencyContact", accountDTO.getEmergencyContact());
-		session.setAttribute("birthday", accountDTO.getBirthday());
-		session.setAttribute("hireDate", accountDTO.getHireDate());
+		session.setAttribute("sessionDepartment", accountDTO.getDepartment());
+		session.setAttribute("sessionPosition", accountDTO.getPosition());
+		session.setAttribute("sessionPhoto", accountDTO.getPhoto());
+		session.setAttribute("sessionName", accountDTO.getName());
+		session.setAttribute("sessionEmail", accountDTO.getEmail());
+		session.setAttribute("sessionUserStatus",  accountDTO.getUserStatus().getValue());
+		session.setAttribute("sessionRole",  accountDTO.getRole().getValue());
+		session.setAttribute("sessionPhone", accountDTO.getPhone());		
+		session.setAttribute("sessionBirthday", accountDTO.getBirthday());
 		
 		//  모든 작업이 끝나고 이동할 url 설정
 		setDefaultTargetUrl("/oms/account");

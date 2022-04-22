@@ -20,6 +20,8 @@
 <script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
 <script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<!-- 헤더 플러그인 -->
+<script src="/js/header.js"></script>
 <!-- 직원 등록/수정 모달 전용 플러그인 -->
 <script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
 <script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
@@ -31,10 +33,29 @@
 <script src="/js/theme.min.js"></script>
 <!-- JS Plugins Init. -->
 <script>
-    $(document).on('ready', function () {
-      // INITIALIZATION OF DATATABLES
-      // =======================================================
-      HSCore.components.HSDatatables.init($('#datatable'), {
+	$(function() {
+	// Header의 사용자 세션정보의 상태(sessionUserStatus)에 따라 색상 변경
+	const userStatus = $('#sessionUserStatus').text();
+	switch (userStatus) {
+		case '온라인':
+			$('#sessionUserStatus').addClass('bg-primary');
+			break;
+		case '오프라인':
+			$('#sessionUserStatus').addClass('bg-danger');
+			break;
+		case '자리비움':
+			$('#sessionUserStatus').addClass('bg-warning');
+			break;
+		case '다른용무중':
+			$('#sessionUserStatus').addClass('bg-info');
+			break;
+		default: 
+			$('#sessionUserStatus').addClass('bg-dark');
+	}
+	
+	// INITIALIZATION OF DATATABLES
+	// =======================================================
+	HSCore.components.HSDatatables.init($('#datatable'), {
         dom: 'Bfrtip',
         buttons: [
           {

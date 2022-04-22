@@ -144,7 +144,7 @@ function changePassword() {
 	var password = newPasswordCheck();
 	
 	// ajax 통신을 위한 변수 설정
-	url = '/api/account/changePassword';
+	url = '/api/account/updatePassword';
 	type = 'POST';
 	payload = JSON.stringify({
 		email: email,

@@ -284,7 +284,7 @@ public class AccountService {
 	 * @param accountDTO
 	 * @return status
 	 */
-	public Map<String, Object> changePassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
+	public Map<String, Object> updatePassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
 		// 기본 변수 선언
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
@@ -470,6 +470,29 @@ public class AccountService {
 			message = ResponseCode.Message.ERROR_ABORT;
 		}
 		// resultMap에 담기
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		return resultMap;
+	}
+	
+	/**
+	 * 사용자의 userStatus 변경
+	 * (UPDATE)
+	 * @return List<Account>
+	 */
+	public Map<String, Object> updateUserStatus(AccountDTO accountDTO, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		
+		// 사용자의 상태 변경
+		try {
+			accountRepository.updateUserStatus(accountDTO.getEmail(), accountDTO.getUserStatus().getKey());
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		
 		resultMap.put("status", status);
 		resultMap.put("message", message);
 		return resultMap;

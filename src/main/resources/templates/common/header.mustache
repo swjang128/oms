@@ -28,7 +28,7 @@ body {
 <!-- Common Design JS -->
 <script src="/js/common.js"></script>
 </head>
-<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl   footer-offset">
+<body class="has-navbar-vertical-aside navbar-vertical-aside-show-xl footer-offset">
 	<script src="/js/hs.theme-appearance.js"></script>
 	<script src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside-mini-cache.js"></script>
 	<!-- Header -->
@@ -430,115 +430,6 @@ body {
 						</div>
 						<!-- End 알림함 -->
 					</li>
-
-<!-- 				<li class="nav-item d-none d-sm-inline-block">
-						Apps
-						<div class="dropdown">
-							<button type="button" class="btn btn-icon btn-ghost-secondary rounded-circle" id="navbarAppsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="data-bs-dropdown-animation">
-								<i class="bi-app-indicator"></i>
-							</button>
-							<div class="dropdown-menu dropdown-menu-end dropdown-card navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="navbarAppsDropdown" style="width: 25rem;">
-								Header
-								<div class="card-header">
-									<h4 class="card-title">Web apps &amp; Services</h4>
-								</div>
-								End Header
-
-								Body
-								<div class="card-body card-body-height">
-									<a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<img class="avatar avatar-xs avatar-4x3"
-													src="/svg/brands/atlassian-icon.svg"
-													alt="Image Description">
-											</div>
-											<div class="flex-grow-1 text-truncate ms-3">
-												<h5 class="mb-0">Atlassian</h5>
-												<p class="card-text text-body">Security and control
-													across Cloud</p>
-											</div>
-										</div>
-									</a> <a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<img class="avatar avatar-xs avatar-4x3"
-													src="/svg/brands/slack-icon.svg" alt="Image Description">
-											</div>
-											<div class="flex-grow-1 text-truncate ms-3">
-												<h5 class="mb-0">
-													Slack <span
-														class="badge bg-primary rounded-pill text-uppercase ms-1">Try</span>
-												</h5>
-												<p class="card-text text-body">Email collaboration
-													software</p>
-											</div>
-										</div>
-									</a> <a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<img class="avatar avatar-xs avatar-4x3"
-													src="/svg/brands/google-webdev-icon.svg"
-													alt="Image Description">
-											</div>
-											<div class="flex-grow-1 text-truncate ms-3">
-												<h5 class="mb-0">Google webdev</h5>
-												<p class="card-text text-body">Work involved in
-													developing a website</p>
-											</div>
-										</div>
-									</a> <a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<img class="avatar avatar-xs avatar-4x3"
-													src="/svg/brands/frontapp-icon.svg" alt="Image Description">
-											</div>
-											<div class="flex-grow-1 text-truncate ms-3">
-												<h5 class="mb-0">Frontapp</h5>
-												<p class="card-text text-body">The inbox for teams</p>
-											</div>
-										</div>
-									</a> <a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<img class="avatar avatar-xs avatar-4x3"
-													src="/svg/illustrations/review-rating-shield.svg"
-													alt="Image Description">
-											</div>
-											<div class="flex-grow-1 text-truncate ms-3">
-												<h5 class="mb-0">HS Support</h5>
-												<p class="card-text text-body">Customer service and
-													support</p>
-											</div>
-										</div>
-									</a> <a class="dropdown-item" href="#">
-										<div class="d-flex align-items-center">
-											<div class="flex-shrink-0">
-												<div class="avatar avatar-sm avatar-soft-dark">
-													<span class="avatar-initials"> <i class="bi-grid"></i>
-													</span>
-												</div>
-											</div>
-											<div class="flex-grow-1 text-truncate ms-3">
-												<h5 class="mb-0">More Front products</h5>
-												<p class="card-text text-body">Check out more HS
-													products</p>
-											</div>
-										</div>
-									</a>
-								</div>
-								End Body
-
-								Footer
-								<a class="card-footer text-center" href="#"> View all apps <i
-									class="bi-chevron-right"></i>
-								</a>
-								End Footer
-							</div>
-						</div> End Apps
-					</li> -->
-
-					<!-- 나의 활동 -->					
 					<li class="nav-item d-none d-sm-inline-block">
 						<button class="btn btn-ghost-secondary btn-icon rounded-circle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasActivityStream" aria-controls="offcanvasActivityStream">
 							<i class="bi-x-diamond"></i>
@@ -550,21 +441,38 @@ body {
 					<li class="nav-item">						
 						<div class="dropdown">
 							<a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="data-bs-dropdown-animation">
+								{{#sessionPhoto}}
 								<div class="avatar avatar-sm avatar-circle">
-									<img class="avatar-img" src="/img/160x160/img6.jpg" alt="Image Description"> <span class="avatar-status avatar-sm-status avatar-status-primary"></span>
+									<img class="avatar-img" src="{{sessionPhoto}}" alt="{{sessionPhoto}}"> <span class="avatar-status avatar-sm-status avatar-status-primary"></span>
 								</div>
+								{{/sessionPhoto}}
+								{{^sessionPhoto}}
+								<div class="avatar avatar-dark avatar-circle">
+									<span class="avatar-initials">{{sessionName}}</span>
+								</div>
+								{{/sessionPhoto}}
 							</a>
 							<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account"	aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
 								<a class="dropdown-item" href="#">
 									<div class="d-flex align-items-center">
 										<div class="flex-shrink-0">
-											<div class="avatar avatar-sm avatar-dark avatar-circle">
-												<span class="avatar-initials">장성욱</span>
+											{{#sessionPhoto}}
+											<div class="avatar avatar-circle">
+												<img class="avatar-img" src="{{sessionPhoto}}" alt="{{sessionPhoto}}">
 											</div>
+											{{/sessionPhoto}}
+											{{^sessionPhoto}}
+											<div class="avatar avatar-sm avatar-dark avatar-circle">
+												<span class="avatar-initials">{{sessionName}}</span>
+											</div>
+											{{/sessionPhoto}}
 										</div>
 										<div class="flex-grow-1 ms-2">
-											<h5 class="mb-0">장성욱<span class="badge bg-primary rounded-pill text-uppercase ms-1">정상</span></h5>
-											<span class="card-text">swjang128@gmail.com</span>
+											<h5 class="mb-0">
+												{{sessionName}}
+												<span class="badge rounded-pill text-uppercase ms-1" id="sessionUserStatus">{{sessionUserStatus}}</span>
+											</h5>
+											<span class="card-text" id="sessionEmail">{{sessionEmail}}</span>
 										</div>
 									</div>
 								</a>
@@ -573,9 +481,10 @@ body {
 								<div class="dropdown">
 									<a class="navbar-dropdown-submenu-item dropdown-item dropdown-toggle" href="javascript:;" id="navSubmenuPagesAccountDropdown1" data-bs-toggle="dropdown" aria-expanded="false">상태변경</a>
 									<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-sub-menu" aria-labelledby="navSubmenuPagesAccountDropdown1">
-										<a class="dropdown-item" href="#"><span class="legend-indicator bg-primary me-1"></span>정상</a>
-										<a class="dropdown-item" href="#"> <span class="legend-indicator bg-warning me-1"></span>다른용무중</a>
-										<a class="dropdown-item" href="#"><span class="legend-indicator bg-danger me-1"></span>자리비움</a>										
+										<a class="dropdown-item" onClick="updateUserStatus('ONLINE')"><span class="legend-indicator bg-primary me-1"></span>온라인</a>
+										<a class="dropdown-item" onClick="updateUserStatus('OFFLINE')"><span class="legend-indicator bg-danger me-1"></span>오프라인</a>										
+										<a class="dropdown-item" onClick="updateUserStatus('AFK')"><span class="legend-indicator bg-warning me-1"></span>자리비움</a>
+										<a class="dropdown-item" onClick="updateUserStatus('BUSY')"> <span class="legend-indicator bg-secondary me-1"></span>다른용무중</a>										
 									</div>
 								</div>
 								<!-- End 상태 변경 -->

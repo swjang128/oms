@@ -316,7 +316,7 @@
 							<th class="table-column-pe-0">상태</th>
 							<th class="table-column-pe-0">연락처</th>
 							<th class="table-column-pe-0">권한</th>
-							<th class="table-column-pe-0">상세</th>
+<!-- 							<th class="table-column-pe-0">상세</th> -->
 						</tr>
 					</thead>
 					<tbody id="accountList">
@@ -374,7 +374,7 @@
 								</div>
 							</td>
 							<td class="table-column-ps-0">
-								<a class="d-flex align-items-center" href="#">
+								<a class="d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
 									{{#photo}}
 									<div class="avatar avatar-circle">
 										<img class="avatar-img" src="{{photo}}" alt="{{photo}}">
@@ -397,11 +397,11 @@
 							<td>{{userStatus}}</td>
 							<td>{{phone}}</td>
 							<td>{{role}}</td>
-							<td>
+<!-- 							<td>
 								<button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
 									<i class="bi-pencil-fill me-1"> 상세</i>
 								</button>
-							</td>
+							</td> -->
 						</tr>
 						{{/accountList}} {{^accountList}}
 						<tr>
