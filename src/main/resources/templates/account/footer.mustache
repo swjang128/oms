@@ -28,12 +28,12 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/js/create-account.js"></script>
 <script src="/js/change-password.js"></script>
-<script src="/js/update-account.js"></script>
+<script src="/js/account.js"></script>
 <!-- JS Front -->
 <script src="/js/theme.min.js"></script>
 <!-- JS Plugins Init. -->
 <script>
-	$(function() {
+$(document).on('ready', function () {
 	// Header의 사용자 세션정보의 상태(sessionUserStatus)에 따라 색상 변경
 	const userStatus = $('#sessionUserStatus').text();
 	switch (userStatus) {
@@ -55,7 +55,7 @@
 	
 	// INITIALIZATION OF DATATABLES
 	// =======================================================
-	HSCore.components.HSDatatables.init($('#datatable'), {
+	HSCore.components.HSDatatables.init($('#accountTable'), {
         dom: 'Bfrtip',
         buttons: [
           {
@@ -92,7 +92,7 @@
           zeroRecords: `<div class="text-center p-4">
               <img class="mb-3" src="/svg/illustrations/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="default">
               <img class="mb-3" src="/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
-            <p class="mb-0">No data to show</p>
+            <p class="mb-0">계정이 없습니다</p>
             </div>`
         }
       })
@@ -169,7 +169,6 @@
         new HSCounter('.js-counter')
 
 
-
         // INITIALIZATION OF FILE ATTACHMENT
         // =======================================================
         new HSFileAttach('.js-file-attach')
@@ -181,7 +180,7 @@
 (function () {
     // STYLE SWITCHER
     // =======================================================
-    const $dropdownBtn = document.getElementById('selectThemeDropdown') // Dropdowon trigger
+    const $dropdownBtn = document.getElementById('selectThemeDropdown') // Dropdown trigger
     const $variants = document.querySelectorAll(`[aria-labelledby="selectThemeDropdown"] [data-icon]`) // All items of the dropdown
 
     // Function to set active style in the dorpdown menu and set icon for dropdown trigger

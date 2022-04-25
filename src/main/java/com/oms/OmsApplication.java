@@ -61,7 +61,7 @@ public class OmsApplication {
 			accountDTO.setStatus(Account.Status.ACTIVE);
 			accountDTO.setUserStatus(Account.UserStatus.OFFLINE);
 			accountDTO.setRole(Account.Role.ADMIN);
-			accountDTO.setDepartment("판매");
+			accountDTO.setDepartment("매장");
 			
 			// 기본 계정을 등록
 			Account account = accountDTO.toEntity();

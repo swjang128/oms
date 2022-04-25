@@ -440,6 +440,7 @@ body {
 					<!-- 마이페이지 -->
 					<li class="nav-item">						
 						<div class="dropdown">
+							<input type="hidden" id="sessionId" value="{{sessionId}}">
 							<a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="data-bs-dropdown-animation">
 								{{#sessionPhoto}}
 								<div class="avatar avatar-sm avatar-circle">
@@ -553,7 +554,7 @@ body {
 									<i class="bi-person nav-icon"></i> <span class="nav-link-title">업무관리</span>
 							</a>
 							<div id="navbarVerticalMenuPagesUserProfileMenu" class="nav-collapse collapse show" data-bs-parent="#navbarVerticalMenuPagesMenu">									
-								<a class="nav-link " href="./user-profile-projects.html">프로젝트</a>
+								<a class="nav-link " href="/oms/project">프로젝트</a>
 								<a class="nav-link active" href="./user-profile-connections.html">업무목록</a>
 							</div>
 						</div>
@@ -573,9 +574,8 @@ body {
 								</a>
 								<div id="navbarVerticalMenuPagesUsersMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
 									<a class="nav-link " href="./user-profile-my-profile.html">마이페이지</a>
-									<a class="nav-link " href="/template/users">직원목록</a>
+									<a class="nav-link " href="/oms/account">직원목록</a>
 									<a class="nav-link " href="./user-profile-teams.html">부서목록</a>									
-									<a class="nav-link " href="#">직원등록</a>									
 								</div>
 							</div>
 							<!-- End 인사관리 -->

@@ -67,7 +67,7 @@ public class Account {
 	@Column(length=1, updatable=false)
 	private int failCount;								// 비밀번호 틀린 횟수
 	
-	@Column(length=8, insertable=true)
+	@Column(length=8, insertable=true, updatable=false)
 	@Enumerated(EnumType.STRING)
 	private Status status;								// 상태 (계정)
 	
@@ -93,7 +93,7 @@ public class Account {
 	@Column(insertable=true)
 	private Date hireDate;								// 입사일
 	
-	@Column()
+	@Column(updatable=false)
 	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
 	
 	/**

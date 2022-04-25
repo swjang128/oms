@@ -144,7 +144,7 @@
 								<span id="datatableCounter">0</span>
 								개의 선택한 계정을
 							</span>
-							<a class="btn btn-outline-danger btn-sm" href="javascript:;">
+							<a class="btn btn-outline-danger btn-sm" href="javascript:;" onClick="deleteAccount()">
 								<i class="bi-trash"></i> 삭제
 							</a>
 						</div>
@@ -183,8 +183,8 @@
 					</div>
 					<!-- End Dropdown -->
 					<!-- Dropdown -->
-					<div class="dropdown">
-						<button type="button" class="btn btn-white btn-sm w-100" id="usersFilterDropdown" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+					<div class="dropdown" data-bs-auto-close="inside" onClick="openDropdown()">
+						<button type="button" class="btn btn-white btn-sm w-100" id="usersFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
 							<i class="bi-filter me-1"></i> 조건
 							<span class="badge bg-soft-dark text-dark rounded-circle ms-1">2</span>
 						</button>
@@ -201,47 +201,18 @@
 								</div>
 								<div class="card-body">
 									<form>
-										<div class="mb-4">
-											<small class="text-cap text-body">권한</small>
-											<div class="row">
-												<div class="col">
-													<!-- Check -->
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" value="" id="usersFilterCheckAll" checked>
-														<label class="form-check-label" for="usersFilterCheckAll"> All </label>
-													</div>
-													<!-- End Check -->
-												</div>
-												<!-- End Col -->
-												<div class="col">
-													<!-- Check -->
-													<div class="form-check">
-														<input class="form-check-input" type="checkbox" value="" id="usersFilterCheckEmployee">
-														<label class="form-check-label" for="usersFilterCheckEmployee"> Employee </label>
-													</div>
-													<!-- End Check -->
-												</div>
-												<!-- End Col -->
-											</div>
-											<!-- End Row -->
-										</div>
 										<div class="row">
 											<div class="col-sm mb-4">
 												<small class="text-cap text-body">부서</small>
 												<!-- Select -->
 												<div class="tom-select-custom">
-													<select class="js-select js-datatable-filter form-select form-select-sm" data-target-column-index="2" data-hs-tom-select-options='{
+													<select class="js-select js-datatable-filter form-select form-select-sm" id="dropdownDepartment" data-target-column-index="4" data-hs-tom-select-options='{
 				                                      "placeholder": "Any",
 				                                      "searchInDropdown": false,
 				                                      "hideSearch": true,
 				                                      "dropdownWidth": "10rem"
 				                                    }'>
-														<option value="">전체</option>
-														<option value="경영">경영</option>
-														<option value="전산">전산</option>
-														<option value="법무">법무</option>
-														<option value="총무">총무</option>
-														<option value="홍보">홍보</option>
+														<option value="">전체</option>														
 													</select>
 													<!-- End Select -->
 												</div>
@@ -258,10 +229,10 @@
 				                                      "dropdownWidth": "10rem"
 				                                    }'>
 														<option value="">전체</option>
-														<option value="ONLINE" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>Online</span>'>온라인</option>
-														<option value="BUSY" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-info"></span>Busy</span>'>다른용무중</option>
-														<option value="AFK" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>AFK</span>'>자리비움</option>
-														<option value="OFFLINE" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-danger"></span>Offline</span>'>오프라인</option>
+														<option value="온라인" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>Online</span>'>온라인</option>
+														<option value="오프라인" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-danger"></span>Offline</span>'>오프라인</option>
+														<option value="자리비움" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>AFK</span>'>자리비움</option>
+														<option value="다른용무중" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-info"></span>Busy</span>'>다른용무중</option>
 													</select>
 												</div>
 												<!-- End Select -->
@@ -284,7 +255,7 @@
 			<!-- End Header -->
 			<!-- Table -->
 			<div class="table-responsive datatable-custom position-relative">
-				<table id="datatable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
+				<table id="accountTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
                       "targets": [0, 6, 8],
                       "orderable": false
@@ -320,61 +291,17 @@
 						</tr>
 					</thead>
 					<tbody id="accountList">
-						<!-- 						<tr>
-							<td class="table-column-pe-0">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="datatableCheckAll1">
-									<label class="form-check-label" for="datatableCheckAll1"></label>
-								</div>
-							</td>
-							<td class="table-column-ps-0">
-								<a class="d-flex align-items-center" href="./user-profile.html">
-									<div class="avatar avatar-circle">
-										<img class="avatar-img" src="/img/160x160/img10.jpg" alt="Image Description">
-									</div>
-									<div class="ms-3">
-										<span class="d-block h5 text-inherit mb-0">
-											Amanda Harvey <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Top endorsed"></i>
-										</span>
-										<span class="d-block fs-5 text-body">amanda@site.com</span>
-									</div>
-								</a>
-							</td>
-							<td>
-								<span class="d-block h5 mb-0">Director</span>
-								<span class="d-block fs-5">Human resources</span>
-							</td>
-							<td>United Kingdom</td>
-							<td>
-								<span class="legend-indicator bg-success"></span>
-								Active
-							</td>
-							<td>
-								<div class="d-flex align-items-center">
-									<span class="fs-5 me-2">72%</span>
-									<div class="progress table-progress">
-										<div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-									</div>
-								</div>
-							</td>
-							<td>Employee</td>
-							<td>
-								<button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal">
-									<i class="bi-pencil-fill me-1"></i> Edit
-								</button>
-							</td>
-						</tr> -->
 						<!-- 사용자 목록 -->
 						{{#accountList}}
 						<tr>
 							<td class="table-column-pe-0">
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="{{id}}" id="{{id}}">
+									<input class="form-check-input" type="checkbox" value="{{id}}" id="{{id}}" name="accountRow">
 									<label class="form-check-label" for="{{id}}"></label>
 								</div>
 							</td>
 							<td class="table-column-ps-0">
-								<a class="d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
+								<a class="d-flex align-items-center" onClick="updateAccountModal({{id}})" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
 									{{#photo}}
 									<div class="avatar avatar-circle">
 										<img class="avatar-img" src="{{photo}}" alt="{{photo}}">
@@ -388,15 +315,15 @@
 							</td>
 							<td>
 								<span class="d-block h5 text-inherit mb-0">
-									{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Top endorsed"></i>
+									{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{name}}"></i>
 								</span>
 							</td>
 							<td>{{email}}</td>
 							<td>{{department}}</td>
 							<td>{{position}}</td>
-							<td>{{userStatus}}</td>
+							<td>{{userStatus.value}}</td>
 							<td>{{phone}}</td>
-							<td>{{role}}</td>
+							<td>{{role.value}}</td>
 <!-- 							<td>
 								<button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
 									<i class="bi-pencil-fill me-1"> 상세</i>
@@ -405,7 +332,7 @@
 						</tr>
 						{{/accountList}} {{^accountList}}
 						<tr>
-							<td colspan="8" class="text-center">No Results</td>
+							<td colspan="8" class="text-center">계정이 없습니다</td>
 						</tr>
 						{{/accountList}}
 						<!-- End 사용자 목록 -->
@@ -458,7 +385,7 @@
 			<div class="col">
 				<p class="fs-6 mb-0">
 					&copy; Front.
-					<span class="d-none d-sm-inline-block">2022 Htmlstream.</span>
+					<span class="d-none d-sm-inline-block">2022 OMS.</span>
 				</p>
 			</div>
 			<!-- End Col -->

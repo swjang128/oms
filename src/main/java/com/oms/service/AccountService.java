@@ -58,7 +58,7 @@ public class AccountService {
 	}
 	
 	/**
-	 * 직원 등록
+	 * 계정 등록
 	 * 
 	 * @param accountDTO
 	 * @return Map<String, Object>
@@ -90,11 +90,10 @@ public class AccountService {
 	}
 
 	/**
-	 * 직원 목록 조회 (READ)
+	 * 계정 목록 조회 (READ)
 	 * 
 	 * @return List<Account>
 	 */
-	@SuppressWarnings("unchecked")
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		// 기본 변수 설정
 		int status = ResponseCode.Status.OK;
@@ -107,7 +106,7 @@ public class AccountService {
 		Object department = paramMap.get("department");
 		Object position = paramMap.get("position");
 		Specification<Account> specification = (root, query, criteriaBuilder) -> null;
-		// 직원 목록 조회
+		// 계정 목록 조회
 		try {
 			if (accountStatus != null)
 				specification = specification.and(AccountSpecification.findByStatus(accountStatus));
@@ -132,9 +131,36 @@ public class AccountService {
 		resultMap.put("accountList", accountDTO);		
 		return resultMap;
 	}
+	
+	/**
+	 * 특정 계정 조회 (READ)
+	 * @param Long
+	 * @return Map<String, Object>
+	 */
+	public Map<String, Object> readOne(Long id, Map<String, Object> resultMap) {
+		// 기본 변수 설정
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		Account account = null;
+		AccountDTO accountDTO = null;
+		// 특정 계정 조회
+		try {			
+			account = accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 계정 정보가 없습니다. id: " + id));
+			accountDTO = new AccountDTO(account);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
+			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
+		}
+		// resultMap에 담기
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("account", accountDTO);		
+		return resultMap;
+	}
 
 	/**
-	 * 직원 정보 수정 (UPDATE)
+	 * 계정 정보 수정 (UPDATE)
 	 * 
 	 * @param @RequestBody
 	 * @return
@@ -146,11 +172,10 @@ public class AccountService {
 		String message = ResponseCode.Message.OK;
 		long id = accountDTO.getId();
 		Account account = null;
-
-		// 해당 직원이 있는지 확인
+		log.info("****** 비밀번호: {}", accountDTO.getPassword());
+		// 해당 계정이 있는지 확인
 		try {
-			account = accountRepository.findById(id)
-					.orElseThrow(() -> new IllegalArgumentException("해당 직원 정보가 없습니다. id: " + id));
+			account = accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 계정 정보가 없습니다. id: " + id));
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
@@ -159,8 +184,17 @@ public class AccountService {
 			resultMap.put("message", message);
 			return resultMap;
 		}
-
-		// 직원 정보 수정 (UPDATE)
+		
+		// 비밀번호 확인
+		if (!encoder.matches(accountDTO.getPassword(), account.getPassword())) {
+			status = ResponseCode.Status.ACCOUNT_PASSWORD_NOT_MATCH;
+			message = ResponseCode.Message.ACCOUNT_PASSWORD_NOT_MATCH;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
+		}
+			
+		// 계정 정보 수정 (UPDATE)
 		try {
 			account = accountDTO.toEntity();
 			log.info("****** accountDTO.toEntity(): {}", account.getName());
@@ -177,7 +211,7 @@ public class AccountService {
 	}
 
 	/**
-	 * 직원 정보 삭제 (DELETE)
+	 * 계정 정보 삭제 (DELETE)
 	 * 
 	 * @return http 응답코드
 	 */
@@ -191,7 +225,9 @@ public class AccountService {
 		// 대상 계정이 존재하는지 확인
 		try {
 			for (int t = 0; t < payload.size(); t++) {
+				log.info("****** 페이로드: {}", payload.get(t));
 				targetAccount = accountRepository.findById(payload.get(t));
+				log.info("****** 대상 계정: {}", targetAccount);
 				deleteAccount[t] = targetAccount.get().getEmail();
 			}
 		} catch (Exception e) {
@@ -428,7 +464,7 @@ public class AccountService {
 		String message = ResponseCode.Message.OK;
 		List<Account> account = new ArrayList<Account>();;
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();		
-		// 특정 상태(Status)인 직원
+		// 특정 상태(Status)인 계정
 		try {
 			for (int s=0; s<accountStatus.size(); s++) {
 				account = accountRepository.findByStatus(accountStatus.get(s));
@@ -457,7 +493,7 @@ public class AccountService {
 		String message = ResponseCode.Message.OK;
 		List<Account> account = new ArrayList<Account>();;
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
-		// 특정 직원 목록 조회
+		// 특정 계정 목록 조회
 		try {
 			for (int u=0; u<userStatus.size(); u++) {
 				account = accountRepository.findByUserStatus(userStatus.get(u));

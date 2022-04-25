@@ -1,7 +1,33 @@
-/*****************
-* 부서, 직급 조회 *
-******************/
-function initUpdateAccountModal() {
+/*********************
+* 조건 드랍다운 열기 *
+**********************/
+function openDropdown() {
+	// 부서 옵션이 존재하지 않을 때만 ajax 호출
+	if ($('#dropdownDepartment option').length < 2) {
+		// 부서 조회 후 셀렉스박스 옵션에 append
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			url: '/api/department',
+			type: 'GET',
+			cache: false,
+			datatype: 'json',
+			success: function(result) {
+				for (var d = 0; d < result.departmentList.length; d++) {
+					$('#dropdownDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+				}
+			},
+			error: function() {
+				alert('서버와의 통신에 실패했습니다.');
+			}
+		});
+	}	
+	
+}
+
+/*********************
+* 기존 계정 정보 조회 *
+**********************/
+function updateAccountModal(id) {
 	// 부서 옵션이 존재하지 않을 때만 ajax 호출
 	if ($('#updateDepartment option').length < 2) {
 		// 부서 조회 후 셀렉스박스 옵션에 append
@@ -11,6 +37,7 @@ function initUpdateAccountModal() {
 			type: 'GET',
 			cache: false,
 			datatype: 'json',
+			async: false,
 			success: function(result) {
 				for (var d = 0; d < result.departmentList.length; d++) {
 					$('#updateDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
@@ -31,6 +58,7 @@ function initUpdateAccountModal() {
 			type: 'GET',
 			cache: false,
 			datatype: 'json',
+			async: false,
 			success: function(result) {
 				for (var d = 0; d < result.positionList.length; d++) {
 					$('#updatePosition').append('<option value="'+result.positionList[d].name+'">'+result.positionList[d].name+'</option>');
@@ -41,6 +69,51 @@ function initUpdateAccountModal() {
 			}
 		});
 	}
+	
+	// 사용자 계정 정보 조회
+	$.ajax({
+		contentType: 'application/json; charset=utf-8',
+		url: '/api/account/'+id,
+		type: 'GET',
+		cache: false,
+		datatype: 'json',
+		success: function(result) {
+			$('#updatePhoto').val(result.account.photo);
+			$('#updateName').val(result.account.name);
+			$('#updateEmail').val(result.account.email);
+			$('#updatePhone').val(result.account.phone);
+			$('#updateEmergencyContact').val(result.account.emergencyContact);
+			$('#updatePosition').val(result.account.position).prop('selected', true);
+			$('#updateDepartment').val(result.account.department).prop('selected', true);
+			$('#updateAddress').val(result.account.address);
+			$('#updateAddressDetail').val(result.account.addressDetail);
+			switch(result.account.role) {
+				case 'ADMIN':
+					$('#updateRoleAdmin').prop('checked', true);
+					break;
+				case 'MANAGER':
+					$('#updateRoleManager').prop('checked', true);
+					break;
+				default:
+					$('#updateRoleUser').prop('checked', true);
+			}
+			$('#updateBirthday').val(result.account.birthday);
+			$('#updateHireDate').val(result.account.hireDate);
+			// 현재 세션의 사용자와 일치하면 수정 버튼, 비밀번호 입력부 활성화
+			if (result.account.id == $('#sessionId').val()) {
+				$('#divUpdatePassword').removeClass('d-none');
+				$('#updateAccountButton').removeClass('d-none');
+			} else {
+				$('#divUpdatePassword').addClass('d-none');
+				$('#updateAccountButton').addClass('d-none');
+			}
+		},
+		error: function() {
+			alert('서버와의 통신에 실패했습니다');
+		}
+	});
+	
+
 }
 
 /************
@@ -85,7 +158,7 @@ function updateEmailCheck() {
 		$('#labelUpdateEmail').removeClass('text-success');
 		$('#labelUpdateEmail').addClass('text-danger');
 		$('#labelUpdateEmail').html('<i class="bi-exclamation-triangle me-1"></i> 이메일을 입력하세요');
-		$('#update-email').focus();
+		$('#updateEmail').focus();
 		return;
 	}
 	// email validate가 false 일 때
@@ -96,40 +169,11 @@ function updateEmailCheck() {
 		$('#updateEmail').focus();
 		return;
 	}
-	// 이메일 중복 확인
-	$.ajax({
-		contentType: 'application/json; charset=utf-8',
-		url: '/api/account/' + email,
-		type: 'GET',
-		cache: false,
-		success: function(result) {
-			$('#modalMessage').text(result.message);
-			if (result.status == 1004) {	// 생성 가능한 이메일인 경우
-				$('#labelUpdateEmail').removeClass('text-danger');
-				$('#labelUpdateEmail').addClass('text-success');
-				$('#labelUpdateEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
-				return email;				
-			} else if (result.status == 1009) {	// 중복되는 이메일인 경우
-				$('#labelUpdateEmail').removeClass('text-success');
-				$('#labelUpdateEmail').addClass('text-danger');
-				$('#labelUpdateEmail').html('<i class="bi-exclamation-triangle me-1"></i> 중복된 이메일');
-				$('#updateEmail').focus();				
-				return;
-			} else {
-				$('#labelUpdateEmail').removeClass('text-success');
-				$('#labelUpdateEmail').addClass('text-danger');
-				$('#labelUpdateEmail').html('<i class="bi-exclamation-triangle me-1"></i> 이메일 (내부 서버 오류가 발생하였습니다');
-				$('#updateEmail').focus();
-				return;
-			}
-		},
-		error: function() {
-			alert('서버와의 통신에 실패했습니다.');			
-			return;
-		}
-	});
 	
 	if (email) {
+		$('#labelUpdateEmail').removeClass('text-danger');
+		$('#labelUpdateEmail').addClass('text-success');
+		$('#labelUpdateEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
 		return email;		
 	}	
 }
@@ -442,10 +486,31 @@ function updateHireDateCheck() {
 	return hireDate;
 }
 
+/****************
+*  비밀번호 검증 *
+*****************/
+function updatePasswordCheck() {
+	var updatePassword = $('#updatePassword').val();
+	// 비밀번호가 비어있을 때
+	if (!updatePassword) {
+		$('#labelUpdatePassword').removeClass('text-success');
+		$('#labelUpdatePassword').addClass('text-danger');
+		$('#labelUpdatePassword').html('<i class="bi-exclamation-triangle me-1"></i> 비밀번호를 입력하세요');
+		$('#updatePassword').focus();
+		return;
+	} else {
+		$('#labelUpdatePassword').removeClass('text-danger');
+		$('#labelUpdatePassword').addClass('text-success');
+		$('#labelUpdatePassword').html('<i class="bi-check-lg me-1"></i> 비밀번호');
+		return updatePassword;
+	}
+	
+}
+
 /************
-*  직원 등록 *
+*  계정 수정 *
 *************/
-function updateAccount() {
+function updateAccount(id) {
 	// 이름 검증 (필수)
 	var name = updateNameCheck();
 	if (!name) {
@@ -481,27 +546,22 @@ function updateAccount() {
 	// 상세주소 검증 (선택)
 	var addressDetail = updateAddressDetailCheck();
 	// 권한 검증 (필수)	
-	var role = roleCheck();
+	var role = updateRoleCheck();
 	if (!role) {		
 		return;	
-	}
-	// 비밀번호 검증 (필수)
-	var defaultPassword = $('#updateDefaultPassword').is(':checked');
-	if (defaultPassword == true) { // 기본 비밀번호를 사용하는 경우
-		var password = $('#spanUpdateDefaultPassword').text();
-	} else { // 일반 비밀번호를 사용하는 경우
-		var password = updatePasswordCheck();
-		if (!password) {
-			return;
-		}
 	}
 	// 생일 검증 (선택)
 	var birthday = updateBirthdayCheck();
 	// 입사일 검증 (선택)
 	var hireDate = updateHireDateCheck();
+	// 비밀번호 검증
+	var password = updatePasswordCheck();
+	if (!password) {
+		return;
+	}
 
 	// 입력받은 모든 정보를 updateData(payload)에 추가
-	var updateData = JSON.stringify({
+	var updateData = JSON.stringify({		
 		hireDate: hireDate,
 		birthday: birthday,
 		password: password,
@@ -513,10 +573,11 @@ function updateAccount() {
 		emergencyContact: emergencyContact,
 		phone: phone,
 		email: email,
-		name: name
+		name: name,
+		id: id
 	});
 	
-	// 직원 등록 처리
+	// 계정 수정
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
 		url: '/api/account',
@@ -524,17 +585,52 @@ function updateAccount() {
 		data: updateData,
 		cache: false,
 		success: function(result) {
-			if (result.status == 200) {				
+			if (result.status == 200) {
 				alert('계정 정보를 변경하였습니다');
+				location.reload();
+			} else if (result.status == 1015) {
+				$('#labelUpdatePassword').removeClass('text-success');
+				$('#labelUpdatePassword').addClass('text-danger');
+				$('#labelUpdatePassword').html('<i class="bi-exclamation-triangle me-1"></i> '+result.message);
+				$('#updatePassword').focus();
 			} else {
-				alert('내부 서버 오류가 발생하였습니다');
+				alert(result.message);
 			}
 		},
 		error: function() {
 			alert('서버와의 통신에 실패했습니다.');
-		},
-		complete: function() {
-			location.reload();
 		}
 	});
+}
+
+/************
+*  계정 삭제 *
+*************/
+function deleteAccount() {
+	var payload = [];
+	$('input:checkbox[name=accountRow]').each(function (id) {
+		if ($(this).is(':checked') == true) {
+			payload.push(id);
+		}
+	});
+	
+	// 계정 수정
+	$.ajax({
+		contentType: 'application/json; charset=utf-8',
+		url: '/api/account/'+payload,
+		type: 'DELETE',
+		cache: false,
+		success: function(result) {
+			if (result.status == 200) {
+				alert('선택한 계정 정보를 삭제하였습니다');
+				location.reload();
+			} else {
+				alert(result.message);
+			}
+		},
+		error: function() {
+			alert('서버와의 통신에 실패했습니다.');
+		}
+	});
+	
 }

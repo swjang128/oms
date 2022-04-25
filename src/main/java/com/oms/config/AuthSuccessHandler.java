@@ -66,6 +66,7 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 		// 로그인한 사용자 정보를 조회하여 세션에 담기
 		account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + authentication.getName()));
 		AccountDTO accountDTO = new AccountDTO(account);
+		session.setAttribute("sessionId", accountDTO.getId());
 		session.setAttribute("sessionDepartment", accountDTO.getDepartment());
 		session.setAttribute("sessionPosition", accountDTO.getPosition());
 		session.setAttribute("sessionPhoto", accountDTO.getPhoto());

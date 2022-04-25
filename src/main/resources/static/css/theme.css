@@ -3825,6 +3825,7 @@ fieldset:disabled .btn {
   white-space: nowrap;
   background-color: transparent;
   border: 0;
+  cursor: pointer;
 }
 .dropdown-item:focus,
 .dropdown-item:hover {

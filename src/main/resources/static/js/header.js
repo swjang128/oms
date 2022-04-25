@@ -17,14 +17,10 @@ function updateUserStatus(userStatus) {
 		timeout: 60000,
 		success: function(result) {
 			if (result.status == 200) {	// 정상 변경
-				$('#sessionUserStatus').removeClass('bg-danger');
-				$('#sessionUserStatus').removeClass('bg-warning');
-				$('#sessionUserStatus').removeClass('bg-info');
-				$('#sessionUserStatus').removeClass('bg-dark');
-				$('#sessionUserStatus').removeClass('bg-primary');
+				$('#sessionUserStatus').removeClass('bg-danger bg-warning bg-info bg-dark bg-primary');
 				switch (userStatus) {
 					case 'ONLINE':
-						$('#sessionUserStatus').text('온라인');						
+						$('#sessionUserStatus').text('온라인');
 						$('#sessionUserStatus').addClass('bg-primary');
 						break;
 					case 'OFFLINE':

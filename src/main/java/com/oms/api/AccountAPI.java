@@ -86,17 +86,32 @@ public class AccountAPI {
 	}
 
 	/**
+	 * 특정 계정 조회 (READ)
+	 * 
+	 * @param PathVariable
+	 * @return Map<String, Object>
+	 */
+	@GetMapping("account/{id}")	
+	public Map<String, Object> readOne(@PathVariable("id") Long param) {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 계정 정보 삭제
+		return accountService.readOne(param, resultMap);
+	}
+	
+	/**
 	 * 계정 정보 삭제 (DELETE)
 	 * 
 	 * @param PathVariable
 	 * @return
 	 */
 	@DeleteMapping("account/{id}")
-	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
+	public Map<String, Object> delete(@PathVariable("id") List<Long> payload) {
+		log.info("****** 삭제할 아이디: {}", payload);
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		// 계정 정보 삭제
-		return accountService.delete(param, resultMap);
+		return accountService.delete(payload, resultMap);
 	}
 
 	/**
@@ -119,8 +134,7 @@ public class AccountAPI {
 	 * @param email
 	 * @return
 	 */
-	@ResponseBody
-	@GetMapping("account/{email}")
+	@GetMapping("checkEmail/{email}")
 	public Map<String, Object> checkEmail(@PathVariable("email") String email) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();

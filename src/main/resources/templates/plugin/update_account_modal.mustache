@@ -94,7 +94,7 @@
 						<!-- End 직급 -->
 						<!-- 부서 -->
 						<div class="row mb-4">
-							<label id="labelDepartment" for="updateDepartment" class="col-sm-3 col-form-label form-label">부서</label>
+							<label id="labelUpdateDepartment" for="updateDepartment" class="col-sm-3 col-form-label form-label">부서</label>
 							<div class="col-sm-9">
 								<select onChange="updateDepartmentCheck()" class="form-select" name="updateDepartment" id="updateDepartment">
 									<option value="">부서를 선택하세요</option>
@@ -140,55 +140,6 @@
 							</div>
 						</div>
 						<!-- End 권한 -->
-						<!-- 기본 비밀번호 사용여부 -->
-						<div class="d-grid gap-3 mb-4">
-							<label class="row form-check form-switch" for="updateDefaultPassword">
-								<span class="col-8 col-sm-9 ms-0">
-									<span class="d-block text-dark mb-1">기본 비밀번호
-										<span class="fs-12 text-muted d-none" id="spanUpdateDefaultPasswordComma">:</span>
-										<span class="fs-12 text-muted d-none" id="spanUpdateDefaultPassword">!Q2w3e4r</span>
-									</span>
-								</span>
-								<span class="col-4 col-sm-3 text-end">
-									<input type="checkbox" onClick="updateDefaultPasswordCheck()" class="form-check-input" id="updateDefaultPassword">
-								</span>
-							</label>
-							<!-- End 기본 비밀번호 사용여부 -->
-							<!-- 비밀번호 -->
-							<div class="row mb-4" id="divUpdatePassword">
-								<label id="labelUpdatePassword" for="updatePassword" class="col-sm-3 col-form-label form-label">비밀번호</label>
-								<div class="col-sm-9">
-									<div class="input-group input-group-merge">
-										<input type="password" onChange="updatePasswordCheck()" class="js-toggle-password form-control" name="updatePassword" id="updatePassword" placeholder="비밀번호는 최소 8자 이상, 영어대소문자, 특수문자, 숫자를 포함" aria-label="Enter password" data-hs-toggle-password-options='{
-											"target": "#updatePasswordToggle",
-											"defaultClass": "bi-eye-slash",
-											"showClass": "bi-eye",
-											"classChangeTarget": "#updatePasswordToggleIcon" }'>
-										<a id="updatePasswordToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
-											<i id="updatePasswordToggleIcon" class="bi-eye"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-							<!-- End 비밀번호 -->
-							<!-- 비밀번호 확인 -->
-							<div class="row mb-4" id="divUpdatePasswordConfirm">
-								<label id="labelUpdatePasswordConfirm" for="updatePasswordConfirm" class="col-sm-3 col-form-label form-label">비밀번호 확인</label>
-								<div class="col-sm-9">
-									<div class="input-group input-group-merge">
-										<input type="password" onChange="updatePasswordConfirmCheck()" class="js-toggle-password form-control" name="updatePasswordConfirm" id="updatePasswordConfirm" placeholder="비밀번호는 최소 8자 이상, 영어대소문자, 특수문자, 숫자를 포함" aria-label="Confirm password" data-hs-toggle-password-options='{
-											"target": "#updatePasswordConfirmToggle",
-											"defaultClass": "bi-eye-slash",
-											"showClass": "bi-eye",
-											"classChangeTarget": "#updatePasswordConfirmToggleIcon" }'>
-										<a id="updatePasswordConfirmToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
-											<i id="updatePasswordConfirmToggleIcon" class="bi-eye"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-							<!-- End 비밀번호 확인 -->
-						</div>
 						<!-- 생일 -->
 						<div class="row mb-4">
 							<label id="labelUpdateBirthday" for="updateBirthday" class="col-sm-3 col-form-label form-label">생년월일<span class="form-label-secondary"> (선택)</span></label>
@@ -205,9 +156,26 @@
 							</div>
 						</div>
 						<!-- End 입사일 -->
+						<!-- 비밀번호 -->
+						<div class="row mb-4 d-none" id="divUpdatePassword">
+							<label id="labelUpdatePassword" for="updatePassword" class="col-sm-3 col-form-label form-label">비밀번호</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-merge">
+									<input type="password" onChange="passwordCheck()" class="js-toggle-password form-control" name="updatePassword" id="updatePassword" placeholder="" aria-label="Enter password" data-hs-toggle-password-options='{
+										"target": "#updatePasswordToggle",
+										"defaultClass": "bi-eye-slash",
+										"showClass": "bi-eye",
+										"classChangeTarget": "#updatePasswordToggleIcon" }'>
+									<a id="updatePasswordToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
+										<i id="updatePasswordToggleIcon" class="bi-eye"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+						<!-- End 비밀번호 -->
 						<!-- 하단 버튼 -->
 						<div class="d-grid gap-2">
-							<button class="btn btn-primary" onClick="updateAccount()" id="createAccountButton">등록</button>
+							<button class="btn btn-primary d-none" onClick="updateAccount({{sessionId}})" id="updateAccountButton">수정</button>
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">닫기</button>
 						</div>
 						<!-- End 하단 버튼 -->
