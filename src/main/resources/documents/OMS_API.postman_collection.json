@@ -160,7 +160,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/department?useYn=A",
+							"raw": "http://10.0.100.15:9575/api/department?use=N",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -175,8 +175,8 @@
 							],
 							"query": [
 								{
-									"key": "useYn",
-									"value": "A"
+									"key": "use",
+									"value": "N"
 								}
 							]
 						}
@@ -438,7 +438,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/account/2",
+							"raw": "http://10.0.100.15:9575/api/account/9,10",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -450,7 +450,7 @@
 							"path": [
 								"api",
 								"account",
-								"2"
+								"9,10"
 							]
 						}
 					},
@@ -462,7 +462,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:9575/api/account/admin@oms.com",
+							"raw": "http://127.0.0.1:9575/api/checkEmail/admin@oms.com",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -473,7 +473,7 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"account",
+								"checkEmail",
 								"admin@oms.com"
 							]
 						}
@@ -547,6 +547,30 @@
 									"key": "status",
 									"value": "BLOCKED,ACTIVE"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "특정 게정 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:9575/api/account/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"account",
+								"1"
 							]
 						}
 					},

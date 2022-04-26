@@ -608,29 +608,31 @@ function updateAccount(id) {
 *************/
 function deleteAccount() {
 	var payload = [];
-	$('input:checkbox[name=accountRow]').each(function (id) {
+	$('input:checkbox[name=accountRow]').each(function () {
 		if ($(this).is(':checked') == true) {
-			payload.push(id);
+			payload.push($(this).val());
 		}
 	});
 	
-	// 계정 수정
-	$.ajax({
-		contentType: 'application/json; charset=utf-8',
-		url: '/api/account/'+payload,
-		type: 'DELETE',
-		cache: false,
-		success: function(result) {
-			if (result.status == 200) {
-				alert('선택한 계정 정보를 삭제하였습니다');
-				location.reload();
-			} else {
-				alert(result.message);
+	if (confirm('선택한 계정을 삭제하시겠습니까?')) {
+		// 계정 수정
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			url: '/api/account/'+payload,
+			type: 'DELETE',
+			cache: false,
+			success: function(result) {
+				if (result.status == 200) {
+					alert('선택한 계정 정보를 삭제하였습니다');
+					location.reload();
+				} else {
+					alert(result.message);
+				}
+			},
+			error: function() {
+				alert('서버와의 통신에 실패했습니다.');
 			}
-		},
-		error: function() {
-			alert('서버와의 통신에 실패했습니다.');
-		}
-	});
+		});	
+	}
 	
 }

@@ -98,7 +98,7 @@ public class AccountService {
 		// 기본 변수 설정
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		List<Account> account = new ArrayList<Account>();;
+		List<Account> account = new ArrayList<Account>();
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
 		Object accountStatus = paramMap.get("status");
 		Object userStatus = paramMap.get("userStatus");
@@ -171,42 +171,35 @@ public class AccountService {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		long id = accountDTO.getId();
-		Account account = null;
-		log.info("****** 비밀번호: {}", accountDTO.getPassword());
+		Optional<Account> account = Optional.empty();
 		// 해당 계정이 있는지 확인
-		try {
-			account = accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 계정 정보가 없습니다. id: " + id));
-		} catch (Exception e) {
-			e.printStackTrace();
+		account = accountRepository.findById(id);
+		if (!account.isPresent()) {
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
 			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
 			resultMap.put("status", status);
 			resultMap.put("message", message);
 			return resultMap;
 		}
-		
 		// 비밀번호 확인
-		if (!encoder.matches(accountDTO.getPassword(), account.getPassword())) {
+		if (!encoder.matches(accountDTO.getPassword(), account.get().getPassword())) {
 			status = ResponseCode.Status.ACCOUNT_PASSWORD_NOT_MATCH;
 			message = ResponseCode.Message.ACCOUNT_PASSWORD_NOT_MATCH;
 			resultMap.put("status", status);
 			resultMap.put("message", message);
 			return resultMap;
 		}
-			
 		// 계정 정보 수정 (UPDATE)
 		try {
-			account = accountDTO.toEntity();
-			log.info("****** accountDTO.toEntity(): {}", account.getName());
-			accountRepository.save(account);
+			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
 			message = ResponseCode.Message.ERROR_ABORT;
-		} finally {
-			resultMap.put("status", status);
-			resultMap.put("message", message);
 		}
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		
 		return resultMap;
 	}
 
@@ -217,42 +210,36 @@ public class AccountService {
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> payload, Map<String, Object> resultMap) {
-		String[] deleteAccount = new String[payload.size()];
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
-		Optional<Account> targetAccount;
-
 		// 대상 계정이 존재하는지 확인
 		try {
-			for (int t = 0; t < payload.size(); t++) {
-				log.info("****** 페이로드: {}", payload.get(t));
-				targetAccount = accountRepository.findById(payload.get(t));
-				log.info("****** 대상 계정: {}", targetAccount);
-				deleteAccount[t] = targetAccount.get().getEmail();
+			for (int p=0; p<payload.size(); p++) {
+				accountRepository.findById(payload.get(p)).orElseThrow(() -> new IllegalArgumentException("payload 중 존재하지 않는 계정이 있습니다: " + payload));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ACCOUNT_NOT_FOUND;
 			message = ResponseCode.Message.ACCOUNT_NOT_FOUND;
 			resultMap.put("status", status);
-			resultMap.put("message", message);
+			resultMap.put("message", message);				
 			return resultMap;
 		}
-
-		// 모두 존재하는 것을 확인하면 계정 삭제
-		try {
-			for (int d = 0; d < payload.size(); d++) {
+		// 계정이 존재하면 삭제
+		for (int d=0; d<payload.size(); d++) {
+			try {
 				accountRepository.deleteById(payload.get(d));
+			} catch (Exception e) {
+				e.printStackTrace();
+				status = ResponseCode.Status.ERROR_ABORT;
+				message = ResponseCode.Message.ERROR_ABORT;
+				resultMap.put("status", status);
+				resultMap.put("message", message);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
-		} finally {
-			resultMap.put("status", status);
-			resultMap.put("message", message);
-			resultMap.put("deleteAccount", deleteAccount);
 		}
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("deletedId", payload);
 		return resultMap;
 	}
 
@@ -534,3 +521,4 @@ public class AccountService {
 		return resultMap;
 	}
 }
+
