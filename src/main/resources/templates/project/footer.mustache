@@ -27,10 +27,31 @@
 
   <!-- JS Front -->
   <script src="/js/theme.min.js"></script>
+  
+  <!-- Header JS -->
+  <script src="/js/header.js"></script>
 
   <!-- JS Plugins Init. -->
   <script>
     $(document).on('ready', function () {
+    	// Header의 사용자 세션정보의 상태(sessionUserStatus)에 따라 색상 변경
+    	const userStatus = $('#sessionUserStatus').text();
+    	switch (userStatus) {
+    		case '온라인':
+    			$('#sessionUserStatus').addClass('bg-primary');
+    			break;
+    		case '오프라인':
+    			$('#sessionUserStatus').addClass('bg-danger');
+    			break;
+    		case '자리비움':
+    			$('#sessionUserStatus').addClass('bg-warning');
+    			break;
+    		case '다른용무중':
+    			$('#sessionUserStatus').addClass('bg-info');
+    			break;
+    		default: 
+    			$('#sessionUserStatus').addClass('bg-dark');
+    	}
       // INITIALIZATION OF DATATABLES
       // =======================================================
       HSCore.components.HSDatatables.init($('#datatable'), {
