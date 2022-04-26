@@ -1,5 +1,8 @@
 package com.oms.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.oms.config.CommonUtil;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.LawDTO;
+import com.oms.entity.Account;
 import com.oms.service.AccountService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -62,21 +66,83 @@ public class OmsController {
 	 * Account
 	 * @param model
 	 * @return
+	 * @throws Exception 
 	 */
 	@GetMapping("account")
-  	public String member(Model model) {
+  	public String member(Model model) {		
 		// ServletPath, CurrentLocation 설정 
 		String servletPath = commonUtil.getServletPath();
 		String currentLocation = commonUtil.getCurrentLocation();
 		model.addAttribute("servletPath", servletPath);
 		model.addAttribute("currentLocation", currentLocation);
+		
+		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Map<String, Object> paramMap = new HashMap<String, Object>();		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		LocalDate localDate = LocalDate.now();
 		
-		// 계정 목록을 model에 담기
+		// 전체 계정 목록 + 개수		
 		resultMap = accountService.read(paramMap, resultMap);
-		model.addAttribute("accountList", resultMap.get("accountList"));
+		Long totalAccount = (long) resultMap.size();		
+		model.addAttribute("accountList", resultMap.get("accountList"));		
+		model.addAttribute("totalAccount", totalAccount);
 		
+		// 1달전 입사한 전체 계정 개수
+		Long monthAgoAccount = (long) 0;
+		resultMap.clear();
+		paramMap.put("endDate", localDate.minusMonths(1));
+		resultMap = accountService.count(paramMap, resultMap);
+		if (resultMap != null) {
+			monthAgoAccount = (Long) resultMap.get("count");
+			log.info("****** 1달전 입사 계정: {}", monthAgoAccount);
+		}
+		model.addAttribute("monthAgoAccount", monthAgoAccount);
+		
+		// 현재 계정 개수 대비 1달전 계정 개수
+		Long compareAccount = (long) 100;
+		if (monthAgoAccount > 0) {
+			compareAccount = (totalAccount / monthAgoAccount) * 100;
+		}
+		model.addAttribute("compareAccount", compareAccount);
+
+		// ACTIVE 계정 개수
+		paramMap.clear();
+		resultMap.clear();
+		Long activeAccount = (long) 0;
+		paramMap.put("status", Account.Status.ACTIVE);
+		resultMap = accountService.count(paramMap,  resultMap);
+		activeAccount = (Long) resultMap.get("count");
+		double compareActiveAccount = ((double) activeAccount / (double) totalAccount) * 100;
+		compareActiveAccount = Math.round(compareActiveAccount * 100) / 100.0;
+		log.info("****** compareActiveAccount: {}", compareActiveAccount);
+		model.addAttribute("activeAccount", activeAccount);
+		model.addAttribute("compareActiveAccount", compareActiveAccount);
+		
+		// EXPIRED 계정 개수
+		paramMap.clear();
+		resultMap.clear();
+		Long expiredAccount = (long) 0;
+		paramMap.put("status", Account.Status.EXPIRED);
+		resultMap = accountService.count(paramMap,  resultMap);
+		expiredAccount = (Long) resultMap.get("count");
+		double compareExpiredAccount = ((double) expiredAccount / (double) totalAccount) * 100;
+		compareExpiredAccount = Math.round(compareExpiredAccount * 100) / 100.0;
+		model.addAttribute("expiredAccount", expiredAccount);
+		model.addAttribute("compareExpiredAccount", compareExpiredAccount);
+		
+		// BLOCKED 계정 개수
+		paramMap.clear();
+		resultMap.clear();
+		Long blockedAccount = (long) 0;
+		paramMap.put("status", Account.Status.BLOCKED);
+		resultMap = accountService.count(paramMap,  resultMap);
+		blockedAccount = (Long) resultMap.get("count");
+		double compareBlockedAccount = ((double) blockedAccount / (double) totalAccount) * 100;
+		compareBlockedAccount = Math.round(compareBlockedAccount * 100) / 100.0;
+		model.addAttribute("blockedAccount", blockedAccount);
+		model.addAttribute("compareBlockedAccount", compareBlockedAccount);
+		
+		// account 페이지로 이동
   		return "account";
   	}
 	

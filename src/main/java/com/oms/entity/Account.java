@@ -1,5 +1,6 @@
 package com.oms.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -85,13 +86,11 @@ public class Account {
 	@Column(length=16, insertable=true)
 	private String emergencyContact;					// 비상연락처
 	
-	@Temporal(TemporalType.DATE)
 	@Column()
-	private Date birthday;								// 생일
+	private LocalDate birthday;								// 생일
 	
-	@Temporal(TemporalType.DATE)
 	@Column(insertable=true)
-	private Date hireDate;								// 입사일
+	private LocalDate hireDate;								// 입사일
 	
 	@Column(updatable=false)
 	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간

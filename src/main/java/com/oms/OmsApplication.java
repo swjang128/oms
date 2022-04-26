@@ -1,5 +1,7 @@
 package com.oms;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -46,14 +48,14 @@ public class OmsApplication {
 		if (accountList.size() == 0) {
 			log.info("****** 계정 정보가 존재하지 않습니다. 테스트용 계정을 생성합니다.");
 			AccountDTO accountDTO = new AccountDTO();
-			Date date = new Date();
+			LocalDate localDate = LocalDate.now();
 			accountDTO.setEmail(initEmail);
 			accountDTO.setPassword(encoder.encode(initPassword));
 			accountDTO.setName("admin");
 			accountDTO.setAddress("주소");
 			accountDTO.setAddressDetail("상세주소");
-			accountDTO.setBirthday(date);
-			accountDTO.setHireDate(date);
+			accountDTO.setBirthday(localDate);
+			accountDTO.setHireDate(localDate);
 			accountDTO.setPhone("01000000000");
 			accountDTO.setEmergencyContact("01000000000");
 			accountDTO.setPhoto("");

@@ -1,7 +1,6 @@
 package com.oms.specification;
 
-import java.util.List;
-
+import java.time.LocalDate;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -10,15 +9,14 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.oms.entity.Account;
-import com.oms.entity.Account.Role;
-import com.oms.entity.Account.Status;
-import com.oms.entity.Account.UserStatus;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Account Specification 클래스
  * @author jsw
  *
  */
+@Slf4j
 public class AccountSpecification {
 	/**
 	 * WHERE status in (List<Status> status)
@@ -91,5 +89,27 @@ public class AccountSpecification {
 				return root.get("position").in(position);
 			}
 		};
-	} 
+	}
+	/**
+	 * WHERE hireDate in (List<String> position)
+	 * @param position
+	 * @return
+	 */
+	public static Specification<Account> findByHireDate(LocalDate startDate, LocalDate endDate) {
+		return new Specification<Account>() {
+			private static final long serialVersionUID = -587488762192925433L;
+			@Override
+			public Predicate toPredicate(Root<Account> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				if (startDate != null && endDate == null) {
+					return criteriaBuilder.greaterThanOrEqualTo(root.get("hireDate"), startDate);
+				} else if (startDate == null && endDate !=null) {
+					return criteriaBuilder.lessThanOrEqualTo(root.get("hireDate"), endDate);
+				} else if (startDate != null && endDate != null) {
+					return criteriaBuilder.between(root.get("hireDate"), startDate, endDate);	
+				} else {
+					return null;
+				}
+			}
+		};
+	}
 }

@@ -1,8 +1,11 @@
 package com.oms.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -78,9 +81,9 @@ public class AccountDTO {
 	@Size(min=1, max=16, message="올바른 비상 연락처를 입력해주세요")
 	private String emergencyContact;						// 비상연락처
 	
-	private Date birthday;									// 생일
+	private LocalDate birthday;									// 생일
 	
-	private Date hireDate;									// 입사일
+	private LocalDate hireDate;									// 입사일
 	
 	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
 

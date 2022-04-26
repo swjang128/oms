@@ -1,5 +1,7 @@
 package com.oms.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +107,8 @@ public class AccountService {
 		Object role = paramMap.get("role");
 		Object department = paramMap.get("department");
 		Object position = paramMap.get("position");
+		LocalDate startDate = (LocalDate) paramMap.get("startDate");
+		LocalDate endDate = (LocalDate) paramMap.get("endDate");
 		Specification<Account> specification = (root, query, criteriaBuilder) -> null;
 		// 계정 목록 조회
 		try {
@@ -118,6 +122,8 @@ public class AccountService {
 				specification = specification.and(AccountSpecification.findByDepartment(department));
 			if (position != null)
 				specification = specification.and(AccountSpecification.findByPosition(position));
+			if (startDate != null || endDate != null)
+				specification = specification.and(AccountSpecification.findByHireDate(startDate, endDate));
 			account = accountRepository.findAll(specification);
 			accountDTO = account.stream().map(a -> modelMapper.map(a, AccountDTO.class)).collect(Collectors.toList());
 		} catch (Exception e) {
@@ -129,6 +135,49 @@ public class AccountService {
 		resultMap.put("status", status);
 		resultMap.put("message", message);
 		resultMap.put("accountList", accountDTO);		
+		return resultMap;
+	}
+	
+	/**
+	 * 계정 개수 (READ)
+	 * 
+	 * @return Integer
+	 */
+	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		// 기본 변수 설정
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		long count = 0;
+		Object accountStatus = paramMap.get("status");
+		Object userStatus = paramMap.get("userStatus");
+		Object role = paramMap.get("role");
+		Object department = paramMap.get("department");
+		Object position = paramMap.get("position");
+		LocalDate startDate = (LocalDate) paramMap.get("startDate");
+		LocalDate endDate = (LocalDate) paramMap.get("endDate");
+		Specification<Account> specification = (root, query, criteriaBuilder) -> null;
+		// 계정 목록 조회
+		try {
+			if (accountStatus != null)
+				specification = specification.and(AccountSpecification.findByStatus(accountStatus));
+			if (userStatus != null)
+				specification = specification.and(AccountSpecification.findByUserStatus(userStatus));
+			if (role != null)
+				specification = specification.and(AccountSpecification.findByRole(role));
+			if (department != null)
+				specification = specification.and(AccountSpecification.findByDepartment(department));
+			if (position != null)
+				specification = specification.and(AccountSpecification.findByPosition(position));
+			if (startDate != null || endDate != null)
+				specification = specification.and(AccountSpecification.findByHireDate(startDate, endDate));
+			count = accountRepository.count(specification);
+		} catch (Exception e) {
+			count = 0;
+		}
+		// resultMap에 담기
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("count", count);		
 		return resultMap;
 	}
 	

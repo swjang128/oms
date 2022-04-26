@@ -40,18 +40,15 @@
 						<h6 class="card-subtitle mb-2">전체 계정</h6>
 						<div class="row align-items-center gx-2">
 							<div class="col">
-								<span class="js-counter display-4 text-dark">5</span>
-								<span class="text-body fs-5 ms-1">from 2</span>
+								<span class="js-counter display-4 text-dark">{{totalAccount}}</span>
+								<span class="text-body fs-5 ms-1">(지난달: {{monthAgoAccount}})</span>
 							</div>
-							<!-- End Col -->
 							<div class="col-auto">
 								<span class="badge bg-soft-success text-success p-1">
-									<i class="bi-graph-up"></i> 150%
+									<i class="bi-graph-up"></i> {{compareAccount}} %
 								</span>
 							</div>
-							<!-- End Col -->
 						</div>
-						<!-- End Row -->
 					</div>
 				</div>
 				<!-- End Card -->
@@ -59,20 +56,18 @@
 			<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
 				<!-- Card -->
 				<div class="card h-100">
-					<div class="card-body">
+					<div class="card-body">						
 						<h6 class="card-subtitle mb-2">활성화된 계정</h6>
 						<div class="row align-items-center gx-2">
 							<div class="col">
-								<span class="js-counter display-4 text-dark">4</span>
-								<span class="text-body fs-5 ms-1">from 2</span>
+								<span class="js-counter display-4 text-dark">{{activeAccount}}</span>
 							</div>
 							<div class="col-auto">
-								<span class="badge bg-soft-success text-success p-1">
-									<i class="bi-graph-up"></i> 100%
+								<span class="badge bg-soft-success text-primary p-1">
+									<i class="bi-graph-up"></i> {{compareActiveAccount}} %
 								</span>
 							</div>
 						</div>
-						<!-- End Row -->
 					</div>
 				</div>
 				<!-- End Card -->
@@ -84,16 +79,14 @@
 						<h6 class="card-subtitle mb-2">만료된 계정</h6>
 						<div class="row align-items-center gx-2">
 							<div class="col">
-								<span class="js-counter display-4 text-dark">0</span>
-								<span class="text-body fs-5 ms-1">from 1</span>
+								<span class="js-counter display-4 text-dark">{{expiredAccount}}</span>
 							</div>
 							<div class="col-auto">
-								<span class="badge bg-soft-danger text-danger p-1">
-									<i class="bi-graph-down"></i> 100%
+								<span class="badge bg-soft-success text-warning p-1">
+									<i class="bi-graph-up"></i> {{compareExpiredAccount}} %
 								</span>
 							</div>
 						</div>
-						<!-- End Row -->
 					</div>
 				</div>
 				<!-- End Card -->
@@ -105,15 +98,14 @@
 						<h6 class="card-subtitle mb-2">정지된 계정</h6>
 						<div class="row align-items-center gx-2">
 							<div class="col">
-								<span class="js-counter display-4 text-dark">0</span>
-								<span class="display-4 text-dark">%</span>
-								<span class="text-body fs-5 ms-1">from 0%</span>
+								<span class="js-counter display-4 text-dark">{{blockedAccount}}</span>
 							</div>
 							<div class="col-auto">
-								<span class="badge bg-soft-secondary text-secondary p-1">0%</span>
+								<span class="badge bg-soft-success text-danger p-1">
+									<i class="bi-graph-up"></i> {{compareBlockedAccount}} %
+								</span>
 							</div>
 						</div>
-						<!-- End Row -->
 					</div>
 				</div>
 				<!-- End Card -->
@@ -385,8 +377,8 @@
 		<div class="row justify-content-between align-items-center">
 			<div class="col">
 				<p class="fs-6 mb-0">
-					&copy; Front.
-					<span class="d-none d-sm-inline-block">2022 OMS.</span>
+					&copy; OMS.
+					<span class="d-none d-sm-inline-block">2022</span>
 				</p>
 			</div>
 			<!-- End Col -->
