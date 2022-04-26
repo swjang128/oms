@@ -44,7 +44,6 @@ public class OmsController {
 	@GetMapping("")
   	public String main(Model model, @RequestParam(value="result", required=false) String result) {
 		String message = "";
-		log.info("**** result: {}", result);
 		if (result != null) {
 			switch(result) {
 				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요";
@@ -55,10 +54,7 @@ public class OmsController {
 				default -> message = "로그인 중 에러가 발생하였습니다";
 			}
 		}
-		
-		log.info("**** message: {}", message);
 		model.addAttribute("message", message);
-		
   		return "login";
   	}
 

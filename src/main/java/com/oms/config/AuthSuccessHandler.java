@@ -43,17 +43,14 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		log.info("****** 로그인 시작 ");
 		// Account 객체 생성
 		Account account = accountRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다." + authentication.getName()));
 		// 로그인한 계정의 상태가 BLOCKED면 LockedException 예외 throw
 		switch(account.getStatus().getKey()) {
 			case "BLOCKED" -> {
-				log.info("account 상태: {}", account.getStatus().getKey());
 				throw new LockedException("계정이 정지 상태입니다");
 			}
 			case "EXPIRED" -> {
-				log.info("account 상태: {}", account.getStatus().getKey());
 				throw new AccountExpiredException("계정이 만료 상태입니다");
 			}
 		}
