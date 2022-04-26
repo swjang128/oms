@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.oms.entity.Position.UseYn;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +25,11 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * 사이드바 메뉴
- * @author Capias J
+ * @author JSW
  *
  */
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
@@ -63,7 +65,7 @@ public class Menu {
 	
 	/**
 	 * 메뉴 사용유무에 대한 정의
-	 * @author jsw
+	 * @author JSW
 	 */
 	@Getter
 	@RequiredArgsConstructor
