@@ -87,18 +87,17 @@ public class OmsController {
 		model.addAttribute("accountList", resultMap.get("accountList"));		
 		model.addAttribute("totalAccount", totalAccount);
 		
-		// 1달전 입사한 전체 계정 개수
+		// 1달전 입사한 계정 개수
 		Long monthAgoAccount = (long) 0;
 		resultMap.clear();
 		paramMap.put("endDate", localDate.minusMonths(1));
 		resultMap = accountService.count(paramMap, resultMap);
 		if (resultMap != null) {
 			monthAgoAccount = (Long) resultMap.get("count");
-			log.info("****** 1달전 입사 계정: {}", monthAgoAccount);
 		}
 		model.addAttribute("monthAgoAccount", monthAgoAccount);
 		
-		// 현재 계정 개수 대비 1달전 계정 개수
+		// 전체 계정 개수 대비 1달전 계정 개수
 		Long compareAccount = (long) 100;
 		if (monthAgoAccount > 0) {
 			compareAccount = (totalAccount / monthAgoAccount) * 100;
@@ -114,7 +113,6 @@ public class OmsController {
 		activeAccount = (Long) resultMap.get("count");
 		double compareActiveAccount = ((double) activeAccount / (double) totalAccount) * 100;
 		compareActiveAccount = Math.round(compareActiveAccount * 100) / 100.0;
-		log.info("****** compareActiveAccount: {}", compareActiveAccount);
 		model.addAttribute("activeAccount", activeAccount);
 		model.addAttribute("compareActiveAccount", compareActiveAccount);
 		
@@ -163,7 +161,7 @@ public class OmsController {
   	}
 	
 	/**
-	 * Dashboard
+	 * DashBoard
 	 * @param model
 	 * @return
 	 */
@@ -179,7 +177,7 @@ public class OmsController {
   	}
 	
 	/**
-	 * Task(Kanban)
+	 * Task(KanBan)
 	 * @param model
 	 * @return
 	 */
