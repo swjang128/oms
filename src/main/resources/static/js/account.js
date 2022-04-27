@@ -1,3 +1,191 @@
+$(document).on('ready', function() {
+	// Header의 사용자 세션정보의 상태(sessionUserStatus)에 따라 색상 변경
+	const userStatus = $('#sessionUserStatus').text();
+	switch (userStatus) {
+		case '온라인':
+			$('#sessionUserStatus').addClass('bg-primary');
+			break;
+		case '오프라인':
+			$('#sessionUserStatus').addClass('bg-danger');
+			break;
+		case '자리비움':
+			$('#sessionUserStatus').addClass('bg-warning');
+			break;
+		case '다른용무중':
+			$('#sessionUserStatus').addClass('bg-info');
+			break;
+		default:
+			$('#sessionUserStatus').addClass('bg-dark');
+	}
+
+	const accountStatus = $('tr[name=accountStatus]').text();
+	switch (accountStatus) {
+		case '활성화':
+			$('tr[name=accountStatus]').addClass('bg-primary');
+			break;
+		case '잠김':
+			$('tr[name=accountStatus]').addClass('bg-danger');
+			break;
+		case '만료됨':
+			$('tr[name=accountStatus]').addClass('bg-warning');
+			break;
+		default:
+			$('tr[name=accountStatus]').addClass('bg-dark');
+	}
+
+	// INITIALIZATION OF DATATABLES
+	// =======================================================
+	HSCore.components.HSDatatables.init($('#accountTable'), {
+		dom: 'Bfrtip',
+		buttons: [
+			{
+				extend: 'copy',
+				className: 'd-none'
+			},
+			{
+				extend: 'excel',
+				className: 'd-none'
+			},
+			{
+				extend: 'csv',
+				className: 'd-none'
+			},
+			{
+				extend: 'pdf',
+				className: 'd-none'
+			},
+			{
+				extend: 'print',
+				className: 'd-none'
+			},
+		],
+		select: {
+			style: 'multi',
+			selector: 'td:first-child input[type="checkbox"]',
+			classMap: {
+				checkAll: '#datatableCheckAll',
+				counter: '#datatableCounter',
+				counterInfo: '#datatableCounterInfo'
+			}
+		},
+		language: {
+			zeroRecords: `<div class="text-center p-4">
+              <img class="mb-3" src="/svg/illustrations/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="default">
+              <img class="mb-3" src="/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
+            <p class="mb-0">계정이 없습니다</p>
+            </div>`
+		}
+	});
+
+	const datatable = HSCore.components.HSDatatables.getItem(0)
+
+	$('#export-copy').click(function() {
+		datatable.button('.buttons-copy').trigger()
+	});
+
+	$('#export-excel').click(function() {
+		datatable.button('.buttons-excel').trigger()
+	});
+
+	$('#export-csv').click(function() {
+		datatable.button('.buttons-csv').trigger()
+	});
+
+	$('#export-pdf').click(function() {
+		datatable.button('.buttons-pdf').trigger()
+	});
+
+	$('#export-print').click(function() {
+		datatable.button('.buttons-print').trigger()
+	});
+
+	$('.js-datatable-filter').on('change', function() {
+		var $this = $(this),
+			elVal = $this.val(),
+			targetColumnIndex = $this.data('target-column-index');
+
+		if (elVal === 'null') elVal = ''
+
+		datatable.column(targetColumnIndex).search(elVal).draw();
+	});
+});
+
+(function() {
+	window.onload = function() {
+		// INITIALIZATION OF NAVBAR VERTICAL ASIDE
+		// =======================================================
+		new HSSideNav('.js-navbar-vertical-aside').init()
+
+
+		// INITIALIZATION OF FORM SEARCH
+		// =======================================================
+		new HSFormSearch('.js-form-search')
+
+
+		// INITIALIZATION OF TOGGLE PASSWORD
+		// =======================================================
+		new HSTogglePassword('.js-toggle-password')
+
+
+		// INITIALIZATION OF BOOTSTRAP DROPDOWN
+		// =======================================================
+		HSBsDropdown.init()
+
+
+		// INITIALIZATION OF INPUT MASK
+		// =======================================================
+		HSCore.components.HSMask.init('.js-input-mask')
+
+
+		// INITIALIZATION OF NAV SCROLLER
+		// =======================================================
+		new HsNavScroller('.js-nav-scroller')
+
+
+		// INITIALIZATION OF COUNTER
+		// =======================================================
+		new HSCounter('.js-counter')
+
+
+		// INITIALIZATION OF FILE ATTACHMENT
+		// =======================================================
+		new HSFileAttach('.js-file-attach')
+	}
+})();
+
+(function() {
+	// STYLE SWITCHER
+	// =======================================================
+	const $dropdownBtn = document.getElementById('selectThemeDropdown') // Dropdown trigger
+	const $variants = document.querySelectorAll(`[aria-labelledby="selectThemeDropdown"] [data-icon]`) // All items of the dropdown
+
+	// Function to set active style in the dorpdown menu and set icon for dropdown trigger
+	const setActiveStyle = function() {
+		$variants.forEach($item => {
+			if ($item.getAttribute('data-value') === HSThemeAppearance.getOriginalAppearance()) {
+				$dropdownBtn.innerHTML = `<i class="${$item.getAttribute('data-icon')}" />`
+				return $item.classList.add('active')
+			}
+
+			$item.classList.remove('active')
+		})
+	}
+
+	// Add a click event to all items of the dropdown to set the style
+	$variants.forEach(function($item) {
+		$item.addEventListener('click', function() {
+			HSThemeAppearance.setAppearance($item.getAttribute('data-value'))
+		})
+	})
+
+	// Call the setActiveStyle on load page
+	setActiveStyle()
+
+	// Add event listener on change style to call the setActiveStyle function
+	window.addEventListener('on-hs-appearance-change', function() {
+		setActiveStyle()
+	})
+})();
 /*********************
 * 조건 드랍다운 열기 *
 **********************/
@@ -13,15 +201,15 @@ function openDropdown() {
 			datatype: 'json',
 			success: function(result) {
 				for (var d = 0; d < result.departmentList.length; d++) {
-					$('#dropdownDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+					$('#dropdownDepartment').append('<option value="' + result.departmentList[d].name + '">' + result.departmentList[d].name + '</option>');
 				}
 			},
 			error: function() {
 				alert('서버와의 통신에 실패했습니다.');
 			}
 		});
-	}	
-	
+	}
+
 }
 
 /*********************
@@ -40,7 +228,7 @@ function updateAccountModal(id) {
 			async: false,
 			success: function(result) {
 				for (var d = 0; d < result.departmentList.length; d++) {
-					$('#updateDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+					$('#updateDepartment').append('<option value="' + result.departmentList[d].name + '">' + result.departmentList[d].name + '</option>');
 				}
 			},
 			error: function() {
@@ -61,7 +249,7 @@ function updateAccountModal(id) {
 			async: false,
 			success: function(result) {
 				for (var d = 0; d < result.positionList.length; d++) {
-					$('#updatePosition').append('<option value="'+result.positionList[d].name+'">'+result.positionList[d].name+'</option>');
+					$('#updatePosition').append('<option value="' + result.positionList[d].name + '">' + result.positionList[d].name + '</option>');
 				}
 			},
 			error: function() {
@@ -69,11 +257,11 @@ function updateAccountModal(id) {
 			}
 		});
 	}
-	
+
 	// 사용자 계정 정보 조회
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
-		url: '/api/account/'+id,
+		url: '/api/account/' + id,
 		type: 'GET',
 		cache: false,
 		datatype: 'json',
@@ -87,7 +275,7 @@ function updateAccountModal(id) {
 			$('#updateDepartment').val(result.account.department).prop('selected', true);
 			$('#updateAddress').val(result.account.address);
 			$('#updateAddressDetail').val(result.account.addressDetail);
-			switch(result.account.role) {
+			switch (result.account.role) {
 				case 'ADMIN':
 					$('#updateRoleAdmin').prop('checked', true);
 					break;
@@ -112,7 +300,7 @@ function updateAccountModal(id) {
 			alert('서버와의 통신에 실패했습니다');
 		}
 	});
-	
+
 
 }
 
@@ -136,7 +324,7 @@ function updateNameCheck() {
 		$('#labelUpdateName').removeClass('text-success');
 		$('#labelUpdateName').addClass('text-danger');
 		$('#labelUpdateName').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이름 형식');
-		$('#updateName').focus();		
+		$('#updateName').focus();
 		return;
 	} else {	// 올바른 name validation 일 때
 		$('#labelUpdateName').removeClass('text-danger');
@@ -169,13 +357,13 @@ function updateEmailCheck() {
 		$('#updateEmail').focus();
 		return;
 	}
-	
+
 	if (email) {
 		$('#labelUpdateEmail').removeClass('text-danger');
 		$('#labelUpdateEmail').addClass('text-success');
 		$('#labelUpdateEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
-		return email;		
-	}	
+		return email;
+	}
 }
 
 /**************
@@ -212,7 +400,7 @@ function updatePhoneCheck() {
 /******************
 * 비상연락처 검증 *
 *******************/
-function updateEmergencyContactCheck() {	
+function updateEmergencyContactCheck() {
 	// 비상연락처 파라미터 검증
 	var validateEmergencyContact = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 	var emergencyContact = $('#updateEmergencyContact').val();
@@ -324,7 +512,7 @@ function updateAddressDetailCheck() {
 	if (!addressDetail) {
 		$('#labelUpdateAddressDetail').removeClass('text-success');
 		$('#labelUpdateAddressDetail').removeClass('text-danger');
-		$('#labelUpdateAddressDetail').html('상세주소 <span class="form-label-secondary">(선택)</span>');		
+		$('#labelUpdateAddressDetail').html('상세주소 <span class="form-label-secondary">(선택)</span>');
 	} else {	// addressDetail 값을 입력했을 때
 		$('#labelUpdateAddressDetail').removeClass('text-danger');
 		$('#labelUpdateAddressDetail').addClass('text-success');
@@ -438,7 +626,7 @@ function updateDefaultPasswordCheck() {
 		$('#spanUpdateDefaultPassword').removeClass('d-none');
 		$('#updatePassword').val('');
 		$('#updatePasswordConfirm').val('');
-		return defaultPassword;		
+		return defaultPassword;
 	} else {	// 기본 비밀번호 체크해제
 		$('#divUpdatePassword').removeClass('d-none');
 		$('#divUpdatePasswordConfirm').removeClass('d-none');
@@ -446,7 +634,7 @@ function updateDefaultPasswordCheck() {
 		$('#spanUpdateDefaultPassword').addClass('d-none');
 		$('#updatePassword').val('');
 		$('#updatePasswordConfirm').val('');
-		return;		
+		return;
 	}
 }
 
@@ -477,7 +665,7 @@ function updateHireDateCheck() {
 	if (!hireDate) {
 		$('#labelUpdateHireDate').removeClass('text-success');
 		$('#labelUpdateHireDate').removeClass('text-danger');
-		$('#labelUpdateHireDate').html('입사일 <span class="form-label-secondary">(선택)</span>');		
+		$('#labelUpdateHireDate').html('입사일 <span class="form-label-secondary">(선택)</span>');
 	} else {	// addressDetail 값을 입력했을 때
 		$('#labelUpdateHireDate').removeClass('text-danger');
 		$('#labelUpdateHireDate').addClass('text-success');
@@ -504,7 +692,7 @@ function updatePasswordCheck() {
 		$('#labelUpdatePassword').html('<i class="bi-check-lg me-1"></i> 비밀번호');
 		return updatePassword;
 	}
-	
+
 }
 
 /************
@@ -524,14 +712,14 @@ function updateAccount(id) {
 	// 연락처 검증 (필수)
 	var phone = updatePhoneCheck();
 	if (!phone) {
-		return;	
+		return;
 	}
 	// 비상연락처 검증 (선택)
 	var emergencyContact = updateEmergencyContactCheck();
 	// 직급 검증 (필수)
 	var position = updatePositionCheck();
 	if (!position) {
-		return;	
+		return;
 	}
 	// 부서 검증 (필수)
 	var department = updateDepartmentCheck();
@@ -547,8 +735,8 @@ function updateAccount(id) {
 	var addressDetail = updateAddressDetailCheck();
 	// 권한 검증 (필수)	
 	var role = updateRoleCheck();
-	if (!role) {		
-		return;	
+	if (!role) {
+		return;
 	}
 	// 생일 검증 (선택)
 	var birthday = updateBirthdayCheck();
@@ -561,7 +749,7 @@ function updateAccount(id) {
 	}
 
 	// 입력받은 모든 정보를 updateData(payload)에 추가
-	var updateData = JSON.stringify({		
+	var updateData = JSON.stringify({
 		hireDate: hireDate,
 		birthday: birthday,
 		password: password,
@@ -576,7 +764,7 @@ function updateAccount(id) {
 		name: name,
 		id: id
 	});
-	
+
 	// 계정 수정
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
@@ -591,7 +779,7 @@ function updateAccount(id) {
 			} else if (result.status == 1015) {
 				$('#labelUpdatePassword').removeClass('text-success');
 				$('#labelUpdatePassword').addClass('text-danger');
-				$('#labelUpdatePassword').html('<i class="bi-exclamation-triangle me-1"></i> '+result.message);
+				$('#labelUpdatePassword').html('<i class="bi-exclamation-triangle me-1"></i> ' + result.message);
 				$('#updatePassword').focus();
 			} else {
 				alert(result.message);
@@ -608,17 +796,17 @@ function updateAccount(id) {
 *************/
 function deleteAccount() {
 	var payload = [];
-	$('input:checkbox[name=accountRow]').each(function () {
+	$('input:checkbox[name=accountRow]').each(function() {
 		if ($(this).is(':checked') == true) {
 			payload.push($(this).val());
 		}
 	});
-	
+
 	if (confirm('선택한 계정을 삭제하시겠습니까?')) {
 		// 계정 수정
 		$.ajax({
 			contentType: 'application/json; charset=utf-8',
-			url: '/api/account/'+payload,
+			url: '/api/account/' + payload,
 			type: 'DELETE',
 			cache: false,
 			success: function(result) {
@@ -632,7 +820,7 @@ function deleteAccount() {
 			error: function() {
 				alert('서버와의 통신에 실패했습니다.');
 			}
-		});	
+		});
 	}
-	
+
 }

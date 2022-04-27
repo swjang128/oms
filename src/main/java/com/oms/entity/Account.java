@@ -42,69 +42,69 @@ public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;												// 사번
+	private Long id;																					// 사번
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="team_id")
-	private Team team;										// 소속팀 ID (N:1)
+	private Team team;																			// 소속팀 ID (N:1)
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="task_id")
-	private Task task;											// 진행중인 업무 ID (N:1)
+	private Task task;																				// 진행중인 업무 ID (N:1)
 	
 	@Column(length=16)
-	private String department;							// 부서
+	private String department;																// 부서
 	
 	@Column(length=16)
-	private String position;							// 직책
+	private String position;																		// 직급
 	
 	@Column(length=1024)
-	private String photo;								// 사진
+	private String photo;																			// 사진
 	
 	@Column(length=64)
-	private String name;				 				// 이름
+	private String name;				 															// 이름
 
 	@Column(length=64, unique=true)
-    private String email;								// 이메일
+    private String email;																			// 이메일
 	
 	@Column(length=128)
-	private String address;							// 주소
+	private String address;																		// 주소
 	
 	@Column(length=128)
-	private String addressDetail;				// 상세주소
+	private String addressDetail;															// 상세주소
 	
 	@Column(length=64, insertable=true, updatable=false)
-	private String password;							// 비밀번호
+	private String password;																	// 비밀번호
 	
 	@Column(length=1, updatable=false)
-	private int failCount;								// 비밀번호 틀린 횟수
+	private int failCount;																			// 비밀번호 틀린 횟수
 	
 	@Column(length=8, insertable=true, updatable=false)
 	@Enumerated(EnumType.STRING)
-	private Status status;								// 상태 (계정)
+	private Status status;																			// 상태 (계정)
 	
 	@Column(length=8, insertable=true, updatable=false)
 	@Enumerated(EnumType.STRING)
-	private UserStatus userStatus;								// 상태 (사용자)
+	private UserStatus userStatus;														// 상태 (사용자)
 	
 	@Column(length=8, insertable=true)
 	@Enumerated(EnumType.STRING)
-	private Role role;									// 권한
+	private Role role;																				// 권한
 	
 	@Column(length=16, insertable=true)
-    private String phone;								// 연락처
+    private String phone;																			// 연락처
 	
 	@Column(length=16, insertable=true)
-	private String emergencyContact;					// 비상연락처
+	private String emergencyContact;													// 비상연락처
 	
 	@Column()
-	private LocalDate birthday;								// 생일
+	private LocalDate birthday;																// 생일
 	
 	@Column(insertable=true)
-	private LocalDate hireDate;								// 입사일
+	private LocalDate hireDate;																// 입사일
 	
 	@Column(updatable=false)
-	private LocalDateTime lastLoginTime;				// 마지막 로그인 시간
+	private LocalDateTime lastLoginTime;											// 마지막 로그인 시간
 	
 	/**
 	 * Account 테이블의 계정 상태(status)에 대한 정의

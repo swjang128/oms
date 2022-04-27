@@ -16,7 +16,7 @@
 							<li class="breadcrumb-item">
 								<a class="breadcrumb-link" href="javascript:;">인사관리</a>
 							</li>
-							<li class="breadcrumb-item active" aria-current="page">직원목록</li>
+							<li class="breadcrumb-item active" aria-current="page">계정관리</li>
 						</ol>
 					</nav>
 				</div>
@@ -249,7 +249,7 @@
 			<div class="table-responsive datatable-custom position-relative">
 				<table id="accountTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
-                      "targets": [0, 6, 8],
+                      "targets": [0, 1, 6, 8],
                       "orderable": false
                     }],
                    "order": [],
@@ -276,10 +276,11 @@
 							<th class="table-column-pe-0">이메일</th>
 							<th class="table-column-pe-0">부서</th>
 							<th class="table-column-pe-0">직급</th>
+							<th class="table-column-pe-0">계정상태</th>
 							<th class="table-column-pe-0">상태</th>
 							<th class="table-column-pe-0">연락처</th>
 							<th class="table-column-pe-0">권한</th>
-<!-- 							<th class="table-column-pe-0">상세</th> -->
+							<th class="table-column-pe-0">입사일</th>
 						</tr>
 					</thead>
 					<tbody id="accountList">
@@ -313,9 +314,11 @@
 							<td>{{email}}</td>
 							<td>{{department}}</td>
 							<td>{{position}}</td>
+							<td name="accountStatus">{{status.value}}</td>
 							<td>{{userStatus.value}}</td>
 							<td>{{phone}}</td>
 							<td>{{role.value}}</td>
+							<td>{{hireDate}}</td>
 <!-- 							<td>
 								<button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
 									<i class="bi-pencil-fill me-1"> 상세</i>
