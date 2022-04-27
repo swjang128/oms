@@ -704,7 +704,7 @@ function changePasswordEmailCheck() {
 	// 이메일 존재 유무 확인
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
-		url: '/api/account/' + email,
+		url: '/api/checkEmail/' + email,
 		type: 'GET',
 		cache: false,
 		success: function(result) {
