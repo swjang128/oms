@@ -1,48 +1,17 @@
-<!-- JS Global Compulsory  -->
-<script src="/vendor/jquery/dist/jquery.min.js"></script>
-<script src="/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
-<script src="/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!-- JS Implementing Plugins -->
-<script src="/vendor/hs-navbar-vertical-aside/dist/hs-navbar-vertical-aside.min.js"></script>
-<script src="/vendor/hs-file-attach/dist/hs-file-attach.min.js"></script>
-<script src="/vendor/hs-nav-scroller/dist/hs-nav-scroller.min.js"></script>
-<script src="/vendor/hs-step-form/dist/hs-step-form.min.js"></script>
-<script src="/vendor/hs-counter/dist/hs-counter.min.js"></script>
-<script src="/vendor/appear/dist/appear.min.js"></script>
-<script src="/vendor/imask/dist/imask.min.js"></script>
-<script src="/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src="/vendor/datatables.net.extensions/select/select.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="/vendor/jszip/dist/jszip.min.js"></script>
-<script src="/vendor/pdfmake/build/pdfmake.min.js"></script>
-<script src="/vendor/pdfmake/build/vfs_fonts.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="/vendor/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-<!-- 헤더 플러그인 -->
-<script src="/js/header.js"></script>
-<!-- 직원 등록/수정 모달 전용 플러그인 -->
-<script src="/vendor/hs-form-search/dist/hs-form-search.min.js"></script>
-<script src="/vendor/hs-toggle-password/dist/js/hs-toggle-password.js"></script>
+<!---------- 추가 레이아웃 ------------->
+<!-- 활동내역 -->
+{{>layout/activity}}
+<!-- 계정 등록 모달 -->
+{{>layout/create_account_modal}}
+<!-- 계정 수정 모달 -->
+{{>layout/update_account_modal}}
+
+<!----------- Footer ------------->
+<!-- 공통 플러그인 + Footer -->
+{{>common/footer}}
+<!-- 다음 주소찾기 API 플러그인 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/js/create-account.js"></script>
-<script src="/js/change-password.js"></script>
+<!-- 계정관리 스크립트 -->
 <script src="/js/account.js"></script>
-<!-- JS Front -->
-<script src="/js/theme.min.js"></script>
-<!-- JS Plugins Init. -->
-<script>
-
-  </script>
-<!-- JS Plugins Init. -->
-<script>
-
-  </script>
-<!-- Style Switcher JS -->
-<script>
-
-    </script>
-<!-- End Style Switcher JS -->
 </body>
 </html>
