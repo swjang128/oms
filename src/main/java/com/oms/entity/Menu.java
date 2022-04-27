@@ -45,6 +45,9 @@ public class Menu {
 
 	@Column(length=16, nullable=false)
 	private String name;												// 메뉴 이름
+	
+	@Column(length=16, nullable=false)
+	private String descryption;									// 메뉴 Descryption
 
 	@Column(length=32)
 	private String icon;													// 메뉴 아이콘

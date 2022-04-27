@@ -14,7 +14,6 @@ public class CommonUtil {
 	 */
 	public String getServletPath() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-		
 		return request.getServletPath();
 	}
 	
@@ -24,20 +23,18 @@ public class CommonUtil {
 	 */
 	public String getCurrentLocation() {
 		String currentLocation = "";
-		
 		String servletPath = getServletPath();
 		String[] domain = servletPath.split("/");
-		
 		switch(domain[domain.length-1]) {
-			case "member" -> currentLocation = "직원 관리";
-			case "product" -> currentLocation = "상품 관리";			
-			case "client" -> currentLocation = "고객";
-			case "b2c" -> currentLocation = "고객 관리";
-			case "b2b" -> currentLocation = "고객사 관리";
+			case "dashboard" -> currentLocation = "대시보드";
+			case "account" -> currentLocation = "계정관리";
+			case "team" -> currentLocation = "팀관리";
+			case "task" -> currentLocation = "업무관리";
+			case "project" -> currentLocation = "프로젝트";
+			case "product" -> currentLocation = "상품관리";
 			case "law" -> currentLocation = "관련법안";
-			case "category" -> currentLocation = "카테고리";
+			case "menu" -> currentLocation = "메뉴관리";
 		}
-		
 		return currentLocation;
 	}
 }

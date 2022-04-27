@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 메뉴 목록 관리 Rest API
- * @author capias J
+ * @author JSW
  *
  */
 @RestController
