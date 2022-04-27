@@ -1,8 +1,27 @@
 package com.oms.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.oms.entity.Project;
 import com.oms.entity.Task;
+import com.oms.entity.Task.Category;
+import com.oms.entity.Task.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,19 +31,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDTO {
-	private Long id;																					// 업무 ID
-	private Long parentId;																		// 상위업무 ID
-	private String title;																				// 업무 제목
-	private String content;																		// 업무 내용
-	private String type;																			// 업무 종류
-	private String status;																			// 진행 상황
-	private String register;																		// 등록자
-	private String manager;																	// 담당자
-	private String worker;																		// 작업자
-	private Date registDate; 																	// 등록일자
-	private Date updateDate; 																// 수정일자
-	private Date startDate; 																	// 시작일자
-	private Date endDate; 																		// 완료일자
+	private Long id;																					// 업무 ID (기본키)
+	private Project project;																		// 진행중인 프로젝트 ID (N:1)
+	private String name;																			// 업무명
+	private String descryption;																// 업무설명
+	private Category category;																// 분류
+	private Status status;																			// 진행 상황
+	private LocalDateTime registDate;												// 등록일시
+	private String registUser;																// 등록자
+	private LocalDateTime updateDate;											// 수정일시
+	private String updateUser;															// 수정자
+	private LocalDate startDate; 																	// 시작일자
+	private LocalDate endDate; 																		// 완료일자
 	
 	/**
 	 * (Request) DTO -> Entity
@@ -32,19 +50,17 @@ public class TaskDTO {
 	 * @return
 	 */
 	public Task toEntity() {
-		Date date = new Date();
 		return Task.builder()
 				.id(id)
-				.parentId(parentId)
-				.title(title)
-				.content(content)
-				.type(type)
+				.project(project)
+				.name(name)
+				.descryption(descryption)
+				.category(category)
 				.status(status)
-				.register(register)
-				.manager(manager)
-				.worker(worker)
-				.registDate(date)
+				.registDate(registDate)
+				.registUser(registUser)
 				.updateDate(updateDate)
+				.updateUser(updateUser)
 				.startDate(startDate)
 				.endDate(endDate)
 				.build();
@@ -52,16 +68,15 @@ public class TaskDTO {
 	
 	public TaskDTO(Task task) {
 		this.id = task.getId();
-		this.parentId = task.getParentId();
-		this.title = task.getTitle();
-		this.content = task.getContent();
-		this.type = task.getType();
+		this.project = task.getProject();
+		this.name = task.getName();
+		this.descryption = task.getDescryption();
+		this.category = task.getCategory();
 		this.status = task.getStatus();
-		this.register = task.getRegister();
-		this.manager = task.getManager();
-		this.worker = task.getWorker();
 		this.registDate = task.getRegistDate();
+		this.registUser = task.getRegistUser();
 		this.updateDate = task.getUpdateDate();
+		this.updateUser = task.getUpdateUser();
 		this.startDate = task.getStartDate();
 		this.endDate = task.getEndDate();
 	}

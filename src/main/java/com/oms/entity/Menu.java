@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import com.oms.entity.Position.UseYn;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

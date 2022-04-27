@@ -8,9 +8,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,7 +42,15 @@ public class Account {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;									// 사번
+	private Long id;												// 사번
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="team_id")
+	private Team team;										// 소속팀 ID (N:1)
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="task_id")
+	private Task task;											// 진행중인 업무 ID (N:1)
 	
 	@Column(length=16)
 	private String department;							// 부서

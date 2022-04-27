@@ -29,9 +29,12 @@ public class ResponseCode {
 		public static final int ACCOUNT_EXIST = 1009;
 		public static final int ACCOUNT_BLOCKED = 1023;
 		public static final int DEPARTMENT_NOT_FOUND = 1104;
-		public static final int POSITION_NOT_FOUND = 1204;		
-		/* Product (2xxx) */
-		public static final int PRODUCT_NOT_FOUND = 2404; 
+		public static final int POSITION_NOT_FOUND = 1204;
+		/* Team (2xxx) */
+		public static final int TEAM_NOT_FOUND = 2004;
+		public static final int TEAM_EXIST = 2009;
+		/* Product (9xxx) */
+		public static final int PRODUCT_NOT_FOUND = 9404;
 		
 	}
 	
@@ -61,6 +64,9 @@ public class ResponseCode {
 		public static final String ACCOUNT_BLOCKED = "계정이 잠겨있습니다. 비밀번호 초기화 후 이용해주세요";
 		public static final String DEPARTMENT_NOT_FOUND = "존재하지 않는 부서입니다";
 		public static final String POSITION_NOT_FOUND = "존재하지 않는 직급입니다";
+		/* Team */
+		public static final String TEAM_NOT_FOUND = "존재하지 않는 팀입니다";
+		public static final String TEAM_EXIST = "존재하는 팀입니다";
 		/* Product */
 		public static final String PRODUCT_NOT_FOUND = "존재하지 않는 상품입니다";
 	}

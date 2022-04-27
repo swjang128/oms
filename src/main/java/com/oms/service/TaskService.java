@@ -66,7 +66,7 @@ public class TaskService{
 	 */
 	public List<TaskDTO> read(Long taskId) {		
 		// 업무(대분류) 목록 조회
-		List<Task> parentTask = taskRepository.findByParentId(taskId);
+		List<Task> parentTask = null;
 		List<TaskDTO> result = parentTask.stream()											 
 				 .map(TaskDTO::new)
 				 .collect(Collectors.toList());

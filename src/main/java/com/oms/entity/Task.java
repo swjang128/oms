@@ -1,24 +1,31 @@
 package com.oms.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 업무
@@ -36,46 +43,80 @@ public class Task {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;																					// 업무 ID (기본키)
 
-	@Column()
-	@ColumnDefault("0")
-	private Long parentId;																		// 상위업무 ID (최상위 업무는 값을 0으로 지정)
+	@ManyToOne
+	@JoinColumn(name="project_id")
+	private Project project;																		// 진행중인 프로젝트 ID (N:1)
 
 	@Column()
-	private String title;																				// 업무 제목
+	private String name;																			// 업무명
 	
 	@Column()
-	private String content;																		// 업무 내용
+	private String descryption;																// 업무설명
 
 	@Column()
-	private String type;																			// 업무 종류 (ex. 신규개발 / 기능수정 / 기능제거 등등) (추가로 테이블을 생성해서 관리할지 추후 논의)
+	@Enumerated(EnumType.STRING)
+	private Category category;																// 분류
 
 	@Column()
-	private String status;																			// 진행 상황 (ex. 준비 / 진행 / 완료) (추가로 테이블을 생성해서 관리할지 추후 논의)
-	
-	@Column()
-	private String register;																		// 등록자 (이름으로 표시)
-	
-	@Column()
-	private String manager;																	// 담당자 (업무 담당자)
-	
-	@Column()
-	private String worker;																		// 작업자 (업무를 실제로 하는 사람)
+	private Status status;																			// 진행 상황
 	
 	@Column(updatable=false)
 	@CreatedDate
-	@Temporal(TemporalType.DATE)
-	private Date registDate; 																	// 등록일자
+	private LocalDateTime registDate;												// 등록일시
 	
 	@Column(updatable=false)
-	@Temporal(TemporalType.DATE)
-	private Date updateDate; 																// 수정일자
+	private String registUser;																// 등록자
+
+	@Column
+	@LastModifiedDate
+	private LocalDateTime updateDate;											// 수정일시
+	
+	@Column(insertable=false)
+	private String updateUser;															// 수정자
 	
 	@Column(updatable=false)	
-	@Temporal(TemporalType.DATE)
-	private Date startDate; 																	// 시작일자
+	private LocalDate startDate; 														// 시작일자
 	
 	@Column(updatable=false)	
-	@Temporal(TemporalType.DATE)
-	private Date endDate; 																		// 완료일자
+	private LocalDate endDate; 														// 완료일자
 	
+	
+	/**
+	 * 업무의 카테고리 정의 enum
+	 * @author JSW
+	 */
+	@Getter
+	@RequiredArgsConstructor
+	public enum Category {
+		DEV("Develop", "개발"),
+		OPS("Operations", "운영"),
+		DEVOPS("DevOps", "개발운영"),
+		PLAN("Planning", "기획"),
+		BIC("BIC", "신규사업"),
+		INVEST("Investment", "투자"),
+		SHOP("Shop", "매장"),
+		SALES("Sales", "영업"),
+		PR("Promotion", "홍보"),
+		DESIGN("Design", "디자인"),
+		HR("HumanResource", "인사"),
+		INFRA("Infrastructure", "인프라"),
+		ETC("ETC", "기타");
+		private final String english;
+		private final String korean;
+	}
+	
+	/**
+	 * 업무의 상태 정의 enum
+	 * @author JSW
+	 */
+	@Getter
+	@RequiredArgsConstructor
+	public enum Status {
+		TODO("ToDo", "할일"),
+		INPROGRESS("InProgress", "진행중"),
+		REVIEW("Review", "검토중"),
+		DONE("Done", "완료");
+		private final String english;
+		private final String korean;
+	}
 }

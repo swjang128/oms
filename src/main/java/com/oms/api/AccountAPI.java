@@ -44,9 +44,8 @@ public class AccountAPI {
 	/**
 	 * 계정 목록 조회
 	 * 
-	 * @param model
-	 * @param request
-	 * @return
+	 * @param @RequestParam
+	 * @return Map<String, Object>
 	 */
 	@GetMapping("account")
 	public Map<String, Object> read(@RequestParam(required=false) List<Status> status,

@@ -19,6 +19,7 @@ import com.oms.dto.AccountDTO;
 import com.oms.dto.LawDTO;
 import com.oms.entity.Account;
 import com.oms.service.AccountService;
+import com.oms.service.TeamService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,6 +36,8 @@ public class OmsController {
 	CommonUtil commonUtil;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	TeamService teamService;
 	
 	/**
 	 * 메인페이지(로그인 페이지)
@@ -61,7 +64,7 @@ public class OmsController {
 	/**
 	 * Account
 	 * @param model
-	 * @return
+	 * @return String
 	 * @throws Exception 
 	 */
 	@GetMapping("account")
@@ -138,6 +141,29 @@ public class OmsController {
 		
 		// account 페이지로 이동
   		return "account";
+  	}
+	
+	/**
+	 * Team
+	 * @param model
+	 * @return String
+	 */
+	@GetMapping("team")
+  	public String team(Model model) {
+		// ServletPath, CurrentLocation 설정 
+		String servletPath = commonUtil.getServletPath();
+		String currentLocation = commonUtil.getCurrentLocation();
+		model.addAttribute("servletPath", servletPath);
+		model.addAttribute("currentLocation", currentLocation);
+		
+		// 파라미터, 결과값 변수 선언		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		// 팀 목록 조회
+		resultMap = teamService.read(resultMap);
+		model.addAttribute("teamList", resultMap.get("teamList"));		
+		
+  		return "team";
   	}
 	
 	/**
