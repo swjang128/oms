@@ -85,18 +85,18 @@ window.hs_config.gulpLighten = (p1) => {
 (function() {
 	window.onload = function() {
 		// Get LocationInformation
-		let locationUrl = '/oms/'+$('#locationUrl').val();
-		let locationName = $('#locationName').val();
-		let parentLocationName = $('#parentLocationName').val();
+		var locationUrl = '/oms/'+$('#locationUrl').val();
+		var locationName = $('#locationName').val();
+		var parentLocationName = $('#parentLocationName').val();
 		// Set BreadCrumb
 		$('#breadcrumbLocationName').text(locationName);
 		$('#breadcrumbParentLocationName').text(parentLocationName);
 		// Set Sidebar Activation		
 		$('#navbarVerticalMenu').find('.nav-link-title').each(function() {
-			alert($(this).text());
-			if (locationUrl == $(this).href) {
-				$(this).addClass('active');
+			alert($(this).text() + ' | ' + locationName);
+			if (locationName == $(this).text()) {
 				alert($(this).text());
+				$(this).parent().addClass('active');
 			}
 		});
 		
