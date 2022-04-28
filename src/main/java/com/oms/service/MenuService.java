@@ -3,6 +3,7 @@ package com.oms.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,50 @@ public class MenuService{
 		resultMap.put("status", status);
 		resultMap.put("message", message);
 		resultMap.put("menuList", menuDTO);
+		return resultMap;
+	}
+	
+	/** 
+	 * 현재 서비스 메뉴 위치와 부모 메뉴 정보 조회 (READ)
+	 * @param Map<String, Object>, Map<String, Object>
+	 * @return Map<String, Object>
+	 */
+	public Map<String, Object> readServiceLocation(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		String url = "";
+		String menuName = "";
+		String parentMenuName = "";
+		Long parentId = (long) 0;
+		Optional<Menu> menu = null;
+		Optional<Menu> parentMenu = null;
+		// Specification 설정
+		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
+		if (paramMap.get("url") != null) 
+			specification = specification.and(MenuSpecification.findByUrl(paramMap.get("url")));
+		// 현재 서비스 위치 메뉴 정보 조회
+		try {
+			menu = menuRepository.findOne(specification);
+			parentId = menu.get().getParentId();
+			// 조회한 메뉴의 parentId가 0이 아니면 parentId를 조회			
+			if (parentId != 0) {
+				parentMenu = menuRepository.findById(parentId);
+			}
+			menuName = menu.get().getName();
+			url = menu.get().getUrl();
+			parentMenuName = parentMenu.get().getName();
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		
+		// 결과 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("url", url);
+		resultMap.put("menuName", menuName);
+		resultMap.put("parentMenuName", parentMenuName);
 		return resultMap;
 	}
 	

@@ -48,7 +48,7 @@ public class Menu {
 	@Column(length=8, nullable=false)
 	private String name;																		// 메뉴 이름
 	
-	@Column(length=16)
+	@Column(length=16, unique=true)
 	private String url;																			// 메뉴 URL
 
 	@Column(length=32)

@@ -31,9 +31,10 @@ public class CommonInterceptor implements HandlerInterceptor {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		String servletPath[] = request.getServletPath().split("/");		
 		paramMap.put("url", servletPath[servletPath.length-1]);
-		resultMap = menuService.read(paramMap, resultMap);
-		
-		request.setAttribute("serviceLocation", resultMap.get("menuList"));
+		resultMap = menuService.readServiceLocation(paramMap, resultMap);
+		request.setAttribute("locationUrl", resultMap.get("url"));
+		request.setAttribute("locationName", resultMap.get("menuName"));
+		request.setAttribute("parentLocationName", resultMap.get("parentMenuName"));
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

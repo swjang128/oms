@@ -84,6 +84,22 @@ window.hs_config.gulpLighten = (p1) => {
 // Initialize
 (function() {
 	window.onload = function() {
+		// Get LocationInformation
+		let locationUrl = '/oms/'+$('#locationUrl').val();
+		let locationName = $('#locationName').val();
+		let parentLocationName = $('#parentLocationName').val();
+		// Set BreadCrumb
+		$('#breadcrumbLocationName').text(locationName);
+		$('#breadcrumbParentLocationName').text(parentLocationName);
+		// Set Sidebar Activation		
+		$('#navbarVerticalMenu').find('.nav-link-title').each(function() {
+			alert($(this).text());
+			if (locationUrl == $(this).href) {
+				$(this).addClass('active');
+				alert($(this).text());
+			}
+		});
+		
 		// Header의 사용자 세션정보의 상태(sessionUserStatus)에 따라 색상 변경
 		const userStatus = $('#sessionUserStatus').text();
 		switch (userStatus) {

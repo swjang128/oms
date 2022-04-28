@@ -49,7 +49,7 @@ public class OmsController {
 	 * @return
 	 */
 	@GetMapping("")
-  	public String main(Model model, HttpServletRequest request, @RequestParam(value="result", required=false) String result) {		
+  	public String main(Model model, HttpServletRequest request, @RequestParam(value="result", required=false) String result) {
 		String message = "";
 		if (result != null) {
 			switch(result) {
@@ -74,7 +74,9 @@ public class OmsController {
 	@GetMapping("account")
   	public String member(Model model, HttpServletRequest request) throws Exception {
 		// 현재 서비스 위치 Set
-		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
+		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
+		model.addAttribute("locationName", request.getAttribute("locationName"));
+		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
 		
 		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -152,7 +154,9 @@ public class OmsController {
 	@GetMapping("team")
   	public String team(Model model, HttpServletRequest request) {
 		// 현재 서비스 위치 Set
-		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
+		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
+		model.addAttribute("locationName", request.getAttribute("locationName"));
+		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
 		
 		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -172,7 +176,9 @@ public class OmsController {
 	@GetMapping("project")
   	public String project(Model model, HttpServletRequest request) {
 		// 현재 서비스 위치 Set
-		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
+		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
+		model.addAttribute("locationName", request.getAttribute("locationName"));
+		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
 		
   		return "project";
   	}
@@ -185,7 +191,9 @@ public class OmsController {
 	@GetMapping("dashboard")
   	public String dashboard(Model model, HttpServletRequest request) {
 		// 현재 서비스 위치 Set
-		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
+		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
+		model.addAttribute("locationName", request.getAttribute("locationName"));
+		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
 		
   		return "dashboard";
   	}
@@ -198,7 +206,9 @@ public class OmsController {
 	@GetMapping("task")
   	public String task(Model model, HttpServletRequest request) {
 		// 현재 서비스 위치 Set
-		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
+		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
+		model.addAttribute("locationName", request.getAttribute("locationName"));
+		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
 		
   		return "task";
   	}
