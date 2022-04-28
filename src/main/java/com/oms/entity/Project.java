@@ -56,18 +56,18 @@ public class Project {
 	private String status;																			// 상태 (ready, processing, complete)
 	
 	@Column(updatable=false)
-	@CreatedDate
-	private LocalDateTime registDate;												// 등록일시
-	
-	@Column(updatable=false)
 	private String registUser;																// 등록자
-
-	@Column
-	@LastModifiedDate
-	private LocalDateTime updateDate;											// 수정일시
 	
 	@Column(insertable=false)
 	private String updateUser;															// 수정자
+
+	@Column(updatable=false)
+	@CreatedDate
+	private LocalDateTime registTime;												// 등록일시
+	
+	@Column
+	@LastModifiedDate
+	private LocalDateTime updateTime;											// 수정일시
 	
 	@Column()
 	private LocalDate startDate; 														// 시작일

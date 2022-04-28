@@ -1,6 +1,8 @@
 package com.oms.config;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,13 +13,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oms.dto.HistoryDTO;
 import com.oms.service.HistoryService;
+import com.oms.service.MenuService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CommonInterceptor implements HandlerInterceptor {
 	@Autowired
 	HistoryService historyService;
+	@Autowired
+	MenuService menuService;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {		
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		// 요청한 URL로 현재 서비스 로케이션 Set
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		String servletPath[] = request.getServletPath().split("/");		
+		paramMap.put("url", servletPath[servletPath.length-1]);
+		resultMap = menuService.read(paramMap, resultMap);
+		
+		request.setAttribute("serviceLocation", resultMap.get("menuList"));
+		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
@@ -25,6 +42,7 @@ public class CommonInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}
+	
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		// 모든 요청과 응답이 끝나면 접속로그 DB에 적재
@@ -38,57 +56,13 @@ public class CommonInterceptor implements HandlerInterceptor {
 			historyDTO.setHost(request.getRemoteUser());
 		}
 		historyDTO.setStatus(response.getStatus());
-		historyDTO.setRequestDate(LocalDateTime.now());
-		// 접속로그 생성
+		historyDTO.setRequestTime(LocalDateTime.now());
 		historyService.create(historyDTO);
+		
+
+		
+		// 인터셉터 afterCompletion 처리 완료
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@Override
-//	public void init(FilterConfig filterConfig) throws ServletException {
-//		log.info("ServletFilter Init");
-//	}
-//	
-//	@Override
-//	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-//		log.info("ServletFilter doFilter");
-//		// 허용 IP
-//		String availableIP[] = {"10.0.100.15", "127.0.0.1"};
-//		// 접속한 IP
-//		String remoteAddr = request.getRemoteAddr();
-////		remoteAddr = "0.0.0.0";
-//		
-//		// 특정 IP가 아닌 요청이 들어오면 필터에서 차단
-//		try {
-//			for (int a=0; a<availableIP.length; a++) {
-//				if (availableIP[a].equals(remoteAddr)) {
-//					log.info("접근 가능한 IP입니다. {}", remoteAddr);
-//					chain.doFilter(request, response);
-//				}
-//			}	
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			log.info("접근 불가능한 IP: {}", remoteAddr);
-//		}
-//		
-//	}
-//	
-//	@Override
-//	public void destroy() {
-//		log.info("ServletFilter Destroy");
-//	}
 }

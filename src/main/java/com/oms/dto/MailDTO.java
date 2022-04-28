@@ -16,6 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MailDTO {	
 	private String address;			// 메일 주소
-	private String title;			// 메일 제목
+	private String title;					// 메일 제목
 	private String message;			// 메일 내용
 }

@@ -64,12 +64,15 @@ public class MenuService{
 		List<MenuDTO> menuDTO = new ArrayList<MenuDTO>();
 		Object useYn = paramMap.get("useYn");
 		Object parentId = paramMap.get("parentId");
+		Object url = paramMap.get("url");
 		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
 		// Specification 설정
 		if (useYn != null)
 			specification = specification.and(MenuSpecification.findByUseYn(useYn));
 		if (parentId != null)
 			specification = specification.and(MenuSpecification.findByParentId(parentId));
+		if (url != null) 
+			specification = specification.and(MenuSpecification.findByUrl(url));
 		// 메뉴 목록 조회
 		try {
 			menu = menuRepository.findAll(specification);
@@ -145,6 +148,5 @@ public class MenuService{
 		resultMap.put("message", message);
 		return resultMap;
 	}
-
 }
 

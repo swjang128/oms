@@ -58,9 +58,9 @@ public class Team {
 	
 	@Column(updatable=false)
 	@CreatedDate
-	private LocalDateTime registDate;												// 등록일시
+	private LocalDateTime registTime;											// 등록일시
 	
 	@Column
 	@LastModifiedDate
-	private LocalDateTime updateDate;											// 수정일시
+	private LocalDateTime updateTime;											// 수정일시
 }

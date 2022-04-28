@@ -43,5 +43,20 @@ public class MenuSpecification {
 				return root.get("parentId").in(parentId);
 			}
 		};
-	} 
+	}
+	
+	/**
+	 * WHERE url in (Object url)
+	 * @param List<String>url
+	 * @return
+	 */
+	public static Specification<Menu> findByUrl(Object url) {
+		return new Specification<Menu>() {
+			private static final long serialVersionUID = -587488762192925433L;
+			@Override
+			public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				return root.get("url").in(url);
+			}
+		};
+	}
 }

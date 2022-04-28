@@ -20,8 +20,8 @@ public class TeamDTO {
 	private String descryption;															// 팀설명
 	private String registUser;																// 등록자
 	private String updateUser;															// 수정자
-	private LocalDateTime registDate;												// 등록일시
-	private LocalDateTime updateDate;											// 수정일시
+	private LocalDateTime registTime;											// 등록일시
+	private LocalDateTime updateTime;											// 수정일시
 	
 	/**
 	 * (Request) DTO -> Entity
@@ -37,8 +37,8 @@ public class TeamDTO {
 				.descryption(descryption)
 				.registUser(registUser)
 				.updateUser(updateUser)
-				.registDate(registDate)
-				.updateDate(updateDate)
+				.registTime(registTime)
+				.updateTime(updateTime)
 				.build();
 	}
 	
@@ -50,7 +50,7 @@ public class TeamDTO {
 		this.descryption = team.getDescryption();
 		this.registUser = team.getRegistUser();
 		this.updateUser = team.getUpdateUser();
-		this.registDate = team.getRegistDate();
-		this.updateDate = team.getUpdateDate();
+		this.registTime = team.getRegistTime();
+		this.updateTime = team.getUpdateTime();
 	}
 }

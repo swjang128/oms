@@ -20,7 +20,7 @@ public class HistoryDTO {
 	private String requestUri;							// 요청한 URI
 	private String method;								// 요청 메소드
 	private Integer status;								// 응답코드
-	private LocalDateTime requestDate;		// 요청한 시간
+	private LocalDateTime requestTime;		// 요청한 시간
 	
 	/**
 	 * (Request) DTO -> Entity
@@ -35,7 +35,7 @@ public class HistoryDTO {
 				.requestUri(requestUri)
 				.method(method)
 				.status(status)
-				.requestDate(requestDate)
+				.requestTime(requestTime)
 				.build();
 	}
 	
@@ -46,6 +46,6 @@ public class HistoryDTO {
 		this.requestUri = history.getRequestUri();
 		this.method = history.getMethod();
 		this.status = history.getStatus();
-		this.requestDate = history.getRequestDate();
+		this.requestTime = history.getRequestTime();
 	}
 }

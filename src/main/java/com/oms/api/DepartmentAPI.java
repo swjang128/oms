@@ -65,7 +65,6 @@ public class DepartmentAPI {
 	public Map<String, Object> create(@RequestBody DepartmentDTO departmentDTO, HttpServletRequest request) {
 		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LocalDateTime now = LocalDateTime.now();
 		// 필요한 파라미터 Set
 		if (request.getRemoteUser() == null) {
 			departmentDTO.setRegistUser("");
@@ -75,7 +74,7 @@ public class DepartmentAPI {
 		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
 			departmentDTO.setUseYn(UseYn.Y);
 		}
-		departmentDTO.setRegistDate(now);
+		departmentDTO.setRegistTime(LocalDateTime.now());
 		// 부서 등록
 		return departmentService.create(departmentDTO, resultMap);
 	}
@@ -102,7 +101,6 @@ public class DepartmentAPI {
 	public Map<String, Object> update(@Valid @RequestBody DepartmentDTO departmentDTO, HttpServletRequest request) {
 		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LocalDateTime now = LocalDateTime.now();
 		// 파라미터 set
 		if (request.getRemoteUser() == null) {
 			departmentDTO.setUpdateUser("");
@@ -112,7 +110,7 @@ public class DepartmentAPI {
 		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
 			departmentDTO.setUseYn(UseYn.Y);
 		}
-		departmentDTO.setUpdateDate(now);
+		departmentDTO.setUpdateTime(LocalDateTime.now());
 		// 부서 수정
 		return departmentService.update(departmentDTO, resultMap);
 	}

@@ -540,7 +540,12 @@ body {
 
 				<!-- 사이드바 목록 -->
 				<div class="navbar-vertical-content">
-					<div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">						
+					<div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
+					{{#serviceLocation}}
+						{{name}}
+						{{url}}
+					{{/serviceLocation}}
+											
 						<!-- 메뉴 대분류 -->
 						<div class="nav-item">
 							<a class="nav-link dropdown-toggle " href="#navbarVerticalMenuDashboards" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuDashboards" aria-expanded="false" aria-controls="navbarVerticalMenuDashboards">
@@ -559,13 +564,13 @@ body {
 						<!-- End 공통 -->
 						<!-- 공통-업무관리 -->
 						<div class="nav-item">
-							<a class="nav-link dropdown-toggle active" href="#navbarVerticalMenuPagesUserProfileMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesUserProfileMenu" aria-expanded="true" aria-controls="navbarVerticalMenuPagesUserProfileMenu">
+							<a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesUserProfileMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesUserProfileMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesUserProfileMenu">
 									<i class="bi-person nav-icon"></i> <span class="nav-link-title">업무관리</span>
 							</a>
-							<div id="navbarVerticalMenuPagesUserProfileMenu" class="nav-collapse collapse show" data-bs-parent="#navbarVerticalMenuPagesMenu">									
+							<div id="navbarVerticalMenuPagesUserProfileMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">									
 								<a class="nav-link " href="/oms/project">프로젝트</a>
-								<a class="nav-link active" href="/oms/task">업무</a>
-								<a class="nav-link active" href="/oms/team">팀 관리</a>
+								<a class="nav-link" href="/oms/task">업무</a>
+								<a class="nav-link" href="/oms/team">팀 관리</a>
 							</div>
 						</div>
 						<!-- End 공통-업무관리 -->
@@ -579,13 +584,13 @@ body {
 						<div id="navbarVerticalMenuPagesMenu">
 							<!-- 인사관리 -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle " href="#navbarVerticalMenuPagesUsersMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesUsersMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesUsersMenu">
-									<i class="bi-people nav-icon"></i><span class="nav-link-title">인사관리</span>
+								<a class="nav-link dropdown-toggle active" href="#navbarVerticalMenuPagesUsersMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesUsersMenu" aria-expanded="true" aria-controls="navbarVerticalMenuPagesUsersMenu">
+									<i class="bi-people nav-icon"></i><span class="nav-link-title">인사</span>
 								</a>
-								<div id="navbarVerticalMenuPagesUsersMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./user-profile-my-profile.html">마이페이지</a>
-									<a class="nav-link " href="/oms/account">직원목록</a>
-									<a class="nav-link " href="./user-profile-teams.html">부서목록</a>									
+								<div id="navbarVerticalMenuPagesUsersMenu" class="nav-collapse collapse show" data-bs-parent="#navbarVerticalMenuPagesMenu">									
+									<a class="nav-link active" href="/oms/account">계정</a>
+									<a class="nav-link " href="/oms/department">부서</a>
+									<a class="nav-link " href="/oms/position">직급</a>
 								</div>
 							</div>
 							<!-- End 인사관리 -->

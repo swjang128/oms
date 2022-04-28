@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.oms.config.CommonInterceptor;
 import com.oms.config.CommonUtil;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.LawDTO;
@@ -24,8 +28,8 @@ import com.oms.service.TeamService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Front End Design Templates를 관리하는 컨트롤러
- * @author swjang128
+ * 웹 페이지 컨트롤러
+ * @author JSW
  *
  */
 @Controller
@@ -33,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OmsController {
 	@Autowired
-	CommonUtil commonUtil;
+	CommonInterceptor interceptor;
 	@Autowired
 	AccountService accountService;
 	@Autowired
@@ -41,11 +45,11 @@ public class OmsController {
 	
 	/**
 	 * 메인페이지(로그인 페이지)
-	 * @param model
+	 * @param model, HttpServletRequest
 	 * @return
 	 */
 	@GetMapping("")
-  	public String main(Model model, @RequestParam(value="result", required=false) String result) {
+  	public String main(Model model, HttpServletRequest request, @RequestParam(value="result", required=false) String result) {		
 		String message = "";
 		if (result != null) {
 			switch(result) {
@@ -63,17 +67,14 @@ public class OmsController {
 
 	/**
 	 * Account
-	 * @param model
+	 * @param model, HttpServletRequest
 	 * @return String
 	 * @throws Exception 
 	 */
 	@GetMapping("account")
-  	public String member(Model model) {		
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
+  	public String member(Model model, HttpServletRequest request) throws Exception {
+		// 현재 서비스 위치 Set
+		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
 		
 		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -145,16 +146,13 @@ public class OmsController {
 	
 	/**
 	 * Team
-	 * @param model
+	 * @param model, HttpServletRequest
 	 * @return String
 	 */
 	@GetMapping("team")
-  	public String team(Model model) {
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
+  	public String team(Model model, HttpServletRequest request) {
+		// 현재 서비스 위치 Set
+		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
 		
 		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -168,48 +166,39 @@ public class OmsController {
 	
 	/**
 	 * Project
-	 * @param model
+	 * @param model, HttpServletRequest
 	 * @return
 	 */
 	@GetMapping("project")
-  	public String project(Model model) {
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
+  	public String project(Model model, HttpServletRequest request) {
+		// 현재 서비스 위치 Set
+		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
 		
   		return "project";
   	}
 	
 	/**
 	 * DashBoard
-	 * @param model
+	 * @param model, HttpServletRequest
 	 * @return
 	 */
 	@GetMapping("dashboard")
-  	public String dashboard(Model model) {
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
+  	public String dashboard(Model model, HttpServletRequest request) {
+		// 현재 서비스 위치 Set
+		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
 		
   		return "dashboard";
   	}
 	
 	/**
 	 * Task(KanBan)
-	 * @param model
+	 * @param model, HttpServletRequest
 	 * @return
 	 */
 	@GetMapping("task")
-  	public String task(Model model) {
-		// ServletPath, CurrentLocation 설정 
-		String servletPath = commonUtil.getServletPath();
-		String currentLocation = commonUtil.getCurrentLocation();
-		model.addAttribute("servletPath", servletPath);
-		model.addAttribute("currentLocation", currentLocation);
+  	public String task(Model model, HttpServletRequest request) {
+		// 현재 서비스 위치 Set
+		model.addAttribute("serviceLocation", request.getAttribute("serviceLocation"));
 		
   		return "task";
   	}

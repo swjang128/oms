@@ -41,20 +41,22 @@ public class MenuAPI {
 	MenuService menuService;
 	
 	/**
-	 * 메뉴 전체 목록 조회
-	 * @param model
+	 * 메뉴 조회
+	 * @param RequestParam
 	 * @param request
 	 * @return 
 	 */
 	@GetMapping("menu")
 	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
-																@RequestParam(name="parent", required=false) List<Long> parentId) {
+																@RequestParam(name="parent", required=false) List<Long> parentId,
+																@RequestParam(name="url", required=false) List<String> url) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		// 필요한 파라미터 Set
 		paramMap.put("useYn", useYn);
 		paramMap.put("parentId", parentId);
+		paramMap.put("url", url);
 		// 메뉴 목록 조회
 		return menuService.read(paramMap, resultMap);
 	}
@@ -68,7 +70,6 @@ public class MenuAPI {
 	public Map<String, Object> create(@Valid @RequestBody MenuDTO menuDTO, HttpServletRequest request) {
 		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LocalDateTime now = LocalDateTime.now();
 		// 필요한 파라미터 Set
 		if (request.getRemoteHost() == null) {
 			menuDTO.setRegistUser("");
@@ -78,7 +79,7 @@ public class MenuAPI {
 		if (menuDTO.getUseYn() != UseYn.Y && menuDTO.getUseYn() != UseYn.N) {
 			menuDTO.setUseYn(UseYn.N);
 		}
-		menuDTO.setRegistDate(now);
+		menuDTO.setRegistTime(LocalDateTime.now());
 		// 메뉴 등록
 		return menuService.create(menuDTO, resultMap);
 	}
@@ -92,7 +93,6 @@ public class MenuAPI {
 	public Map<String, Object> update(@RequestBody MenuDTO menuDTO, HttpServletRequest request) {
 		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LocalDateTime now = LocalDateTime.now();
 		// 필요한 파라미터 Set
 		if (request.getRemoteHost() == null) {
 			menuDTO.setUpdateUser("");
@@ -102,7 +102,7 @@ public class MenuAPI {
 		if (menuDTO.getUseYn() != UseYn.Y && menuDTO.getUseYn() != UseYn.N) {
 			menuDTO.setUseYn(UseYn.N);
 		}
-		menuDTO.setUpdateDate(now);
+		menuDTO.setUpdateTime(LocalDateTime.now());
 		// 메뉴 수정
 		return menuService.update(menuDTO, resultMap);
 	}

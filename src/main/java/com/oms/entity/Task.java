@@ -61,24 +61,24 @@ public class Task {
 	private Status status;																			// 진행 상황
 	
 	@Column(updatable=false)
-	@CreatedDate
-	private LocalDateTime registDate;												// 등록일시
-	
-	@Column(updatable=false)
-	private String registUser;																// 등록자
-
-	@Column
-	@LastModifiedDate
-	private LocalDateTime updateDate;											// 수정일시
+	private String registUser;																	// 등록자
 	
 	@Column(insertable=false)
-	private String updateUser;															// 수정자
+	private String updateUser;																// 수정자
+
+	@Column(updatable=false)
+	@CreatedDate
+	private LocalDateTime registTime;												// 등록일시
+	
+	@Column
+	@LastModifiedDate
+	private LocalDateTime updateTime;												// 수정일시
 	
 	@Column(updatable=false)	
-	private LocalDate startDate; 														// 시작일자
+	private LocalDate startDate; 															// 시작일자
 	
 	@Column(updatable=false)	
-	private LocalDate endDate; 														// 완료일자
+	private LocalDate endDate; 															// 완료일자
 	
 	
 	/**

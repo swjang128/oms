@@ -50,11 +50,11 @@ public class Position {
 	
 	@Column(updatable=false)
 	@CreatedDate
-	private LocalDateTime registDate;											// 등록일자
+	private LocalDateTime registTime;											// 등록일자
 
 	@Column()
 	@LastModifiedDate
-	private LocalDateTime updateDate;										// 수정일자
+	private LocalDateTime updateTime;										// 수정일자
 
 	/**
 	 * 직급 사용유무에 대한 정의

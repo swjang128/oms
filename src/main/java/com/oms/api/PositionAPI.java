@@ -62,7 +62,6 @@ public class PositionAPI {
 	public Map<String, Object> create(@Valid @RequestBody PositionDTO positionDTO, HttpServletRequest request) {
 		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LocalDateTime now = LocalDateTime.now();
 		// 필요한 파라미터 Set
 		if (request.getRemoteHost() == null) {
 			positionDTO.setRegistUser("");
@@ -72,7 +71,7 @@ public class PositionAPI {
 		if (positionDTO.getUseYn() != UseYn.Y && positionDTO.getUseYn() != UseYn.N) {
 			positionDTO.setUseYn(UseYn.Y);
 		}
-		positionDTO.setRegistDate(now);
+		positionDTO.setRegistTime(LocalDateTime.now());
 		// 직급 등록
 		return positionService.create(positionDTO, resultMap);
 	}
@@ -86,7 +85,6 @@ public class PositionAPI {
 	public Map<String, Object> update(@Valid @RequestBody PositionDTO positionDTO, HttpServletRequest request) {
 		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		LocalDateTime now = LocalDateTime.now();
 		// 필요한 파라미터 Set
 		if (request.getRemoteHost() == null) {
 			positionDTO.setUpdateUser("");
@@ -96,7 +94,7 @@ public class PositionAPI {
 		if (positionDTO.getUseYn() != UseYn.Y && positionDTO.getUseYn() != UseYn.N) {
 			positionDTO.setUseYn(UseYn.Y);
 		}
-		positionDTO.setUpdateDate(now);
+		positionDTO.setUpdateTime(LocalDateTime.now());
 		// 직급 수정
 		return positionService.update(positionDTO, resultMap);
 	}

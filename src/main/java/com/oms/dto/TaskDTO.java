@@ -37,12 +37,12 @@ public class TaskDTO {
 	private String descryption;																// 업무설명
 	private Category category;																// 분류
 	private Status status;																			// 진행 상황
-	private LocalDateTime registDate;												// 등록일시
-	private String registUser;																// 등록자
-	private LocalDateTime updateDate;											// 수정일시
-	private String updateUser;															// 수정자
-	private LocalDate startDate; 																	// 시작일자
-	private LocalDate endDate; 																		// 완료일자
+	private String registUser;																	// 등록자
+	private String updateUser;																// 수정자
+	private LocalDateTime registTime;												// 등록일시
+	private LocalDateTime updateTime;												// 수정일시
+	private LocalDate startDate; 															// 시작일자
+	private LocalDate endDate; 															// 완료일자
 	
 	/**
 	 * (Request) DTO -> Entity
@@ -57,10 +57,10 @@ public class TaskDTO {
 				.descryption(descryption)
 				.category(category)
 				.status(status)
-				.registDate(registDate)
 				.registUser(registUser)
-				.updateDate(updateDate)
 				.updateUser(updateUser)
+				.registTime(registTime)
+				.updateTime(updateTime)
 				.startDate(startDate)
 				.endDate(endDate)
 				.build();
@@ -73,10 +73,10 @@ public class TaskDTO {
 		this.descryption = task.getDescryption();
 		this.category = task.getCategory();
 		this.status = task.getStatus();
-		this.registDate = task.getRegistDate();
+		this.registTime = task.getRegistTime();
 		this.registUser = task.getRegistUser();
-		this.updateDate = task.getUpdateDate();
 		this.updateUser = task.getUpdateUser();
+		this.updateTime = task.getUpdateTime();
 		this.startDate = task.getStartDate();
 		this.endDate = task.getEndDate();
 	}

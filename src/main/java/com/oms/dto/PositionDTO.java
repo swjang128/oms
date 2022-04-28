@@ -18,8 +18,8 @@ public class PositionDTO {
 	private UseYn useYn;											// 사용여부
 	private String registUser;									// 등록자
 	private String updateUser;								// 수정자
-	private LocalDateTime registDate;					// 등록일자
-	private LocalDateTime updateDate;				// 수정일자
+	private LocalDateTime registTime;				// 등록일시
+	private LocalDateTime updateTime;				// 수정일시
 
 	/**
 	 * (Request) DTO -> Entity
@@ -33,8 +33,8 @@ public class PositionDTO {
 				.useYn(useYn)
 				.registUser(registUser)
 				.updateUser(updateUser)
-				.registDate(registDate)
-				.updateDate(updateDate)
+				.registTime(registTime)
+				.updateTime(updateTime)
 				.build();
 	}
 
@@ -44,7 +44,7 @@ public class PositionDTO {
 		this.useYn = position.getUseYn();
 		this.registUser = position.getRegistUser();
 		this.updateUser = position.getUpdateUser();
-		this.registDate = position.getRegistDate();
-		this.updateDate = position.getUpdateDate();
+		this.registTime = position.getRegistTime();
+		this.updateTime = position.getUpdateTime();
 	}
 }

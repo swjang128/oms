@@ -18,8 +18,8 @@ public class DepartmentDTO {
 	private UseYn useYn;													// 사용여부
 	private String registUser;											// 등록자
 	private String updateUser;										// 수정자
-	private LocalDateTime registDate;							// 등록일자
-	private LocalDateTime updateDate;						// 등록일자
+	private LocalDateTime registTime;						// 등록일시
+	private LocalDateTime updateTime;						// 수정일시
 	
 	/**
 	 * (Request) DTO -> Entity
@@ -32,8 +32,8 @@ public class DepartmentDTO {
 				.useYn(useYn)
 				.registUser(registUser)
 				.updateUser(updateUser)
-				.registDate(registDate)
-				.updateDate(updateDate)
+				.registTime(registTime)
+				.updateTime(updateTime)
 				.build();
 	}
 	
@@ -43,7 +43,7 @@ public class DepartmentDTO {
 		this.useYn = department.getUseYn();
 		this.registUser = department.getRegistUser();
 		this.updateUser = department.getUpdateUser();
-		this.registDate = department.getRegistDate();
-		this.updateDate = department.getUpdateDate();
+		this.registTime = department.getRegistTime();
+		this.updateTime = department.getUpdateTime();
 	}
 }

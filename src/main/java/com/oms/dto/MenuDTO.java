@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuDTO {
-	private Long id;							// 메뉴 ID (기본키)
-	private Long depth;					// 메뉴 단계
-	private Long parentId;						// 부모 메뉴 ID (부모 메뉴는 값을 0으로 지정)
-	private String name;						// 메뉴 이름
-	private String domain;				// 메뉴 도메인
-	private String icon;						// 메뉴 아이콘
-	private UseYn useYn;					// 사용여부
-	private String registUser;			// 등록자
-	private String updateUser;			// 등록자
-	private LocalDateTime registDate;			// 등록자
-	private LocalDateTime updateDate;			// 등록자
+	private Long id;											// 메뉴 ID (기본키)
+	private Long depth;									// 메뉴 단계
+	private Long parentId;								// 부모 메뉴 ID (부모 메뉴는 값을 0으로 지정)
+	private String name;									// 메뉴 이름
+	private String url;										// 메뉴 URL
+	private String icon;										// 메뉴 아이콘
+	private UseYn useYn;									// 사용여부
+	private String registUser;							// 등록자
+	private String updateUser;						// 수정자
+	private LocalDateTime registTime;		// 등록일시
+	private LocalDateTime updateTime;		// 수정일시
 	
 	/**
 	 * (Request) DTO -> Entity
@@ -36,13 +36,13 @@ public class MenuDTO {
 				.depth(depth)
 				.parentId(parentId)				
 				.name(name)
-				.domain(domain)
+				.url(url)
 				.icon(icon)
 				.useYn(useYn)
 				.registUser(registUser)
 				.updateUser(updateUser)
-				.registDate(registDate)
-				.updateDate(updateDate)
+				.registTime(registTime)
+				.updateTime(updateTime)
 				.build();
 	}
 	
@@ -51,12 +51,12 @@ public class MenuDTO {
 		this.depth = menu.getDepth();
 		this.parentId = menu.getParentId();
 		this.name = menu.getName();
-		this.domain = menu.getDomain();
+		this.url = menu.getUrl();
 		this.icon = menu.getIcon();
 		this.useYn = menu.getUseYn();
 		this.registUser = menu.getRegistUser();
 		this.updateUser = menu.getUpdateUser();
-		this.registDate = menu.getRegistDate();
-		this.updateDate = menu.getUpdateDate();
+		this.registTime = menu.getRegistTime();
+		this.updateTime = menu.getUpdateTime();
 	}
 }
