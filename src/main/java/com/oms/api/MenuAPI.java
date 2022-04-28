@@ -1,10 +1,13 @@
 package com.oms.api;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.MenuDTO;
+import com.oms.entity.Menu.UseYn;
 import com.oms.service.MenuService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,59 +47,16 @@ public class MenuAPI {
 	 * @return 
 	 */
 	@GetMapping("menu")
-	public Map<String, Object> read() {
+	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
+																@RequestParam(name="parent", required=false) List<Long> parentId) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
-		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		// 필요한 파라미터 Set
+		paramMap.put("useYn", useYn);
+		paramMap.put("parentId", parentId);
 		// 메뉴 목록 조회
-		try {
-			menuList = menuService.read();
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
-		}
-				
-		// RESTful API 결과를 리턴
-		resultMap.put("menuList", menuList);
-		resultMap.put("message", message);
-		resultMap.put("status", status);
-		
-		return resultMap;
-	}
-	
-	/**
-	 * 하위 메뉴 조회 (메인 메뉴는 파라미터를 0)
-	 * @param model
-	 * @param request
-	 * @return 
-	 */
-	@GetMapping("menu/{id}")
-	public Map<String, Object> read(@PathVariable("id") Long parentId) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<MenuDTO> menuList = new ArrayList<MenuDTO>();
-		int status = ResponseCode.Status.ERROR_ABORT;
-		String message = ResponseCode.Message.ERROR_ABORT;
-		
-		// 하위 메뉴 조회
-		try {
-			menuList = menuService.read(parentId);			
-			status = ResponseCode.Status.OK;
-			message = ResponseCode.Message.OK;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("menuList", menuList);
-		resultMap.put("message", message);
-		resultMap.put("status", status);
-		
-		return resultMap;
+		return menuService.read(paramMap, resultMap);
 	}
 	
 	/**
@@ -103,91 +65,58 @@ public class MenuAPI {
 	 * @throws IOException 
 	 */
 	@PostMapping("menu")
-	public Map<String, Object> create(@Valid @RequestBody MenuDTO menuDTO) {
-		// 기본 변수 설정
+	public Map<String, Object> create(@Valid @RequestBody MenuDTO menuDTO, HttpServletRequest request) {
+		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.ERROR_ABORT;		
-		String message = ResponseCode.Message.ERROR_ABORT;
-		String result = "";
-		
-		try {
-			menuService.create(menuDTO);
-			
-			status = ResponseCode.Status.CREATED;
-			message = ResponseCode.Message.CREATED;			
-		} catch (Exception e) {
-			e.printStackTrace();
+		LocalDateTime now = LocalDateTime.now();
+		// 필요한 파라미터 Set
+		if (request.getRemoteHost() == null) {
+			menuDTO.setRegistUser("");
+		} else {
+			menuDTO.setRegistUser(request.getRemoteUser());
+		}		
+		if (menuDTO.getUseYn() != UseYn.Y && menuDTO.getUseYn() != UseYn.N) {
+			menuDTO.setUseYn(UseYn.N);
 		}
-
-		// RESTful API 결과를 리턴
-		resultMap.put("result",  result);
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
+		menuDTO.setRegistDate(now);
+		// 메뉴 등록
+		return menuService.create(menuDTO, resultMap);
 	}
 	
 	/**
-	 * 메뉴 정보 삭제 (DELETE)
+	 * 메뉴 수정 (UPDATE)
+	 * @param RequestBody, HttpServletRequest
+	 * @return Map<String, Object>
+	 */
+	@PutMapping("menu")
+	public Map<String, Object> update(@RequestBody MenuDTO menuDTO, HttpServletRequest request) {
+		// 기본 변수 및 생성자 선언
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		LocalDateTime now = LocalDateTime.now();
+		// 필요한 파라미터 Set
+		if (request.getRemoteHost() == null) {
+			menuDTO.setUpdateUser("");
+		} else {
+			menuDTO.setUpdateUser(request.getRemoteUser());
+		}		
+		if (menuDTO.getUseYn() != UseYn.Y && menuDTO.getUseYn() != UseYn.N) {
+			menuDTO.setUseYn(UseYn.N);
+		}
+		menuDTO.setUpdateDate(now);
+		// 메뉴 수정
+		return menuService.update(menuDTO, resultMap);
+	}
+	
+	/**
+	 * 메뉴 삭제 (DELETE)
 	 * @param PathVariable
 	 * @return 
 	 */
 	@DeleteMapping("menu/{id}")
 	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
-		log.info("**** delete called");
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.NOT_FOUND;		
-		String message = ResponseCode.Message.NOT_FOUND;
-		
 		// 메뉴 정보 삭제
-		try {
-			result = menuService.delete(param);
-			if (result > 0) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;	
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
+		return menuService.delete(param, resultMap);
 	}
-	
-	/**
-	 * 메뉴 정보 수정 (UPDATE)
-	 * @param RequestBody
-	 * @return 
-	 */
-	@PutMapping("menu")
-	public Map<String, Object> update(@RequestBody MenuDTO menuDTO) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.ERROR_ABORT;		
-		String message = ResponseCode.Message.ERROR_ABORT;
-		
-		// 메뉴 정보 수정
-		try {
-			result = menuService.update(menuDTO);
-			if (result == 1) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
-	}
-
 }

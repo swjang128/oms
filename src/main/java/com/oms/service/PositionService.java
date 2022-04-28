@@ -1,6 +1,7 @@
 package com.oms.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,55 +23,19 @@ import com.oms.specification.PositionSpecification;
 public class PositionService{
 	@Autowired
 	PositionRepository positionRepository;
-		
-	/** 
-	 * 직급 목록 조회 (READ)
-	 * @return List<Position>
-	 */
-	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
-		List<Position> position =null;
-		List<PositionDTO> positionDTO = null;
-		Object useYn = paramMap.get("useYn");
-		Object name = paramMap.get("name");
-		Specification<Position> specification = (root, query, criteriaBuilder) -> null;
-		// 직급 목록 조회
-		try {
-			if (useYn != null)
-				specification = specification.and(PositionSpecification.findByUseYn(useYn));
-			if (name != null)
-				specification = specification.and(PositionSpecification.findByName(name));
-			position = positionRepository.findAll(specification);
-			positionDTO = position.stream().map(PositionDTO::new).collect(Collectors.toList());
-			resultMap.put("positionList", positionDTO);
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
-		}
-		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
-		return resultMap;
-	}
 	
 	/** 
 	 * 직급 등록 (CREATE)
-	 * @return 등록한 직급 정보
+	 * @param PositionDTO, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
-	public Map<String, Object> create(@RequestBody PositionDTO positionDTO, Map<String, Object> resultMap) {
+	public Map<String, Object> create(PositionDTO positionDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.CREATED;
 		String message = ResponseCode.Message.CREATED;
 		Position position = null;
 		// 직급 등록 (CREATE)
 		try {
-			LocalDateTime now = LocalDateTime.now();
-			positionDTO.setRegistDate(now);
-			if (positionDTO.getUseYn() == null) {
-				positionDTO.setUseYn(UseYn.Y);
-			}
 			position = positionRepository.save(positionDTO.toEntity());
 			resultMap.put("position", position);
 		} catch (Exception e ) {
@@ -85,13 +50,45 @@ public class PositionService{
 	}
 	
 	/** 
+	 * 직급 목록 조회 (READ)
+	 * @return Map<String, Object>
+	 */
+	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		List<Position> position =new ArrayList<Position>();
+		List<PositionDTO> positionDTO = new ArrayList<PositionDTO>();
+		Object useYn = paramMap.get("useYn");
+		Object name = paramMap.get("name");
+		Specification<Position> specification = (root, query, criteriaBuilder) -> null;
+		// Specification 설정
+		if (useYn != null)
+			specification = specification.and(PositionSpecification.findByUseYn(useYn));
+		if (name != null)
+			specification = specification.and(PositionSpecification.findByName(name));
+		// 직급 목록 조회
+		try {
+			position = positionRepository.findAll(specification);
+			positionDTO = position.stream().map(PositionDTO::new).collect(Collectors.toList());
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		// 결과 리턴		
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("positionList", positionDTO);
+		return resultMap;
+	}
+	
+	/** 
 	 * 직급 수정 (UPDATE)
-	 * @param @RequestBody
-	 * @return 
-	 * @return 
+	 * @param PositionDTO, Map<String, Object>
+	 * @return Map<String, Object> 
 	 */
 	@Transactional
-	public Map<String, Object> update(@RequestBody PositionDTO positionDTO, Map<String, Object> resultMap) {
+	public Map<String, Object> update(PositionDTO positionDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		// 해당 직급이 있는지 확인
@@ -107,11 +104,6 @@ public class PositionService{
 		}
 		// 직급 수정 (UPDATE)
 		try {
-			LocalDateTime now = LocalDateTime.now();
-			positionDTO.setUpdateDate(now);
-			if (positionDTO.getUseYn()!=UseYn.Y && positionDTO.getUseYn()!=UseYn.N) {
-				positionDTO.setUseYn(UseYn.Y);
-			}
 			positionRepository.save(positionDTO.toEntity());
 			resultMap.put("position", positionDTO);
 		} catch (Exception e) {

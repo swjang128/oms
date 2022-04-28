@@ -69,17 +69,12 @@ public class DepartmentService {
 	 * @return 등록한 부서 정보
 	 */
 	@Transactional
-	public Map<String, Object> create(@RequestBody DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
+	public Map<String, Object> create(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.CREATED;
 		String message = ResponseCode.Message.CREATED;
 		Department department = null;
 		// 부서 등록 (CREATE)
 		try {
-			LocalDateTime now = LocalDateTime.now();
-			departmentDTO.setRegistDate(now);
-			if (departmentDTO.getUseYn() == null) {
-				departmentDTO.setUseYn(UseYn.Y);
-			}
 			department = departmentRepository.save(departmentDTO.toEntity());
 			resultMap.put("department", department);
 		} catch (Exception e) {
@@ -100,7 +95,7 @@ public class DepartmentService {
 	 * @return Map<String, Object>
 	 */
 	@Transactional
-	public Map<String, Object> update(@RequestBody DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
+	public Map<String, Object> update(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		// 해당 부서가 있는지 확인
@@ -114,14 +109,8 @@ public class DepartmentService {
 			resultMap.put("message", message);
 			return resultMap;
 		}
-
 		// 부서 수정 (UPDATE)
 		try {
-			LocalDateTime now = LocalDateTime.now();
-			departmentDTO.setUpdateDate(now);
-			if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
-				departmentDTO.setUseYn(UseYn.Y);
-			}
 			departmentRepository.save(departmentDTO.toEntity());
 			resultMap.put("department", departmentDTO);
 		} catch (Exception e) {

@@ -33,26 +33,32 @@ import lombok.RequiredArgsConstructor;
 public class Department {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;															// ID
+	private Long id;																				// ID
 
 	@Column
-	private String name;													// 부서이름
+	private String name;																		// 부서이름
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	private UseYn useYn;															// 사용여부
+	private UseYn useYn;																		// 사용여부
+	
+	@Column
+	private String registUser;																// 등록자
+	
+	@Column
+	private String updateUser;															// 수정자
 
 	@Column(updatable=false)
 	@CreatedDate
-	private LocalDateTime registDate;							// 등록일자
+	private LocalDateTime registDate;												// 등록일자
 
 	@Column
 	@LastModifiedDate
-	private LocalDateTime updateDate;						// 수정일자
+	private LocalDateTime updateDate;											// 수정일자
 	
 	/**
 	 * 부서 사용유무에 대한 정의
-	 * @author jsw
+	 * @author JSW
 	 */
 	@Getter
 	@RequiredArgsConstructor

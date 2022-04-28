@@ -1,10 +1,12 @@
 package com.oms.api;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +55,50 @@ public class PositionAPI {
 	
 	/**
 	 * 직급 등록 (CREATE)
-	 * @param RequestBody
+	 * @param RequestBody, HttpServletRequest
 	 * @throws IOException 
 	 */
 	@PostMapping("position")
-	public Map<String, Object> create(@Valid @RequestBody PositionDTO positionDTO) {
-		// 기본 변수 설정
+	public Map<String, Object> create(@Valid @RequestBody PositionDTO positionDTO, HttpServletRequest request) {
+		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		LocalDateTime now = LocalDateTime.now();
+		// 필요한 파라미터 Set
+		if (request.getRemoteHost() == null) {
+			positionDTO.setRegistUser("");
+		} else {
+			positionDTO.setRegistUser(request.getRemoteUser());
+		}		
+		if (positionDTO.getUseYn() != UseYn.Y && positionDTO.getUseYn() != UseYn.N) {
+			positionDTO.setUseYn(UseYn.Y);
+		}
+		positionDTO.setRegistDate(now);
 		// 직급 등록
 		return positionService.create(positionDTO, resultMap);
+	}
+	
+	/**
+	 * 직급 수정 (UPDATE)
+	 * @param RequestBody, HttpServletRequest
+	 * @return Map<String, Object>
+	 */
+	@PutMapping("position")
+	public Map<String, Object> update(@Valid @RequestBody PositionDTO positionDTO, HttpServletRequest request) {
+		// 기본 변수 및 생성자 선언
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		LocalDateTime now = LocalDateTime.now();
+		// 필요한 파라미터 Set
+		if (request.getRemoteHost() == null) {
+			positionDTO.setUpdateUser("");
+		} else {
+			positionDTO.setUpdateUser(request.getRemoteUser());
+		}		
+		if (positionDTO.getUseYn() != UseYn.Y && positionDTO.getUseYn() != UseYn.N) {
+			positionDTO.setUseYn(UseYn.Y);
+		}
+		positionDTO.setUpdateDate(now);
+		// 직급 수정
+		return positionService.update(positionDTO, resultMap);
 	}
 	
 	/**
@@ -76,18 +113,4 @@ public class PositionAPI {
 		// 직급 삭제
 		return positionService.delete(param, resultMap);
 	}
-	
-	/**
-	 * 직급 수정 (UPDATE)
-	 * @param RequestBody
-	 * @return 
-	 */
-	@PutMapping("position")
-	public Map<String, Object> update(@Valid @RequestBody PositionDTO positionDTO) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		// 직급 수정
-		return positionService.update(positionDTO, resultMap);
-	}
-
 }

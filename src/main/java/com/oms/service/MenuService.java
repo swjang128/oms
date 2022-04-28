@@ -1,135 +1,150 @@
 package com.oms.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-
+import com.oms.config.ResponseCode;
 import com.oms.dto.MenuDTO;
 import com.oms.entity.Menu;
 import com.oms.repository.MenuRepository;
+import com.oms.specification.MenuSpecification;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 메뉴 목록을 관리하는 Service
- * @author Capias J
- *
+ * 메뉴 Service
+ * @author JSW
  */
 @Service
 @Slf4j
 public class MenuService{
 	@Autowired
-	ModelMapper modelMapper;
-	@Autowired
 	MenuRepository menuRepository;
 
 	/** 
-	 * 메뉴 목록 조회 (READ)
-	 * @return List<MenuDTO>
-	 */
-	public List<MenuDTO> read() {
-		// 메뉴 목록 조회
-		List<Menu> menuList = menuRepository.findAll();
-		List<MenuDTO> result = menuList.stream()											 
-									 .map(MenuDTO::new)
-									 .collect(Collectors.toList());
-		
-		log.info("###### MenuList Result: {}", result);
-		
-		return result;
-	}
-	
-	/** 
-	 * 상위 메뉴 조회 (READ)
-	 * 메인 메뉴는 parentId를 0으로 받아서 조회한다
-	 * @return List<MenuDTO>
-	 */
-//	public List<MenuDTO> readParent(Long menuId) {		
-//		// 메뉴(대분류) 목록 조회
-//		List<Menu> parentMenu = menuRepository.findByParentId(menuId);
-//		List<MenuDTO> result = parentMenu.stream()											 
-//				 .map(MenuDTO::new)
-//				 .collect(Collectors.toList());
-//		log.info("****** 소분류 메뉴: {}", result);
-//		
-//		return result;
-//	}
-	
-	/** 
-	 * 특정 ParentId를 가진 메뉴 조회 (READ)
-	 * @return List<MenuDTO>
-	 */
-	public List<MenuDTO> read(Long menuId) {		
-		// 메뉴(대분류) 목록 조회
-		List<Menu> parentMenu = menuRepository.findByParentId(menuId);
-		List<MenuDTO> result = parentMenu.stream()											 
-				 .map(MenuDTO::new)
-				 .collect(Collectors.toList());
-		log.info("****** 소분류 메뉴: {}", result);
-		
-		return result;
-	}
-	
-	/** 
 	 * 메뉴 등록 (CREATE)
-	 * @return 등록한 메뉴 정보
+	 * @param MenuDTO, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
-	public Menu create(@RequestBody MenuDTO menuDTO) {
+	public Map<String, Object> create(MenuDTO menuDTO, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.CREATED;
+		String message = ResponseCode.Message.CREATED;
+		Menu menu = null;
 		// 메뉴 등록 (CREATE)
-		Menu result = menuRepository.save(menuDTO.toEntity());
-
-		return result;
+		try {
+			menu = menuRepository.save(menuDTO.toEntity());
+			resultMap.put("menu", menu);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		// 결과 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		return resultMap;
+	}
+	
+	/** 
+	 * 메뉴 목록 조회 (READ)
+	 * @param Map<String, Object>, Map<String, Object>
+	 * @return Map<String, Object>
+	 */
+	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		List<Menu> menu = new ArrayList<Menu>();
+		List<MenuDTO> menuDTO = new ArrayList<MenuDTO>();
+		Object useYn = paramMap.get("useYn");
+		Object parentId = paramMap.get("parentId");
+		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
+		// Specification 설정
+		if (useYn != null)
+			specification = specification.and(MenuSpecification.findByUseYn(useYn));
+		if (parentId != null)
+			specification = specification.and(MenuSpecification.findByParentId(parentId));
+		// 메뉴 목록 조회
+		try {
+			menu = menuRepository.findAll(specification);
+			menuDTO = menu.stream().map(MenuDTO::new).collect(Collectors.toList());			
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		// 결과 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("menuList", menuDTO);
+		return resultMap;
 	}
 	
 	/** 
 	 * 메뉴 수정 (UPDATE)
-	 * @param @RequestBody
-	 * @return 
-	 * @return 
+	 * @param MenuDTO, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
-	public Integer update(@RequestBody MenuDTO menuDTO) {
-		Long id = menuDTO.getId();		
-		int result = 0;
+	public Map<String, Object> update(MenuDTO menuDTO, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;		
 		// 해당 메뉴이 있는지 확인
-		menuRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 메뉴이 없습니다. id: "+id));
-		
 		try {
-			// 메뉴 수정 (UPDATE)
-			menuRepository.save(menuDTO.toEntity());
-			result = 1;
+			menuRepository.findById(menuDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 메뉴이 없습니다. id: "+menuDTO.getId()));	
 		} catch (Exception e) {
 			e.printStackTrace();
+			status = ResponseCode.Status.MENU_NOT_FOUND;
+			message = ResponseCode.Message.MENU_NOT_FOUND;
+			resultMap.put("status", status);
+			resultMap.put("message", message);
+			return resultMap;
 		}
-		
-		return result;
+		// 메뉴 수정 (UPDATE)
+		try {
+			menuRepository.save(menuDTO.toEntity());
+			resultMap.put("menu", menuDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		// 결과 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		return resultMap;
 	}
 	
 	/** 
 	 * 메뉴 삭제 (DELETE)
-	 * @return http 응답코드
+	 * @return Map<String, Object>
 	 */
 	@Transactional
-	public Integer delete(List<Long> param) {
-		int result = 0;
-		
+	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
 		// 메뉴 삭제 (DELETE)
 		try {
 			for (int p=0; p<param.size(); p++) {
 				menuRepository.deleteById(param.get(p));
 			}
-			result = 1;
+			resultMap.put("id", param);
 		} catch (Exception e) {
 			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
 		}
-		
-		return result;
+		// 결과 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		return resultMap;
 	}
 
 }
+

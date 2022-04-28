@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -38,16 +39,17 @@ public class Menu {
 	private Long id;														// 메뉴 ID (기본키)
 
 	@Column(nullable=false)
+	@ColumnDefault("0")
 	private Long depth;												// 메뉴 단계
 	
 	@Column(nullable=false)
 	private Long parentId;											// 부모 메뉴 ID (부모 메뉴는 값을 0으로 지정)
 
-	@Column(length=16, nullable=false)
+	@Column(length=8, nullable=false)
 	private String name;												// 메뉴 이름
 	
 	@Column(length=16, nullable=false)
-	private String descryption;									// 메뉴 Descryption
+	private String domain;											// 메뉴 도메인
 
 	@Column(length=32)
 	private String icon;													// 메뉴 아이콘
@@ -55,6 +57,12 @@ public class Menu {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private UseYn useYn;												// 사용여부
+	
+	@Column
+	private String registUser;										// 등록자
+	
+	@Column
+	private String updateUser;									// 수정자
 
 	@Column(updatable=false)
 	@CreatedDate

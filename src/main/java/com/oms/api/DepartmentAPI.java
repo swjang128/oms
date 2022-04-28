@@ -1,10 +1,12 @@
 package com.oms.api;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +62,20 @@ public class DepartmentAPI {
 	 * @throws IOException 
 	 */
 	@PostMapping("department")
-	public Map<String, Object> create(@Valid @RequestBody DepartmentDTO departmentDTO) {
-		// 기본 변수 설정
+	public Map<String, Object> create(@RequestBody DepartmentDTO departmentDTO, HttpServletRequest request) {
+		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		LocalDateTime now = LocalDateTime.now();
+		// 필요한 파라미터 Set
+		if (request.getRemoteUser() == null) {
+			departmentDTO.setRegistUser("");
+		} else {
+			departmentDTO.setRegistUser(request.getRemoteUser());
+		}		
+		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
+			departmentDTO.setUseYn(UseYn.Y);
+		}
+		departmentDTO.setRegistDate(now);
 		// 부서 등록
 		return departmentService.create(departmentDTO, resultMap);
 	}
@@ -86,9 +99,20 @@ public class DepartmentAPI {
 	 * @return 
 	 */
 	@PutMapping("department")
-	public Map<String, Object> update(@Valid @RequestBody DepartmentDTO departmentDTO) {
-		// 기본 변수 설정
+	public Map<String, Object> update(@Valid @RequestBody DepartmentDTO departmentDTO, HttpServletRequest request) {
+		// 기본 변수 및 생성자 선언
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		LocalDateTime now = LocalDateTime.now();
+		// 파라미터 set
+		if (request.getRemoteUser() == null) {
+			departmentDTO.setUpdateUser("");
+		} else {
+			departmentDTO.setUpdateUser(request.getRemoteUser());	
+		}
+		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
+			departmentDTO.setUseYn(UseYn.Y);
+		}
+		departmentDTO.setUpdateDate(now);
 		// 부서 수정
 		return departmentService.update(departmentDTO, resultMap);
 	}

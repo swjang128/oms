@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 public class DepartmentDTO {
 	private long id;															// ID
 	private String name;													// 부서명
-	private UseYn useYn;															// 사용여부	
+	private UseYn useYn;													// 사용여부
+	private String registUser;											// 등록자
+	private String updateUser;										// 수정자
 	private LocalDateTime registDate;							// 등록일자
 	private LocalDateTime updateDate;						// 등록일자
 	
@@ -28,6 +30,8 @@ public class DepartmentDTO {
 				.id(id)
 				.name(name)
 				.useYn(useYn)
+				.registUser(registUser)
+				.updateUser(updateUser)
 				.registDate(registDate)
 				.updateDate(updateDate)
 				.build();
@@ -37,6 +41,8 @@ public class DepartmentDTO {
 		this.id = department.getId();
 		this.name = department.getName();
 		this.useYn = department.getUseYn();
+		this.registUser = department.getRegistUser();
+		this.updateUser = department.getUpdateUser();
 		this.registDate = department.getRegistDate();
 		this.updateDate = department.getUpdateDate();
 	}

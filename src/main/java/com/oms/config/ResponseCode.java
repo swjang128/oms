@@ -33,6 +33,9 @@ public class ResponseCode {
 		/* Team (2xxx) */
 		public static final int TEAM_NOT_FOUND = 2004;
 		public static final int TEAM_EXIST = 2009;
+		/* Menu (8xxx) */
+		public static final int MENU_NOT_FOUND = 8004;
+		public static final int MENU_EXIST = 8009;
 		/* Product (9xxx) */
 		public static final int PRODUCT_NOT_FOUND = 9404;
 		
@@ -67,6 +70,9 @@ public class ResponseCode {
 		/* Team */
 		public static final String TEAM_NOT_FOUND = "존재하지 않는 팀입니다";
 		public static final String TEAM_EXIST = "존재하는 팀입니다";
+		/* Menu */
+		public static final String MENU_NOT_FOUND = "존재하지 않는 메뉴입니다";
+		public static final String MENU_EXIST = "존재하는 메뉴입니다";
 		/* Product */
 		public static final String PRODUCT_NOT_FOUND = "존재하지 않는 상품입니다";
 	}
