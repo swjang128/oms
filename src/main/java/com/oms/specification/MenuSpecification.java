@@ -22,7 +22,7 @@ public class MenuSpecification {
 	 */
 	public static Specification<Menu> findByUseYn(Object useYn) {
 		return new Specification<Menu>() {
-			private static final long serialVersionUID = -587488762192925433L;
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				return root.get("useYn").in(useYn);
@@ -37,7 +37,7 @@ public class MenuSpecification {
 	 */
 	public static Specification<Menu> findByParentId(Object parentId) {
 		return new Specification<Menu>() {
-			private static final long serialVersionUID = -587488762192925433L;
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				return root.get("parentId").in(parentId);
@@ -52,7 +52,7 @@ public class MenuSpecification {
 	 */
 	public static Specification<Menu> findByUrl(Object url) {
 		return new Specification<Menu>() {
-			private static final long serialVersionUID = -587488762192925433L;
+			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				return root.get("url").in(url);
