@@ -66,6 +66,7 @@ public class MenuService{
 		Object useYn = paramMap.get("useYn");
 		Object parentId = paramMap.get("parentId");
 		Object url = paramMap.get("url");
+		Object depth = paramMap.get("depth");
 		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
 		// Specification 설정
 		if (useYn != null)
@@ -74,6 +75,8 @@ public class MenuService{
 			specification = specification.and(MenuSpecification.findByParentId(parentId));
 		if (url != null) 
 			specification = specification.and(MenuSpecification.findByUrl(url));
+		if (depth != null)
+			specification = specification.and(MenuSpecification.findByDepth(depth));
 		// 메뉴 목록 조회
 		try {
 			menu = menuRepository.findAll(specification);

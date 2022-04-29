@@ -21,6 +21,7 @@
 * {
 	transition: unset !important;
 }
+
 body {
 	opacity: 0;
 }
@@ -42,7 +43,7 @@ body {
 	<input type="hidden" id="locationUrl" value="{{locationUrl}}">
 	<input type="hidden" id="locationName" value="{{locationName}}">
 	<input type="hidden" id="parentLocationName" value="{{parentLocationName}}">
-	<!-- End Request Attribute 객체 -->	
+	<!-- End Request Attribute 객체 -->
 	<!-- Header -->
 	<header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-container navbar-bordered bg-white">
 		<div class="navbar-nav-wrap">
@@ -58,11 +59,9 @@ body {
 			<div class="navbar-nav-wrap-content-start">
 				<!-- 사이드바 토글 -->
 				<button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
-					<i class="bi-arrow-bar-left navbar-toggler-short-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title=""></i>
-					<i class="bi-arrow-bar-right navbar-toggler-full-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title=""></i>
+					<i class="bi-arrow-bar-left navbar-toggler-short-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title=""></i> <i class="bi-arrow-bar-right navbar-toggler-full-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title=""></i>
 				</button>
 				<!-- END 사이드바 토글 -->
-
 				<!-- 기능 검색 영역 -->
 				<div class="dropdown ms-2">
 					<!-- 검색어 탭 -->
@@ -71,19 +70,18 @@ body {
 							<div class="input-group-prepend input-group-text">
 								<i class="bi-search"></i>
 							</div>
-							<input type="search" class="js-form-search form-control" placeholder="기능 검색" aria-label="Search in front" 
-										data-hs-form-search-options=' {"clearIcon": "#clearSearchResultsIcon",
+							<input type="search" class="js-form-search form-control" placeholder="기능 검색" aria-label="Search in front" data-hs-form-search-options=' {"clearIcon": "#clearSearchResultsIcon",
 																				                      "dropMenuElement": "#searchDropdownMenu",
 																				                      "dropMenuOffset": 20,
 																				                      "toggleIconOnFocus": true,
 																				                      "activeClass": "focus"
 																				                   }'>
-							<a class="input-group-append input-group-text" href="javascript:;"> <i id="clearSearchResultsIcon" class="bi-x-lg" style="display: none;"></i>
+							<a class="input-group-append input-group-text" href="javascript:;">
+								<i id="clearSearchResultsIcon" class="bi-x-lg" style="display: none;"></i>
 							</a>
 						</div>
 					</div>
-					<button class="js-form-search js-form-search-mobile-toggle btn btn-ghost-secondary btn-icon rounded-circle d-lg-none" type="button"
-									data-hs-form-search-options=' {
+					<button class="js-form-search js-form-search-mobile-toggle btn btn-ghost-secondary btn-icon rounded-circle d-lg-none" type="button" data-hs-form-search-options=' {
 																			                  	"clearIcon": "#clearSearchResultsIcon",
 																			                 	"dropMenuElement": "#searchDropdownMenu",
 																			                  	"dropMenuOffset": 20,
@@ -95,20 +93,26 @@ body {
 					<!-- End 검색어 탭 -->
 					<!-- 최근 검색어 -->
 					<div id="searchDropdownMenu" class="hs-form-search-menu-content dropdown-menu dropdown-menu-form-search navbar-dropdown-menu-borderless">
-						<!-- Body -->						
+						<!-- Body -->
 						<div class="d-lg-none">
 							<div class="input-group input-group-merge navbar-input-group mb-5">
 								<div class="input-group-prepend input-group-text">
 									<i class="bi-search"></i>
 								</div>
 								<input type="search" class="form-control" placeholder="Search in front" aria-label="Search in front">
-								<a class="input-group-append input-group-text" href="javascript:;"><i class="bi-x-lg"></i></a>
+								<a class="input-group-append input-group-text" href="javascript:;">
+									<i class="bi-x-lg"></i>
+								</a>
 							</div>
 						</div>
 						<span class="dropdown-header">최근 검색</span>
 						<div class="dropdown-item bg-transparent text-wrap">
-							<a class="btn btn-soft-dark btn-xs rounded-pill" href="/index.html">인사관리<i class="bi-search ms-1"></i></a>
-							<a class="btn btn-soft-dark btn-xs rounded-pill"	href="/index.html">프로젝트<i class="bi-search ms-1"></i></a>
+							<a class="btn btn-soft-dark btn-xs rounded-pill" href="/index.html">
+								인사관리<i class="bi-search ms-1"></i>
+							</a>
+							<a class="btn btn-soft-dark btn-xs rounded-pill" href="/index.html">
+								프로젝트<i class="bi-search ms-1"></i>
+							</a>
 						</div>
 					</div>
 					<!-- End 최근 검색어 -->
@@ -116,7 +120,6 @@ body {
 				<!-- End 기능 검색 영역 -->
 			</div>
 			<!-- End 사이드바 토글 + 기능 검색 영역 -->
-
 			<!-- 알림함 + 할일 + 마이페이지 -->
 			<div class="navbar-nav-wrap-content-end">
 				<!-- Navbar -->
@@ -124,7 +127,7 @@ body {
 					<li class="nav-item d-none d-sm-inline-block">
 						<!-- 상단 아이콘 모음 -->
 						<div class="dropdown">
-							<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown"	aria-expanded="false" data-bs-auto-close="outside"	data-bs-dropdown-animation="data-bs-dropdown-animation">
+							<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="navbarNotificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="data-bs-dropdown-animation">
 								<i class="bi-bell"></i>
 								<span class="btn-status btn-sm-status btn-status-danger"></span>
 							</button>
@@ -137,31 +140,37 @@ body {
 										<button type="button" class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle" id="navbarNotificationsDropdownSettings" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="bi-three-dots-vertical"></i>
 										</button>
-										<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless"	aria-labelledby="navbarNotificationsDropdownSettings">
+										<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="navbarNotificationsDropdownSettings">
 											<span class="dropdown-header">설정</span>
-												<a class="dropdown-item" href="#"><i class="bi-archive dropdown-item-icon"></i>전체</a>
-												<a class="dropdown-item" href="#"><i class="bi-check2-all dropdown-item-icon"></i>미열람</a>
-												<a class="dropdown-item" href="#"><i class="bi-toggle-off dropdown-item-icon"></i>열람</a>												
+											<a class="dropdown-item" href="#">
+												<i class="bi-archive dropdown-item-icon"></i>전체
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="bi-check2-all dropdown-item-icon"></i>미열람
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="bi-toggle-off dropdown-item-icon"></i>열람
+											</a>
 											<div class="dropdown-divider"></div>
 											<span class="dropdown-header">피드백</span>
-												<a class="dropdown-item" href="#"><i class="bi-chat-left-dots dropdown-item-icon"></i>작성</a>
+											<a class="dropdown-item" href="#">
+												<i class="bi-chat-left-dots dropdown-item-icon"></i>작성
+											</a>
 										</div>
 									</div>
 									<!-- End 알림함 상단탭 -->
 								</div>
 								<!-- End 알림함 -->
-
 								<!-- 알림함 헤더탭 -->
 								<ul class="nav nav-tabs nav-justified" id="notificationTab" role="tablist">
 									<li class="nav-item">
-										<a class="nav-link active" href="#notificationNavOne" id="notificationNavOne-tab" data-bs-toggle="tab" data-bs-target="#notificationNavOne"	role="tab" aria-controls="notificationNavOne" aria-selected="true">메시지 (3)</a>
+										<a class="nav-link active" href="#notificationNavOne" id="notificationNavOne-tab" data-bs-toggle="tab" data-bs-target="#notificationNavOne" role="tab" aria-controls="notificationNavOne" aria-selected="true">메시지 (3)</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#notificationNavTwo" id="notificationNavTwo-tab" data-bs-toggle="tab" data-bs-target="#notificationNavTwo"	role="tab" aria-controls="notificationNavTwo" aria-selected="false">활동알림</a>
+										<a class="nav-link" href="#notificationNavTwo" id="notificationNavTwo-tab" data-bs-toggle="tab" data-bs-target="#notificationNavTwo" role="tab" aria-controls="notificationNavTwo" aria-selected="false">활동알림</a>
 									</li>
 								</ul>
 								<!-- End 알림함 헤더탭 -->
-
 								<!-- 알림함 내용 -->
 								<div class="card-body-height">
 									<!-- Tab Content -->
@@ -176,7 +185,8 @@ body {
 															<div class="d-flex align-items-center">
 																<div class="form-check">
 																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck1" checked="checked">
-																	<label class="form-check-label" for="notificationCheck1"></label><span class="form-check-stretched-bg"></span>
+																	<label class="form-check-label" for="notificationCheck1"></label>
+																	<span class="form-check-stretched-bg"></span>
 																</div>
 																<img class="avatar avatar-sm avatar-circle" src="/img/160x160/img3.jpg" alt="Image Description">
 															</div>
@@ -185,24 +195,28 @@ body {
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원459</h5>
 															<p class="text-body fs-5">
-																<i class="bi-journal-bookmark-fill text-primary"></i>982번 프로젝트를<span class="badge bg-success">진행중</span>으로 변경했습니다.
+																<i class="bi-journal-bookmark-fill text-primary"></i>982번 프로젝트를
+																<span class="badge bg-success">진행중</span>
+																으로 변경했습니다.
 															</p>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">2시간전</small>
 														<!-- End Col -->
-													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End 메시지 항목 -->
-
 												<!-- 메시지 항목 -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
 														<div class="col-auto">
 															<div class="d-flex align-items-center">
 																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"	value="" id="notificationCheck2" checked="checked">
-																	<label class="form-check-label" for="notificationCheck2"></label> <span class="form-check-stretched-bg"></span>
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck2" checked="checked">
+																	<label class="form-check-label" for="notificationCheck2"></label>
+																	<span class="form-check-stretched-bg"></span>
 																</div>
 																<div class="avatar avatar-sm avatar-soft-dark avatar-circle">
 																	<span class="avatar-initials">성욱</span>
@@ -213,23 +227,27 @@ body {
 														<div class="col ms-n2">
 															<h5 class="mb-1">성욱</h5>
 															<p class="text-body fs-5">메시지를 받았습니다</p>
-															<blockquote class="blockquote blockquote-sm">안녕하세요. <i class="bi-journal-bookmark-fill text-primary"></i> 1193번 프로젝트 진행상황을 공유바랍니다. 감사합니다.</blockquote>
+															<blockquote class="blockquote blockquote-sm">
+																안녕하세요. <i class="bi-journal-bookmark-fill text-primary"></i> 1193번 프로젝트 진행상황을 공유바랍니다. 감사합니다.
+															</blockquote>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">10시간전</small>
 														<!-- End Col -->
-													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End Item -->
-
 												<!-- 메시지 항목 -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
 														<div class="col-auto">
 															<div class="d-flex align-items-center">
 																<div class="form-check">
-																	<input class="form-check-input" type="checkbox"	value="" id="notificationCheck3" checked="checked">
-																	<label class="form-check-label" for="notificationCheck3"></label> <span class="form-check-stretched-bg"></span>
+																	<input class="form-check-input" type="checkbox" value="" id="notificationCheck3" checked="checked">
+																	<label class="form-check-label" for="notificationCheck3"></label>
+																	<span class="form-check-stretched-bg"></span>
 																</div>
 																<div class="avatar avatar-sm avatar-circle">
 																	<img class="avatar-img" src="/img/160x160/img10.jpg" alt="Image Description">
@@ -239,17 +257,18 @@ body {
 														<!-- End Col -->
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원82</h5>
-															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i> 1193번 프로젝트에 참여하였습니다.</p>
+															<p class="text-body fs-5">
+																<i class="bi-journal-bookmark-fill text-primary"></i> 1193번 프로젝트에 참여하였습니다.
+															</p>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">3일전</small>
 														<!-- End Col -->
-													</div> 
+													</div>
 													<!-- End Row -->
 													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End Item -->
-
 												<!-- Item -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
@@ -266,7 +285,6 @@ body {
 															</div>
 														</div>
 														<!-- End Col -->
-
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원142</h5>
 															<p class="text-body fs-5">
@@ -274,7 +292,6 @@ body {
 															</p>
 														</div>
 														<!-- End Col -->
-
 														<small class="col-auto text-muted text-cap">9일전</small>
 														<!-- End Col -->
 													</div>
@@ -285,9 +302,7 @@ body {
 											</ul>
 											<!-- End 메시지 목록 -->
 										</div>
-
-										<div class="tab-pane fade" id="notificationNavTwo"
-											role="tabpanel" aria-labelledby="notificationNavTwo-tab">
+										<div class="tab-pane fade" id="notificationNavTwo" role="tabpanel" aria-labelledby="notificationNavTwo-tab">
 											<!-- 활동알림 목록 -->
 											<ul class="list-group list-group-flush navbar-card-list-group">
 												<!-- 활동알림 내용 -->
@@ -308,15 +323,18 @@ body {
 														<!-- End Col -->
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원39</h5>
-															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i>961번 프로젝트 정보를 변경했습니다.</p>
+															<p class="text-body fs-5">
+																<i class="bi-journal-bookmark-fill text-primary"></i>961번 프로젝트 정보를 변경했습니다.
+															</p>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">1일전</small>
 														<!-- End Col -->
-													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End 활동알림 내용 -->
-												
 												<!-- 활동알림 내용 -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
@@ -335,7 +353,9 @@ body {
 														<!-- End Col -->
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원110</h5>
-															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i>334번 프로젝트에서 제외되었습니다.</p>
+															<p class="text-body fs-5">
+																<i class="bi-journal-bookmark-fill text-primary"></i>334번 프로젝트에서 제외되었습니다.
+															</p>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">3일전</small>
@@ -345,7 +365,6 @@ body {
 													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End 활동알림 내용 -->
-
 												<!-- 활동알림 내용 -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
@@ -364,15 +383,18 @@ body {
 														<!-- End Col -->
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원800</h5>
-															<p class="text-body fs-5">이 달의 <i class="bi-patch-check-fill text-primary"></i>우수 직원으로 선정되었습니다</p>
+															<p class="text-body fs-5">
+																이 달의 <i class="bi-patch-check-fill text-primary"></i>우수 직원으로 선정되었습니다
+															</p>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">5일전</small>
 														<!-- End Col -->
-													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End 활동알림 내용 -->
-
 												<!-- 활동알림 내용 -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
@@ -396,10 +418,11 @@ body {
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">17일전</small>
 														<!-- End Col -->
-													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End 활동알림 내용 -->
-
 												<!-- 활동알림 내용 -->
 												<li class="list-group-item form-check-select">
 													<div class="row">
@@ -418,12 +441,16 @@ body {
 														<!-- End Col -->
 														<div class="col ms-n2">
 															<h5 class="mb-1">직원991</h5>
-															<p class="text-body fs-5"><i class="bi-journal-bookmark-fill text-primary"></i>134번 업무를 완료하였습니다.</p>
+															<p class="text-body fs-5">
+																<i class="bi-journal-bookmark-fill text-primary"></i>134번 업무를 완료하였습니다.
+															</p>
 														</div>
 														<!-- End Col -->
 														<small class="col-auto text-muted text-cap">2달전</small>
 														<!-- End Col -->
-													</div> <!-- End Row --> <a class="stretched-link" href="#"></a>
+													</div>
+													<!-- End Row -->
+													<a class="stretched-link" href="#"></a>
 												</li>
 												<!-- End 활동알림 내용 -->
 											</ul>
@@ -433,9 +460,9 @@ body {
 									<!-- End 알림함 목록 -->
 								</div>
 								<!-- End 알림함 내용 -->
-
 								<!-- 알림함 하단 -->
-								<a class="card-footer text-center" href="#">더 보기<i class="bi-chevron-right"></i>
+								<a class="card-footer text-center" href="#">
+									더 보기<i class="bi-chevron-right"></i>
 								</a>
 								<!-- End 알림함 하단 -->
 							</div>
@@ -448,24 +475,23 @@ body {
 						</button>
 					</li>
 					<!-- End 나의 활동 -->
-					
 					<!-- 마이페이지 -->
-					<li class="nav-item">						
+					<li class="nav-item">
 						<div class="dropdown">
 							<input type="hidden" id="sessionId" value="{{sessionId}}">
 							<a class="navbar-dropdown-account-wrapper" href="javascript:;" id="accountNavbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-dropdown-animation="data-bs-dropdown-animation">
 								{{#sessionPhoto}}
 								<div class="avatar avatar-sm avatar-circle">
-									<img class="avatar-img" src="{{sessionPhoto}}" alt="{{sessionPhoto}}"> <span class="avatar-status avatar-sm-status avatar-status-primary"></span>
+									<img class="avatar-img" src="{{sessionPhoto}}" alt="{{sessionPhoto}}">
+									<span class="avatar-status avatar-sm-status avatar-status-primary"></span>
 								</div>
-								{{/sessionPhoto}}
-								{{^sessionPhoto}}
+								{{/sessionPhoto}} {{^sessionPhoto}}
 								<div class="avatar avatar-dark avatar-circle">
 									<span class="avatar-initials">{{sessionName}}</span>
 								</div>
 								{{/sessionPhoto}}
 							</a>
-							<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account"	aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
+							<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-account" aria-labelledby="accountNavbarDropdown" style="width: 16rem;">
 								<a class="dropdown-item" href="#">
 									<div class="d-flex align-items-center">
 										<div class="flex-shrink-0">
@@ -473,8 +499,7 @@ body {
 											<div class="avatar avatar-circle">
 												<img class="avatar-img" src="{{sessionPhoto}}" alt="{{sessionPhoto}}">
 											</div>
-											{{/sessionPhoto}}
-											{{^sessionPhoto}}
+											{{/sessionPhoto}} {{^sessionPhoto}}
 											<div class="avatar avatar-sm avatar-dark avatar-circle">
 												<span class="avatar-initials">{{sessionName}}</span>
 											</div>
@@ -494,10 +519,22 @@ body {
 								<div class="dropdown">
 									<a class="navbar-dropdown-submenu-item dropdown-item dropdown-toggle" href="javascript:;" id="navSubmenuPagesAccountDropdown1" data-bs-toggle="dropdown" aria-expanded="false">상태변경</a>
 									<div class="dropdown-menu dropdown-menu-end navbar-dropdown-menu navbar-dropdown-menu-borderless navbar-dropdown-sub-menu" aria-labelledby="navSubmenuPagesAccountDropdown1">
-										<a class="dropdown-item" onClick="updateUserStatus('ONLINE')"><span class="legend-indicator bg-primary me-1"></span>온라인</a>
-										<a class="dropdown-item" onClick="updateUserStatus('OFFLINE')"><span class="legend-indicator bg-danger me-1"></span>오프라인</a>										
-										<a class="dropdown-item" onClick="updateUserStatus('AFK')"><span class="legend-indicator bg-warning me-1"></span>자리비움</a>
-										<a class="dropdown-item" onClick="updateUserStatus('BUSY')"> <span class="legend-indicator bg-secondary me-1"></span>다른용무중</a>										
+										<a class="dropdown-item" onClick="updateUserStatus('ONLINE')">
+											<span class="legend-indicator bg-primary me-1"></span>
+											온라인
+										</a>
+										<a class="dropdown-item" onClick="updateUserStatus('OFFLINE')">
+											<span class="legend-indicator bg-danger me-1"></span>
+											오프라인
+										</a>
+										<a class="dropdown-item" onClick="updateUserStatus('AFK')">
+											<span class="legend-indicator bg-warning me-1"></span>
+											자리비움
+										</a>
+										<a class="dropdown-item" onClick="updateUserStatus('BUSY')">
+											<span class="legend-indicator bg-secondary me-1"></span>
+											다른용무중
+										</a>
 									</div>
 								</div>
 								<div class="dropdown-divider"></div>
@@ -513,12 +550,11 @@ body {
 					<!-- End 마이페이지 -->
 				</ul>
 				<!-- End Navbar -->
-			</div>			
+			</div>
 			<!-- End 알림 + 할일 + 마이페이지 -->
 		</div>
 	</header>
 	<!-- End Header -->
-
 	<!-- Sidebar -->
 	<aside class="js-navbar-vertical-aside navbar navbar-vertical-aside navbar-vertical navbar-vertical-fixed navbar-expand-xl navbar-bordered bg-white">
 		<div class="navbar-vertical-container">
@@ -531,231 +567,150 @@ body {
 					<img class="navbar-brand-logo-mini" src="/img/oms.png" alt="Logo" data-hs-theme-appearance="dark">
 				</a>
 				<!-- End 로고(WEB) -->
-
 				<!-- 사이드바 토글 -->
 				<button type="button" class="js-navbar-vertical-aside-toggle-invoker navbar-aside-toggler">
-					<i class="bi-arrow-bar-left navbar-toggler-short-align"
-						data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-						data-bs-toggle="tooltip" data-bs-placement="right"
-						title=""></i>
-					<i class="bi-arrow-bar-right navbar-toggler-full-align"
-						data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
-						data-bs-toggle="tooltip" data-bs-placement="right" title=""></i>
+					<i class="bi-arrow-bar-left navbar-toggler-short-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title=""></i> <i class="bi-arrow-bar-right navbar-toggler-full-align" data-bs-template='<div class="tooltip d-none d-md-block" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>' data-bs-toggle="tooltip" data-bs-placement="right" title=""></i>
 				</button>
 				<!-- End 사이드바 토글 -->
-
 				<!-- 사이드바 목록 -->
 				<div class="navbar-vertical-content">
 					<div id="navbarVerticalMenu" class="nav nav-pills nav-vertical card-navbar-nav">
-						<!-- 메뉴 대분류 -->
-						<div class="nav-item">
-							<a class="nav-link dropdown-toggle " href="#navbarVerticalMenuDashboards" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuDashboards" aria-expanded="false" aria-controls="navbarVerticalMenuDashboards">
-								<i	class="bi-house-door nav-icon"></i><span class="nav-link-title">대시보드</span>
-							</a>
-							<div id="navbarVerticalMenuDashboards" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenu">
-								<a class="nav-link " href="/oms/dashboard"><span class="nav-link-title">기본</span></a>
-								<a class="nav-link " href="/oms/dashboard-alter"><span class="nav-link-title">변형</span></a>
-							</div>
-						</div>
-						<!-- End 메뉴 대분류 -->
-						
-						<!-- 공통 -->
-						<span class="dropdown-header mt-4">공통</span>
-						<small class="bi-three-dots nav-subtitle-replacer"></small>
-						<!-- End 공통 -->
-						<!-- 공통-업무관리 -->
-						<div class="nav-item">
-							<a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesUserProfileMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesUserProfileMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesUserProfileMenu">
-									<i class="bi-person nav-icon"></i> <span class="nav-link-title">업무관리</span>
-							</a>
-							<div id="navbarVerticalMenuPagesUserProfileMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">									
-								<a class="nav-link " href="/oms/project"><span class="nav-link-title">프로젝트</span></a>
-								<a class="nav-link " href="/oms/task"><span class="nav-link-title">업무</span></a>
-								<a class="nav-link " href="/oms/team"><span class="nav-link-title">팀 관리</span></a>
-							</div>
-						</div>
-						<!-- End 공통-업무관리 -->
-						
-						<!-- 경영 -->
-						<span class="dropdown-header mt-4">경영</span>
-						<small class="bi-three-dots nav-subtitle-replacer"></small>
-						<!-- End 경영 -->
-						<!-- Collapse -->
 						<div class="navbar-nav nav-compact"></div>
-						<div id="navbarVerticalMenuPagesMenu">
-							<!-- 인사관리 -->
+						<div id="sidebar">
+							<!-- 대시보드 -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle active" href="#navbarVerticalMenuPagesUsersMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesUsersMenu" aria-expanded="true" aria-controls="navbarVerticalMenuPagesUsersMenu">
+								<a class="nav-link" href="/oms/dashboard">
+									<i class="bi-house-door nav-icon"></i><span class="nav-link-title">대시보드</span>
+								</a>
+							</div>
+							<!-- End 대시보드 -->
+							<!-- 인사 -->
+							<div class="nav-item">
+								<a class="nav-link dropdown-toggle" href="#sidebarHR" role="button" data-bs-toggle="collapse" data-bs-target="#sidebarHR" aria-expanded="false" aria-controls="sidebarHR">
 									<i class="bi-people nav-icon"></i><span class="nav-link-title">인사</span>
 								</a>
-								<div id="navbarVerticalMenuPagesUsersMenu" class="nav-collapse collapse show" data-bs-parent="#navbarVerticalMenuPagesMenu">									
-									<a class="nav-link " href="/oms/account"><span class="nav-link-title">계정</span></a>
-									<a class="nav-link " href="/oms/department"><span class="nav-link-title">부서</span></a>
-									<a class="nav-link " href="/oms/position"><span class="nav-link-title">직급</span></a>
+								<div id="sidebarHR" class="nav-collapse collapse" data-bs-parent="#sidebarHR">
+									<a class="nav-link " href="/oms/account">
+										<span class="nav-link-menu">계정</span>
+									</a>
+									<a class="nav-link " href="/oms/department">
+										<span class="nav-link-menu">부서</span>
+									</a>
+									<a class="nav-link " href="/oms/position">
+										<span class="nav-link-menu">직급</span>
+									</a>
 								</div>
 							</div>
-							<!-- End 인사관리 -->
-
+							<!-- End 인사 -->
+							<!-- 업무 -->
+							<div class="nav-item">
+								<a class="nav-link dropdown-toggle" href="#sidebarWork" role="button" data-bs-toggle="collapse" data-bs-target="#sidebarWork" aria-expanded="false" aria-controls="sidebarWork">
+									<i class="bi-keyboard nav-icon"></i><span class="nav-link-title">업무</span>
+								</a>
+								<div id="sidebarWork" class="nav-collapse collapse" data-bs-parent="#sidebarWork">
+									<a class="nav-link " href="/oms/project">
+										<span class="nav-link-menu">프로젝트</span>
+									</a>
+									<a class="nav-link " href="/oms/task">
+										<span class="nav-link-menu">과제</span>
+									</a>
+									<a class="nav-link " href="/oms/team">
+										<span class="nav-link-menu">팀</span>
+									</a>
+								</div>
+							</div>
+							<!-- End 업무 -->
 							<!-- 매장 -->
-							<span class="dropdown-header mt-4">매장</span>
-							<small class="bi-three-dots nav-subtitle-replacer"></small>
-							<!-- 매장-온라인 -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle " href="#navbarVerticalMenuPagesShopOnlineMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesShopOnlineMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesShopOnlineMenu">
-									<i class="bi-basket nav-icon"></i><span class="nav-link-title">온라인</span>
+								<a class="nav-link dropdown-toggle " href="#sidebarShop" role="button" data-bs-toggle="collapse" data-bs-target="#sidebarShop" aria-expanded="false" aria-controls="sidebarShop">
+									<i class="bi-basket nav-icon"></i><span class="nav-link-title">매장</span>
 								</a>
-								<div id="navbarVerticalMenuPagesShopOnlineMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./ecommerce.html"><span class="nav-link-title">매장상황</span></a>
-									<a class="nav-link " href="./ecommerce.html"><span class="nav-link-title">상품관리</span></a>
+								<div id="sidebarShop" class="nav-collapse collapse " data-bs-parent="#sidebarShop">
+									<a class="nav-link " href="/oms/product">
+										<span class="nav-link-menu">상품</span>
+									</a>
+									<a class="nav-link " href="/oms/shop">
+										<span class="nav-link-menu">매출</span>
+									</a>
 								</div>
 							</div>
-							<!-- End 매장-온라인 -->
-							<!-- 매장-오프라인 -->
-							<div class="nav-item">
-								<a class="nav-link dropdown-toggle " href="#navbarVerticalMenuPagesShopOfflineMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesShopOfflineMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesShopOfflineMenu">
-									<i class="bi-basket nav-icon"></i><span class="nav-link-title">오프라인</span>
-								</a>
-								<div id="navbarVerticalMenuPagesShopOfflineMenu" class="nav-collapse collapse " data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./ecommerce.html"><span class="nav-link-title">매장상황</span></a>
-									<a class="nav-link " href="./ecommerce.html"><span class="nav-link-title">상품관리</span></a>
-								</div>
-							</div>
-							<!-- End 매장-오프라인 -->
-							<!-- 매장-주문관리 -->
-							<div class="nav-item">
-								<a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesProjectsMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesProjectsMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesProjectsMenu">
-									<i class="bi-stickies nav-icon"></i><span class="nav-link-title">주문관리</span>
-								</a>
-								<div id="navbarVerticalMenuPagesProjectsMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link" href="./projects.html"><span class="nav-link-title">주문</span></a>
-									<a class="nav-link " href="./projects-timeline.html"><span class="nav-link-title">반품</span></a>
-								</div>
-							</div>
-							<!-- End 매장-주문관리 -->
 							<!-- End 매장 -->
-
 							<!-- 물류 -->
-							<span class="dropdown-header mt-4">물류</span>
-							<small class="bi-three-dots nav-subtitle-replacer"></small>
-							<!-- 물류-재고관리 -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesProjectMenu" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesProjectMenu" aria-expanded="false" aria-controls="navbarVerticalMenuPagesProjectMenu">
-									<i class="bi-briefcase nav-icon"></i><span class="nav-link-title">재고관리</span>
+								<a class="nav-link" href="/oms/logistics">
+									<i class="bi-briefcase nav-icon"></i><span class="nav-link-title">물류</span>
 								</a>
-								<div id="navbarVerticalMenuPagesProjectMenu" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesMenu">
-									<a class="nav-link " href="./project.html"><span class="nav-link-title">재고</span></a>
-									<a class="nav-link " href="./project-files.html"><span class="nav-link-title">창고</span></a>
-									<a class="nav-link " href="./project-activity.html"><span class="nav-link-title">운송</span></a>									
-								</div>
 							</div>
-							<!-- 물류 재고관리 -->
 							<!-- End 물류 -->
-							
-							<!-- 전산 -->
-							<span class="dropdown-header mt-4">전산</span>
-							<small class="bi-three-dots nav-subtitle-replacer"></small>
-							<!-- 전산-시스템 -->
+							<!-- 공지사항 -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesSystem" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesSystem" aria-expanded="false" aria-controls="navbarVerticalMenuPagesSystem">
-									<i class="bi-key nav-icon"></i><span class="nav-link-title">시스템</span>
+								<a class="nav-link " href="/oms/notice" data-placement="left">
+									<i class="bi-calendar-week nav-icon"></i>	<span class="nav-link-menu">공지사항</span>
 								</a>
-								<div id="navbarVerticalMenuPagesSystem" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesSystem">
-									<a class="nav-link " href="./project.html"><span class="nav-link-title">ERP</span></a>
-									<a class="nav-link " href="./project-files.html"><span class="nav-link-title">네트워크</span></a>
-									<a class="nav-link " href="./project-activity.html"><span class="nav-link-title">권한관리</span></a>									
-								</div>
 							</div>
-							<!-- End 전산-시스템 -->
-							<!-- 전산-개발 -->
+							<!-- End 공지사항 -->
+							<!-- 일정표 -->
 							<div class="nav-item">
-								<a class="nav-link dropdown-toggle" href="#navbarVerticalMenuPagesDevelopment" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesDevelopment" aria-expanded="false" aria-controls="navbarVerticalMenuPagesDevelopment">
-									<i class="bi-keyboard nav-icon"></i><span class="nav-link-title">개발</span>
+								<a class="nav-link " href="/oms/calendar" data-placement="left">
+									<i class="bi-calendar-week nav-icon"></i>	<span class="nav-link-menu">일정표</span>
 								</a>
-								<div id="navbarVerticalMenuPagesDevelopment" class="nav-collapse collapse" data-bs-parent="#navbarVerticalMenuPagesDevelopment">
-									<a class="nav-link " href="./project.html"><span class="nav-link-title">API</span></a>
-									<a class="nav-link " href="./project-files.html"><span class="nav-link-title">백엔드</span></a>
-									<a class="nav-link " href="./project-activity.html"><span class="nav-link-title">프론트엔드</span></a>									
-								</div>
 							</div>
-							<!-- End 전산-개발 -->
-							<!-- End 전산 -->
-
-						<!-- 일정관리 -->
-						<span class="dropdown-header mt-4">일정관리</span>
-						<small class="bi-three-dots nav-subtitle-replacer"></small>
-						<!-- 일정관리-칸반 -->
-						<div class="nav-item">
-							<a class="nav-link " href="./apps-kanban.html" data-placement="left">
-								<i class="bi-kanban nav-icon"></i><span class="nav-link-title">칸반</span>
-							</a>
+							<!-- End 일정표 -->
 						</div>
-						<!-- End일정관리-칸반 -->
-						<!-- 일정관리-계획표 -->
-						<div class="nav-item">
-							<a class="nav-link " href="./apps-calendar.html" data-placement="left">
-								<i class="bi-calendar-week nav-icon"></i><span class="nav-link-title">계획표</span>
-							</a>
+						<!-- End 사이드바 -->
+						<!-- Footer -->
+						<div class="navbar-vertical-footer">
+							<ul class="navbar-vertical-footer-list">
+								<!-- 테마 -->
+								<li class="navbar-vertical-footer-list-item">
+									<div class="dropdown dropup">
+										<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="selectThemeDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="data-bs-dropdown-animation"></button>
+										<div class="dropdown-menu navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="selectThemeDropdown">
+											<a class="dropdown-item" href="#" data-icon="bi-moon-stars" data-value="auto">
+												<i class="bi-moon-stars me-2"></i>
+												<span class="text-truncate" title="Auto (system default)">자동(시스템)</span>
+											</a>
+											<a class="dropdown-item" href="#" data-icon="bi-brightness-high" data-value="default">
+												<i class="bi-brightness-high me-2"></i>
+												<span class="text-truncate" title="Default (light mode)">화이트</span>
+											</a>
+											<a class="dropdown-item active" href="#" data-icon="bi-moon" data-value="dark">
+												<i class="bi-moon me-2"></i>
+												<span class="text-truncate" title="Dark">블랙</span>
+											</a>
+										</div>
+									</div>
+								</li>
+								<!-- End 테마 -->
+								<!-- 언어 -->
+								<li class="navbar-vertical-footer-list-item">
+									<div class="dropdown dropup">
+										<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="selectLanguageDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="data-bs-dropdown-animation">
+											<img class="avatar avatar-xss avatar-circle" src="/vendor/flag-icon-css/flags/1x1/kr.svg" alt="Korea">
+										</button>
+										<div class="dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="selectLanguageDropdown">
+											<span class="dropdown-header">언어</span>
+											<a class="dropdown-item" href="#">
+												<img class="avatar avatar-xss avatar-circle me-2" src="/vendor/flag-icon-css/flags/1x1/kr.svg" alt="Flag">
+												<span class="text-truncate" title="Korea">한국어</span>
+											</a>
+											<a class="dropdown-item" href="#">
+												<img class="avatar avatar-xss avatar-circle me-2" src="/vendor/flag-icon-css/flags/1x1/us.svg" alt="Flag">
+												<span class="text-truncate" title="USA">English</span>
+											</a>
+											<a class="dropdown-item" href="#">
+												<img class="avatar avatar-xss avatar-circle me-2" src="/vendor/flag-icon-css/flags/1x1/jp.svg" alt="Flag">
+												<span class="text-truncate" title="Japan">日本語</span>
+											</a>
+										</div>
+									</div>
+								</li>
+								<!-- End 언어 -->
+							</ul>
 						</div>
-						<!-- End 일정관리-계획표 -->
-						<!-- End 일정관리 -->
+						<!-- End Footer -->
+					</div>
 				</div>
-				<!-- End 사이드바 -->
-
-				<!-- Footer -->
-				<div class="navbar-vertical-footer">
-					<ul class="navbar-vertical-footer-list">
-						<!-- 테마 -->
-						<li class="navbar-vertical-footer-list-item">							
-							<div class="dropdown dropup">
-								<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="selectThemeDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="data-bs-dropdown-animation"></button>
-								<div class="dropdown-menu navbar-dropdown-menu navbar-dropdown-menu-borderless" aria-labelledby="selectThemeDropdown">
-									<a class="dropdown-item" href="#" data-icon="bi-moon-stars" data-value="auto">
-										<i class="bi-moon-stars me-2"></i>
-										<span class="text-truncate" title="Auto (system default)">자동(시스템)</span>
-									</a>
-									<a class="dropdown-item" href="#" data-icon="bi-brightness-high" data-value="default">
-										<i class="bi-brightness-high me-2"></i>
-										<span class="text-truncate" title="Default (light mode)">화이트</span>
-									</a>
-									<a class="dropdown-item active" href="#" data-icon="bi-moon" data-value="dark">
-										<i class="bi-moon me-2"></i>
-										<span	class="text-truncate" title="Dark">블랙</span>
-									</a>
-								</div>
-							</div>
-						</li>
-						<!-- End 테마 -->
-
-						<!-- 언어 -->
-						<li class="navbar-vertical-footer-list-item">							
-							<div class="dropdown dropup">
-								<button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle" id="selectLanguageDropdown" data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation="data-bs-dropdown-animation">
-									<img class="avatar avatar-xss avatar-circle" src="/vendor/flag-icon-css/flags/1x1/kr.svg" alt="Korea">
-								</button>
-								<div class="dropdown-menu navbar-dropdown-menu-borderless"
-									aria-labelledby="selectLanguageDropdown">
-									<span class="dropdown-header">언어</span>
-									<a class="dropdown-item" href="#">
-										<img class="avatar avatar-xss avatar-circle me-2" src="/vendor/flag-icon-css/flags/1x1/kr.svg" alt="Flag">
-										<span class="text-truncate" title="Korea">한국어</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<img class="avatar avatar-xss avatar-circle me-2" src="/vendor/flag-icon-css/flags/1x1/us.svg" alt="Flag">
-										<span class="text-truncate" title="USA">English</span>
-									</a>
-									<a class="dropdown-item" href="#">
-										<img class="avatar avatar-xss avatar-circle me-2" src="/vendor/flag-icon-css/flags/1x1/jp.svg" alt="Flag">
-										<span class="text-truncate" title="Japan">日本語</span>
-									</a>
-								</div>
-							</div>							
-						</li>
-						<!-- End 언어 -->
-					</ul>
-				</div>
-				<!-- End Footer -->
-			</div>
-		</div>
 	</aside>
 	<!-- End Sidebar -->
 	<!-- ========== END HEADER ========== -->

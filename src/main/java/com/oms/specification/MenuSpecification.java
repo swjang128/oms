@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 
 import com.oms.entity.Menu;
-import com.oms.entity.Menu;
 
 /**
  * Menu Specification
@@ -56,6 +55,21 @@ public class MenuSpecification {
 			@Override
 			public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				return root.get("url").in(url);
+			}
+		};
+	}
+	
+	/**
+	 * WHERE url in (Object url)
+	 * @param List<String>url
+	 * @return
+	 */
+	public static Specification<Menu> findByDepth(Object depth) {
+		return new Specification<Menu>() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				return root.get("depth").in(depth);
 			}
 		};
 	}

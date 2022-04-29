@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuDTO {
 	private Long id;											// 메뉴 ID (기본키)
-	private Long depth;									// 메뉴 단계
-	private Long parentId;								// 부모 메뉴 ID (부모 메뉴는 값을 0으로 지정)
+	private Long depth;									// 메뉴 단계	
+	private Long parentId;								// 부모 메뉴 ID (부모 메뉴는 값을 자기자신의 ID로 지정)
 	private String name;									// 메뉴 이름
 	private String url;										// 메뉴 URL
 	private String icon;										// 메뉴 아이콘

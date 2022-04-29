@@ -43,12 +43,12 @@ public class Menu {
 	private Long depth;																		// 메뉴 단계
 	
 	@Column(nullable=false)
-	private Long parentId;																	// 부모 메뉴 ID (부모 메뉴는 값을 0으로 지정)
+	private Long parentId;																	// 부모 메뉴 ID (부모 메뉴는 자기 자신의 ID로)
 
 	@Column(length=8, nullable=false)
 	private String name;																		// 메뉴 이름
 	
-	@Column(length=16, unique=true)
+	@Column(length=16)
 	private String url;																			// 메뉴 URL
 
 	@Column(length=32)

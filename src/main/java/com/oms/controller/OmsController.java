@@ -22,7 +22,9 @@ import com.oms.config.CommonUtil;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.LawDTO;
 import com.oms.entity.Account;
+import com.oms.entity.Menu.UseYn;
 import com.oms.service.AccountService;
+import com.oms.service.MenuService;
 import com.oms.service.TeamService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,8 @@ public class OmsController {
 	AccountService accountService;
 	@Autowired
 	TeamService teamService;
+	@Autowired
+	MenuService menuService;
 	
 	/**
 	 * 메인페이지(로그인 페이지)
@@ -81,9 +85,10 @@ public class OmsController {
 		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		LocalDate localDate = LocalDate.now();
 		
-		// 전체 계정 목록 + 개수		
+		// 전체 계정 목록 + 개수
+		paramMap.clear();
+		resultMap.clear();
 		resultMap = accountService.read(paramMap, resultMap);
 		Long totalAccount = (long) resultMap.size();		
 		model.addAttribute("accountList", resultMap.get("accountList"));		
@@ -92,7 +97,7 @@ public class OmsController {
 		// 1달전 입사한 계정 개수
 		Long monthAgoAccount = (long) 0;
 		resultMap.clear();
-		paramMap.put("endDate", localDate.minusMonths(1));
+		paramMap.put("endDate", LocalDate.now().minusMonths(1));
 		resultMap = accountService.count(paramMap, resultMap);
 		if (resultMap != null) {
 			monthAgoAccount = (Long) resultMap.get("count");
