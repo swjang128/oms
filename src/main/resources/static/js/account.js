@@ -229,7 +229,6 @@ function updateAccountModal(id) {
 		}
 	});
 
-
 }
 
 /************
@@ -891,12 +890,12 @@ function emailCheck() {
 				$('#labelEmail').removeClass('text-danger');
 				$('#labelEmail').addClass('text-success');
 				$('#labelEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
-				return email;				
+				return email;
 			} else if (result.status == 1009) {	// 중복되는 이메일인 경우
 				$('#labelEmail').removeClass('text-success');
 				$('#labelEmail').addClass('text-danger');
 				$('#labelEmail').html('<i class="bi-exclamation-triangle me-1"></i> 중복된 이메일');
-				$('#createEmail').focus();				
+				$('#createEmail').focus();
 				return;
 			} else {
 				$('#labelEmail').removeClass('text-success');

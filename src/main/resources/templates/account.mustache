@@ -295,12 +295,12 @@
 										<img class="avatar-img" src="{{photo}}" alt="{{photo}}">
 									</div>
 									{{/photo}} {{^photo}}
-									<div class="avatar avatar-sm avatar-dark avatar-circle">
+									<div class="avatar avatar-sm avatar-dark avatar-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="{{name}}">
 										<span class="avatar-initials">{{name}}</span>
 									</div>
 									{{/photo}}
 									<div class="ms-3">
-										<span class="d-block h5 text-inherit mb-0">{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{name}}"></i></span>
+										<span class="d-block h5 text-inherit mb-0">{{name}}</span>
 										<span class="d-block fs-5 text-body">{{email}}</span>
 									</div>
 								</a>
