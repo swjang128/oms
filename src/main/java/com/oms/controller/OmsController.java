@@ -24,7 +24,9 @@ import com.oms.dto.LawDTO;
 import com.oms.entity.Account;
 import com.oms.entity.Menu.UseYn;
 import com.oms.service.AccountService;
+import com.oms.service.DepartmentService;
 import com.oms.service.MenuService;
+import com.oms.service.PositionService;
 import com.oms.service.TeamService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +48,10 @@ public class OmsController {
 	TeamService teamService;
 	@Autowired
 	MenuService menuService;
+	@Autowired
+	DepartmentService departmentService;
+	@Autowired
+	PositionService positionService;
 	
 	/**
 	 * 메인페이지(로그인 페이지)
@@ -146,6 +152,17 @@ public class OmsController {
 		compareBlockedAccount = Math.round(compareBlockedAccount * 100) / 100.0;
 		model.addAttribute("blockedAccount", blockedAccount);
 		model.addAttribute("compareBlockedAccount", compareBlockedAccount);
+		
+		// 부서 목록 조회
+		paramMap.clear();
+		resultMap.clear();
+		resultMap = departmentService.read(paramMap, resultMap);
+		model.addAttribute("departmentList", resultMap.get("departmentList"));
+		
+		// 직급 목록 조회
+		resultMap.clear();
+		resultMap = positionService.read(paramMap, resultMap);
+		model.addAttribute("positionList", resultMap.get("positionList"));
 		
 		// account 페이지로 이동
   		return "account";
