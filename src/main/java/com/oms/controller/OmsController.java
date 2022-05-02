@@ -152,6 +152,28 @@ public class OmsController {
   	}
 	
 	/**
+	 * Department
+	 * @param model, HttpServletRequest
+	 * @return String
+	 */
+	@GetMapping("department")
+  	public String department(Model model, HttpServletRequest request) {
+		// 현재 서비스 위치 Set
+		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
+		model.addAttribute("locationName", request.getAttribute("locationName"));
+		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
+		
+		// 파라미터, 결과값 변수 선언		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		// 팀 목록 조회
+		resultMap = teamService.read(resultMap);
+		model.addAttribute("departmentList", resultMap.get("departmentList"));		
+		
+  		return "department";
+  	}
+	
+	/**
 	 * Team
 	 * @param model, HttpServletRequest
 	 * @return String

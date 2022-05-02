@@ -39,24 +39,6 @@ public class DepartmentAPI {
 	DepartmentService departmentService;
 	
 	/**
-	 * 부서 목록 조회
-	 * @param model
-	 * @param request
-	 * @return 
-	 */
-	@GetMapping("department")
-	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
-																  @RequestParam(name="name", required=false) List<String> name) {
-		// 기본 변수 설정		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("useYn", useYn);
-		paramMap.put("name", name);
-		// 부서 목록 조회
-		return departmentService.read(paramMap, resultMap);
-	}
-	
-	/**
 	 * 부서 등록 (CREATE)
 	 * @param RequestBody
 	 * @throws IOException 
@@ -77,6 +59,24 @@ public class DepartmentAPI {
 		departmentDTO.setRegistTime(LocalDateTime.now());
 		// 부서 등록
 		return departmentService.create(departmentDTO, resultMap);
+	}
+	
+	/**
+	 * 부서 목록 조회
+	 * @param model
+	 * @param request
+	 * @return 
+	 */
+	@GetMapping("department")
+	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
+																  @RequestParam(name="name", required=false) List<String> name) {
+		// 기본 변수 설정		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("useYn", useYn);
+		paramMap.put("name", name);
+		// 부서 목록 조회
+		return departmentService.read(paramMap, resultMap);
 	}
 	
 	/**

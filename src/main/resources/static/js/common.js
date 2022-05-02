@@ -179,6 +179,10 @@ window.hs_config.gulpLighten = (p1) => {
         // INITIALIZATION OF CLIPBOARD
         // =======================================================
         HSCore.components.HSClipboard.init('.js-clipboard');
+        
+		// INITIALIZATION OF DROPZONE
+		// =======================================================
+		HSCore.components.HSDropzone.init('.js-dropzone');
 	}
 })();
 
