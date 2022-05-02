@@ -1,4 +1,41 @@
-$(document).on('ready', function() {
+/*********************
+* Document Ready *
+**********************/
+$(function(){
+	// 계정의 상태에 따라 Status, UserStatus의 색상 변경
+	$('td[name=accountStatus]').each(function() {
+		switch ($(this).text()) {
+			case '활성화':
+				$(this).children().addClass('bg-primary');
+				break;
+			case '만료됨':
+				$(this).children().addClass('bg-warning');
+				break;
+			case '잠김':
+				$(this).children().addClass('bg-danger');
+				break;
+			default:
+				$(this).children().addClass('bg-success');
+		}
+	});
+	$('td[name=accountUserStatus]').each(function() {
+		switch($(this).text()) {
+			case '온라인':
+				$(this).children().addClass('bg-primary');
+				break;
+			case '오프라인':
+				$(this).children().addClass('bg-danger');
+				break;
+			case '자리비움':
+				$(this).children().addClass('bg-warning');
+				break;
+			case '다른용무중':
+				$(this).children().addClass('bg-info');
+				break;
+			default:
+				$(this).children().addClass('bg-success');
+		}
+	});
 	// INITIALIZATION OF DATATABLES
 	// =======================================================
 	HSCore.components.HSDatatables.init($('#accountTable'), {
@@ -75,6 +112,7 @@ $(document).on('ready', function() {
 		datatable.column(targetColumnIndex).search(elVal).draw();
 	});
 });
+
 
 /*********************
 * 조건 드랍다운 열기 *

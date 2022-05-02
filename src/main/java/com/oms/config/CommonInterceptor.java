@@ -60,8 +60,6 @@ public class CommonInterceptor implements HandlerInterceptor {
 		historyDTO.setRequestTime(LocalDateTime.now());
 		historyService.create(historyDTO);
 		
-
-		
 		// 인터셉터 afterCompletion 처리 완료
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}

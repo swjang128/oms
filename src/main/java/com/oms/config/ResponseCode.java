@@ -2,7 +2,7 @@ package com.oms.config;
 
 /**
  * Rest API 결과로 보내줄 응답 메시지에 대한 정의
- * @author capias J
+ * @author JSW
  *
  */
 public class ResponseCode {

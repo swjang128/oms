@@ -246,7 +246,7 @@
 			<div class="table-responsive datatable-custom position-relative">
 				<table id="accountTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
                    "columnDefs": [{
-                      "targets": [0, 1, 6, 8],
+                      "targets": [0, 4, 6],
                       "orderable": false
                     }],
                    "order": [],
@@ -269,8 +269,6 @@
 								</div>
 							</th>
 							<th class="table-column-pe-0">프로필</th>
-							<th class="table-column-pe-0">이름</th>
-							<th class="table-column-pe-0">이메일</th>
 							<th class="table-column-pe-0">부서</th>
 							<th class="table-column-pe-0">직급</th>
 							<th class="table-column-pe-0">계정상태</th>
@@ -297,34 +295,28 @@
 										<img class="avatar-img" src="{{photo}}" alt="{{photo}}">
 									</div>
 									{{/photo}} {{^photo}}
-									<div class="avatar avatar-soft-primary avatar-circle">
+									<div class="avatar avatar-sm avatar-dark avatar-circle">
 										<span class="avatar-initials">{{name}}</span>
 									</div>
 									{{/photo}}
+									<div class="ms-3">
+										<span class="d-block h5 text-inherit mb-0">{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{name}}"></i></span>
+										<span class="d-block fs-5 text-body">{{email}}</span>
+									</div>
 								</a>
 							</td>
-							<td>
-								<span class="d-block h5 text-inherit mb-0">
-									{{name}} <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{name}}"></i>
-								</span>
-							</td>
-							<td>{{email}}</td>
 							<td>{{department}}</td>
 							<td>{{position}}</td>
-							<td name="accountStatus">{{status.value}}</td>
-							<td>{{userStatus.value}}</td>
+							<td name="accountStatus"><span class="legend-indicator"></span>{{status.value}}</td>
+							<td name="accountUserStatus"><span class="legend-indicator"></span>{{userStatus.value}}</td>
 							<td>{{phone}}</td>
 							<td>{{role.value}}</td>
 							<td>{{hireDate}}</td>
-<!-- 							<td>
-								<button type="button" class="btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#updateAccountModal">
-									<i class="bi-pencil-fill me-1"> 상세</i>
-								</button>
-							</td> -->
 						</tr>
-						{{/accountList}} {{^accountList}}
+						{{/accountList}}
+						{{^accountList}}
 						<tr>
-							<td colspan="8" class="text-center">계정이 없습니다</td>
+							<td colspan="6" class="text-center">계정이 없습니다</td>
 						</tr>
 						{{/accountList}}
 						<!-- End 사용자 목록 -->

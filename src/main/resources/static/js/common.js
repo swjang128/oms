@@ -93,7 +93,8 @@ window.hs_config.gulpLighten = (p1) => {
 		$('#breadcrumbParentLocationName').text(parentLocationName);
 		// Set Sidebar Activation
 		$('#navbarVerticalMenu').find('.nav-link-title').each(function() {
-			if (parentLocationName == $(this).text()) {				
+			if (parentLocationName == $(this).text()) {
+				$(this).parent().addClass('active');
 				$(this).parent().attr('aria-expanded', 'true');
 			}
 		});
