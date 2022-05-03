@@ -31,6 +31,31 @@ public class DepartmentService {
 	DepartmentRepository departmentRepository;
 
 	/**
+	 * 부서 등록 (CREATE)
+	 * 
+	 * @return 등록한 부서 정보
+	 */
+	@Transactional
+	public Map<String, Object> create(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
+		int status = ResponseCode.Status.CREATED;
+		String message = ResponseCode.Message.CREATED;
+		Department department = null;
+		// 부서 등록 (CREATE)
+		try {
+			department = departmentRepository.save(departmentDTO.toEntity());
+			resultMap.put("department", department);
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = ResponseCode.Status.ERROR_ABORT;
+			message = ResponseCode.Message.ERROR_ABORT;
+		}
+		// 결과 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);		
+		return resultMap;
+	}
+	
+	/**
 	 * 부서 조회 (READ)
 	 * 
 	 * @return List<Department>
@@ -63,30 +88,6 @@ public class DepartmentService {
 		return resultMap;
 	}
 
-	/**
-	 * 부서 등록 (CREATE)
-	 * 
-	 * @return 등록한 부서 정보
-	 */
-	@Transactional
-	public Map<String, Object> create(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.CREATED;
-		String message = ResponseCode.Message.CREATED;
-		Department department = null;
-		// 부서 등록 (CREATE)
-		try {
-			department = departmentRepository.save(departmentDTO.toEntity());
-			resultMap.put("department", department);
-		} catch (Exception e) {
-			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
-		}
-		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);		
-		return resultMap;
-	}
 
 	/**
 	 * 부서 수정 (UPDATE)

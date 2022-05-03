@@ -22,31 +22,24 @@
 										<div class="input-group-prepend input-group-text">
 											<i class="bi-search"></i>
 										</div>
-										<input id="datatableSearch" type="search" class="form-control" placeholder="부서 검색" aria-label="Search Department">
+										<input id="departmentSearch" type="search" class="form-control" placeholder="부서 검색" aria-label="Search Department">
 									</div>
 									<!-- End Search -->
 								</form>
 							</div>
 							<div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
 								<!-- Datatable Info -->
-								<div id="datatableCounterInfo" style="display: none;">
+								<div id="departmentCounterInfo" style="display: none;">
 									<div class="d-flex align-items-center">
 										<span class="fs-5 me-3">
-											<span id="datatableCounter">0</span>
+											<span id="departmentCounter"></span>
 											개 선택
 										</span>
-										<a class="btn btn-outline-danger btn-sm" href="javascript:;" onClick="deleteDepartment()">
+										<a class="btn btn-danger btn-lg" href="javascript:;" onClick="deleteDepartment()">
 											<i class="bi-trash"></i> 삭제
 										</a>
 									</div>
 								</div>
-								<!-- Dropdown -->
-								<div class="dropdown">
-									<a class="btn btn-outline-success btn-sm" onClick="">
-										<i class="bi-plus"></i> 등록
-									</a>
-								</div>
-								<!-- End Dropdown -->
 								<!-- End Datatable Info -->
 							</div>
 						</div>
@@ -54,34 +47,20 @@
 					<!-- End Header -->
 					<!-- Table -->
 					<div class="table-responsive datatable-custom position-relative">
-						<table id="departmentTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
-                   "columnDefs": [{
-                      "targets": [0],
-                      "orderable": false
-                    }],
-                   "order": [],
-                   "info": {
-                     "totalQty": "#datatableWithPaginationInfoTotalQty"
-                   },
-                   "search": "#datatableSearch",
-                   "entries": "#datatableEntries",
-                   "pageLength": 15,
-                   "isResponsive": false,
-                   "isShowPaging": false,
-                   "pagination": "datatablePagination"
-                 }'>
+						<table id="departmentTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
 							<thead class="thead-light">
 								<tr>
-									<th class="table-column-pe-0">
+									<th class="table-column-pe-0">										
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="datatableCheckAll">
-											<label class="form-check-label" for="datatableCheckAll"></label>
+											<input class="form-check-input" type="checkbox" value="" id="departmentCheckAll">
+											<label class="form-check-label" for="departmentCheckAll"></label>
 										</div>
 									</th>
 									<th class="table-column-pe-0">부서명</th>
 									<th class="table-column-pe-0">사용여부</th>
 									<th class="table-column-pe-0">등록일시</th>
 									<th class="table-column-pe-0">수정일시</th>
+									<th class="table-column-pe-0">저장/삭제</th>
 								</tr>
 							</thead>
 							<tbody id="departmentList">
@@ -94,18 +73,43 @@
 											<label class="form-check-label" for="department{{id}}"></label>
 										</div>
 									</td>
-									<td>{{name}}</td>
-									<td>{{useYn.value}}</td>
-									<td>{{registTime}}</td>
-									<td>{{updateTime}}</td>
+									<td class="table-column-ps-0">
+										<span class="d-none">{{name}}</span>
+										<input type="text" class="border rounded" value="{{name}}">
+									</td>
+					                <td name="departmentUseYn">					               		
+					                	<span class="d-none">{{useYn.key}}</span>
+										<div class="form-check form-switch">
+											<input class="form-check-input" type="checkbox" id="departmentUseYn{{id}}">
+											<label class="form-check-label" for="departmentUseYn{{id}}"></label>
+										</div>
+                					</td>
+									<td name="departmentRegistTime">{{registTime}}</td>
+									<td name="departmentUpdateTime">{{updateTime}}</td>
+									<td>
+										<a class="btn btn-info btn-sm" href="javascript:;" onClick="updateDepartment({{id}});">
+											<i class="bi-trash"></i> 저장
+										</a>
+										<a class="btn btn-danger btn-sm" href="javascript:;" onClick="deleteDepartment({{id}})">
+											<i class="bi-trash"></i> 삭제
+										</a>
+									</td>
 								</tr>
-								{{/departmentList}}
-								{{^departmentList}}
-								<tr>
-									<td colspan="6" class="text-center">부서가 없습니다</td>
-								</tr>
+								{{/departmentList}} {{^departmentList}}
+<!-- 								<tr>
+									<td colspan="5" class="text-center">부서가 없습니다</td>
+								</tr> -->
 								{{/departmentList}}
 								<!-- End 사용자 목록 -->
+								<tr>									
+									<td class="table-column-ps-0" colspan="6">
+										<div class="d-grid gap-2">
+											<a class="btn btn-success btn-lg" onClick="createDepartmentRow()">
+												<i class="bi-plus"></i> 등록
+											</a>
+										</div>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -118,27 +122,27 @@
 									<span class="me-2">표시:</span>
 									<!-- Select -->
 									<div class="tom-select-custom">
-										<select id="datatableEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
-                            "searchInDropdown": false,
-                            "hideSearch": true
-                          }'>
-											<option value="10">10</option>
-											<option value="15" selected>15</option>
+										<select id="departmentEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
+										"searchInDropdown": false,
+										"hideSearch": true
+										}'>
+											<option value="10" selected>10</option>
+											<option value="15">15</option>
 											<option value="20">20</option>
 										</select>
 									</div>
 									<!-- End Select -->
 									<span class="text-secondary me-2">전체</span>
 									<!-- Pagination Quantity -->
-									<span id="datatableWithPaginationInfoTotalQty"></span>
+									<span id="departmentWithPaginationInfoTotalQty"></span>
 									<span class="text-secondary me-2">개</span>
 								</div>
 							</div>
-							<!-- End Col -->
+							<!-- End Col -->																		
 							<div class="col-sm-auto">
 								<div class="d-flex justify-content-center justify-content-sm-end">
 									<!-- Pagination -->
-									<nav id="datatablePagination" aria-label="Activity pagination"></nav>
+									<nav id="departmentPagination" aria-label="Activity pagination"></nav>
 								</div>
 							</div>
 							<!-- End Col -->

@@ -107,6 +107,7 @@ public class DepartmentAPI {
 		} else {
 			departmentDTO.setUpdateUser(request.getRemoteUser());	
 		}
+		log.info("****** 변경하는 사람: {}", departmentDTO.getUpdateUser());
 		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
 			departmentDTO.setUseYn(UseYn.Y);
 		}

@@ -20,7 +20,7 @@
 				<!-- End Col -->
 				<div class="col-sm-auto">
 					<a class="btn btn-primary" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#createAccountModal">
-						<i class="bi-person-plus-fill me-1"></i> 신규 등록
+						<i class="bi-person-plus-fill me-1"></i> 계정 등록
 					</a>
 				</div>
 				<!-- End Col -->
@@ -120,7 +120,7 @@
 								<span class="js-counter display-4 text-dark">15</span>
 							</div>
 							<div class="col-auto">
-								<a class="btn btn-sm btn-outline-success" onClick="readDepartment()" data-bs-toggle="modal" data-bs-target="#departmentModal">
+								<a class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#departmentModal">
 									<i class="bi-person-plus-fill me-1"></i> 부서관리
 								</a>
 							</div>
@@ -207,20 +207,19 @@
 						<div class="input-group-prepend input-group-text">
 							<i class="bi-search"></i>
 						</div>
-						<input id="datatableSearch" type="search" class="form-control" placeholder="계정 검색" aria-label="Search users">
+						<input id="accountSearch" type="search" class="form-control" placeholder="계정 검색" aria-label="Search users">
 					</div>
 					<!-- End Search -->
 				</form>
 			</div>
 			<div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
 				<!-- Datatable Info -->
-				<div id="datatableCounterInfo" style="display: none;">
+				<div id="accountCounterInfo" style="display: none;">
 					<div class="d-flex align-items-center">
 						<span class="fs-5 me-3">
-							<span id="datatableCounter">0</span>
-							개의 선택한 계정을
+							<span id="accountCounter"></span>개 선택
 						</span>
-						<a class="btn btn-outline-danger btn-sm" href="javascript:;" onClick="deleteAccount()">
+						<a class="btn btn-danger btn-sm" href="javascript:;" onClick="deleteAccount()">
 							<i class="bi-trash"></i> 삭제
 						</a>
 					</div>
@@ -282,7 +281,7 @@
 											<small class="text-cap text-body">부서</small>
 											<!-- Select -->
 											<div class="tom-select-custom">
-												<select class="js-select js-datatable-filter form-select form-select-sm" id="dropdownDepartment" data-target-column-index="4" data-hs-tom-select-options='{
+												<select class="js-select js-datatable-filter form-select form-select-sm" id="dropdownDepartment" data-target-column-index="2" data-hs-tom-select-options='{
 				                                      "placeholder": "Any",
 				                                      "searchInDropdown": false,
 				                                      "hideSearch": true,
@@ -298,17 +297,17 @@
 											<small class="text-cap text-body">상태</small>
 											<!-- Select -->
 											<div class="tom-select-custom">
-												<select class="js-select js-datatable-filter form-select form-select-sm" data-target-column-index="6" data-hs-tom-select-options='{
+												<select class="js-select js-datatable-filter form-select form-select-sm" data-target-column-index="5" data-hs-tom-select-options='{
 				                                      "placeholder": "Any status",
 				                                      "searchInDropdown": false,
 				                                      "hideSearch": true,
 				                                      "dropdownWidth": "10rem"
 				                                    }'>
-													<option value="">전체</option>
-													<option value="온라인" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>Online</span>'>온라인</option>
-													<option value="오프라인" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-danger"></span>Offline</span>'>오프라인</option>
-													<option value="자리비움" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>AFK</span>'>자리비움</option>
-													<option value="다른용무중" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-info"></span>Busy</span>'>다른용무중</option>
+													<option value=""><span class="d-flex align-items-center"><span class="legend-indicator bg-success"></span>전체</span></option>
+													<option value="온라인" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-primary"></span>온라인</span>'></option>
+													<option value="오프라인" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-danger"></span>오프라인</span>'></option>
+													<option value="자리비움" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-warning"></span>자리비움</span>'></option>
+													<option value="다른용무중" data-option-template='<span class="d-flex align-items-center"><span class="legend-indicator bg-info"></span>다른용무중</span>'></option>
 												</select>
 											</div>
 											<!-- End Select -->
@@ -331,28 +330,13 @@
 		<!-- End Header -->
 		<!-- Table -->
 		<div class="table-responsive datatable-custom position-relative">
-			<table id="accountTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table" data-hs-datatables-options='{
-                   "columnDefs": [{
-                      "targets": [0, 4, 6],
-                      "orderable": false
-                    }],
-                   "order": [],
-                   "info": {
-                     "totalQty": "#datatableWithPaginationInfoTotalQty"
-                   },
-                   "search": "#datatableSearch",
-                   "entries": "#datatableEntries",
-                   "pageLength": 15,
-                   "isResponsive": false,
-                   "isShowPaging": false,
-                   "pagination": "datatablePagination"
-                 }'>
+			<table id="accountTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
 				<thead class="thead-light">
 					<tr>
 						<th class="table-column-pe-0">
 							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="datatableCheckAll">
-								<label class="form-check-label" for="datatableCheckAll"></label>
+								<input class="form-check-input" type="checkbox" value="" id="accountCheckAll">
+								<label class="form-check-label" for="accountCheckAll"></label>
 							</div>
 						</th>
 						<th class="table-column-pe-0">프로필</th>
@@ -394,13 +378,13 @@
 						</td>
 						<td>{{department}}</td>
 						<td>{{position}}</td>
-						<td name="accountStatus">
+						<td>
 							<span class="legend-indicator"></span>
-							{{status.value}}
+							<span name="accountStatus">{{status.value}}</span>
 						</td>
-						<td name="accountUserStatus">
+						<td>
 							<span class="legend-indicator"></span>
-							{{userStatus.value}}
+							<span name="accountUserStatus">{{userStatus.value}}</span>
 						</td>
 						<td>{{phone}}</td>
 						<td>{{role.value}}</td>
@@ -424,7 +408,7 @@
 						<span class="me-2">표시:</span>
 						<!-- Select -->
 						<div class="tom-select-custom">
-							<select id="datatableEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
+							<select id="accountEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
                             "searchInDropdown": false,
                             "hideSearch": true
                           }'>
@@ -436,7 +420,7 @@
 						<!-- End Select -->
 						<span class="text-secondary me-2">전체</span>
 						<!-- Pagination Quantity -->
-						<span id="datatableWithPaginationInfoTotalQty"></span>
+						<span id="accountWithPaginationInfoTotalQty"></span>
 						<span class="text-secondary me-2">개</span>
 					</div>
 				</div>
@@ -444,7 +428,7 @@
 				<div class="col-sm-auto">
 					<div class="d-flex justify-content-center justify-content-sm-end">
 						<!-- Pagination -->
-						<nav id="datatablePagination" aria-label="Activity pagination"></nav>
+						<nav id="accountPagination" aria-label="Activity pagination"></nav>
 					</div>
 				</div>
 				<!-- End Col -->

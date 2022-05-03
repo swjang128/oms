@@ -1,44 +1,29 @@
 /*********************
 * Document Ready *
 **********************/
-$(function(){
-	// 계정의 상태에 따라 Status, UserStatus의 색상 변경
-	$('td[name=accountStatus]').each(function() {
-		switch ($(this).text()) {
-			case '활성화':
-				$(this).children().addClass('bg-primary');
-				break;
-			case '만료됨':
-				$(this).children().addClass('bg-warning');
-				break;
-			case '잠김':
-				$(this).children().addClass('bg-danger');
-				break;
-			default:
-				$(this).children().addClass('bg-success');
-		}
-	});
-	$('td[name=accountUserStatus]').each(function() {
-		switch($(this).text()) {
-			case '온라인':
-				$(this).children().addClass('bg-primary');
-				break;
-			case '오프라인':
-				$(this).children().addClass('bg-danger');
-				break;
-			case '자리비움':
-				$(this).children().addClass('bg-warning');
-				break;
-			case '다른용무중':
-				$(this).children().addClass('bg-info');
-				break;
-			default:
-				$(this).children().addClass('bg-success');
-		}
-	});
-	// INITIALIZATION OF DATATABLES
+$(function() {
+	// INITIALIZATION OF accountTable
 	// =======================================================
 	HSCore.components.HSDatatables.init($('#accountTable'), {
+		columnDefs: [
+			{
+				targets: [0, 4, 6],
+				orderable: false,
+				checkboxes: {
+					selectRow: true
+				}
+			}
+		],
+		order: [],
+		info: {
+			totalQty: '#accountWithPaginationInfoTotalQty'
+		},
+		search: '#accountSearch',
+		entries: '#accountEntries',
+		pageLength: 15,
+		isResponsive: true,
+		isShowPaging: false,
+		pagination: 'accountPagination',
 		dom: 'Bfrtip',
 		buttons: [
 			{
@@ -66,9 +51,9 @@ $(function(){
 			style: 'multi',
 			selector: 'td:first-child input[type="checkbox"]',
 			classMap: {
-				checkAll: '#datatableCheckAll',
-				counter: '#datatableCounter',
-				counterInfo: '#datatableCounterInfo'
+				checkAll: '#accountCheckAll',
+				counter: '#accountCounter',
+				counterInfo: '#accountCounterInfo'
 			}
 		},
 		language: {
@@ -111,6 +96,41 @@ $(function(){
 
 		datatable.column(targetColumnIndex).search(elVal).draw();
 	});
+	
+		// 계정의 상태에 따라 Status, UserStatus의 색상 변경
+	$('span[name=accountStatus]').each(function() {
+		switch ($(this).text()) {
+			case '활성화':
+				$(this).parent().children().first().addClass('bg-primary');
+				break;
+			case '만료됨':
+				$(this).parent().children().first().addClass('bg-warning');
+				break;
+			case '잠김':
+				$(this).parent().children().first().addClass('bg-danger');
+				break;
+			default:
+				$(this).parent().children().first().addClass('bg-success');
+		}
+	});
+	$('span[name=accountUserStatus]').each(function() {
+		switch($(this).text()) {
+			case '온라인':
+				$(this).parent().children().first().addClass('bg-primary');
+				break;
+			case '오프라인':
+				$(this).parent().children().first().addClass('bg-danger');
+				break;
+			case '자리비움':
+				$(this).parent().children().first().addClass('bg-warning');
+				break;
+			case '다른용무중':
+				$(this).parent().children().first().addClass('bg-info');
+				break;
+			default:
+				$(this).parent().children().first().addClass('bg-success');
+		}
+	});
 });
 
 
@@ -128,6 +148,7 @@ function openDropdown() {
 			cache: false,
 			datatype: 'json',
 			success: function(result) {
+				alert(result.status);
 				for (var d = 0; d < result.departmentList.length; d++) {
 					$('#dropdownDepartment').append('<option value="' + result.departmentList[d].name + '">' + result.departmentList[d].name + '</option>');
 				}
@@ -730,7 +751,7 @@ function deleteAccount() {
 	});
 
 	if (confirm('선택한 계정을 삭제하시겠습니까?')) {
-		// 계정 수정
+		// 계정 삭제
 		$.ajax({
 			contentType: 'application/json; charset=utf-8',
 			url: '/api/account/' + payload,

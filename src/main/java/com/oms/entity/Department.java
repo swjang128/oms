@@ -42,7 +42,7 @@ public class Department {
 	@Enumerated(EnumType.STRING)
 	private UseYn useYn;																		// 사용여부
 	
-	@Column
+	@Column(updatable=false)
 	private String registUser;																// 등록자
 	
 	@Column

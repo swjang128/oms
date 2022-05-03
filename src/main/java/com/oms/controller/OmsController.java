@@ -82,7 +82,7 @@ public class OmsController {
 	 * @throws Exception 
 	 */
 	@GetMapping("account")
-  	public String member(Model model, HttpServletRequest request) throws Exception {
+  	public String account(Model model, HttpServletRequest request) throws Exception {
 		// 현재 서비스 위치 Set
 		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
 		model.addAttribute("locationName", request.getAttribute("locationName"));
