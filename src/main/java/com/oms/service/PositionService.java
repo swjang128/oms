@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.oms.config.ResponseCode;
 import com.oms.dto.PositionDTO;
+import com.oms.entity.Department;
 import com.oms.entity.Position;
 import com.oms.entity.Position.UseYn;
 import com.oms.repository.PositionRepository;
+import com.oms.specification.DepartmentSpecification;
 import com.oms.specification.PositionSpecification;
 
 @Service
@@ -79,6 +81,34 @@ public class PositionService{
 		resultMap.put("status", status);
 		resultMap.put("message", message);
 		resultMap.put("positionList", positionDTO);
+		return resultMap;
+	}
+	
+	/**
+	 * 직급 개수 (READ)
+	 * @param Map<String, Object>, Map<String, Object>
+	 * @return Integer
+	 */
+	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		// 기본 변수 설정
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		long count = 0;
+		Object useYn = paramMap.get("useYn");
+		Object name = paramMap.get("name");
+		Specification<Position> specification = (root, query, criteriaBuilder) -> null;
+		// Specification 조건 작성
+		if (useYn != null)
+			specification = specification.and(PositionSpecification.findByUseYn(useYn));
+		if (name != null) {
+			specification = specification.and(PositionSpecification.findByName(name));
+		}
+		// Specification 조건에 맞는 직급 개수 조회
+		count = positionRepository.count(specification);
+		// resultMap에 담아서 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("count", count);
 		return resultMap;
 	}
 	

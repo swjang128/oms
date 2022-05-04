@@ -22,7 +22,9 @@ import com.oms.config.CommonUtil;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.LawDTO;
 import com.oms.entity.Account;
+import com.oms.entity.Department;
 import com.oms.entity.Menu.UseYn;
+import com.oms.entity.Position;
 import com.oms.service.AccountService;
 import com.oms.service.DepartmentService;
 import com.oms.service.MenuService;
@@ -153,16 +155,74 @@ public class OmsController {
 		model.addAttribute("blockedAccount", blockedAccount);
 		model.addAttribute("compareBlockedAccount", compareBlockedAccount);
 		
-		// 부서 목록 조회
+		// 부서 조회
 		paramMap.clear();
 		resultMap.clear();
 		resultMap = departmentService.read(paramMap, resultMap);
 		model.addAttribute("departmentList", resultMap.get("departmentList"));
+		// 부서 개수 조회
+		Long useDepartment = (long) 0;
+		Long unUseDepartment = (long) 0;
+		Long totalDepartment = (long) 0;		
+		// 부서(전체) 개수
+		paramMap.clear();
+		resultMap.clear();
+		resultMap = departmentService.count(paramMap, resultMap);
+		totalDepartment = (Long) resultMap.get("count");
+		model.addAttribute("totalDepartment", totalDepartment);
+		// 부서(사용) 개수
+		resultMap.clear();
+		paramMap.put("useYn", Department.UseYn.Y);
+		resultMap = departmentService.count(paramMap, resultMap);
+		useDepartment = (Long) resultMap.get("count");
+		model.addAttribute("useDepartment", useDepartment);
+		// 부서(미사용) 개수
+		paramMap.clear();
+		resultMap.clear();
+		paramMap.put("useYn", Department.UseYn.N);
+		resultMap = departmentService.count(paramMap, resultMap);
+		unUseDepartment = (Long) resultMap.get("count");
+		model.addAttribute("unUseDepartment", unUseDepartment);
+		// 부서(사용/미사용 비율) 세팅
+		double useDepartmentRate = ((double) useDepartment / (double) totalDepartment) * 100;
+		useDepartmentRate = Math.round(useDepartmentRate * 100) / 100.0;
+		model.addAttribute("useDepartmentRate", useDepartmentRate);
+		model.addAttribute("unUseDepartmentRate", (double) 100 - useDepartmentRate);
 		
-		// 직급 목록 조회
+		// 직급 조회
+		paramMap.clear();
 		resultMap.clear();
 		resultMap = positionService.read(paramMap, resultMap);
 		model.addAttribute("positionList", resultMap.get("positionList"));
+		// 직급 개수 조회
+		Long usePosition = (long) 0;
+		Long unUsePosition = (long) 0;
+		Long totalPosition = (long) 0;		
+		// 직급(전체) 개수
+		paramMap.clear();
+		resultMap.clear();
+		resultMap = positionService.count(paramMap, resultMap);
+		totalPosition = (Long) resultMap.get("count");
+		model.addAttribute("totalPosition", totalPosition);
+		// 직급(사용) 개수
+		resultMap.clear();
+		paramMap.put("useYn", Position.UseYn.Y);
+		resultMap = positionService.count(paramMap, resultMap);
+		usePosition = (Long) resultMap.get("count");
+		model.addAttribute("usePosition", usePosition);
+		// 직급(미사용) 개수
+		paramMap.clear();
+		resultMap.clear();
+		paramMap.put("useYn", Position.UseYn.N);
+		resultMap = positionService.count(paramMap, resultMap);
+		unUsePosition = (Long) resultMap.get("count");
+		model.addAttribute("unUsePosition", unUsePosition);
+		// 직급(사용/미사용 비율) 세팅
+		double usePositionRate = ((double) usePosition / (double) totalPosition) * 100;
+		usePositionRate = Math.round(usePositionRate * 100) / 100.0;
+		model.addAttribute("usePositionRate", usePositionRate);
+		model.addAttribute("unUsePositionRate", (double) 100 - usePositionRate);
+		
 		
 		// account 페이지로 이동
   		return "account";

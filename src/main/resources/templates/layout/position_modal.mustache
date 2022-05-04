@@ -1,15 +1,15 @@
 <!-- ================== CONTENT ================== -->
-<div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="departmentModalLabel" aria-hidden="true">
+<div class="modal fade" id="positionModal" tabindex="-1" aria-labelledby="positionModalLabel" aria-hidden="true">
 	<!-- Content -->
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<!-- Page Header -->
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="departmentModalTitle">부서 관리</h5>
+				<h5 class="modal-title" id="positionModalTitle">직급 관리</h5>
 				<button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<div class="tab-content" id="departmentModalContent">
+				<div class="tab-content" id="positionModalContent">
 					<!-- End Page Header -->
 					<!-- Card -->
 					<div class="card">
@@ -22,19 +22,20 @@
 										<div class="input-group-prepend input-group-text">
 											<i class="bi-search"></i>
 										</div>
-										<input id="departmentSearch" type="search" class="form-control" placeholder="부서 검색" aria-label="Search Department">
+										<input id="positionSearch" type="search" class="form-control" placeholder="직급 검색" aria-label="Search Position">
 									</div>
 									<!-- End Search -->
 								</form>
 							</div>
 							<div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
 								<!-- Datatable Info -->
-								<div id="departmentCounterInfo" style="display: none;">
+								<div id="positionCounterInfo" style="display: none;">
 									<div class="d-flex align-items-center">
 										<span class="fs-5 me-3">
-											<span id="departmentCounter"></span>개 선택
+											<span id="positionCounter"></span>
+											개 선택
 										</span>
-										<a class="btn btn-danger btn-lg" href="javascript:;" onClick="deleteDepartment()">
+										<a class="btn btn-danger btn-lg" href="javascript:;" onClick="deletePosition()">
 											<i class="bi-trash"></i> 삭제
 										</a>
 									</div>
@@ -46,73 +47,73 @@
 					<!-- End Header -->
 					<!-- Table -->
 					<div class="table-responsive datatable-custom position-relative">
-						<table id="departmentTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+						<table id="positionTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
 							<thead class="thead-light">
 								<tr>
 									<th class="table-column-pe-0">										
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="departmentCheckAll">
-											<label class="form-check-label" for="departmentCheckAll"></label>
+											<input class="form-check-input" type="checkbox" value="" id="positionCheckAll">
+											<label class="form-check-label" for="positionCheckAll"></label>
 										</div>
 									</th>
-									<th class="table-column-pe-0">부서명</th>
+									<th class="table-column-pe-0">직급명</th>
 									<th class="table-column-pe-0">사용여부</th>
 									<th class="table-column-pe-0">등록일시</th>
 									<th class="table-column-pe-0">수정일시</th>
 									<th class="table-column-pe-0">저장/삭제</th>
 								</tr>
 							</thead>
-							<tbody id="departmentList">
+							<tbody id="positionList">
 								<!-- 사용자 목록 -->
-								{{#departmentList}}
+								{{#positionList}}
 								<tr>
 									<td class="table-column-pe-0">
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="{{id}}" id="department{{id}}" name="departmentId">
-											<label class="form-check-label" for="department{{id}}"></label>
+											<input class="form-check-input" type="checkbox" value="{{id}}" id="position{{id}}" name="positionId">
+											<label class="form-check-label" for="position{{id}}"></label>
 										</div>
 									</td>
 									<td class="table-column-ps-0">
 										<span class="d-none">{{name}}</span>
-										<input type="text" class="border rounded" id="departmentName{{id}}" value="{{name}}" onKeyup="activateDepartmentSaveButton({{id}})" onChange="updateDepartmentNameCheck({{id}}, this.value)">
+										<input type="text" class="border rounded" id="positionName{{id}}" value="{{name}}" onKeyup="activatePositionSaveButton({{id}})" onChange="updatePositionNameCheck({{id}}, this.value)">
 									</td>
-					                <td name="departmentUseYn">
+					                <td name="positionUseYn">
 					                	<span class="d-none">{{useYn.key}}</span>
 										<div class="form-check form-switch">
-											<input class="form-check-input" type="checkbox" id="departmentUseYn{{id}}" onChange="activateDepartmentSaveButton({{id}})">
-											<label class="form-check-label" for="departmentUseYn{{id}}"></label>
+											<input class="form-check-input" type="checkbox" id="positionUseYn{{id}}" onChange="activatePositionSaveButton({{id}})">
+											<label class="form-check-label" for="positionUseYn{{id}}"></label>
 										</div>
                 					</td>
                 					{{#registTime}}
-									<td name="departmentRegistTime">{{registTime}}</td>
+									<td name="positionRegistTime">{{registTime}}</td>
 									{{/registTime}}
 									{{^registTime}}
 									<td></td>
 									{{/registTime}}
 									{{#updateTime}}
-									<td name="departmentUpdateTime">{{updateTime}}</td>
+									<td name="positionUpdateTime">{{updateTime}}</td>
 									{{/updateTime}}
 									{{^updateTime}}
 									<td></td>
 									{{/updateTime}}
 									<td>
-										<a class="btn btn-info btn-sm d-none" href="javascript:;" id="departmentSaveButton{{id}}" onClick="updateDepartment({{id}});">
+										<a class="btn btn-info btn-sm d-none" href="javascript:;" id="positionSaveButton{{id}}" onClick="updatePosition({{id}});">
 											<i class="bi-file-plus"></i> 저장
 										</a>
-										<a class="btn btn-danger btn-sm" href="javascript:;" onClick="deleteDepartment({{id}})">
+										<a class="btn btn-danger btn-sm" href="javascript:;" onClick="deletePosition({{id}})">
 											<i class="bi-trash"></i> 삭제
 										</a>
 									</td>
 								</tr>
-								{{/departmentList}}
-								{{^departmentList}}{{/departmentList}}								
+								{{/positionList}}
+								{{^positionList}}{{/positionList}}
 								<!-- End 사용자 목록 -->
 							</tbody>
 							<tfoot>
 								<tr>
 									<td class="table-column-ps-0" colspan="6">
-										<div class="d-grid gap-2" id="createDepartmentRow">
-											<a class="btn btn-primary btn-lg" onClick="createDepartmentRow()">
+										<div class="d-grid gap-2" id="createPositionRow">
+											<a class="btn btn-primary btn-lg" onClick="createPositionRow()">
 												<i class="bi-plus display-4"> </i><span class="display-4">등록</span>
 											</a>
 										</div>
@@ -130,7 +131,7 @@
 									<span class="me-2">표시:</span>
 									<!-- Select -->
 									<div class="tom-select-custom">
-										<select id="departmentEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
+										<select id="positionEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
 										"searchInDropdown": false,
 										"hideSearch": true
 										}'>
@@ -142,18 +143,17 @@
 									<!-- End Select -->
 									<span class="text-secondary me-2">전체</span>
 									<!-- Pagination Quantity -->
-									<span id="departmentWithPaginationInfoTotalQty"></span>
+									<span id="positionWithPaginationInfoTotalQty"></span>
 									<span class="text-secondary me-2">개</span>
 								</div>
 							</div>
-							<!-- End Col -->
+							<!-- End Col -->							
 							<div class="col-sm-auto">
 								<div class="d-flex justify-content-center justify-content-sm-end">
 									<!-- Pagination -->
-									<nav id="departmentPagination" aria-label="Activity pagination"></nav>
+									<nav id="positionPagination" aria-label="Activity pagination"></nav>
 								</div>
 							</div>
-
 							<!-- End Col -->
 						</div>
 						<!-- End Row -->

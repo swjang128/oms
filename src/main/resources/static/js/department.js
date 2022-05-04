@@ -1,10 +1,9 @@
 // ======================= Ready =======================//
 $(function() {
-	alert('department ready');
 	// 부서 테이블 설정
 	// =======================================================
 	HSCore.components.HSDatatables.init($('#departmentTable'), {
-		dom: 'Bfrtip',
+		dom: 'frtip',
 		select: {
 			style: 'multi',
 			selector: 'td:first-child input[type="checkbox"]',
@@ -44,6 +43,7 @@ $(function() {
 			$(this).children(':eq(1)').children(':first').prop('checked', true);
 		}
 	});
+	
 	// 등록시간, 수정시간 포맷 변경
 	$('td[name=departmentRegistTime]').each(function() {
 		$(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm:ss'));
@@ -51,21 +51,184 @@ $(function() {
 	$('td[name=departmentUpdateTime]').each(function() {
 		$(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm:ss'));
 	});
+	
+	// 페이지내 표시개수를 변경하면 등록 버튼을 다시 보이게
+	$('#departmentEntries').change(function() {
+		$('#createDepartmentRow').removeClass('d-none');
+	});
+	
+	// 검색을 했을 때 등록 버튼을 다시 보이게
+	$('#departmentSearch').keyup(function() {
+		$('#createDepartmentRow').removeClass('d-none');
+	});
 });
 
 // ======================= Functions =======================//
+/***********************
+* 부서 저장 버튼 활성화 *
+************************/
+function activateDepartmentSaveButton(id) {
+	// 사용여부 값 세팅
+	var departmentUse = 'N';
+	if ($('#departmentUseYn'+id).is(':checked') == true) {
+		departmentUse = 'Y';
+	}
+	// 부서명 또는 사용여부에 변화가 생기면 부서 저장 버튼이 활성화
+	if ($('#departmentName'+id).val() != $('#departmentName'+id).parent().children(':first').text() ||
+			$('#departmentUseYn'+id).parent().parent().children(':first').text() != departmentUse) {
+		$('#departmentSaveButton'+id).removeClass('d-none');
+	} else {
+		$('#departmentSaveButton'+id).addClass('d-none');
+	}
+}
+
 /*******************
 * 부서 등록 행 추가 *
 ********************/
 function createDepartmentRow() {
-	alert('행 추가');
+	$('#createDepartmentRow').addClass('d-none');
+	var ids = [];
+	$('[name=departmentId]').each(function() {
+		ids.push($(this).val());
+	});
+	var newId = Math.max(...ids)+1;
+	$('#departmentList').append(`<tr class="bg-success">
+																<td class="table-column-pe-0"></td>
+																<td class="table-column-ps-0">
+																	<input type="text" class="border rounded" id="departmentName`+newId+`" placeholder="부서명을 입력하세요" onChange="departmentNameCheck(`+newId+`, this.value)">
+																</td>
+																<td name="departmentUseYn">
+																	<div class="form-check form-switch">
+																		<input class="form-check-input" type="checkbox" id="departmentUseYn`+newId+`">
+																		<label class="form-check-label" for="departmentUseYn`+newId+`"></label>
+																	</div>
+																</td>
+																<td name="departmentRegistTime"></td>
+																<td name="departmentUpdateTime"></td>
+																<td>
+																	<a class="btn btn-primary btn-sm" href="javascript:;" onClick="createDepartment(`+newId+`)">
+																		<i class="bi-plus-lg"></i> 등록
+																	</a>
+																	<a class="btn btn-danger btn-sm" href="javascript:;" onClick="deleteDepartmentRow(this)">
+																		<i class="bi-trash"></i> 취소
+																	</a>
+																</td>
+															</tr>`);
+}
+
+/**************
+* 부서 행 삭제 *
+***************/
+function deleteDepartmentRow(row) {
+	$(row).parent().parent().remove();
+	$('#createDepartmentRow').removeClass('d-none');
+}
+
+/*******************
+* 부서명 검증(등록) *
+********************/
+function departmentNameCheck(id, name) {	
+	var pattern = /\s/g;
+	if (name == '' || name == undefined || name == null) {
+		$('#departmentName'+id).focus();
+		$('#departmentName'+id).select();
+		return;
+	}
+	if (name.match(pattern)) {
+		alert('부서명에 공백이 존재할 수 없습니다');
+		$('#departmentName'+id).focus();
+		$('#departmentName'+id).select();
+		return;
+	}
+	// 중복되는 부서가 있는지 확인
+	$.ajax({
+		contentType: 'application/json; charset=utf-8',
+		url: '/api/department',			
+		type: 'GET',
+		data: {
+			name: name
+		},
+		cache: false,
+		success: function(result) {
+			if (result.departmentList.length > 0) {					
+				alert('중복되는 부서명이 존재합니다');
+				$('#departmentName'+id).focus();
+				$('#departmentName'+id).select();
+				return;
+			}
+		},
+		error: function() {
+			alert('서버와의 통신에 실패했습니다');
+			return;
+		}
+	});
+	return name;
+}
+
+/*******************
+* 부서명 검증(수정) *
+********************/
+function updateDepartmentNameCheck(id, name) {	
+	var pattern = /\s/g;
+	if (name == '' || name == undefined || name == null) {
+		$('#departmentName'+id).focus();
+		$('#departmentName'+id).select();
+		return;
+	}
+	if (name.match(pattern)) {
+		alert('부서명에 공백이 존재할 수 없습니다');
+		$('#departmentName'+id).focus();
+		$('#departmentName'+id).select();
+		return;
+	}
+	return name;
+}
+
+/************
+* 부서 등록 *
+*************/
+function createDepartment(id) {
+	let name = departmentNameCheck(id, $('#departmentName'+id).val());
+	if (!name) {
+		return;
+	}
+	let useYn = 'N';
+	if ($('#departmentUseYn'+id).is(':checked') == true) {
+		useYn = 'Y';		
+	}
+	var createData = JSON.stringify({
+		name: name,
+		useYn: useYn
+	});
+	
+	if (confirm('부서를 등록하시겠습니까?')) {
+		$.ajax({
+			contentType: 'application/json; charset=utf-8',
+			url: '/api/department',
+			type: 'POST',
+			data: createData,
+			cache: false,
+			success: function(result) {
+				if (result.status == 201) {
+					alert('부서를 정상적으로 등록하였습니다');
+					location.reload();
+				}
+			},
+			error: function() {
+				alert('서버와의 통신에 실패했습니다');
+			}
+		});
+	}
 }
 
 /************
 * 부서 수정 *
 *************/
 function updateDepartment(id) {	
-	var name = $('#department'+id).parent().parent().parent().children(':eq(1)').children(':eq(1)').val();	
+	let name = updateDepartmentNameCheck(id, $('#departmentName'+id).val());
+	if (!name) {
+		return;
+	}
 	var useYn = 'N';
 	if ($('#departmentUseYn'+id).is(':checked') == true) {
 		useYn = 'Y';
@@ -79,7 +242,7 @@ function updateDepartment(id) {
 	if (confirm('변경한 부서 정보를 저장하시겠습니까?')) {
 		$.ajax({
 			contentType: 'application/json; charset=utf-8',
-			url: '/api/department/',
+			url: '/api/department',
 			type: 'PUT',
 			data: updateDate,
 			cache: false,
@@ -92,7 +255,7 @@ function updateDepartment(id) {
 			error: function() {
 				alert('서버와의 통신에 실패했습니다');
 			}
-		})
+		});
 	}
 }
 /************
@@ -104,7 +267,7 @@ function deleteDepartment(param) {
 		var param = [];
 		$('input:checkbox[name=departmentId]').each(function() {
 			if ($(this).is(':checked') == true) {
-				param.push($(this).val());		
+				param.push($(this).val());
 			}
 		});		
 	}

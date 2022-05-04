@@ -156,24 +156,23 @@ public class AccountService {
 		LocalDate startDate = (LocalDate) paramMap.get("startDate");
 		LocalDate endDate = (LocalDate) paramMap.get("endDate");
 		Specification<Account> specification = (root, query, criteriaBuilder) -> null;
-		// 계정 목록 조회
+		// Specification 조건 작성
+		if (accountStatus != null)
+			specification = specification.and(AccountSpecification.findByStatus(accountStatus));
+		if (userStatus != null)
+			specification = specification.and(AccountSpecification.findByUserStatus(userStatus));
+		if (role != null)
+			specification = specification.and(AccountSpecification.findByRole(role));
+		if (department != null)
+			specification = specification.and(AccountSpecification.findByDepartment(department));
+		if (position != null)
+			specification = specification.and(AccountSpecification.findByPosition(position));
+		if (startDate != null || endDate != null)
+			specification = specification.and(AccountSpecification.findByHireDate(startDate, endDate));
+		// Specification 조건에 맞는 계정 개수 조회
 		try {
-			if (accountStatus != null)
-				specification = specification.and(AccountSpecification.findByStatus(accountStatus));
-			if (userStatus != null)
-				specification = specification.and(AccountSpecification.findByUserStatus(userStatus));
-			if (role != null)
-				specification = specification.and(AccountSpecification.findByRole(role));
-			if (department != null)
-				specification = specification.and(AccountSpecification.findByDepartment(department));
-			if (position != null)
-				specification = specification.and(AccountSpecification.findByPosition(position));
-			if (startDate != null || endDate != null)
-				specification = specification.and(AccountSpecification.findByHireDate(startDate, endDate));
 			count = accountRepository.count(specification);
-		} catch (Exception e) {
-			count = 0;
-		}
+		} catch (Exception e) {}
 		// resultMap에 담기
 		resultMap.put("status", status);
 		resultMap.put("message", message);

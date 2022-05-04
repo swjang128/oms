@@ -57,7 +57,7 @@ public class DepartmentService {
 	
 	/**
 	 * 부서 조회 (READ)
-	 * 
+	 * @param Map<String, Object>, Map<String, Object>
 	 * @return List<Department>
 	 */
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
@@ -88,7 +88,35 @@ public class DepartmentService {
 		return resultMap;
 	}
 
-
+	/**
+	 * 부서 개수 (READ)
+	 * @param Map<String, Object>, Map<String, Object>
+	 * @return Integer
+	 */
+	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
+		// 기본 변수 설정
+		int status = ResponseCode.Status.OK;
+		String message = ResponseCode.Message.OK;
+		long count = 0;
+		Object useYn = paramMap.get("useYn");
+		Object name = paramMap.get("name");
+		Specification<Department> specification = (root, query, criteriaBuilder) -> null;
+		// Specification 조건 작성
+		if (useYn != null)
+			specification = specification.and(DepartmentSpecification.findByUseYn(useYn));
+		if (name != null) {
+			specification = specification.and(DepartmentSpecification.findByName(name));
+		}
+		// Specification 조건에 맞는 부서 개수 조회
+		count = departmentRepository.count(specification);
+		log.info("@@@@@@@@@@ count: {}", count);
+		// resultMap에 담아서 리턴
+		resultMap.put("status", status);
+		resultMap.put("message", message);
+		resultMap.put("count", count);
+		return resultMap;
+	}
+	
 	/**
 	 * 부서 수정 (UPDATE)
 	 * 

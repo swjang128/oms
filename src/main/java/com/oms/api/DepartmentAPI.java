@@ -56,7 +56,7 @@ public class DepartmentAPI {
 		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
 			departmentDTO.setUseYn(UseYn.Y);
 		}
-		departmentDTO.setRegistTime(LocalDateTime.now());
+		departmentDTO.setRegistTime(LocalDateTime.now());		
 		// 부서 등록
 		return departmentService.create(departmentDTO, resultMap);
 	}
