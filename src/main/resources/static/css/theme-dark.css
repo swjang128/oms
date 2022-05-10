@@ -14895,6 +14895,8 @@ input[type="number"] {
   pointer-events: none;
   text-transform: uppercase;
   border-radius: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .avatar-circle {
   border-radius: 50%;

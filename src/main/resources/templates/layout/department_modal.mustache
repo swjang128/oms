@@ -57,8 +57,7 @@
 									</th>
 									<th class="table-column-pe-0">부서명</th>
 									<th class="table-column-pe-0">사용여부</th>
-									<th class="table-column-pe-0">등록일시</th>
-									<th class="table-column-pe-0">수정일시</th>
+									<th class="table-column-pe-0">마지막 변경</th>
 									<th class="table-column-pe-0">저장/삭제</th>
 								</tr>
 							</thead>
@@ -74,7 +73,7 @@
 									</td>
 									<td class="table-column-ps-0">
 										<span class="d-none">{{name}}</span>
-										<input type="text" class="border rounded" id="departmentName{{id}}" value="{{name}}" onKeyup="activateDepartmentSaveButton({{id}})" onChange="updateDepartmentNameCheck({{id}}, this.value)">
+										<input type="text" class="form-control border rounded" id="departmentName{{id}}" value="{{name}}" onKeyup="activateDepartmentSaveButton({{id}})" onChange="updateDepartmentNameCheck({{id}}, this.value)">
 									</td>
 					                <td name="departmentUseYn">
 					                	<span class="d-none">{{useYn.key}}</span>
@@ -83,12 +82,6 @@
 											<label class="form-check-label" for="departmentUseYn{{id}}"></label>
 										</div>
                 					</td>
-                					{{#registTime}}
-									<td name="departmentRegistTime">{{registTime}}</td>
-									{{/registTime}}
-									{{^registTime}}
-									<td></td>
-									{{/registTime}}
 									{{#updateTime}}
 									<td name="departmentUpdateTime">{{updateTime}}</td>
 									{{/updateTime}}
