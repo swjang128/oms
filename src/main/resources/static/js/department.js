@@ -76,9 +76,9 @@ function activateDepartmentSaveButton(id) {
 	// 부서명 또는 사용여부에 변화가 생기면 부서 저장 버튼이 활성화
 	if ($('#departmentName'+id).val() != $('#departmentName'+id).parent().children(':first').text() ||
 			$('#departmentUseYn'+id).parent().parent().children(':first').text() != departmentUse) {
-		$('#departmentSaveButton'+id).removeClass('d-none');
+		$('#departmentSaveButton'+id).attr('disabled', false);
 	} else {
-		$('#departmentSaveButton'+id).addClass('d-none');
+		$('#departmentSaveButton'+id).attr('disabled', true);
 	}
 }
 

@@ -76,9 +76,9 @@ function activatePositionSaveButton(id) {
 	// 직급명 또는 사용여부에 변화가 생기면 직급 저장 버튼이 활성화
 	if ($('#positionName'+id).val() != $('#positionName'+id).parent().children(':first').text() ||
 			$('#positionUseYn'+id).parent().parent().children(':first').text() != positionUse) {
-		$('#positionSaveButton'+id).removeClass('d-none');
+		$('#positionSaveButton'+id).attr('disabled', false);
 	} else {
-		$('#positionSaveButton'+id).addClass('d-none');
+		$('#positionSaveButton'+id).attr('disabled', true);
 	}
 }
 
