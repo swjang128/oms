@@ -45,12 +45,12 @@ $(function() {
 	});
 	
 	// 등록시간, 수정시간 포맷 변경
-	$('td[name=departmentRegistTime]').each(function() {
-		$(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm:ss'));
+/*	$('td[name=departmentRegistTime]').each(function() {
+		$(this).text(moment($(this).text()).format('YYYY-MM-DD'));
 	});
 	$('td[name=departmentUpdateTime]').each(function() {
-		$(this).text(moment($(this).text()).format('YYYY-MM-DD hh:mm:ss'));
-	});
+		$(this).text(moment($(this).text()).format('YYYY-MM-DD'));
+	});*/
 	
 	// 페이지내 표시개수를 변경하면 등록 버튼을 다시 보이게
 	$('#departmentEntries').change(function() {
@@ -103,8 +103,6 @@ function createDepartmentRow() {
 																		<label class="form-check-label" for="departmentUseYn`+newId+`"></label>
 																	</div>
 																</td>
-																<td name="departmentRegistTime"></td>
-																<td name="departmentUpdateTime"></td>
 																<td>
 																	<a class="btn btn-primary btn-sm" href="javascript:;" onClick="createDepartment(`+newId+`)">
 																		<i class="bi-plus-lg"></i> 등록
