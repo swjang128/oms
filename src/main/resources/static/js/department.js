@@ -35,6 +35,10 @@ $(function() {
               <img class="mb-3" src="/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
             <p class="mb-0">부서가 없습니다</p>
             </div>`
+		},
+		// 테이블 fnDrawCallback이 발생하면 등록 버튼을 다시 보이게 하기
+		'fnDrawCallback': function(oSettings) {
+			$('#createDepartmentRow').removeClass('d-none');
 		}
 	});
 	// 부서 사용유무에 따라 체크박스 값 표시 변경
@@ -52,15 +56,6 @@ $(function() {
 		$(this).text(moment($(this).text()).format('YYYY-MM-DD'));
 	});*/
 	
-	// 페이지내 표시개수를 변경하면 등록 버튼을 다시 보이게
-	$('#departmentEntries').change(function() {
-		$('#createDepartmentRow').removeClass('d-none');
-	});
-	
-	// 검색을 했을 때 등록 버튼을 다시 보이게
-	$('#departmentSearch').keyup(function() {
-		$('#createDepartmentRow').removeClass('d-none');
-	});
 });
 
 // ======================= Functions =======================//
@@ -95,7 +90,7 @@ function createDepartmentRow() {
 	$('#departmentList').append(`<tr class="bg-success">
 																<td class="table-column-pe-0"></td>
 																<td class="table-column-ps-0">
-																	<input type="text" class="border rounded" id="departmentName`+newId+`" placeholder="부서명을 입력하세요" onChange="departmentNameCheck(`+newId+`, this.value)">
+																	<input type="text" class="ms-3 ps-2 border bg-light text-dark w-auto" id="departmentName`+newId+`" placeholder="부서명을 입력하세요" onChange="departmentNameCheck(`+newId+`, this.value)">
 																</td>
 																<td name="departmentUseYn">
 																	<div class="form-check form-switch">

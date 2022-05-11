@@ -35,6 +35,10 @@ $(function() {
               <img class="mb-3" src="/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
             <p class="mb-0">직급가 없습니다</p>
             </div>`
+		},
+		// 테이블 fnDrawCallback이 발생하면 등록 버튼을 다시 보이게 하기
+		'fnDrawCallback': function(oSettings) {
+			$('#createPositionRow').removeClass('d-none');
 		}
 	});
 	// 직급 사용유무에 따라 체크박스 값 표시 변경
@@ -95,7 +99,7 @@ function createPositionRow() {
 	$('#positionList').append(`<tr class="bg-success">
 																<td class="table-column-pe-0"></td>
 																<td class="table-column-ps-0">
-																	<input type="text" class="border rounded" id="positionName`+newId+`" placeholder="직급명을 입력하세요" onChange="positionNameCheck(`+newId+`, this.value)">
+																	<input type="text" class="ms-3 ps-2 border bg-light text-dark w-auto" id="positionName`+newId+`" placeholder="직급명을 입력하세요" onChange="positionNameCheck(`+newId+`, this.value)">
 																</td>
 																<td name="positionUseYn">
 																	<div class="form-check form-switch">
@@ -103,8 +107,6 @@ function createPositionRow() {
 																		<label class="form-check-label" for="positionUseYn`+newId+`"></label>
 																	</div>
 																</td>
-																<td name="positionRegistTime"></td>
-																<td name="positionUpdateTime"></td>
 																<td>
 																	<a class="btn btn-primary btn-sm" href="javascript:;" onClick="createPosition(`+newId+`)">
 																		<i class="bi-plus-lg"></i> 등록

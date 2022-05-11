@@ -57,8 +57,6 @@
 									</th>
 									<th class="table-column-pe-0">직급명</th>
 									<th class="table-column-pe-0">사용여부</th>
-									<th class="table-column-pe-0">등록일시</th>
-									<th class="table-column-pe-0">수정일시</th>
 									<th class="table-column-pe-0">저장/삭제</th>
 								</tr>
 							</thead>
@@ -74,7 +72,7 @@
 									</td>
 									<td class="table-column-ps-0">
 										<span class="d-none">{{name}}</span>
-										<input type="text" class="border rounded" id="positionName{{id}}" value="{{name}}" onKeyup="activatePositionSaveButton({{id}})" onChange="updatePositionNameCheck({{id}}, this.value)">
+										<input type="text" class="ms-3 ps-2 border bg-light text-dark w-auto" id="positionName{{id}}" value="{{name}}" onKeyup="activatePositionSaveButton({{id}})" onChange="updatePositionNameCheck({{id}}, this.value)">
 									</td>
 					                <td name="positionUseYn">
 					                	<span class="d-none">{{useYn.key}}</span>
@@ -83,18 +81,6 @@
 											<label class="form-check-label" for="positionUseYn{{id}}"></label>
 										</div>
                 					</td>
-                					{{#registTime}}
-									<td name="positionRegistTime">{{registTime}}</td>
-									{{/registTime}}
-									{{^registTime}}
-									<td></td>
-									{{/registTime}}
-									{{#updateTime}}
-									<td name="positionUpdateTime">{{updateTime}}</td>
-									{{/updateTime}}
-									{{^updateTime}}
-									<td></td>
-									{{/updateTime}}
 									<td>
 										<button class="btn btn-info btn-sm" href="javascript:;" id="positionSaveButton{{id}}" onClick="updatePosition({{id}});" disabled>
 											<i class="bi-file-plus"></i> 저장
@@ -110,7 +96,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<td class="table-column-ps-0" colspan="6">
+									<td class="table-column-ps-0" colspan="4">
 										<div class="d-grid gap-2" id="createPositionRow">
 											<a class="btn btn-primary btn-lg" onClick="createPositionRow()">
 												<i class="bi-plus display-4"> </i><span class="display-4">등록</span>
