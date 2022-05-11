@@ -80,19 +80,6 @@ public class DepartmentAPI {
 	}
 	
 	/**
-	 * 부서 삭제 (DELETE)
-	 * @param PathVariable
-	 * @return 
-	 */
-	@DeleteMapping("department/{id}")
-	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		// 부서 삭제
-		return departmentService.delete(param, resultMap);
-	}
-	
-	/**
 	 * 부서 수정 (UPDATE)
 	 * @param RequestBody
 	 * @return 
@@ -107,13 +94,25 @@ public class DepartmentAPI {
 		} else {
 			departmentDTO.setUpdateUser(request.getRemoteUser());	
 		}
-		log.info("****** 변경하는 사람: {}", departmentDTO.getUpdateUser());
 		if (departmentDTO.getUseYn()!=UseYn.Y && departmentDTO.getUseYn()!=UseYn.N) {
 			departmentDTO.setUseYn(UseYn.Y);
 		}
 		departmentDTO.setUpdateTime(LocalDateTime.now());
 		// 부서 수정
 		return departmentService.update(departmentDTO, resultMap);
+	}
+	
+	/**
+	 * 부서 삭제 (DELETE)
+	 * @param PathVariable
+	 * @return 
+	 */
+	@DeleteMapping("department/{id}")
+	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
+		// 기본 변수 설정
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		// 부서 삭제
+		return departmentService.delete(param, resultMap);
 	}
 
 }
