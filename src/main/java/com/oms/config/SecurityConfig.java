@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/oms")
 					.and()
 					// 로그인 유지, 항상 세션을 기억할 것인지 여부, 토큰 정보 지속시간(24시간), 쿠키 이름 지정(remember-me)
-					.and().rememberMe().alwaysRemember(false).tokenValiditySeconds(86400).rememberMeParameter("rememberMe")
+					.and().rememberMe().alwaysRemember(false).tokenValiditySeconds(86400).rememberMeParameter("remember_me")
 					.and()
 					// 로그인에서 아이디는 email, 비밀번호는 password 파라미터로 설정
 					.formLogin().usernameParameter("email").passwordParameter("password");
@@ -76,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**", "/js/**", "/scss/**", "/img/**", "/fonts/**", "/vendor/**", "/svg/**");
+		web.ignoring().antMatchers("/css/**", "/js/**", "/scss/**", "/img/**", "/fonts/**", "/vendor/**", "/svg/**", "/assets/**");
 	}
 	
 	public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

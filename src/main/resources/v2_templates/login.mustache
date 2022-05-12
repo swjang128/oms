@@ -1,0 +1,93 @@
+<!-- ========== HEADER ========== -->
+{{>login/header}}
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="main">
+	<div class="position-fixed top-0 end-0 start-0 bg-img-start" style="height: 32rem; background-image: url(/svg/components/card-6.svg);">
+		<!-- Shape -->
+		<div class="shape shape-bottom zi-1">
+			<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1921 273">
+          		<polygon fill="#fff" points="0,273 1921,273 1921,0 " />
+        	</svg>
+		</div>
+		<!-- End Shape -->
+	</div>
+	<!-- Content -->
+	<div class="container py-5 py-sm-7">
+		<a class="d-flex justify-content-center mb-5" href=""><img class="zi-2" src="/img/oms_logo.png" alt="Image Description" style="width: 8rem;"></a>
+		<div class="mx-auto" style="max-width: 30rem;">
+			<!-- Card -->
+			<div class="card card-lg mb-5">
+				<div class="card-body">
+					<!-- Form -->
+					<form action="/login" method="post" encType="application/x-www-form-urlencoded">
+						<!-- 입력폼 -->
+						<div class="mb-4">
+							<label class="form-label" for="email">계정(이메일)</label>
+							<input type="email" class="form-control form-control-lg" name="email" id="email" tabindex="0" placeholder="이메일을 입력하세요" aria-label="email@address.com" required>
+						</div>
+						<div class="mb-4">
+							<label class="form-label w-100" for="password" tabindex="1">비밀번호</label>
+							<div class="input-group input-group-merge" data-hs-validation-validate-class>
+								<input type="password" class="js-toggle-password form-control form-control-lg" name="password" id="password" placeholder="8자 이상 대소문자, 숫자, 특수문자 포함" aria-label="8+ characters required" required minlength="8" data-hs-toggle-password-options=' { "target": "#changePassTarget", "defaultClass": "bi-eye-slash", "showClass": "bi-eye", "classChangeTarget": "#changePassIcon"	} '>
+								<a id="changePassTarget" class="input-group-append input-group-text" href="javascript:;" tabindex="-1">
+									<i id="changePassIcon" class="bi-eye"></i>
+								</a>
+							</div>
+						</div>
+						<!-- End 입력폼 -->
+						<!-- Remember-Me -->
+						<div class="mb-4">
+							<label class="row form-check form-switch" for="rememberMe">
+							<span class="col-12 col-sm-12 text-end">
+								<span class="text-muted mb-1" id="rememberMeMessage">아이디 저장</span>
+								<input type="checkbox" onClick="rememberMeCheck()" class="form-check-input" id="rememberMe" name="rememberMe">
+							</span>
+							</label>
+						</div>						
+						<!-- End Remember-Me -->
+						<!-- 로그인 결과 메시지 -->
+						<span class="text-cap text-danger" id="loginResultFeedback">{{message}}</span>
+						<!-- End 로그인 결과 메시지 -->
+						<!-- 로그인 버튼 -->
+						<div class="d-grid mb-1">
+							<button type="submit" class="btn btn-primary btn-lg" tabindex="2">로그인</button>
+						</div>
+						<!-- End 로그인 버튼 -->
+					</form>
+					<!-- End Form -->
+					<!-- 추가 기능 버튼 -->
+					<div class="d-grid mb-1">
+						<button class="btn btn-success btn-lg" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#createAccountModal">신규 등록</button>
+					</div>
+					<div class="d-grid mb-1">
+						<button class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#changePasswordModal">비밀번호 변경</button>
+					</div>
+					<div class="d-grid mb-1">
+						<button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">비밀번호 초기화</button>
+					</div>
+					<hr>
+					<div class="d-grid mb-1">
+						<button class="btn btn-dark btn-lg">
+							<img class="avatar avatar-xs me-2" src="/svg/brands/google-icon.svg" alt="Google">구글 계정으로 로그인
+						</button>
+					</div>
+					<div class="d-grid mb-1">
+						<button class="btn btn-dark btn-lg">
+							<img class="avatar avatar-xs me-2" src="/svg/brands/naver-icon.svg" alt="Naver">네이버 계정으로 로그인
+						</button>
+					</div>
+					<div class="d-grid mb-1">
+						<button class="btn btn-dark btn-lg">
+							<img class="avatar avatar-xss me-2" src="/svg/brands/kakao.png" alt="Kakao">카카오 계정으로 로그인
+						</button>
+					</div>
+					<!-- End 추가 기능 버튼 -->
+				</div>
+			</div>
+			<!-- End Card -->
+		</div>
+	</div>
+	<!-- End Content -->
+</main>
+<!-- ========== FOOTER ========== -->
+{{>login/footer}}

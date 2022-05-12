@@ -1,0 +1,191 @@
+<!-- 계정 등록 -->
+<div class="modal fade" id="createAccountModal" tabindex="-1" aria-labelledby="labelCreateAccountModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="createAccountTitle">계정 등록</h5>
+				<button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<!-- Body -->
+			<div class="modal-body">
+				<!-- Tab Content -->
+				<div class="tab-content" id="editUserModalTabContent">
+					<div class="tab-pane fade show active" id="profileRequired" role="tabpanel" aria-labelledby="profile-required-tab">
+						<!-- 이름 -->
+						<div class="row mb-4">
+							<label id="labelName" for="createEame" class="col-sm-3 col-form-label form-label">이름</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<input type="text" onChange="nameCheck()" autocomplete="off" class="form-control" name="createName" id="createName" placeholder="이름을 입력하세요" aria-label="Input Your Name" value="">
+								</div>
+							</div>
+						</div>
+						<!-- End 이름 -->
+						<!-- 이메일 -->
+						<div class="row mb-4">
+							<label id="labelEmail" for="createEmail" class="col-sm-3 col-form-label form-label">이메일</label>
+							<div class="col-sm-9">
+								<input type="email" onChange="emailCheck()" autocomplete="off" class="form-control" name="createEmail" id="createEmail" placeholder="이메일을 입력하세요" aria-label="Input your Email" value="">
+							</div>
+						</div>
+						<!-- End 이메일 -->
+						<!-- 연락처 -->
+						<div class="row mb-4">
+							<label id="labelPhone" for="createPhone" class="col-sm-3 col-form-label form-label">연락처</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<input type="text" onInput="autoHyphen(this)" autocomplete="off" onChange="phoneCheck()" class="js-masked-input form-control" name="createPhone" id="createPhone" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+	                                 "template": "010-0000-0000"
+	                               }'>
+								</div>
+							</div>
+						</div>
+						<!-- End 연락처 -->
+						<!-- 비상연락처 -->
+						<div class="row mb-4">
+							<label id="labelEmergencyContact" for="createEmergencyContact" class="col-sm-3 col-form-label form-label">비상연락처<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<input type="text" onInput="autoHyphen(this)" autocomplete="off" onChange="emergencyContactCheck()" class="js-masked-input form-control" name="createEmergencyContact" id="createEmergencyContact" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" value="" data-hs-mask-options='{
+                                 "template": "010-0000-0000"
+                               }'>
+								</div>
+							</div>
+						</div>
+						<!-- End 비상연락처 -->
+						<!-- 직급 -->
+						<div class="row mb-4">
+							<label id="labelPosition" for="createPosition" class="col-sm-3 col-form-label form-label">직급</label>
+							<div class="col-sm-9">
+								<select onChange="positionCheck()" class="form-select" name="createPosition" id="createPosition">
+									<option value="">직급을 선택하세요</option>
+								</select>
+							</div>
+						</div>
+						<!-- End 직급 -->
+						<!-- 부서 -->
+						<div class="row mb-4">
+							<label id="labelDepartment" for="createDepartment" class="col-sm-3 col-form-label form-label">부서</label>
+							<div class="col-sm-9">
+								<select onChange="departmentCheck()" class="form-select" name="createDepartment" id="createDepartment">
+									<option value="">부서를 선택하세요</option>
+								</select>
+							</div>
+						</div>
+						<!-- End 부서 -->
+						<!-- 주소 + 상세주소 -->
+						<div class="row mb-4">
+							<label id="labelAddress" class="col-sm-3 col-form-label form-label">주소<i class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top" title="주소 검색 선택시 주소 검색창이 열립니다"></i></label>
+							<div class="col-sm-9">
+								<input type="search" onInput="addressCheck()" autocomplete="off" onClick="searchAddress()" class="form-control" name="createAddress" id="createAddress" value="" placeholder="주소 검색" readonly>
+							</div>
+						</div>
+						<div class="row mb-4">
+							<label id="labelAddressDetail" for="createAddressDetail" class="col-sm-3 col-form-label form-label">상세주소<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<input type="text" onChange="addressDetailCheck()" autocomplete="off" class="form-control" name="createAddressDetail" id="createAddressDetail" placeholder="상세주소는 선택항목입니다" value="">
+							</div>
+						</div>
+						<!-- End 주소 -->
+						<!-- 권한 -->
+						<div class="row mb-4">
+							<label id="labelRole" class="col-sm-3 col-form-label form-label">권한</label>
+							<div class="col-sm-9">
+								<div class="input-group input-group-sm-vertical">
+									<label class="form-control" for="createRoleAdmin">
+										<span class="form-check"><input type="radio" onClick="roleCheck()" class="form-check-input" name="createRole" id="createRoleAdmin" value="ADMIN">
+											<span class="form-check-label">관리자(Admin)</span>
+										</span>
+									</label>
+									<label class="form-control" for="createRoleManager">
+										<span class="form-check"><input type="radio" onClick="roleCheck()" class="form-check-input" name="createRole" id="createRoleManager" value="MANAGER">
+											<span class="form-check-label">팀장(Manager)</span>
+										</span>
+									</label>
+									<label class="form-control" for="createRoleUser">
+										<span class="form-check"><input type="radio" onClick="roleCheck()" class="form-check-input" name="createRole" id="createRoleUser" value="USER">
+											<span class="form-check-label">직원(User)</span>
+										</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<!-- End 권한 -->
+						<!-- 기본 비밀번호 사용여부 -->
+						<div class="d-grid gap-3 mb-4">
+							<label class="row form-check form-switch" for="createDefaultPassword">
+								<span class="col-8 col-sm-9 ms-0">
+									<span class="d-block text-dark mb-1">기본 비밀번호
+										<span class="fs-12 text-muted d-none" id="spanDefaultPasswordComma">:</span>
+										<span class="fs-12 text-muted d-none" id="spanDefaultPassword">!Q2w3e4r</span>
+									</span>
+								</span>
+								<span class="col-4 col-sm-3 text-end">
+									<input type="checkbox" onClick="defaultPasswordCheck()" class="form-check-input" id="createDefaultPassword">
+								</span>
+							</label>
+							<!-- End 기본 비밀번호 사용여부 -->
+							<!-- 비밀번호 -->
+							<div class="row mb-4" id="divPassword">
+								<label id="labelPassword" for="createPassword" class="col-sm-3 col-form-label form-label">비밀번호</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<input type="password" onChange="passwordCheck()" class="js-toggle-password form-control" name="createPassword" id="createPassword" placeholder="비밀번호는 최소 8자 이상, 영어대소문자, 특수문자, 숫자를 포함" aria-label="Enter password" data-hs-toggle-password-options='{
+											"target": "#createPasswordToggle",
+											"defaultClass": "bi-eye-slash",
+											"showClass": "bi-eye",
+											"classChangeTarget": "#createPasswordToggleIcon" }'>
+										<a id="createPasswordToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
+											<i id="createPasswordToggleIcon" class="bi-eye"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- End 비밀번호 -->
+							<!-- 비밀번호 확인 -->
+							<div class="row mb-4" id="divPasswordConfirm">
+								<label id="labelPasswordConfirm" for="createPasswordConfirm" class="col-sm-3 col-form-label form-label">비밀번호 확인</label>
+								<div class="col-sm-9">
+									<div class="input-group input-group-merge">
+										<input type="password" onChange="passwordConfirmCheck()" class="js-toggle-password form-control" name="createPasswordConfirm" id="createPasswordConfirm" placeholder="비밀번호는 최소 8자 이상, 영어대소문자, 특수문자, 숫자를 포함" aria-label="Confirm password" data-hs-toggle-password-options='{
+											"target": "#createPasswordConfirmToggle",
+											"defaultClass": "bi-eye-slash",
+											"showClass": "bi-eye",
+											"classChangeTarget": "#createPasswordConfirmToggleIcon" }'>
+										<a id="createPasswordConfirmToggle" class="input-group-append input-group-text" tabindex="-1" href="javascript:;">
+											<i id="createPasswordConfirmToggleIcon" class="bi-eye"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- End 비밀번호 확인 -->
+						</div>
+						<!-- 생일 -->
+						<div class="row mb-4">
+							<label id="labelBirthday" for="createBirthday" class="col-sm-3 col-form-label form-label">생년월일<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<input type="date" onChange="birthdayCheck()" class="form-control" name="createBirthday" id="createBirthday" placeholder="생년월일을 입력하세요" aria-label="Input birthday" value="">
+							</div>
+						</div>
+						<!-- End 생일 -->
+						<!-- 입사일 -->
+						<div class="row mb-4">
+							<label id="labelHireDate" for="createHireDate" class="col-sm-3 col-form-label form-label">입사일<span class="form-label-secondary"> (선택)</span></label>
+							<div class="col-sm-9">
+								<input type="date" onChange="hireDateCheck()" class="form-control" name="createHireDate" id="createHireDate" placeholder="이메일을 입력하세요" aria-label="Input hire date" value="">
+							</div>
+						</div>
+						<!-- End 입사일 -->
+						<!-- 하단 버튼 -->
+						<div class="d-grid gap-2">
+							<button class="btn btn-outline-primary text-theme" onClick="createAccount()" id="createAccountButton">등록</button>
+							<button type="button" class="btn btn-outline-secondary text-theme" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+						</div>
+						<!-- End 하단 버튼 -->
+					</div>
+				</div>
+			</div>
+			<!-- End Body -->
+		</div>
+	</div>
+</div>

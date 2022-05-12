@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addInterceptor(commonInterceptor())
 				.order(1)
 				.addPathPatterns("/**")
-				.excludePathPatterns("/css/**", "/vendor/**", "/js/**", "/fonts/**", "/img/**", "/scss/**", "/svg/**");
+				.excludePathPatterns("/css/**", "/vendor/**", "/js/**", "/fonts/**", "/img/**", "/scss/**", "/svg/**", "/assets/**");
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 }
