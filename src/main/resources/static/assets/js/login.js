@@ -48,7 +48,7 @@ function initAccountModal() {
 			datatype: 'json',
 			success: function(result) {
 				for (var d = 0; d < result.departmentList.length; d++) {
-					$('#createDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+					$('#createDepartment').append('<option value="' + result.departmentList[d].name + '">' + result.departmentList[d].name + '</option>');
 				}
 			},
 			error: function() {
@@ -70,7 +70,7 @@ function initAccountModal() {
 			datatype: 'json',
 			success: function(result) {
 				for (var d = 0; d < result.positionList.length; d++) {
-					$('#createPosition').append('<option value="'+result.positionList[d].name+'">'+result.positionList[d].name+'</option>');
+					$('#createPosition').append('<option value="' + result.positionList[d].name + '">' + result.positionList[d].name + '</option>');
 				}
 			},
 			error: function() {
@@ -85,32 +85,9 @@ function initAccountModal() {
 /****************************
 * 연락처 입력시 자동 하이픈 *
  ****************************/
-const autoHyphen = (target) => {
-	var number = target.value.replace(/[^0-9]/g, '');
-	target.value = target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-	var phoneNumber = '';
-	if (number.length < 4) {
-		return number;
-	} else if (number.length < 7) {
-		phoneNumber += number.substr(0, 3);
-		phoneNumber += '-';
-		phoneNumber += number.substr(3);
-	} else if (number.length < 11) {
-		phoneNumber += number.substr(0, 3);
-		phoneNumber += '-';
-		phoneNumber += number.substr(3, 3);
-		phoneNumber += '-';
-		phoneNumber += number.substr(6);
-	} else {
-		phoneNumber += number.substr(0, 3);
-		phoneNumber += '-';
-		phoneNumber += number.substr(3, 4);
-		phoneNumber += '-';
-		phoneNumber += number.substr(7);
-	}
-	target.value = phoneNumber;
-	
-}
+$(document).on('keyup', '#createPhone, #createEmergencyContact', function() {
+	$(this).val($(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/, "$1-$2-$3").replace("--", "-"));
+});
 
 /************
 * 이름 검증 *
@@ -132,7 +109,7 @@ function nameCheck() {
 		$('#labelName').removeClass('text-success');
 		$('#labelName').addClass('text-danger');
 		$('#labelName').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이름 형식');
-		$('#createName').focus();		
+		$('#createName').focus();
 		return;
 	} else {	// 올바른 name validation 일 때
 		$('#labelName').removeClass('text-danger');
@@ -182,7 +159,7 @@ function emailCheck() {
 				$('#labelEmail').removeClass('text-success');
 				$('#labelEmail').addClass('text-danger');
 				$('#labelEmail').html('<i class="bi-exclamation-triangle me-1"></i> 중복된 이메일');
-				$('#createEmail').focus();				
+				$('#createEmail').focus();
 				return;
 			} else {
 				$('#labelEmail').removeClass('text-success');
@@ -193,14 +170,14 @@ function emailCheck() {
 			}
 		},
 		error: function() {
-			alert('서버와의 통신에 실패했습니다.');			
+			alert('서버와의 통신에 실패했습니다.');
 			return;
 		}
 	});
-	
+
 	if (email) {
-		return email;		
-	}	
+		return email;
+	}
 }
 
 /**************
@@ -208,7 +185,7 @@ function emailCheck() {
 ***************/
 function phoneCheck() {
 	// phone 파라미터 검증
-	var validatePhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+	var validatePhone = /^0([0-9]{1,2})-?([0-9]{3,4})-?([0-9]{3,4})$/;
 	var phone = $('#createPhone').val();
 	// phone 값이 비어있을 때
 	if (!phone) {
@@ -218,14 +195,14 @@ function phoneCheck() {
 		$('#createPhone').focus();
 		return;
 	}
-	// phone validation이 false 일 때
-	if (validatePhone.test(phone) == false) {
+	// 연락처 정규식 검증
+	if (validatePhone.test(phone) == false) {	// 연락처 정규식 위반
 		$('#labelPhone').removeClass('text-success');
 		$('#labelPhone').addClass('text-danger');
 		$('#labelPhone').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 연락처 형식');
 		$('#createPhone').focus();
 		return;
-	} else {	// 올바른 phone validation 일 때
+	} else {	// 올바른 연락처인 경우 phone 값을 return
 		$('#labelPhone').removeClass('text-danger');
 		$('#labelPhone').addClass('text-success');
 		$('#labelPhone').html('<i class="bi-check-lg me-1"></i> 연락처');
@@ -237,9 +214,9 @@ function phoneCheck() {
 /******************
 * 비상연락처 검증 *
 *******************/
-function emergencyContactCheck() {	
+function emergencyContactCheck() {
 	// 비상연락처 파라미터 검증
-	var validateEmergencyContact = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+	var validateEmergencyContact = /^0([0-9]{1,2})-?([0-9]{3,4})-?([0-9]{3,4})$/;
 	var emergencyContact = $('#createEmergencyContact').val();
 	// 비상연락처 값이 비어있을 때
 	if (!emergencyContact) {
@@ -248,19 +225,20 @@ function emergencyContactCheck() {
 		$('#labelEmergencyContact').text('비상연락처');
 		return;
 	}
-	// 비상연락처 validation이 false 일 때
-	if (validateEmergencyContact.test(emergencyContact) == false) {
+	// 비상연락처 정규식 검증
+	if (validateEmergencyContact.test(emergencyContact) == false) {		// 비상연락처 정규식 위반
 		$('#labelEmergencyContact').removeClass('text-success');
 		$('#labelEmergencyContact').addClass('text-danger');
 		$('#labelEmergencyContact').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 비상연락처 형식');
 		$('#createEmergencyContact').focus();
 		return;
+	} else {	// 올바른 비상연락처인 경우 emergencyContact 값을 return
+		$('#labelEmergencyContact').removeClass('text-danger');
+		$('#labelEmergencyContact').addClass('text-success');
+		$('#labelEmergencyContact').html('<i class="bi-check-lg me-1"></i> 비상연락처');
+		emergencyContact = emergencyContact.replaceAll('-', '');
+		return emergencyContact;
 	}
-	$('#labelEmergencyContact').removeClass('text-danger');
-	$('#labelEmergencyContact').addClass('text-success');
-	$('#labelEmergencyContact').html('<i class="bi-check-lg me-1"></i> 비상연락처');
-	emergencyContact = emergencyContact.replaceAll('-', '');
-	return emergencyContact;
 }
 
 /************
@@ -349,7 +327,7 @@ function addressDetailCheck() {
 	if (!addressDetail) {
 		$('#labelAddressDetail').removeClass('text-success');
 		$('#labelAddressDetail').removeClass('text-danger');
-		$('#labelAddressDetail').TEXT('상세주소');		
+		$('#labelAddressDetail').TEXT('상세주소');
 	} else {	// addressDetail 값을 입력했을 때
 		$('#labelAddressDetail').removeClass('text-danger');
 		$('#labelAddressDetail').addClass('text-success');
@@ -464,7 +442,7 @@ function defaultPasswordCheck() {
 		$('#spanDefaultPassword').removeClass('d-none');
 		$('#createPassword').val('');
 		$('#createPasswordConfirm').val('');
-		return defaultPassword;		
+		return defaultPassword;
 	} else {	// 기본 비밀번호 체크해제
 		$('#divDefaultPassword').addClass('d-none');
 		$('#divPassword').removeClass('d-none');
@@ -473,7 +451,7 @@ function defaultPasswordCheck() {
 		$('#spanDefaultPassword').addClass('d-none');
 		$('#createPassword').val('');
 		$('#createPasswordConfirm').val('');
-		return;		
+		return;
 	}
 }
 
@@ -504,7 +482,7 @@ function hireDateCheck() {
 	if (!hireDate) {
 		$('#labelHireDate').removeClass('text-success');
 		$('#labelHireDate').removeClass('text-danger');
-		$('#labelHireDate').text('입사일');		
+		$('#labelHireDate').text('입사일');
 	} else {	// addressDetail 값을 입력했을 때
 		$('#labelHireDate').removeClass('text-danger');
 		$('#labelHireDate').addClass('text-success');
@@ -530,14 +508,14 @@ function createAccount() {
 	// 연락처 검증 (필수)
 	var phone = phoneCheck();
 	if (!phone) {
-		return;	
+		return;
 	}
 	// 비상연락처 검증 (선택)
 	var emergencyContact = emergencyContactCheck();
 	// 직급 검증 (필수)
 	var position = positionCheck();
 	if (!position) {
-		return;	
+		return;
 	}
 	// 부서 검증 (필수)
 	var department = departmentCheck();
@@ -553,8 +531,8 @@ function createAccount() {
 	var addressDetail = addressDetailCheck();
 	// 권한 검증 (필수)	
 	var role = roleCheck();
-	if (!role) {		
-		return;	
+	if (!role) {
+		return;
 	}
 	// 비밀번호 검증 (필수)
 	var defaultPassword = $('#createDefaultPassword').is(':checked');
@@ -586,7 +564,7 @@ function createAccount() {
 		email: email,
 		name: name
 	});
-	
+
 	// 직원 등록 처리
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
@@ -595,7 +573,7 @@ function createAccount() {
 		data: createData,
 		cache: false,
 		success: function(result) {
-			if (result.status == 200) {				
+			if (result.status == 200) {
 				alert('계정을 정상적으로 등록하였습니다');
 			} else {
 				alert('내부 서버 오류가 발생하였습니다');
@@ -630,7 +608,7 @@ function rememberMeCheck() {
 * 엔터키 입력 이벤트 *
 **********************/
 function enterResetPassword() {
-	if (window.event.keyCode == 13) {		
+	if (window.event.keyCode == 13) {
 		resetPassword();
 	}
 }
@@ -656,7 +634,7 @@ function resetPasswordEmailCheck() {
 		$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이메일 양식');
 		return;
 	}
-	if (resetPasswordEmail) {		
+	if (resetPasswordEmail) {
 		$('#labelResetPasswordEmail').removeClass('text-danger');
 		$('#labelResetPasswordEmail').addClass('text-success');
 		$('#labelResetPasswordEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
@@ -677,11 +655,11 @@ function resetPassword() {
 
 	// ajax 통신을 위한 변수 설정
 	url = '/api/account/resetPassword';
-	type = 'POST';	
+	type = 'POST';
 	email = JSON.stringify({
 		email: $('#resetPasswordEmail').val()
 	});
-	
+
 	// 비밀번호 초기화 api 호출
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
@@ -692,19 +670,19 @@ function resetPassword() {
 		timeout: 60000,
 		success: function(result) {
 			if (result.status == 200) {
-				alert($('#resetPasswordEmail').val()+'계정으로 초기화 비밀번호를 보내드렸습니다. 이메일을 확인해주세요');
-				location.replace('');				
+				alert($('#resetPasswordEmail').val() + '계정으로 초기화 비밀번호를 보내드렸습니다. 이메일을 확인해주세요');
+				location.replace('');
 			} else {
 				$('#labelResetPasswordEmail').removeClass('text-success');
 				$('#labelResetPasswordEmail').addClass('text-danger');
-				$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i>'+result.message);
+				$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i>' + result.message);
 			}
 		},
 		error: function() {
 			$('#labelResetPasswordEmail').removeClass('text-success');
 			$('#labelResetPasswordEmail').addClass('text-danger');
-			$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i>'+result.message);
-		}	
+			$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i>' + result.message);
+		}
 	});
 }
 
@@ -714,7 +692,7 @@ function resetPassword() {
 * 엔터키 입력 이벤트 *
 **********************/
 function enterChangePassword() {
-	if (window.event.keyCode == 13) {		
+	if (window.event.keyCode == 13) {
 		changePassword();
 	}
 }
@@ -742,7 +720,7 @@ function changePasswordEmailCheck() {
 		$('#changePasswordEmail').focus();
 		return;
 	}
-	
+
 	// 이메일 존재 유무 확인
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
@@ -778,7 +756,7 @@ function changePasswordEmailCheck() {
 		}
 	});
 	if (email) {
-		return email;		
+		return email;
 	}
 }
 
@@ -786,7 +764,7 @@ function changePasswordEmailCheck() {
 * 기존/초기화 비밀번호 확인 검증 *
 **********************************/
 function oldPasswordCheck() {
-	var oldPassword = $('#oldPassword').val();	
+	var oldPassword = $('#oldPassword').val();
 	// 기존 비밀번호 값이 비어있을 때
 	if (!oldPassword) {
 		$('#labelOldPassword').removeClass('text-success');
@@ -848,13 +826,13 @@ function newPasswordCheck() {
 function changePassword() {
 	// 이메일 검증 (필수)
 	var email = changePasswordEmailCheck();
-	
+
 	// 기존 비밀번호 검증 (필수)
-	var oldPassword = 	oldPasswordCheck();
-	
+	var oldPassword = oldPasswordCheck();
+
 	// 신규 비밀번호 검증 (필수)
 	var password = newPasswordCheck();
-	
+
 	// ajax 통신을 위한 변수 설정
 	url = '/api/account/updatePassword';
 	type = 'POST';
@@ -863,7 +841,7 @@ function changePassword() {
 		oldPassword: oldPassword,
 		password: password
 	});
-	
+
 	// 비밀번호 초기화 api 호출
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
@@ -874,8 +852,8 @@ function changePassword() {
 		timeout: 60000,
 		success: function(result) {
 			if (result.status == 200) {	// 정상 변경
-				alert(email+'계정의 비밀번호를 정상적으로 변경했습니다');
-				location.replace('');				
+				alert(email + '계정의 비밀번호를 정상적으로 변경했습니다');
+				location.replace('');
 			} else if (result.status == 1005) {	// 기존 비밀번호가 일치하지 않는 경우
 				$('#changePasswordMessage').text(result.message);
 				$('#labelOldPassword').removeClass('text-success');
@@ -890,6 +868,6 @@ function changePassword() {
 		},
 		error: function() {
 			$('#changePasswordMessage').text(result.message);
-		}	
+		}
 	});
 }

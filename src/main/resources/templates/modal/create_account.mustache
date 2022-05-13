@@ -34,7 +34,8 @@
 							<label id="labelPhone" for="createPhone" class="col-sm-3 col-form-label form-label">연락처<span class="text-danger"> *</span></label>
 							<div class="col-sm-9">
 								<div class="input-group input-group-sm-vertical">
-									<input type="text" onInput="autoHyphen(this)" autocomplete="off" onChange="phoneCheck()" class="js-masked-input form-control" name="createPhone" id="createPhone" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx">
+									<input type="text" autocomplete="off" onChange="phoneCheck()" class="js-masked-input form-control" name="createPhone" id="createPhone" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" maxlength="13">
+									<!-- <input type="text" onInput="autoHyphen(this)" autocomplete="off" onChange="phoneCheck()" class="js-masked-input form-control" name="createPhone" id="createPhone" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" maxlength="13"> -->
 								</div>
 							</div>
 						</div>
@@ -44,7 +45,7 @@
 							<label id="labelEmergencyContact" for="createEmergencyContact" class="col-sm-3 col-form-label form-label">비상연락처</label>
 							<div class="col-sm-9">
 								<div class="input-group input-group-sm-vertical">
-									<input type="text" onInput="autoHyphen(this)" autocomplete="off" onChange="emergencyContactCheck()" class="js-masked-input form-control" name="createEmergencyContact" id="createEmergencyContact" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx">
+									<input type="text" autocomplete="off" onChange="emergencyContactCheck()" class="js-masked-input form-control" name="createEmergencyContact" id="createEmergencyContact" placeholder="010-xxxx-xxxx" aria-label="010-xxxx-xxxx" maxlength="13">
 								</div>
 							</div>
 						</div>
