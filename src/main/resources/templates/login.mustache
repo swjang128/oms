@@ -5,7 +5,7 @@
 <link rel="shortcut icon" href="/img/oms.ico">
 <title>OMS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="O-Management System" />
+<meta name="description" content="O-Management System v3.0" />
 <meta name="author" content="JSW" />
 <!-- ================== BEGIN core-css ================== -->
 <link href="/assets/css/vendor.min.css" rel="stylesheet" />
@@ -29,19 +29,19 @@
 					<div class="mb-3">
 						<div class="d-flex">
 							<label class="form-label text-theme">비밀번호<span class="text-danger"> *</span></label>
-							<a href="#" class="ms-auto text-white text-decoration-none text-opacity-50" tabindex="0">비밀번호 찾기</a>
+							<a href="#" class="ms-auto text-white text-decoration-none text-opacity-50" tabindex="-1">비밀번호 찾기</a>
 						</div>
 						<input type="password" class="form-control form-control-lg bg-white bg-opacity-5" autocomplete="off" name="password" id="password" placeholder="비밀번호를 입력하세요" tabindex="1"/>
 					</div>
 					<div class="mb-3">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="rememberMe" name="remember_me" tabindex="0"/>
+							<input class="form-check-input" type="checkbox" value="" id="rememberMe" name="remember_me" tabindex="-1"/>
 							<label class="form-check-label text-theme" for="rememberMe">아이디 저장</label>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-outline-primary btn-lg d-block w-100 fw-500 mb-3 text-theme" id="buttonLogin" tabindex="1">로그인</button>
+					<button type="submit" class="btn btn-outline-primary btn-lg d-block w-100 fw-500 mb-3 text-theme" id="loginButton" tabindex="1" disabled>로그인</button>
 				</form>
-				<button class="btn btn-outline-success btn-lg d-block w-100 fw-500 mb-3 text-theme" tabindex="-1" data-bs-toggle="modal" data-bs-target="#createAccountModal">계정 등록</button>
+				<button class="btn btn-outline-success btn-lg d-block w-100 fw-500 mb-3 text-theme" onClick="initAccountModal()" tabindex="-1" data-bs-toggle="modal" data-bs-target="#createAccountModal">계정 등록</button>
 				<button class="btn btn-outline-danger btn-lg d-block w-100 fw-500 mb-3 text-theme" tabindex="-1" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">비밀번호 초기화</button>
 				<button class="btn btn-outline-warning btn-lg d-block w-100 fw-500 mb-3 text-theme" tabindex="-1" data-bs-toggle="modal" data-bs-target="#changePasswordModal">비밀번호 변경</button>
 			</div>
@@ -56,7 +56,7 @@
 		{{>modal/change_password}}
 	</div>
 	<!-- END #app -->
-	<!-- ================== BEGIN core-js ================== -->	
+	<!-- ================== BEGIN core-js ================== -->
 	<script src="/assets/js/vendor.min.js"></script>
 	<script src="/assets/js/app.min.js"></script>
 	<script src="/assets/js/login.js"></script>
