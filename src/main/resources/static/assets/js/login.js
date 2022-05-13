@@ -25,11 +25,8 @@ $('#email, #password').change(function() {
 		return;
 	}
 	// 이메일과 비밀번호를 모두 입력한 경우
-	if (email && password) {
-		$('#loginButton').attr('disabled', false);
-		$('#loginResultFeedback').text('');
-		return;
-	}
+	$('#loginButton').attr('disabled', false);
+	$('#loginResultFeedback').text('');
 });
 
 /******************************************************************** 계정 등록 관련 *****************************************************************************/
