@@ -1,9 +1,9 @@
 package com.oms.api;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +40,8 @@ public class HistoryAPI {
 																 @RequestParam(name="clientIp", required=false) List<String> clientIp,
 																 @RequestParam(name="method", required=false) List<String> method,
 																 @RequestParam(name="requestUri", required=false) List<String> requestUri,
-																 @RequestParam(name="startDate", required=false) String startDate,
-																 @RequestParam(name="endDate", required=false) String endDate) {
+																 @RequestParam(name="startTime", required=false) String startTime,
+																 @RequestParam(name="endTime", required=false) String endTime) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -50,8 +50,8 @@ public class HistoryAPI {
 		paramMap.put("clientIp", clientIp);
 		paramMap.put("method", method);
 		paramMap.put("requestUri", requestUri);
-		paramMap.put("startDate", startDate);
-		paramMap.put("endDate", endDate);
+		paramMap.put("startTime", startTime);
+		paramMap.put("endTime", endTime);
 		return historyService.read(paramMap, resultMap);
 	}
 	

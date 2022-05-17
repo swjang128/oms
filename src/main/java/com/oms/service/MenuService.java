@@ -111,9 +111,18 @@ public class MenuService{
 		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
 		if (paramMap.get("url") != null) 
 			specification = specification.and(MenuSpecification.findByUrl(paramMap.get("url")));
+		// 메뉴가 존재하는지 확인 (없으면 공백으로 리턴)
+		menu = menuRepository.findOne(specification);
+		if (menu.isEmpty()) {
+			resultMap.put("status", ResponseCode.Status.MENU_NOT_FOUND);
+			resultMap.put("message", ResponseCode.Message.MENU_NOT_FOUND);
+			resultMap.put("url", url);
+			resultMap.put("menuName", menuName);
+			resultMap.put("parentMenuName", parentMenuName);
+			return resultMap;
+		}
 		// 현재 서비스 위치 메뉴 정보 조회
-		try {
-			menu = menuRepository.findOne(specification);
+		try {			
 			parentId = menu.get().getParentId();
 			// 조회한 메뉴의 parentId가 0이 아니면 parentId를 조회			
 			if (parentId != 0) {

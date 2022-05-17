@@ -95,16 +95,16 @@ public class HistorySpecification {
 	}
 	
 	/**
-	 * WHERE request_date in (LocalDateTime startDate, LocalDateTime endDate)
-	 * @param LocalDateTime startDate, LocalDateTime endDate
+	 * WHERE request_time in (LocalDateTime startTime, LocalDateTime endTime)
+	 * @param LocalDateTime startTime, LocalDateTime endTime
 	 * @return
 	 */
-	public static Specification<History> findByRequestDate(LocalDateTime startDate, LocalDateTime endDate) {
+	public static Specification<History> findByRequestTime(LocalDateTime startTime, LocalDateTime endTime) {
 		return new Specification<History>() {
 			private static final long serialVersionUID = -587488762192925433L;
 			@Override
 			public Predicate toPredicate(Root<History> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				return criteriaBuilder.between(root.get("requestDate"),  startDate, endDate);
+				return criteriaBuilder.between(root.get("requestTime"),  startTime, endTime);
 			}
 		};
 	}

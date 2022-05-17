@@ -52,13 +52,13 @@ public class HistoryService {
 		Object clientIp = paramMap.get("clientIp");
 		Object method = paramMap.get("method");
 		Object requestUri = paramMap.get("requestUri");	
-		LocalDateTime startDate = LocalDateTime.of(1970, 01, 01, 0, 0, 0);
-		LocalDateTime endDate = LocalDateTime.now();
-		if (paramMap.get("startDate") != null) {
-			startDate = LocalDateTime.parse((String) paramMap.get("startDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));	
+		LocalDateTime startTime = LocalDateTime.of(1970, 01, 01, 0, 0, 0);
+		LocalDateTime endTime = LocalDateTime.now();
+		if (paramMap.get("startTime") != null) {
+			startTime = LocalDateTime.parse((String) paramMap.get("startTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));	
 		} 
-		if (paramMap.get("endDate") != null) {
-			endDate = LocalDateTime.parse((String) paramMap.get("endDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		if (paramMap.get("endTime") != null) {
+			endTime = LocalDateTime.parse((String) paramMap.get("endTime"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		}
 		Specification<History> specification = (root, query, criteriaBuilder) -> null;
 		// 접속로그 전체 조회
@@ -73,7 +73,7 @@ public class HistoryService {
 				specification = specification.and(HistorySpecification.findByMethod(method));
 			if (requestUri != null)
 				specification = specification.and(HistorySpecification.findByRequestUri(requestUri));
-			specification = specification.and(HistorySpecification.findByRequestDate(startDate, endDate));
+			specification = specification.and(HistorySpecification.findByRequestTime(startTime, endTime));
 				
 			history = historyRepository.findAll(specification);
 			historyDTO = history.stream().map(HistoryDTO::new).collect(Collectors.toList());
