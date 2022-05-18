@@ -1,14 +1,20 @@
 package com.oms.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -23,7 +29,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 사이드바 메뉴
+ * 메뉴
  * @author JSW
  *
  */
@@ -42,8 +48,12 @@ public class Menu {
 	@ColumnDefault("0")
 	private Long depth;																		// 메뉴 단계
 	
-	@Column(nullable=false)
-	private Long parentId;																	// 부모 메뉴 ID (부모 메뉴는 자기 자신의 ID로)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="parent_id")
+	private Menu parent;																		// 부모 메뉴
+	
+	@OneToMany(mappedBy="parent")
+	final private List<Menu> children = new ArrayList<>();					// 하위 메뉴
 
 	@Column(length=8, nullable=false)
 	private String name;																		// 메뉴 이름

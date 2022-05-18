@@ -26,16 +26,23 @@ public class CommonInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		// 요청한 URL로 현재 서비스 로케이션 Set
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		String servletPath[] = request.getServletPath().split("/");		
-		paramMap.put("url", servletPath[servletPath.length-1]);
-		resultMap = menuService.readServiceLocation(paramMap, resultMap);
-		request.setAttribute("locationUrl", resultMap.get("url"));
-		request.setAttribute("locationName", resultMap.get("menuName"));
-		request.setAttribute("parentLocationName", resultMap.get("parentMenuName"));
+		// url, menuName은 기본 공백으로 지정
+		request.setAttribute("url", "");
+		request.setAttribute("menuName", "");
 		
+		// 요청한 servletPath가 API가 아닌 Web 요청이면 menuName과 url 설정
+		String servletPath[] = request.getServletPath().split("/");
+		
+		if ("oms".equals(servletPath[1])) {
+			log.info("================ Web 요청");
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			paramMap.put("url", servletPath[servletPath.length-1]);
+			resultMap = menuService.readServiceLocation(paramMap, resultMap);
+			request.setAttribute("url", resultMap.get("url"));
+			request.setAttribute("menuName", resultMap.get("menuName"));
+			log.info("##### url: {}", request.getAttribute("url"));
+		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 	
@@ -59,7 +66,6 @@ public class CommonInterceptor implements HandlerInterceptor {
 		historyDTO.setStatus(response.getStatus());
 		historyDTO.setRequestTime(LocalDateTime.now());
 		historyService.create(historyDTO);
-		
 		// 인터셉터 afterCompletion 처리 완료
 		HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
 	}

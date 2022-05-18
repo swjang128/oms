@@ -86,9 +86,8 @@ public class OmsController {
 	@GetMapping("account")
   	public String account(Model model, HttpServletRequest request) throws Exception {
 		// 현재 서비스 위치 Set
-		model.addAttribute("locationUrl", request.getAttribute("locationUrl"));
-		model.addAttribute("locationName", request.getAttribute("locationName"));
-		model.addAttribute("parentLocationName", request.getAttribute("parentLocationName"));
+		model.addAttribute("url", request.getAttribute("url"));
+		model.addAttribute("menuName", request.getAttribute("menuName"));
 		
 		// 파라미터, 결과값 변수 선언		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -222,7 +221,6 @@ public class OmsController {
 		usePositionRate = Math.round(usePositionRate * 100) / 100.0;
 		model.addAttribute("usePositionRate", usePositionRate);
 		model.addAttribute("unUsePositionRate", (double) 100 - usePositionRate);
-		
 		
 		// account 페이지로 이동
   		return "account";

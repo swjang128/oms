@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 메뉴 목록 관리 Rest API
+ * 
  * @author JSW
  *
  */
@@ -39,32 +40,34 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuAPI {
 	@Autowired
 	MenuService menuService;
-	
+
 	/**
 	 * 메뉴 조회
+	 * 
 	 * @param RequestParam
 	 * @param request
-	 * @return 
+	 * @return
 	 */
 	@GetMapping("menu")
-	public Map<String, Object> read(@RequestParam(name="use", required=false) List<UseYn> useYn,
-																@RequestParam(name="parent", required=false) List<Long> parentId,
-																@RequestParam(name="url", required=false) List<String> url) {
+	public Map<String, Object> read(@RequestParam(name = "use", required = false) List<UseYn> useYn,
+			@RequestParam(name = "url", required = false) List<String> url,
+			@RequestParam(name = "depth", required = false) List<Long> depth) {
 		// 기본 변수 설정
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		// 필요한 파라미터 Set
 		paramMap.put("useYn", useYn);
-		paramMap.put("parentId", parentId);
 		paramMap.put("url", url);
+		paramMap.put("depth", depth);
 		// 메뉴 목록 조회
 		return menuService.read(paramMap, resultMap);
 	}
-	
+
 	/**
 	 * 메뉴 등록 (CREATE)
+	 * 
 	 * @param RequestBody
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@PostMapping("menu")
 	public Map<String, Object> create(@Valid @RequestBody MenuDTO menuDTO, HttpServletRequest request) {
@@ -75,7 +78,7 @@ public class MenuAPI {
 			menuDTO.setRegistUser("");
 		} else {
 			menuDTO.setRegistUser(request.getRemoteUser());
-		}		
+		}
 		if (menuDTO.getUseYn() != UseYn.Y && menuDTO.getUseYn() != UseYn.N) {
 			menuDTO.setUseYn(UseYn.N);
 		}
@@ -83,9 +86,10 @@ public class MenuAPI {
 		// 메뉴 등록
 		return menuService.create(menuDTO, resultMap);
 	}
-	
+
 	/**
 	 * 메뉴 수정 (UPDATE)
+	 * 
 	 * @param RequestBody, HttpServletRequest
 	 * @return Map<String, Object>
 	 */
@@ -98,7 +102,7 @@ public class MenuAPI {
 			menuDTO.setUpdateUser("");
 		} else {
 			menuDTO.setUpdateUser(request.getRemoteUser());
-		}		
+		}
 		if (menuDTO.getUseYn() != UseYn.Y && menuDTO.getUseYn() != UseYn.N) {
 			menuDTO.setUseYn(UseYn.N);
 		}
@@ -106,11 +110,12 @@ public class MenuAPI {
 		// 메뉴 수정
 		return menuService.update(menuDTO, resultMap);
 	}
-	
+
 	/**
 	 * 메뉴 삭제 (DELETE)
+	 * 
 	 * @param PathVariable
-	 * @return 
+	 * @return
 	 */
 	@DeleteMapping("menu/{id}")
 	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {

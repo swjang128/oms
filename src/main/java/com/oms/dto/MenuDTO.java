@@ -1,6 +1,8 @@
 package com.oms.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.oms.entity.Menu;
 import com.oms.entity.Menu.UseYn;
@@ -14,8 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuDTO {
 	private Long id;											// 메뉴 ID (기본키)
-	private Long depth;									// 메뉴 단계	
-	private Long parentId;								// 부모 메뉴 ID (부모 메뉴는 값을 자기자신의 ID로 지정)
+	private Long depth;									// 메뉴 단계
+	private List<MenuDTO> children;			// 하위 메뉴
 	private String name;									// 메뉴 이름
 	private String url;										// 메뉴 URL
 	private String icon;										// 메뉴 아이콘
@@ -33,8 +35,7 @@ public class MenuDTO {
 	public Menu toEntity() {
 		return Menu.builder()
 				.id(id)
-				.depth(depth)
-				.parentId(parentId)				
+				.depth(depth)				
 				.name(name)
 				.url(url)
 				.icon(icon)
@@ -49,7 +50,7 @@ public class MenuDTO {
 	public MenuDTO(Menu menu) {
 		this.id = menu.getId();
 		this.depth = menu.getDepth();
-		this.parentId = menu.getParentId();
+		this.children = menu.getChildren().stream().map(MenuDTO::new).collect(Collectors.toList());
 		this.name = menu.getName();
 		this.url = menu.getUrl();
 		this.icon = menu.getIcon();

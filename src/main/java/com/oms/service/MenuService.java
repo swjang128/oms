@@ -58,25 +58,26 @@ public class MenuService{
 	 * @param Map<String, Object>, Map<String, Object>
 	 * @return Map<String, Object>
 	 */
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		int status = ResponseCode.Status.OK;
 		String message = ResponseCode.Message.OK;
 		List<Menu> menu = new ArrayList<Menu>();
 		List<MenuDTO> menuDTO = new ArrayList<MenuDTO>();
 		Object useYn = paramMap.get("useYn");
-		Object parentId = paramMap.get("parentId");
 		Object url = paramMap.get("url");
-		Object depth = paramMap.get("depth");
+		List<Long> depth = (List<Long>) paramMap.get("depth");
 		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
 		// Specification 설정
 		if (useYn != null)
 			specification = specification.and(MenuSpecification.findByUseYn(useYn));
-		if (parentId != null)
-			specification = specification.and(MenuSpecification.findByParentId(parentId));
 		if (url != null) 
-			specification = specification.and(MenuSpecification.findByUrl(url));
-		if (depth != null)
+			specification = specification.and(MenuSpecification.findByUrl(url));		
+		if (depth != null) {	// depth가 존재하면 depth를 조건으로 넣고, depth가 없으면 parent값이 null인 것으로 조건 변경
 			specification = specification.and(MenuSpecification.findByDepth(depth));
+		} else {
+			specification = specification.and(MenuSpecification.parentIsNull());
+		}
 		// 메뉴 목록 조회
 		try {
 			menu = menuRepository.findAll(specification);
@@ -94,7 +95,7 @@ public class MenuService{
 	}
 	
 	/** 
-	 * 현재 서비스 메뉴 위치와 부모 메뉴 정보 조회 (READ)
+	 * 현재 페이지의 url, 메뉴명을 조회
 	 * @param Map<String, Object>, Map<String, Object>
 	 * @return Map<String, Object>
 	 */
@@ -103,10 +104,7 @@ public class MenuService{
 		String message = ResponseCode.Message.OK;
 		String url = "";
 		String menuName = "";
-		String parentMenuName = "";
-		Long parentId = (long) 0;
 		Optional<Menu> menu = null;
-		Optional<Menu> parentMenu = null;
 		// Specification 설정
 		Specification<Menu> specification = (root, query, criteriaBuilder) -> null;
 		if (paramMap.get("url") != null) 
@@ -118,19 +116,12 @@ public class MenuService{
 			resultMap.put("message", ResponseCode.Message.MENU_NOT_FOUND);
 			resultMap.put("url", url);
 			resultMap.put("menuName", menuName);
-			resultMap.put("parentMenuName", parentMenuName);
 			return resultMap;
 		}
 		// 현재 서비스 위치 메뉴 정보 조회
 		try {			
-			parentId = menu.get().getParentId();
-			// 조회한 메뉴의 parentId가 0이 아니면 parentId를 조회			
-			if (parentId != 0) {
-				parentMenu = menuRepository.findById(parentId);
-			}
 			menuName = menu.get().getName();
 			url = menu.get().getUrl();
-			parentMenuName = parentMenu.get().getName();
 		} catch (Exception e) {
 			e.printStackTrace();
 			status = ResponseCode.Status.ERROR_ABORT;
@@ -142,7 +133,6 @@ public class MenuService{
 		resultMap.put("message", message);
 		resultMap.put("url", url);
 		resultMap.put("menuName", menuName);
-		resultMap.put("parentMenuName", parentMenuName);
 		return resultMap;
 	}
 	
