@@ -35,8 +35,7 @@ public class MenuService{
 	 */
 	@Transactional
 	public Map<String, Object> create(MenuDTO menuDTO, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.CREATED;
-		String message = ResponseCode.Message.CREATED;
+		ResponseCode result = ResponseCode.CREATED;
 		Menu menu = null;
 		// 메뉴 등록 (CREATE)
 		try {
@@ -44,12 +43,10 @@ public class MenuService{
 			resultMap.put("menu", menu);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 	
@@ -60,8 +57,7 @@ public class MenuService{
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		List<Menu> menu = new ArrayList<Menu>();
 		List<MenuDTO> menuDTO = new ArrayList<MenuDTO>();
 		Object useYn = paramMap.get("useYn");
@@ -84,12 +80,10 @@ public class MenuService{
 			menuDTO = menu.stream().map(MenuDTO::new).collect(Collectors.toList());			
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		resultMap.put("menuList", menuDTO);
 		return resultMap;
 	}
@@ -100,8 +94,7 @@ public class MenuService{
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> readServiceLocation(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		String url = "";
 		String menuName = "";
 		Optional<Menu> menu = null;
@@ -112,8 +105,8 @@ public class MenuService{
 		// 메뉴가 존재하는지 확인 (없으면 공백으로 리턴)
 		menu = menuRepository.findOne(specification);
 		if (menu.isEmpty()) {
-			resultMap.put("status", ResponseCode.Status.MENU_NOT_FOUND);
-			resultMap.put("message", ResponseCode.Message.MENU_NOT_FOUND);
+			result = ResponseCode.MENU_DOES_NOT_EXISTS;
+			resultMap.put("result", result);
 			resultMap.put("url", url);
 			resultMap.put("menuName", menuName);
 			return resultMap;
@@ -124,13 +117,11 @@ public class MenuService{
 			url = menu.get().getUrl();
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		resultMap.put("url", url);
 		resultMap.put("menuName", menuName);
 		return resultMap;
@@ -143,17 +134,14 @@ public class MenuService{
 	 */
 	@Transactional
 	public Map<String, Object> update(MenuDTO menuDTO, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;		
+		ResponseCode result = ResponseCode.SUCCESS;
 		// 해당 메뉴이 있는지 확인
 		try {
-			menuRepository.findById(menuDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 메뉴이 없습니다. id: "+menuDTO.getId()));	
+			menuRepository.findById(menuDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 없습니다. id: "+menuDTO.getId()));	
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.MENU_NOT_FOUND;
-			message = ResponseCode.Message.MENU_NOT_FOUND;
-			resultMap.put("status", status);
-			resultMap.put("message", message);
+			result = ResponseCode.MENU_DOES_NOT_EXISTS;
+			resultMap.put("result", result);
 			return resultMap;
 		}
 		// 메뉴 수정 (UPDATE)
@@ -162,12 +150,10 @@ public class MenuService{
 			resultMap.put("menu", menuDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 	
@@ -177,8 +163,7 @@ public class MenuService{
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		// 메뉴 삭제 (DELETE)
 		try {
 			for (int p=0; p<param.size(); p++) {
@@ -187,12 +172,10 @@ public class MenuService{
 			resultMap.put("id", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 }

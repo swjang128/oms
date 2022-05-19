@@ -2,6 +2,7 @@ package com.oms.error.controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oms.config.ResponseCode;
 
+import io.micrometer.core.ipc.http.HttpSender.Request;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,10 +24,9 @@ public class OmsErrorController implements ErrorController{
 	 */
 	@RequestMapping("/error")
 	public String handleError(Model model, HttpServletRequest request) {
-		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-		Object message = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
-		model.addAttribute("status", status);
-		model.addAttribute("message", message);
+		String status = Integer.toString((int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE));
+		status = "_"+status;
+		model.addAttribute("result", ResponseCode.valueOf(status));
 		return "error";
 	}
 

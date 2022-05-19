@@ -36,129 +36,129 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductAPI {
 	@Autowired
 	ProductService productService;
-	
-	/**
-	 * 상품 목록 조회
-	 * @param model
-	 * @param request
-	 * @return 
-	 */
-	@GetMapping("product")
-	public Map<String, Object> read() {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		List<ProductDTO> productList = new ArrayList<ProductDTO>();
-		int status = ResponseCode.Status.ERROR_ABORT;
-		String message = ResponseCode.Message.ERROR_ABORT;
-		
-		// 상품 목록 조회
-		try {
-			productList = productService.read();
-			status = ResponseCode.Status.OK;
-			message = ResponseCode.Message.OK;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("productList", productList);
-		resultMap.put("message", message);
-		resultMap.put("status", status);
-		
-		return resultMap;
-	}
-	
-	/**
-	 * 상품 등록 (CREATE)
-	 * @param RequestBody
-	 * @throws IOException 
-	 */
-	@PostMapping("product")
-	public Map<String, Object> create(@Valid @RequestBody ProductDTO productDTO) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int status = ResponseCode.Status.ERROR_ABORT;		
-		String message = ResponseCode.Message.ERROR_ABORT;
-		Product result = null;
-		
-		// 상품 등록
-		result = productService.create(productDTO);
-		if (result != null) {
-			status = ResponseCode.Status.CREATED;
-			message = ResponseCode.Message.CREATED;	
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("result",  result);
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
-	}
-	
-	/**
-	 * 상품 삭제 (DELETE)
-	 * @param PathVariable
-	 * @return 
-	 */
-	@DeleteMapping("product/{id}")
-	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
-		log.info("**** delete called");
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.NOT_FOUND;		
-		String message = ResponseCode.Message.NOT_FOUND;
-		
-		// 상품 삭제
-		try {
-			result = productService.delete(param);
-			if (result == 1) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;	
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-		
-		return resultMap;
-	}
-	
-	/**
-	 * 상품 수정 (UPDATE)
-	 * @param RequestBody
-	 * @return 
-	 */
-	@PutMapping("product")
-	public Map<String, Object> update(@Valid @RequestBody ProductDTO productDTO) {
-		// 기본 변수 설정
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		int result = 0;
-		int status = ResponseCode.Status.ERROR_ABORT;		
-		String message = ResponseCode.Message.ERROR_ABORT;
-//		Long id = payload.getId();
-		
-		// 상품 수정
-		try {
-			result = productService.update(productDTO);
-			if (result == 1) {
-				status = ResponseCode.Status.OK;
-				message = ResponseCode.Message.OK;
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// RESTful API 결과를 리턴
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
-//		resultMap.put("id", id);
-		
-		return resultMap;
-	}
+//	
+//	/**
+//	 * 상품 목록 조회
+//	 * @param model
+//	 * @param request
+//	 * @return 
+//	 */
+//	@GetMapping("product")
+//	public Map<String, Object> read() {
+//		// 기본 변수 설정
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		List<ProductDTO> productList = new ArrayList<ProductDTO>();
+//		int status = ResponseCode.Status.ERROR_ABORT;
+//		String message = ResponseCode.Message.ERROR_ABORT;
+//		
+//		// 상품 목록 조회
+//		try {
+//			productList = productService.read();
+//			status = ResponseCode.Status.OK;
+//			message = ResponseCode.Message.OK;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		// RESTful API 결과를 리턴
+//		resultMap.put("productList", productList);
+//		resultMap.put("message", message);
+//		resultMap.put("status", status);
+//		
+//		return resultMap;
+//	}
+//	
+//	/**
+//	 * 상품 등록 (CREATE)
+//	 * @param RequestBody
+//	 * @throws IOException 
+//	 */
+//	@PostMapping("product")
+//	public Map<String, Object> create(@Valid @RequestBody ProductDTO productDTO) {
+//		// 기본 변수 설정
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		int status = ResponseCode.Status.ERROR_ABORT;		
+//		String message = ResponseCode.Message.ERROR_ABORT;
+//		Product result = null;
+//		
+//		// 상품 등록
+//		result = productService.create(productDTO);
+//		if (result != null) {
+//			status = ResponseCode.Status.CREATED;
+//			message = ResponseCode.Message.CREATED;	
+//		}
+//		
+//		// RESTful API 결과를 리턴
+//		resultMap.put("result",  result);
+//		resultMap.put("status",  status);
+//		resultMap.put("message",  message);
+//		
+//		return resultMap;
+//	}
+//	
+//	/**
+//	 * 상품 삭제 (DELETE)
+//	 * @param PathVariable
+//	 * @return 
+//	 */
+//	@DeleteMapping("product/{id}")
+//	public Map<String, Object> delete(@PathVariable("id") List<Long> param) {
+//		log.info("**** delete called");
+//		// 기본 변수 설정
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		int result = 0;
+//		int status = ResponseCode.Status.NOT_FOUND;		
+//		String message = ResponseCode.Message.NOT_FOUND;
+//		
+//		// 상품 삭제
+//		try {
+//			result = productService.delete(param);
+//			if (result == 1) {
+//				status = ResponseCode.Status.OK;
+//				message = ResponseCode.Message.OK;	
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		// RESTful API 결과를 리턴
+//		resultMap.put("status",  status);
+//		resultMap.put("message",  message);
+//		
+//		return resultMap;
+//	}
+//	
+//	/**
+//	 * 상품 수정 (UPDATE)
+//	 * @param RequestBody
+//	 * @return 
+//	 */
+//	@PutMapping("product")
+//	public Map<String, Object> update(@Valid @RequestBody ProductDTO productDTO) {
+//		// 기본 변수 설정
+//		Map<String, Object> resultMap = new HashMap<String, Object>();
+//		int result = 0;
+//		int status = ResponseCode.Status.ERROR_ABORT;		
+//		String message = ResponseCode.Message.ERROR_ABORT;
+////		Long id = payload.getId();
+//		
+//		// 상품 수정
+//		try {
+//			result = productService.update(productDTO);
+//			if (result == 1) {
+//				status = ResponseCode.Status.OK;
+//				message = ResponseCode.Message.OK;
+//			}	
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		// RESTful API 결과를 리턴
+//		resultMap.put("status",  status);
+//		resultMap.put("message",  message);
+////		resultMap.put("id", id);
+//		
+//		return resultMap;
+//	}
 
 }

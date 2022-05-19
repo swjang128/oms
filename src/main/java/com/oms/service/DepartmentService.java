@@ -1,6 +1,5 @@
 package com.oms.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,19 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.oms.config.ResponseCode;
 import com.oms.dto.DepartmentDTO;
 import com.oms.entity.Department;
-import com.oms.entity.Department.UseYn;
 import com.oms.repository.DepartmentRepository;
 import com.oms.specification.DepartmentSpecification;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class DepartmentService {
 	@Autowired
 	ModelMapper modelMapper;
@@ -37,8 +32,7 @@ public class DepartmentService {
 	 */
 	@Transactional
 	public Map<String, Object> create(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.CREATED;
-		String message = ResponseCode.Message.CREATED;
+		ResponseCode result = ResponseCode.CREATED;
 		Department department = null;
 		// 부서 등록 (CREATE)
 		try {
@@ -46,23 +40,21 @@ public class DepartmentService {
 			resultMap.put("department", department);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);		
+		resultMap.put("result", result);
 		return resultMap;
 	}
-	
+
 	/**
 	 * 부서 조회 (READ)
+	 * 
 	 * @param Map<String, Object>, Map<String, Object>
 	 * @return List<Department>
 	 */
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		List<Department> department = new ArrayList<Department>();
 		List<DepartmentDTO> departmentDTO = new ArrayList<DepartmentDTO>();
 		Object useYn = paramMap.get("useYn");
@@ -75,28 +67,27 @@ public class DepartmentService {
 			if (name != null)
 				specification = specification.and(DepartmentSpecification.findByName(name));
 			department = departmentRepository.findAll(specification);
-			departmentDTO = department.stream().map(d -> modelMapper.map(d, DepartmentDTO.class)).collect(Collectors.toList());
+			departmentDTO = department.stream().map(d -> modelMapper.map(d, DepartmentDTO.class))
+					.collect(Collectors.toList());
 			resultMap.put("departmentList", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("message", message);
-		resultMap.put("status", status);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 
 	/**
 	 * 부서 개수 (READ)
+	 * 
 	 * @param Map<String, Object>, Map<String, Object>
 	 * @return Integer
 	 */
 	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		// 기본 변수 설정
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		long count = 0;
 		Object useYn = paramMap.get("useYn");
 		Object name = paramMap.get("name");
@@ -108,15 +99,18 @@ public class DepartmentService {
 			specification = specification.and(DepartmentSpecification.findByName(name));
 		}
 		// Specification 조건에 맞는 부서 개수 조회
-		count = departmentRepository.count(specification);
-		log.info("@@@@@@@@@@ count: {}", count);
+		try {
+			count = departmentRepository.count(specification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = ResponseCode.ERROR_ABORT;
+		}
 		// resultMap에 담아서 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		resultMap.put("count", count);
 		return resultMap;
 	}
-	
+
 	/**
 	 * 부서 수정 (UPDATE)
 	 * 
@@ -125,17 +119,15 @@ public class DepartmentService {
 	 */
 	@Transactional
 	public Map<String, Object> update(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		// 해당 부서가 있는지 확인
 		try {
-			departmentRepository.findById(departmentDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다. id: " + departmentDTO.getId()));	
+			departmentRepository.findById(departmentDTO.getId())
+					.orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다. id: " + departmentDTO.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.DEPARTMENT_NOT_FOUND;
-			message = ResponseCode.Message.DEPARTMENT_NOT_FOUND;
-			resultMap.put("status", status);
-			resultMap.put("message", message);
+			result = ResponseCode.DEPARTMENT_DOES_NOT_EXISTS;
+			resultMap.put("result", result);
 			return resultMap;
 		}
 		// 부서 수정 (UPDATE)
@@ -144,12 +136,10 @@ public class DepartmentService {
 			resultMap.put("department", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 
@@ -160,22 +150,19 @@ public class DepartmentService {
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		// 부서 삭제 (DELETE)
 		try {
 			for (int p = 0; p < param.size(); p++) {
-				departmentRepository.deleteById(param.get(p));				
+				departmentRepository.deleteById(param.get(p));
 			}
 			resultMap.put("deleteDepartment", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 

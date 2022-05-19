@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="kr">
-<head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" href="/img/oms.ico">
-<title>OMS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="O-Management System v3.0" />
-<meta name="author" content="JSW" />
-<!-- ================== BEGIN core-css ================== -->
-<link href="/assets/css/vendor.min.css" rel="stylesheet" />
-<link href="/assets/css/app.min.css" rel="stylesheet" />
-<!-- ================== END core-css ================== -->
+<!-- 공통 Header -->
+{{>plugin/header}}
+
 </head>
 <body class='pace-top'>
 	<!-- BEGIN #app -->
@@ -22,7 +12,7 @@
 				<div class="card mb-5 mx-auto" style="max-width: 320px;">
 					<div class="card-body">
 						<div class="card">
-							<div class="error-code">{{status}}</div>
+							<div class="error-code">{{result.status}}</div>
 							<div class="card-arrow">
 								<div class="card-arrow-top-left"></div>
 								<div class="card-arrow-top-right"></div>
@@ -38,8 +28,9 @@
 						<div class="card-arrow-bottom-right"></div>
 					</div>
 				</div>
-				<h1>Oops!</h1>
-				<h3>{{message}}</h3>
+				<!-- <h1>Oops!</h1> -->
+				<h3>{{result.message}}</h3>
+				<h3>{{result.message_kr}}</h3>
 				<hr />
 				<p class="mb-1">Here are some helpful links instead:</p>
 				<p class="mb-5">
@@ -56,16 +47,18 @@
 					<a href="helper.html" class="text-decoration-none text-white text-opacity-50">Helper</a>
 				</p>
 				<a href="javascript:window.history.back();" class="btn btn-outline-theme px-3 rounded-pill">
-					<i class="fa fa-arrow-left me-1 ms-n1"></i> Go Back
+					<i class="fa fa-arrow-left me-1 ms-n1"></i>뒤로가기
 				</a>
 			</div>
 			<!-- END error-page-content -->
 		</div>
 		<!-- END error -->
-		<!-- 공통 플러그인(Top 스크롤 + 테마 설정) -->
-		{{>plugin/common}}
+		
+		<!-- 공통 Footer (로딩+탑스크롤+테마패널) -->
+		{{>plugin/footer}}
 	</div>
 	<!-- END #app -->
+	
 	<!-- ================== BEGIN core-js ================== -->
 	<script src="/assets/js/vendor.min.js"></script>
 	<script src="/assets/js/app.min.js"></script>

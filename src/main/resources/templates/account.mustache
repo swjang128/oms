@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="kr">
-<head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" href="/img/oms.ico">
-<title>OMS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="O-Management System v3.0" />
-<meta name="author" content="JSW" />
-
-<!-- ================== BEGIN core-css ================== -->
-<link href="/assets/css/vendor.min.css" rel="stylesheet" />
-<link href="/assets/css/app.min.css" rel="stylesheet" />
-<!-- ================== END core-css ================== -->
+<!-- 공통 Header -->
+{{>plugin/header}}
 
 <!-- ================== BEGIN page-css ================== -->
 <link href="/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
@@ -24,8 +12,8 @@
 <body>
 	<!-- BEGIN #app -->
 	<div id="app" class="app">
-		<!-- 헤더 -->
-		{{>plugin/header}}
+		<!-- 헤드바 -->
+		{{>plugin/head_bar}}
 		<!-- 사이드바 -->		
 		{{>plugin/sidebar}}
 		<!-- BEGIN #content -->
@@ -132,8 +120,10 @@
 			<!-- END container -->
 		</div>
 		<!-- END #content -->
-		<!-- 공통 플러그인 (로딩+탑스크롤+테마패널) -->
-		{{>plugin/common}}
+		
+		<!-- 공통 Footer (로딩+탑스크롤+테마패널) -->
+		{{>plugin/footer}}
+		
 		<!-- 모달 -->
 		{{>modal/create_account}}
 	</div>

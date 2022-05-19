@@ -44,9 +44,15 @@ function initAccountModal() {
 			cache: false,
 			datatype: 'json',
 			success: function(result) {
-				for (var d = 0; d < result.departmentList.length; d++) {
-					$('#createDepartment').append('<option value="' + result.departmentList[d].name + '">' + result.departmentList[d].name + '</option>');
+				if (result.departmentList.length > 0) {
+					for (var d = 0; d < result.departmentList.length; d++) {
+						$('#createDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+					}
+					return;	
 				}
+				$('#labelDepartment').removeClass('text-success');
+				$('#labelDepartment').addClass('text-danger');
+				$('#labelDepartment').html('<i class="bi-exclamation-triangle me-1"></i> 부서가 존재하지 않습니다');
 			},
 			error: function() {
 				$('#labelDepartment').removeClass('text-success');
@@ -613,7 +619,7 @@ function enterResetPassword() {
 /**************
 * 이메일 검증 *
 ***************/
-function resetPasswordEmailCheck() {
+$('#resetPasswordEmail').change(function() {
 	// email 파라미터 검증
 	var validateEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 	var resetPasswordEmail = $('#resetPasswordEmail').val();
@@ -622,6 +628,7 @@ function resetPasswordEmailCheck() {
 		$('#labelResetPasswordEmail').removeClass('text-success');
 		$('#labelResetPasswordEmail').addClass('text-danger');
 		$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 이메일을 입력하세요');
+		$('#buttonResetPassword').attr('disabled', true);
 		return;
 	}
 	// email validate가 false 일 때
@@ -629,15 +636,18 @@ function resetPasswordEmailCheck() {
 		$('#labelResetPasswordEmail').removeClass('text-success');
 		$('#labelResetPasswordEmail').addClass('text-danger');
 		$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이메일 양식');
+		$('#buttonResetPassword').attr('disabled', true);
 		return;
 	}
+	// 정상적인 email을 입력했을 때, 비밀번호 초기화 버튼 활성화하고 resetPasswordEmail값을 리턴
 	if (resetPasswordEmail) {
 		$('#labelResetPasswordEmail').removeClass('text-danger');
 		$('#labelResetPasswordEmail').addClass('text-success');
 		$('#labelResetPasswordEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
+		$('#buttonResetPassword').attr('disabled', false);
 		return resetPasswordEmail;
 	}
-}
+});
 
 /******************
 * 비밀번호 초기화 * 

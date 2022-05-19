@@ -1,81 +1,68 @@
 package com.oms.config;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Rest API 결과로 보내줄 응답 메시지에 대한 정의
  * @author JSW
- *
+ *	status(Integer), result(String), message(String)
  */
-public class ResponseCode {
-	/* Status에 대한 정적 클래스 */
-	public static class Status {
-		public static final int OK = 200;				// READ | UPDATE | DELETE
-		public static final int CREATED = 201;			// CREATE		
-		public static final int BAD_REQUEST = 400;
-		public static final int UNAUTHORIZED = 401;
-		public static final int FORBIDDEN = 403;
-		public static final int NOT_FOUND = 404;
-		public static final int INTERNAL_SERVER_ERROR = 500;
-		public static final int SERVICE_UNAVAILABLE = 503;
-		public static final int DB_ERROR = 600;
-		
-		//  Custom Status
-		/* Common (0xxx) */
-		public static final int ERROR_ABORT = 999;
-		/* Account (1xxx) */
-		public static final int ACCOUNT_EXPIRED = 1003;
-		public static final int ACCOUNT_NOT_FOUND = 1004;
-		public static final int ACCOUNT_OLD_PASSWORD_NOT_MATCH = 1005;
-		public static final int ACCOUNT_PASSWORD_NOT_MATCH = 1015;
-		public static final int ACCOUNT_EXIST = 1009;
-		public static final int ACCOUNT_BLOCKED = 1023;
-		public static final int DEPARTMENT_NOT_FOUND = 1104;
-		public static final int POSITION_NOT_FOUND = 1204;
-		/* Team (2xxx) */
-		public static final int TEAM_NOT_FOUND = 2004;
-		public static final int TEAM_EXIST = 2009;
-		/* Menu (8xxx) */
-		public static final int MENU_NOT_FOUND = 8004;
-		public static final int MENU_EXIST = 8009;
-		/* Product (9xxx) */
-		public static final int PRODUCT_NOT_FOUND = 9404;
-		
-	}
+@AllArgsConstructor
+public enum ResponseCode {	
+	/* HttpStatusCode */
+	// Success (2xx)
+	SUCCESS(200, "Success", "성공"),
+	CREATED(201, "Created", "생성완료"),
+	// Request Error (4xx)
+	_400(400, "Bad Request", "잘못된 요청입니다"),
+	_401(401, "Unauthorized", "권한이 없습니다"),
+	_403(403, "Forbidden", "페이지에 접근할 수 없습니다"),
+	_404(404, "Not Found", "페이지를 찾을 수 없습니다"),
+	_405(405, "Method Not Allowed", "허용되지 않은 메소드입니다"),
+	_406(406, "Not Acceptable", "허용되지 않은 접근입니다"),
+	_407(407, "Proxy Authentication Required", "프록시 인증이 필요합니다"),
+	_408(408, "Request Timeout", "요청시간을 초과하였습니다"),
+	_409(409, "Conflict", "요청 충돌이 발생하였습니다"),
+	// Server Error (5xx)
+	_500(500, "Internal Server Error", "내부 서버 오류가 발생하였습니다"),
+	_501(501, "Not Implemented", "서버에 요청을 수행할 수 있는 기능이 없습니다"),
+	_502(502, "Bad Gateway", "서버가 게이트웨이로부터 잘못된 응답을 받았습니다"),
+	_503(503, "Service Unavailable", "서비스를 이용할 수 없습니다"),
+	_504(504, "Gateway Timeout", "게이트웨이에서 요청시간을 초과했습니다"),
+	_505(505, "HTTP Version Not Supported", "지원하지않는 HTTP 버전입니다"),
+	// Database Error (6xx)
+	_600(600, "DB Error", "데이터베이스 에러가 발생하였습니다"),
 	
-	/* Message에 대한 정적 클래스 */
-	public static class Message {
-		// HttpStatusCode (Success)		
-		public static final String OK = "ok";				// READ | UPDATE | DELETE
-		public static final String CREATED = "created";			// CREATE		
-		// HttpStatusCode (Failed)
-		public static final String BAD_REQUEST = "Bad Request";
-		public static final String UNAUTHORIZED = "Unauthorized";
-		public static final String FORBIDDEN = "Forbidden";
-		public static final String NOT_FOUND = "Not Found";
-		public static final String INTERNAL_SERVER_ERROR = "Internal Server Error";
-		public static final String SERVICE_UNAVAILABLE = "Service Unavailable";
-		public static final String DB_ERROR = "DB Error";
-
-		// Custom Exception Message (500 에러에 주로 엮여서 사용)
-		/* Common */		
-		public static final String ERROR_ABORT = "서버에서 오류가 발생하였습니다";
-		/* Account */
-		public static final String ACCOUNT_EXPIRED = "계정이 만료되었습니다. 비밀번호 변경 또는 초기화를 해주세요";
-		public static final String ACCOUNT_NOT_FOUND = "존재하지 않는 계정입니다";
-		public static final String ACCOUNT_OLD_PASSWORD_NOT_MATCH = "기존 비밀번호가 일치하지 않습니다";
-		public static final String ACCOUNT_PASSWORD_NOT_MATCH = "비밀번호가 일치하지 않습니다";
-		public static final String ACCOUNT_EXIST = "존재하는 계정입니다";
-		public static final String ACCOUNT_BLOCKED = "계정이 잠겨있습니다. 비밀번호 초기화 후 이용해주세요";
-		public static final String DEPARTMENT_NOT_FOUND = "존재하지 않는 부서입니다";
-		public static final String POSITION_NOT_FOUND = "존재하지 않는 직급입니다";
-		/* Team */
-		public static final String TEAM_NOT_FOUND = "존재하지 않는 팀입니다";
-		public static final String TEAM_EXIST = "존재하는 팀입니다";
-		/* Menu */
-		public static final String MENU_NOT_FOUND = "존재하지 않는 메뉴입니다";
-		public static final String MENU_EXIST = "존재하는 메뉴입니다";
-		/* Product */
-		public static final String PRODUCT_NOT_FOUND = "존재하지 않는 상품입니다";
-	}
+	/* OMS Custom Response Code */
+	// Common (9xx)
+	ERROR_ABORT(999, "Error Abort", "에러가 발생하였습니다"),
+	// Account (1xxx)
+	ACCOUNT_ALREADY_EXISTS(1000, "Account Already Exists", "계정이 존재합니다"),
+	EXPIRED_ACCOUNT(1003, "Expired Account", "계정이 만료되었습니다. 비밀번호를 변경해주세요"),
+	ACCOUNT_DOES_NOT_EXISTS(1004, "Account Does Not Exist", "존재하지 않는 계정입니다"),
+	PASSWORD_DOES_NOT_MATCHED(1005, "Password Does Not Matched", "비밀번호가 일치하지 않습니다"),
+	BLOCKED_ACCOUNT(1023, "Blocked Account", "계정이 잠겨있습니다. 비밀번호 초기화 후 진행해주세요"),
+	// Department(11xx)
+	DEPARTMENT_ALREADY_EXISTS(1100, "Department Already Exists", "부서가 존재합니다"),
+	DEPARTMENT_DOES_NOT_EXISTS(1104, "Department Does Not Exists", "존재하지 않는 부서입니다"),
+	// Position(12xx)
+	POSITION_ALREADY_EXISTS(1200, "Position Already Exists", "직급이 존재합니다"),
+	POSITION_DOES_NOT_EXISTS(1204, "Position Does Not Exists", "존재하지 않는 직급입니다"),
+	// Menu (2xxx)
+	MENU_ALREADY_EXISTS(2000, "Menu Already Exists", "메뉴가 존재합니다"),
+	MENU_DOES_NOT_EXISTS(2004, "Menu Does Not Exists", "존재하지 않는 메뉴입니다"),
+	// Team (3xxx)
+	TEAM_ALREADY_EXISTS(3000, "Team Already Exists", "팀이 존재합니다"),
+	TEAM_DOES_NOT_EXISTS(3004, "Team Does Not Exists", "존재하지 않는 팀입니다");
+	// Task (4xxx)
+	// Project (5xxx)
+	// Customer (6xxx)
+	// Product (7xxx)
+	// Order (8xxx)
+	// History (9xxx)
 	
+	public int status;	
+	public String message;
+	public String message_kr;
 }
-
+	

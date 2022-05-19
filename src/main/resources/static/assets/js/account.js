@@ -692,9 +692,15 @@ function initAccountModal() {
 			cache: false,
 			datatype: 'json',
 			success: function(result) {
-				for (var d = 0; d < result.departmentList.length; d++) {
-					$('#createDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+				if (result.departmentList.length > 0) {
+					for (var d = 0; d < result.departmentList.length; d++) {
+						$('#createDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+					}
+					return;	
 				}
+				$('#labelDepartment').removeClass('text-success');
+				$('#labelDepartment').addClass('text-danger');
+				$('#labelDepartment').html('<i class="bi-exclamation-triangle me-1"></i> 부서가 존재하지 않습니다');
 			},
 			error: function() {
 				alert('서버와의 통신에 실패했습니다.');

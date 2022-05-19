@@ -43,8 +43,7 @@ public class HistoryService {
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		List<History> history = new ArrayList<History>();
 		List<HistoryDTO> historyDTO = new ArrayList<HistoryDTO>();
 		List<Integer> httpStatus = (List<Integer>) paramMap.get("status");
@@ -80,12 +79,10 @@ public class HistoryService {
 			resultMap.put("historyList", historyDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 
@@ -110,8 +107,7 @@ public class HistoryService {
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		int status = ResponseCode.Status.OK;
-		String message = ResponseCode.Message.OK;
+		ResponseCode result = ResponseCode.SUCCESS;
 		// 접속로그 삭제 (DELETE)
 		try {
 			for (int p = 0; p < param.size(); p++) {
@@ -120,11 +116,9 @@ public class HistoryService {
 			resultMap.put("id", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			status = ResponseCode.Status.ERROR_ABORT;
-			message = ResponseCode.Message.ERROR_ABORT;
+			result = ResponseCode.ERROR_ABORT;
 		}
-		resultMap.put("status", status);
-		resultMap.put("message", message);
+		resultMap.put("result", result);
 		return resultMap;
 	}
 	
