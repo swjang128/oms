@@ -15,7 +15,7 @@
  * org.springframework.web.bind.annotation.RequestMapping; import
  * org.springframework.web.bind.annotation.RestController;
  * 
- * import com.oms.config.ResponseCode; import com.oms.dto.TaskDTO; import
+ * import com.oms.config.ResponseManager; import com.oms.dto.TaskDTO; import
  * com.oms.service.TaskService;
  * 
  * import lombok.extern.slf4j.Slf4j;
@@ -45,12 +45,12 @@
 /*
  * @GetMapping("task") public Map<String, Object> read() { // 기본 변수 설정
  * Map<String, Object> resultMap = new HashMap<String, Object>(); List<TaskDTO>
- * taskList = new ArrayList<TaskDTO>(); int status = ResponseCode.Status.OK;
- * String message = ResponseCode.Message.OK;
+ * taskList = new ArrayList<TaskDTO>(); int status = ResponseManager.Status.OK;
+ * String message = ResponseManager.Message.OK;
  * 
  * // 업무 목록 조회 try { taskList = taskService.read(); } catch (Exception e) {
- * e.printStackTrace(); status = ResponseCode.Status.ERROR_ABORT; message =
- * ResponseCode.Message.ERROR_ABORT; }
+ * e.printStackTrace(); status = ResponseManager.Status.ERROR_ABORT; message =
+ * ResponseManager.Message.ERROR_ABORT; }
  * 
  * // RESTful API 결과를 리턴 resultMap.put("taskList", taskList);
  * resultMap.put("message", message); resultMap.put("status", status);
@@ -68,11 +68,11 @@
  * @GetMapping("task/{id}") public Map<String, Object> read(@PathVariable("id")
  * Long parentId) { // 기본 변수 설정 Map<String, Object> resultMap = new
  * HashMap<String, Object>(); List<TaskDTO> taskList = new ArrayList<TaskDTO>();
- * int status = ResponseCode.Status.ERROR_ABORT; String message =
- * ResponseCode.Message.ERROR_ABORT;
+ * int status = ResponseManager.Status.ERROR_ABORT; String message =
+ * ResponseManager.Message.ERROR_ABORT;
  * 
  * // 상위 업무 조회 try { taskList = taskService.read(parentId); status =
- * ResponseCode.Status.OK; message = ResponseCode.Message.OK; } catch (Exception
+ * ResponseManager.Status.OK; message = ResponseManager.Message.OK; } catch (Exception
  * e) { e.printStackTrace(); }
  * 
  * // RESTful API 결과를 리턴 resultMap.put("taskList", taskList);
@@ -89,12 +89,12 @@
 /*
  * @PostMapping("task") public Map<String, Object> create(@Valid @RequestBody
  * TaskDTO taskDTO) { // 기본 변수 설정 Map<String, Object> resultMap = new
- * HashMap<String, Object>(); int status = ResponseCode.Status.ERROR_ABORT;
- * String message = ResponseCode.Message.ERROR_ABORT; String result = "";
+ * HashMap<String, Object>(); int status = ResponseManager.Status.ERROR_ABORT;
+ * String message = ResponseManager.Message.ERROR_ABORT; String result = "";
  * 
  * try { taskService.create(taskDTO);
  * 
- * status = ResponseCode.Status.CREATED; message = ResponseCode.Message.CREATED;
+ * status = ResponseManager.Status.CREATED; message = ResponseManager.Message.CREATED;
  * } catch (Exception e) { e.printStackTrace(); }
  * 
  * // RESTful API 결과를 리턴 resultMap.put("result", result);
@@ -113,11 +113,11 @@
  * delete(@PathVariable("id") List<Long> param) {
  * log.info("**** delete called"); // 기본 변수 설정 Map<String, Object> resultMap =
  * new HashMap<String, Object>(); int result = 0; int status =
- * ResponseCode.Status.NOT_FOUND; String message =
- * ResponseCode.Message.NOT_FOUND;
+ * ResponseManager.Status.NOT_FOUND; String message =
+ * ResponseManager.Message.NOT_FOUND;
  * 
  * // 업무 정보 삭제 try { result = taskService.delete(param); if (result > 0) {
- * status = ResponseCode.Status.OK; message = ResponseCode.Message.OK; } } catch
+ * status = ResponseManager.Status.OK; message = ResponseManager.Message.OK; } } catch
  * (Exception e) { e.printStackTrace(); }
  * 
  * // RESTful API 결과를 리턴 resultMap.put("status", status);
@@ -133,11 +133,11 @@
 	 *//*
 		 * @PutMapping("task") public Map<String, Object> update(@RequestBody TaskDTO
 		 * taskDTO) { // 기본 변수 설정 Map<String, Object> resultMap = new HashMap<String,
-		 * Object>(); int result = 0; int status = ResponseCode.Status.ERROR_ABORT;
-		 * String message = ResponseCode.Message.ERROR_ABORT;
+		 * Object>(); int result = 0; int status = ResponseManager.Status.ERROR_ABORT;
+		 * String message = ResponseManager.Message.ERROR_ABORT;
 		 * 
 		 * // 업무 정보 수정 try { result = taskService.update(taskDTO); if (result == 1) {
-		 * status = ResponseCode.Status.OK; message = ResponseCode.Message.OK; } } catch
+		 * status = ResponseManager.Status.OK; message = ResponseManager.Message.OK; } } catch
 		 * (Exception e) { e.printStackTrace(); }
 		 * 
 		 * // RESTful API 결과를 리턴 resultMap.put("status", status);

@@ -1,32 +1,38 @@
-/******************************************************************** 로그인 관련 *****************************************************************************/
-/******************************************************
-* 이메일과 비밀번호를 모두 입력해야 로그인 버튼 활성화
-*******************************************************/
-$('#email, #password').change(function() {
-	let email = $('#email').val();
-	let password = $('#password').val();
-	var validateEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-	// 이메일이 비어있을 때
-	if (!email) {
-		$('#loginButton').attr('disabled', true);
+/******************************************************************** Ready *****************************************************************************/
+$(function() {
+	/**************************
+	* 로그인 입력폼 변경 감지 *
+	**************************/
+	$('#email').change(function() {
+		let email = $('#email').val();
+		var validateEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		// 이메일이 비어있을 때
+		if (!email) {
+			$('#loginResultFeedback').text('이메일을 입력해주세요');
+			$('#email').focus();
+			return;
+		}
+		// 이메일 정규식 위반시
+		if (validateEmail.test(email) == false) {
+			$('#loginResultFeedback').text('올바른 이메일 양식으로 입력해주세요');
+			$('#email').focus();
+			return;
+		}
+		// 이메일 정규식을 통과하면 피드백 메시지 삭제
 		$('#loginResultFeedback').text('');
-		return;
-	}
-	// 이메일 정규식 위반시
-	if (validateEmail.test(email) == false) {
-		$('#loginButton').attr('disabled', true);
-		$('#loginResultFeedback').text('올바른 이메일 양식으로 입력해주세요');
-		return;
-	}
-	// 비밀번호가 비어있을 때
-	if (!password) {
-		$('#loginButton').attr('disabled', true);
+	});
+	
+	$('#password').change(function() {
+		let password = $('#password').val();
+		// 비밀번호가 비어있을 때
+		if (!password) {
+			$('#loginResultFeedback').text('비밀번호를 입력해주세요');
+			$('#password').focus();
+			return;
+		}
+		// 비밀번호 정규식을 통과하면 피드백 메시지 삭제
 		$('#loginResultFeedback').text('');
-		return;
-	}
-	// 이메일과 비밀번호를 모두 입력한 경우
-	$('#loginButton').attr('disabled', false);
-	$('#loginResultFeedback').text('');
+	});
 });
 
 /******************************************************************** 계정 등록 관련 *****************************************************************************/
@@ -46,9 +52,9 @@ function initAccountModal() {
 			success: function(result) {
 				if (result.departmentList.length > 0) {
 					for (var d = 0; d < result.departmentList.length; d++) {
-						$('#createDepartment').append('<option value="'+result.departmentList[d].name+'">'+result.departmentList[d].name+'</option>');
+						$('#createDepartment').append('<option value="' + result.departmentList[d].name + '">' + result.departmentList[d].name + '</option>');
 					}
-					return;	
+					return;
 				}
 				$('#labelDepartment').removeClass('text-success');
 				$('#labelDepartment').addClass('text-danger');
@@ -606,7 +612,7 @@ function rememberMeCheck() {
 }
 
 
-/********************************************************************************* 비밀번호 초기화 관련 ***************************************************************************************/
+/**************************************************************** 비밀번호 초기화 관련 ************************************************************************************/
 /*********************
 * 엔터키 입력 이벤트 *
 **********************/
@@ -619,7 +625,7 @@ function enterResetPassword() {
 /**************
 * 이메일 검증 *
 ***************/
-$('#resetPasswordEmail').change(function() {
+function resetPasswordEmailCheck() {
 	// email 파라미터 검증
 	var validateEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 	var resetPasswordEmail = $('#resetPasswordEmail').val();
@@ -628,15 +634,13 @@ $('#resetPasswordEmail').change(function() {
 		$('#labelResetPasswordEmail').removeClass('text-success');
 		$('#labelResetPasswordEmail').addClass('text-danger');
 		$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 이메일을 입력하세요');
-		$('#buttonResetPassword').attr('disabled', true);
 		return;
 	}
 	// email validate가 false 일 때
 	if (validateEmail.test(resetPasswordEmail) == false) {
 		$('#labelResetPasswordEmail').removeClass('text-success');
 		$('#labelResetPasswordEmail').addClass('text-danger');
-		$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이메일 양식');
-		$('#buttonResetPassword').attr('disabled', true);
+		$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이메일 양식입니다');
 		return;
 	}
 	// 정상적인 email을 입력했을 때, 비밀번호 초기화 버튼 활성화하고 resetPasswordEmail값을 리턴
@@ -644,10 +648,9 @@ $('#resetPasswordEmail').change(function() {
 		$('#labelResetPasswordEmail').removeClass('text-danger');
 		$('#labelResetPasswordEmail').addClass('text-success');
 		$('#labelResetPasswordEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
-		$('#buttonResetPassword').attr('disabled', false);
 		return resetPasswordEmail;
 	}
-});
+}
 
 /******************
 * 비밀번호 초기화 * 
@@ -682,19 +685,17 @@ function resetPassword() {
 			} else {
 				$('#labelResetPasswordEmail').removeClass('text-success');
 				$('#labelResetPasswordEmail').addClass('text-danger');
-				$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i>' + result.message);
+				$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> '+result.message);
 			}
 		},
 		error: function() {
-			$('#labelResetPasswordEmail').removeClass('text-success');
-			$('#labelResetPasswordEmail').addClass('text-danger');
-			$('#labelResetPasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i>' + result.message);
+			$('#resetPasswordMessage').text('서버와의 통신에서 오류가 발생하였습니다');
 		}
 	});
 }
 
 
-/********************************************************************************* 비밀번호 변경 관련 ***************************************************************************************/
+/******************************************************************** 비밀번호 변경 관련 ***************************************************************************************/
 /*********************
 * 엔터키 입력 이벤트 *
 **********************/
@@ -707,13 +708,14 @@ function enterChangePassword() {
 /**************
 * 이메일 검증 *
 ***************/
+// 비밀번호 변경의 이메일 입력값 변경 감지
 function changePasswordEmailCheck() {
+	$('#labelChangePasswordEmail').removeClass('text-danger text-success');
 	// email 파라미터 검증
 	var validateEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 	var email = $('#changePasswordEmail').val();
 	// email 값이 비어있을 때
 	if (!email) {
-		$('#labelChangePasswordEmail').removeClass('text-success');
 		$('#labelChangePasswordEmail').addClass('text-danger');
 		$('#labelChangePasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 이메일을 입력하세요');
 		$('#changePasswordEmail').focus();
@@ -721,54 +723,21 @@ function changePasswordEmailCheck() {
 	}
 	// email validate가 false 일 때
 	if (validateEmail.test(email) == false) {
-		$('#labelChangePasswordEmail').removeClass('text-success');
 		$('#labelChangePasswordEmail').addClass('text-danger');
 		$('#labelChangePasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 잘못된 이메일 양식');
 		$('#changePasswordEmail').focus();
 		return;
 	}
-
-	// 이메일 존재 유무 확인
-	$.ajax({
-		contentType: 'application/json; charset=utf-8',
-		url: '/api/checkEmail/' + email,
-		type: 'GET',
-		cache: false,
-		success: function(result) {
-			if (result.status == 1009) {	// 이미 존재하는 이메일인 경우
-				$('#labelChangePasswordEmail').removeClass('text-danger');
-				$('#labelChangePasswordEmail').addClass('text-success');
-				$('#labelChangePasswordEmail').html('<i class="bi-check-lg me-1"></i> 이메일');
-				return email;
-			} else if (result.status == 200) {	// 없는 이메일인 경우
-				$('#labelChangePasswordEmail').removeClass('text-success');
-				$('#labelChangePasswordEmail').addClass('text-danger');
-				$('#labelChangePasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 존재하지 않는 이메일입니다');
-				$('#changePasswordEmail').focus();
-				return;
-			} else {
-				$('#labelChangePasswordEmail').removeClass('text-success');
-				$('#labelChangePasswordEmail').addClass('text-danger');
-				$('#labelChangePasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 내부 서버 오류가 발생하였습니다');
-				$('#changePasswordEmail').focus();
-				return;
-			}
-		},
-		error: function() {
-			$('#labelChangePasswordEmail').removeClass('text-success');
-			$('#labelChangePasswordEmail').addClass('text-danger');
-			$('#labelChangePasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 서버와 통신할 수 없습니다');
-			$('#changePasswordEmail').focus();
-			return;
-		}
-	});
+	// 정상적인 이메일을 입력한 경우
 	if (email) {
+		$('#labelChangePasswordEmail').addClass('text-success');
+		$('#labelChangePasswordEmail').html('<i class="bi-check me-1"></i> 이메일');
 		return email;
 	}
 }
 
 /*********************************
-* 기존/초기화 비밀번호 확인 검증 *
+* 기존/초기화 비밀번호 검증 *
 **********************************/
 function oldPasswordCheck() {
 	var oldPassword = $('#oldPassword').val();
@@ -804,7 +773,7 @@ function newPasswordCheck() {
 	if (validatePassword.test(password) == false) {
 		$('#labelNewPassword').removeClass('text-success');
 		$('#labelNewPassword').addClass('text-danger');
-		$('#labelNewPassword').html('<i class="bi-exclamation-triangle me-1"></i> 신규 비밀번호는 8자 이상의 대,소문자, 특수문자, 숫자를 포함해야합니다');
+		$('#labelNewPassword').html('<i class="bi-exclamation-triangle me-1"></i> 신규 비밀번호는 8자 이상의 영문대소문자, 특수문자, 숫자를 포함해야합니다');
 		return;
 	} else {
 		$('#labelNewPassword').removeClass('text-danger');
@@ -849,7 +818,7 @@ function changePassword() {
 		password: password
 	});
 
-	// 비밀번호 초기화 api 호출
+	// 비밀번호 변경 api 호출
 	$.ajax({
 		contentType: 'application/json; charset=utf-8',
 		url: url,
@@ -861,20 +830,24 @@ function changePassword() {
 			if (result.status == 200) {	// 정상 변경
 				alert(email + '계정의 비밀번호를 정상적으로 변경했습니다');
 				location.replace('');
+			} else if (result.status == 1004) {	// 계정이 존재하지 않는 경우
+				$('#changePasswordMessage').text(result.message);
+				$('#labelChangePasswordEmail').removeClass('text-success');
+				$('#labelChangePasswordEmail').addClass('text-danger');
+				$('#labelChangePasswordEmail').html('<i class="bi-exclamation-triangle me-1"></i> 이메일');
+				$('#changePasswordEmail').focus();
 			} else if (result.status == 1005) {	// 기존 비밀번호가 일치하지 않는 경우
 				$('#changePasswordMessage').text(result.message);
 				$('#labelOldPassword').removeClass('text-success');
 				$('#labelOldPassword').addClass('text-danger');
 				$('#labelOldPassword').html('<i class="bi-exclamation-triangle me-1"></i> 기존/초기화 비밀번호');
 				$('#oldPassword').focus();
-			} else if (result.status == 1023) {	// 계정의 상태가 BLOCKED인 경우
-				$('#changePasswordMessage').text(result.message);
 			} else {	// 이외의 모든 예외처리
 				$('#changePasswordMessage').text(result.message);
 			}
 		},
 		error: function() {
-			$('#changePasswordMessage').text(result.message);
+			$('#changePasswordMessage').text('서버와의 통신에 실패했습니다');
 		}
 	});
 }

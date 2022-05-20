@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.oms.config.ResponseCode;
+import com.oms.config.ResponseManager;
 import com.oms.dto.HistoryDTO;
 import com.oms.entity.History;
 import com.oms.repository.HistoryRepository;
@@ -43,7 +43,7 @@ public class HistoryService {
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		List<History> history = new ArrayList<History>();
 		List<HistoryDTO> historyDTO = new ArrayList<HistoryDTO>();
 		List<Integer> httpStatus = (List<Integer>) paramMap.get("status");
@@ -79,10 +79,11 @@ public class HistoryService {
 			resultMap.put("historyList", historyDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 
@@ -102,12 +103,12 @@ public class HistoryService {
 
 	/**
 	 * 접속내역 삭제 (DELETE)
-	 * 
-	 * @return http 응답코드
+	 * @param List<Long>, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 접속로그 삭제 (DELETE)
 		try {
 			for (int p = 0; p < param.size(); p++) {
@@ -116,9 +117,10 @@ public class HistoryService {
 			resultMap.put("id", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 	

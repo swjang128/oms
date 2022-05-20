@@ -1,14 +1,10 @@
 package com.oms.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oms.config.CommonInterceptor;
-import com.oms.config.CommonUtil;
-import com.oms.config.ResponseCode;
-import com.oms.dto.AccountDTO;
-import com.oms.dto.LawDTO;
+import com.oms.config.ResponseManager;
 import com.oms.entity.Account;
 import com.oms.entity.Department;
-import com.oms.entity.Menu.UseYn;
 import com.oms.entity.Position;
 import com.oms.service.AccountService;
 import com.oms.service.DepartmentService;
@@ -33,7 +25,6 @@ import com.oms.service.PositionService;
 import com.oms.service.TeamService;
 
 import io.micrometer.core.instrument.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 웹 페이지 컨트롤러
@@ -42,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Controller
 @RequestMapping("oms")
-@Slf4j
 public class OmsController {
 	@Autowired
 	CommonInterceptor interceptor;
@@ -64,7 +54,7 @@ public class OmsController {
 	 */
 	@GetMapping("")
   	public String main(Model model, HttpServletRequest request, @RequestParam(value="result", required=false) String result) {
-		StringBuffer message = new StringBuffer();
+		StringBuilder message = new StringBuilder();
 //		if (result != null) {
 //			switch(result) {
 //				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요";
@@ -76,7 +66,7 @@ public class OmsController {
 //			}
 //		}
 		if (StringUtils.isNotEmpty(result)) {
-			message.append(ResponseCode.valueOf(result).message_kr);
+			message.append(ResponseManager.valueOf(result).message);
 		}
 		model.addAttribute("message", message);
   		return "login";

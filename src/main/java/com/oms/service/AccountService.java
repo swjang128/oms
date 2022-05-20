@@ -18,7 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.oms.config.ResponseCode;
+import com.oms.config.ResponseManager;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.MailDTO;
 import com.oms.entity.Account;
@@ -67,7 +67,7 @@ public class AccountService {
 	 */
 	@Transactional
 	public Map<String, Object> create(AccountDTO accountDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.CREATED;
+		ResponseManager responseManager = ResponseManager.CREATED;
 		// Status는 Active로 Set
 		accountDTO.setStatus(Account.Status.ACTIVE);
 		// 입력받아온 비밀번호는 암호화
@@ -81,9 +81,10 @@ public class AccountService {
 			accountRepository.save(account);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		} finally {
-			resultMap.put("result", result);
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 		}
 		return resultMap;
 	}
@@ -95,7 +96,7 @@ public class AccountService {
 	 */
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		// 기본 변수 설정
-		ResponseCode result = ResponseCode.SUCCESS;		
+		ResponseManager responseManager = ResponseManager.SUCCESS;		
 		List<Account> account = new ArrayList<Account>();
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
 		Object accountStatus = paramMap.get("status");
@@ -124,10 +125,11 @@ public class AccountService {
 			accountDTO = account.stream().map(a -> modelMapper.map(a, AccountDTO.class)).collect(Collectors.toList());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// resultMap에 담기
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		resultMap.put("accountList", accountDTO);		
 		return resultMap;
 	}
@@ -139,7 +141,7 @@ public class AccountService {
 	 */
 	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		// 기본 변수 설정
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		long count = 0;
 		Object accountStatus = paramMap.get("status");
 		Object userStatus = paramMap.get("userStatus");
@@ -167,11 +169,12 @@ public class AccountService {
 			count = accountRepository.count(specification);	
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// resultMap에 담기
-		resultMap.put("result", result);
-		resultMap.put("count", count);		
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result",  responseManager.result);
+		resultMap.put("count", count);
 		return resultMap;
 	}
 	
@@ -182,7 +185,7 @@ public class AccountService {
 	 */
 	public Map<String, Object> readOne(Long id, Map<String, Object> resultMap) {
 		// 기본 변수 설정
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		Account account = null;
 		AccountDTO accountDTO = null;
 		// 특정 계정 조회
@@ -191,10 +194,12 @@ public class AccountService {
 			accountDTO = new AccountDTO(account);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ACCOUNT_DOES_NOT_EXISTS;
+			responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
 		}
 		// resultMap에 담기
-		resultMap.put("result", result);		
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);
 		resultMap.put("account", accountDTO);		
 		return resultMap;
 	}
@@ -208,20 +213,22 @@ public class AccountService {
 	 */
 	@Transactional
 	public Map<String, Object> update(AccountDTO accountDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		long id = accountDTO.getId();
 		Optional<Account> account = Optional.empty();
 		// 해당 계정이 있는지 확인
 		account = accountRepository.findById(id);
 		if (!account.isPresent()) {
-			result = ResponseCode.ACCOUNT_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 			return resultMap;
 		}
 		// 비밀번호 확인
 		if (!encoder.matches(accountDTO.getPassword(), account.get().getPassword())) {
-			result = ResponseCode.PASSWORD_DOES_NOT_MATCHED;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.PASSWORD_DOES_NOT_MATCHED;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 			return resultMap;
 		}
 		// 계정 정보 수정 (UPDATE)
@@ -229,10 +236,12 @@ public class AccountService {
 			accountRepository.save(accountDTO.toEntity());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ERROR_ABORT;
+			resultMap.put("status", responseManager.status);
 		}
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);
 		return resultMap;
 	}
 
@@ -242,7 +251,7 @@ public class AccountService {
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> payload, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 대상 계정이 존재하는지 확인
 		try {
 			for (int p=0; p<payload.size(); p++) {
@@ -250,8 +259,10 @@ public class AccountService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ACCOUNT_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 			return resultMap;
 		}
 		// 계정이 존재하면 삭제
@@ -260,12 +271,16 @@ public class AccountService {
 				accountRepository.deleteById(payload.get(d));
 			} catch (Exception e) {
 				e.printStackTrace();
-				result = ResponseCode.ERROR_ABORT;
-				resultMap.put("result", result);
+				responseManager = ResponseManager.ERROR_ABORT;
+				resultMap.put("status", responseManager.status);
+				resultMap.put("result", responseManager.result);
+				resultMap.put("message", responseManager.message);
 				return resultMap;
 			}
 		}
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);
 		resultMap.put("deletedId", payload);
 		return resultMap;
 	}
@@ -278,7 +293,7 @@ public class AccountService {
 	 */
 	public Map<String, Object> resetPassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
 		// 기본 변수 선언
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		String email = accountDTO.getEmail();
 		// 임시 비밀번호 생성
 		String tempPassword = getTempPassword();
@@ -289,8 +304,10 @@ public class AccountService {
 			account = readAccount(accountDTO, account);
 		} catch (Exception e) { // 계정이 존재하지 않는 경우
 			e.printStackTrace();
-			result = ResponseCode.ACCOUNT_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 			return resultMap;
 		}
 		// 임시 비밀번호 메일 발송
@@ -301,8 +318,10 @@ public class AccountService {
 			sendMail(mailDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ERROR_ABORT;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 			return resultMap;
 		}
 		// 해당 사용자의 비밀번호를 임시 비밀번호로 변경
@@ -310,12 +329,16 @@ public class AccountService {
 			accountRepository.updatePassword(account.getId(), encoder.encode(tempPassword), 0, Account.Status.EXPIRED.getKey(), Account.UserStatus.OFFLINE.getKey());	
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ERROR_ABORT;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 			return resultMap;
 		}
 		// 모든 작업이 정상적으로 끝나면 성공 결과로 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);
 		return resultMap;
 	}
 	
@@ -327,24 +350,27 @@ public class AccountService {
 	 */
 	public Map<String, Object> updatePassword(AccountDTO accountDTO, Map<String, Object> resultMap) {
 		// 기본 변수 선언
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		Account account = null;
 		// 계정의 유무 확인
 		try {
 			account = readAccount(accountDTO, account);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ACCOUNT_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 			return resultMap;
 		}
 		// 계정의 상태가 BLOCKED인 경우 비밀번호 변경이 불가능
 		if (account.getStatus() == Account.Status.BLOCKED) {
-			result = ResponseCode.BLOCKED_ACCOUNT;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.BLOCKED_ACCOUNT;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 			return resultMap;
 		}
-
 		// 비밀번호 변경
 		if (encoder.matches(accountDTO.getOldPassword(), account.getPassword())) {
 			// 해당 사용자의 비밀번호를 신규 비밀번호로 변경
@@ -352,14 +378,18 @@ public class AccountService {
 				accountRepository.updatePassword(account.getId(), encoder.encode(accountDTO.getPassword()), 0, Account.Status.ACTIVE.getKey(), Account.UserStatus.OFFLINE.getKey());	
 			} catch (Exception e) {
 				e.printStackTrace();
-				result = ResponseCode.ERROR_ABORT;
-				resultMap.put("result", result);
+				responseManager = ResponseManager.ERROR_ABORT;
+				resultMap.put("status", responseManager.status);
+				resultMap.put("result", responseManager.result);
+				resultMap.put("message", responseManager.message);
 			}
 		} else {
-			result = ResponseCode.PASSWORD_DOES_NOT_MATCHED;
+			responseManager = ResponseManager.PASSWORD_DOES_NOT_MATCHED;
 		}
-		
-		resultMap.put("result", result);
+		// 결과 리턴
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);
 		return resultMap;
 	}
 
@@ -431,17 +461,19 @@ public class AccountService {
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> checkEmail(String email, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.ACCOUNT_ALREADY_EXISTS;
+		ResponseManager responseManager = ResponseManager.ACCOUNT_ALREADY_EXISTS;
 		try {
 			Optional<Account> account = accountRepository.findByEmail(email);
 			if (!account.isPresent()) {
-				result = ResponseCode.ACCOUNT_DOES_NOT_EXISTS;
+				responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		} finally {
-			resultMap.put("result", result);
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
+			resultMap.put("message", responseManager.message);
 		}
 		return resultMap;
 	}
@@ -452,7 +484,7 @@ public class AccountService {
 	 * @return List<Account>
 	 */
 	public Map<String, Object> findByStatus(List<Status> accountStatus, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		List<Account> account = new ArrayList<Account>();;
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();		
 		// 특정 상태(Status)인 계정
@@ -465,10 +497,12 @@ public class AccountService {
 			resultMap.put("accountSize", accountDTO.size());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// resultMap에 담기
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);		
 		return resultMap;
 	}
 	
@@ -478,7 +512,7 @@ public class AccountService {
 	 * @return List<Account>
 	 */
 	public Map<String, Object> findByUserStatus(List<UserStatus> userStatus, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		List<Account> account = new ArrayList<Account>();;
 		List<AccountDTO> accountDTO = new ArrayList<AccountDTO>();
 		// 특정 계정 목록 조회
@@ -490,10 +524,12 @@ public class AccountService {
 			resultMap.put("accountList", accountDTO);
 			resultMap.put("accountSize", accountDTO.size());
 		} catch (Exception e) {
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// resultMap에 담기
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
+		resultMap.put("message", responseManager.message);
 		return resultMap;
 	}
 	
@@ -503,16 +539,16 @@ public class AccountService {
 	 * @return List<Account>
 	 */
 	public Map<String, Object> updateUserStatus(AccountDTO accountDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
-		
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 사용자의 상태 변경
 		try {
 			accountRepository.updateUserStatus(accountDTO.getEmail(), accountDTO.getUserStatus().getKey());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 }

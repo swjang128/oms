@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oms.config.ResponseCode;
+import com.oms.config.ResponseManager;
 import com.oms.dto.ProductDTO;
 import com.oms.entity.Product;
 import com.oms.service.ProductService;
@@ -48,14 +48,14 @@ public class ProductAPI {
 //		// 기본 변수 설정
 //		Map<String, Object> resultMap = new HashMap<String, Object>();
 //		List<ProductDTO> productList = new ArrayList<ProductDTO>();
-//		int status = ResponseCode.Status.ERROR_ABORT;
-//		String message = ResponseCode.Message.ERROR_ABORT;
+//		int status = ResponseManager.Status.ERROR_ABORT;
+//		String message = ResponseManager.Message.ERROR_ABORT;
 //		
 //		// 상품 목록 조회
 //		try {
 //			productList = productService.read();
-//			status = ResponseCode.Status.OK;
-//			message = ResponseCode.Message.OK;
+//			status = ResponseManager.Status.OK;
+//			message = ResponseManager.Message.OK;
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
@@ -77,15 +77,15 @@ public class ProductAPI {
 //	public Map<String, Object> create(@Valid @RequestBody ProductDTO productDTO) {
 //		// 기본 변수 설정
 //		Map<String, Object> resultMap = new HashMap<String, Object>();
-//		int status = ResponseCode.Status.ERROR_ABORT;		
-//		String message = ResponseCode.Message.ERROR_ABORT;
+//		int status = ResponseManager.Status.ERROR_ABORT;		
+//		String message = ResponseManager.Message.ERROR_ABORT;
 //		Product result = null;
 //		
 //		// 상품 등록
 //		result = productService.create(productDTO);
 //		if (result != null) {
-//			status = ResponseCode.Status.CREATED;
-//			message = ResponseCode.Message.CREATED;	
+//			status = ResponseManager.Status.CREATED;
+//			message = ResponseManager.Message.CREATED;	
 //		}
 //		
 //		// RESTful API 결과를 리턴
@@ -107,15 +107,15 @@ public class ProductAPI {
 //		// 기본 변수 설정
 //		Map<String, Object> resultMap = new HashMap<String, Object>();
 //		int result = 0;
-//		int status = ResponseCode.Status.NOT_FOUND;		
-//		String message = ResponseCode.Message.NOT_FOUND;
+//		int status = ResponseManager.Status.NOT_FOUND;		
+//		String message = ResponseManager.Message.NOT_FOUND;
 //		
 //		// 상품 삭제
 //		try {
 //			result = productService.delete(param);
 //			if (result == 1) {
-//				status = ResponseCode.Status.OK;
-//				message = ResponseCode.Message.OK;	
+//				status = ResponseManager.Status.OK;
+//				message = ResponseManager.Message.OK;	
 //			}
 //		} catch (Exception e) {
 //			e.printStackTrace();
@@ -138,16 +138,16 @@ public class ProductAPI {
 //		// 기본 변수 설정
 //		Map<String, Object> resultMap = new HashMap<String, Object>();
 //		int result = 0;
-//		int status = ResponseCode.Status.ERROR_ABORT;		
-//		String message = ResponseCode.Message.ERROR_ABORT;
+//		int status = ResponseManager.Status.ERROR_ABORT;		
+//		String message = ResponseManager.Message.ERROR_ABORT;
 ////		Long id = payload.getId();
 //		
 //		// 상품 수정
 //		try {
 //			result = productService.update(productDTO);
 //			if (result == 1) {
-//				status = ResponseCode.Status.OK;
-//				message = ResponseCode.Message.OK;
+//				status = ResponseManager.Status.OK;
+//				message = ResponseManager.Message.OK;
 //			}	
 //		} catch (Exception e) {
 //			e.printStackTrace();

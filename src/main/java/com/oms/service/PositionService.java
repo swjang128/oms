@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.oms.config.ResponseCode;
+import com.oms.config.ResponseManager;
 import com.oms.dto.PositionDTO;
 import com.oms.entity.Position;
 import com.oms.repository.PositionRepository;
@@ -27,7 +27,7 @@ public class PositionService{
 	 */
 	@Transactional
 	public Map<String, Object> create(PositionDTO positionDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.CREATED;
+		ResponseManager responseManager = ResponseManager.CREATED;
 		Position position = null;
 		// 직급 등록 (CREATE)
 		try {
@@ -35,19 +35,21 @@ public class PositionService{
 			resultMap.put("position", position);
 		} catch (Exception e ) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 	
 	/** 
 	 * 직급 목록 조회 (READ)
+	 * @param Map<String, Object>, Map<String, Object>
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		List<Position> position =new ArrayList<Position>();
 		List<PositionDTO> positionDTO = new ArrayList<PositionDTO>();
 		Object useYn = paramMap.get("useYn");
@@ -64,10 +66,11 @@ public class PositionService{
 			positionDTO = position.stream().map(PositionDTO::new).collect(Collectors.toList());
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴		
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		resultMap.put("positionList", positionDTO);
 		return resultMap;
 	}
@@ -75,11 +78,11 @@ public class PositionService{
 	/**
 	 * 직급 개수 (READ)
 	 * @param Map<String, Object>, Map<String, Object>
-	 * @return Integer
+	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		// 기본 변수 설정
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		long count = 0;
 		Object useYn = paramMap.get("useYn");
 		Object name = paramMap.get("name");
@@ -95,10 +98,11 @@ public class PositionService{
 			count = positionRepository.count(specification);	
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// resultMap에 담아서 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		resultMap.put("count", count);
 		return resultMap;
 	}
@@ -110,14 +114,15 @@ public class PositionService{
 	 */
 	@Transactional
 	public Map<String, Object> update(PositionDTO positionDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 해당 직급이 있는지 확인
 		try {
 			positionRepository.findById(positionDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 직급이 없습니다. id: "+positionDTO.getId()));	
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.POSITION_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.POSITION_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 			return resultMap;
 		}
 		// 직급 수정 (UPDATE)
@@ -126,20 +131,22 @@ public class PositionService{
 			resultMap.put("position", positionDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 	
 	/** 
 	 * 직급 삭제 (DELETE)
-	 * @return http 응답코드
+	 * @param List<Long>, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 직급 삭제 (DELETE)
 		try {
 			for (int p=0; p<param.size(); p++) {
@@ -148,10 +155,11 @@ public class PositionService{
 			resultMap.put("id", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 

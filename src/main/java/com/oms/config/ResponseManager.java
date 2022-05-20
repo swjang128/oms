@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
  *	status(Integer), result(String), message(String)
  */
 @AllArgsConstructor
-public enum ResponseCode {	
+public enum ResponseManager {	
 	/* HttpStatusCode */
 	// Success (2xx)
 	SUCCESS(200, "Success", "성공"),
@@ -64,7 +64,7 @@ public enum ResponseCode {
 	// History (9xxx)
 	
 	public int status;	
+	public String result;
 	public String message;
-	public String message_kr;
 }
 	

@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 업무 목록을 관리하는 Service
- * @author Capias J
+ * @author JSW
  *
  */
 @Service

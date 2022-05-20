@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.oms.config.ResponseCode;
+import com.oms.config.ResponseManager;
 import com.oms.dto.MenuDTO;
 import com.oms.entity.Menu;
 import com.oms.repository.MenuRepository;
@@ -35,7 +35,7 @@ public class MenuService{
 	 */
 	@Transactional
 	public Map<String, Object> create(MenuDTO menuDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.CREATED;
+		ResponseManager responseManager = ResponseManager.CREATED;
 		Menu menu = null;
 		// 메뉴 등록 (CREATE)
 		try {
@@ -43,10 +43,11 @@ public class MenuService{
 			resultMap.put("menu", menu);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 	
@@ -57,7 +58,7 @@ public class MenuService{
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		List<Menu> menu = new ArrayList<Menu>();
 		List<MenuDTO> menuDTO = new ArrayList<MenuDTO>();
 		Object useYn = paramMap.get("useYn");
@@ -80,10 +81,11 @@ public class MenuService{
 			menuDTO = menu.stream().map(MenuDTO::new).collect(Collectors.toList());			
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		resultMap.put("menuList", menuDTO);
 		return resultMap;
 	}
@@ -94,7 +96,7 @@ public class MenuService{
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> readServiceLocation(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		String url = "";
 		String menuName = "";
 		Optional<Menu> menu = null;
@@ -105,8 +107,9 @@ public class MenuService{
 		// 메뉴가 존재하는지 확인 (없으면 공백으로 리턴)
 		menu = menuRepository.findOne(specification);
 		if (menu.isEmpty()) {
-			result = ResponseCode.MENU_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.MENU_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 			resultMap.put("url", url);
 			resultMap.put("menuName", menuName);
 			return resultMap;
@@ -117,11 +120,12 @@ public class MenuService{
 			url = menu.get().getUrl();
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		resultMap.put("url", url);
 		resultMap.put("menuName", menuName);
 		return resultMap;
@@ -134,14 +138,15 @@ public class MenuService{
 	 */
 	@Transactional
 	public Map<String, Object> update(MenuDTO menuDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 해당 메뉴이 있는지 확인
 		try {
 			menuRepository.findById(menuDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 메뉴가 없습니다. id: "+menuDTO.getId()));	
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.MENU_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.MENU_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 			return resultMap;
 		}
 		// 메뉴 수정 (UPDATE)
@@ -150,10 +155,11 @@ public class MenuService{
 			resultMap.put("menu", menuDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 	
@@ -163,7 +169,7 @@ public class MenuService{
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 메뉴 삭제 (DELETE)
 		try {
 			for (int p=0; p<param.size(); p++) {
@@ -172,10 +178,11 @@ public class MenuService{
 			resultMap.put("id", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 }

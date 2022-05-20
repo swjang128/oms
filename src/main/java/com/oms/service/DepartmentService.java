@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.oms.config.ResponseCode;
+import com.oms.config.ResponseManager;
 import com.oms.dto.DepartmentDTO;
 import com.oms.entity.Department;
 import com.oms.repository.DepartmentRepository;
@@ -27,12 +27,12 @@ public class DepartmentService {
 
 	/**
 	 * 부서 등록 (CREATE)
-	 * 
-	 * @return 등록한 부서 정보
+	 * @param DepartmentDTO, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
 	public Map<String, Object> create(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.CREATED;
+		ResponseManager responseManager = ResponseManager.CREATED;
 		Department department = null;
 		// 부서 등록 (CREATE)
 		try {
@@ -40,10 +40,11 @@ public class DepartmentService {
 			resultMap.put("department", department);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 
@@ -51,10 +52,10 @@ public class DepartmentService {
 	 * 부서 조회 (READ)
 	 * 
 	 * @param Map<String, Object>, Map<String, Object>
-	 * @return List<Department>
+	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> read(Map<String, Object> paramMap, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		List<Department> department = new ArrayList<Department>();
 		List<DepartmentDTO> departmentDTO = new ArrayList<DepartmentDTO>();
 		Object useYn = paramMap.get("useYn");
@@ -72,10 +73,11 @@ public class DepartmentService {
 			resultMap.put("departmentList", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 
@@ -83,11 +85,11 @@ public class DepartmentService {
 	 * 부서 개수 (READ)
 	 * 
 	 * @param Map<String, Object>, Map<String, Object>
-	 * @return Integer
+	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> count(Map<String, Object> paramMap, Map<String, Object> resultMap) {
 		// 기본 변수 설정
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		long count = 0;
 		Object useYn = paramMap.get("useYn");
 		Object name = paramMap.get("name");
@@ -103,10 +105,11 @@ public class DepartmentService {
 			count = departmentRepository.count(specification);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// resultMap에 담아서 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		resultMap.put("count", count);
 		return resultMap;
 	}
@@ -119,15 +122,16 @@ public class DepartmentService {
 	 */
 	@Transactional
 	public Map<String, Object> update(DepartmentDTO departmentDTO, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 해당 부서가 있는지 확인
 		try {
 			departmentRepository.findById(departmentDTO.getId())
 					.orElseThrow(() -> new IllegalArgumentException("해당 부서가 없습니다. id: " + departmentDTO.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.DEPARTMENT_DOES_NOT_EXISTS;
-			resultMap.put("result", result);
+			responseManager = ResponseManager.DEPARTMENT_DOES_NOT_EXISTS;
+			resultMap.put("status", responseManager.status);
+			resultMap.put("result", responseManager.result);
 			return resultMap;
 		}
 		// 부서 수정 (UPDATE)
@@ -136,21 +140,22 @@ public class DepartmentService {
 			resultMap.put("department", departmentDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 
 	/**
 	 * 부서 삭제 (DELETE)
-	 * 
-	 * @return http 응답코드
+	 * @param List<Long>, Map<String, Object>
+	 * @return Map<String, Object>
 	 */
 	@Transactional
 	public Map<String, Object> delete(List<Long> param, Map<String, Object> resultMap) {
-		ResponseCode result = ResponseCode.SUCCESS;
+		ResponseManager responseManager = ResponseManager.SUCCESS;
 		// 부서 삭제 (DELETE)
 		try {
 			for (int p = 0; p < param.size(); p++) {
@@ -159,10 +164,11 @@ public class DepartmentService {
 			resultMap.put("deleteDepartment", param);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = ResponseCode.ERROR_ABORT;
+			responseManager = ResponseManager.ERROR_ABORT;
 		}
 		// 결과 리턴
-		resultMap.put("result", result);
+		resultMap.put("status", responseManager.status);
+		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
 
