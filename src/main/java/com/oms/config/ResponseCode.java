@@ -37,11 +37,13 @@ public enum ResponseCode {
 	// Common (9xx)
 	ERROR_ABORT(999, "Error Abort", "에러가 발생하였습니다"),
 	// Account (1xxx)
-	ACCOUNT_ALREADY_EXISTS(1000, "Account Already Exists", "계정이 존재합니다"),
+	ACCOUNT_ALREADY_EXISTS(1000, "Account Already Exists", "계정이 이미 존재합니다"),
 	EXPIRED_ACCOUNT(1003, "Expired Account", "계정이 만료되었습니다. 비밀번호를 변경해주세요"),
-	ACCOUNT_DOES_NOT_EXISTS(1004, "Account Does Not Exist", "존재하지 않는 계정입니다"),
+	ACCOUNT_DOES_NOT_EXISTS(1004, "Account Does Not Exist", "존재하지 않는 계정입니다"),	
 	PASSWORD_DOES_NOT_MATCHED(1005, "Password Does Not Matched", "비밀번호가 일치하지 않습니다"),
+	BAD_CREDENTIALS(1014, "The Account Does Not Exist Or The Password Does Not Matched", "계정이 없거나 비밀번호가 일치하지 않습니다"),
 	BLOCKED_ACCOUNT(1023, "Blocked Account", "계정이 잠겨있습니다. 비밀번호 초기화 후 진행해주세요"),
+	DISABLED_ACCOUNT(1024, "Disabled Account", "비활성화된 계정입니다"),
 	// Department(11xx)
 	DEPARTMENT_ALREADY_EXISTS(1100, "Department Already Exists", "부서가 존재합니다"),
 	DEPARTMENT_DOES_NOT_EXISTS(1104, "Department Does Not Exists", "존재하지 않는 부서입니다"),

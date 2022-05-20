@@ -65,14 +65,9 @@ public class ExceptionManager {
 	 */
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public Map<String, Object> emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException exception) {
-		// Set Status
-		status = 404;
-		// Set Message		
-		message = "존재하지 않는 데이터입니다.";
-		
 		// 예외처리 결과를 리턴 
-		resultMap.put("status",  status);
-		resultMap.put("message",  message);
+		resultMap.put("status",  404);
+		resultMap.put("message",  "데이터가 존재하지 않습니다");
 		
 		return resultMap;
 	}
@@ -88,15 +83,15 @@ public class ExceptionManager {
 		String result = "error";
 
 		if (exception instanceof LockedException) {
-			result = "blocked";
+			result = "BLOCKED_ACCOUNT";
         } else if (exception instanceof AccountExpiredException) {
-        	result = "accountExpired";
+        	result = "EXPIRED_ACCOUNT";
         } else if (exception instanceof CredentialsExpiredException) {
-        	result = "accountExpired";
+        	result = "EXPIRED_ACCOUNT";
         } else if (exception instanceof DisabledException) {
-        	result = "disabled";
+        	result = "DISABLED_ACCOUNT";
         } else if (exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
-        	result = "notFoundOrBadCredentials";
+        	result = "BAD_CREDENTIALS";
         }
 		
 		return result;

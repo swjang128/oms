@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oms.config.CommonInterceptor;
 import com.oms.config.CommonUtil;
+import com.oms.config.ResponseCode;
 import com.oms.dto.AccountDTO;
 import com.oms.dto.LawDTO;
 import com.oms.entity.Account;
@@ -31,6 +32,7 @@ import com.oms.service.MenuService;
 import com.oms.service.PositionService;
 import com.oms.service.TeamService;
 
+import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -62,16 +64,19 @@ public class OmsController {
 	 */
 	@GetMapping("")
   	public String main(Model model, HttpServletRequest request, @RequestParam(value="result", required=false) String result) {
-		String message = "";
-		if (result != null) {
-			switch(result) {
-				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요";
-				case "accountExpired" -> message = "만료된 계정입니다. 비밀번호를 변경해주세요";
-				case "credentialsExpired" -> message = "만료된 계정입니다. 비밀번호를 변경해주세요";
-				case "disabled" -> message = "휴면 계정입니다";
-				case "blocked" -> message = "계정이 잠겨있습니다. 비밀번호를 초기화해주세요";
-				default -> message = "로그인 중 에러가 발생하였습니다";
-			}
+		StringBuffer message = new StringBuffer();
+//		if (result != null) {
+//			switch(result) {
+//				case "notFoundOrBadCredentials" -> message = "이메일 또는 비밀번호를 확인해주세요";
+//				case "accountExpired" -> message = "만료된 계정입니다. 비밀번호를 변경해주세요";
+//				case "credentialsExpired" -> message = "만료된 계정입니다. 비밀번호를 변경해주세요";
+//				case "disabled" -> message = "휴면 계정입니다";
+//				case "blocked" -> message = "계정이 잠겨있습니다. 비밀번호를 초기화해주세요";
+//				default -> message = "로그인 중 에러가 발생하였습니다";
+//			}
+//		}
+		if (StringUtils.isNotEmpty(result)) {
+			message.append(ResponseCode.valueOf(result).message_kr);
 		}
 		model.addAttribute("message", message);
   		return "login";
