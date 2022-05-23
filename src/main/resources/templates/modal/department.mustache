@@ -1,0 +1,89 @@
+<div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="departmentModalLabel" aria-hidden="true">
+	<!-- Content -->
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="departmentModalTitle">부서 관리</h5>
+				<button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="tab-content" id="departmentModalContent">
+					<!-- End Page Header -->
+					<!-- Card -->
+					<div class="card">
+						<!-- Header -->
+						<div id="departmentTable" class="mb-5">
+							<div class="card">
+								<div class="card-body">
+									<table class="table" data-toggle="table" data-sort-class="table-active" data-sortable="true" data-search="true" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="false" data-click-to-select="false">
+										<thead>
+											<tr>
+												<th data-field="id" data-checkbox="true"></th>
+												<th class="text-theme" data-sortable="true">부서명</th>
+												<th class="text-theme" data-sortable="true">사용여부</th>
+												<th class="text-theme" data-sortable="true">저장/삭제</th>
+											</tr>
+										</thead>
+										<tbody>
+											{{#departmentList}}
+											<tr>
+												<td>{{id}}</td>
+												<td class="text-light">{{name}}</td>
+												<td class="text-light">
+													<span class="d-none">{{useYn.key}}</span>
+													<div class="form-check form-switch">
+														<input class="form-check-input" type="checkbox" id="departmentUseYn{{id}}" onChange="activateDepartmentSaveButton({{id}})">
+														<label class="form-check-label" for="departmentUseYn{{id}}"></label>
+													</div>
+												</td>
+												<td>
+													<button class="btn btn-info btn-sm" href="javascript:;" id="departmentSaveButton{{id}}" onClick="updateDepartment({{id}});" disabled>
+														<i class="bi-file-plus"></i> 저장
+													</button>
+													<button class="btn btn-danger btn-sm" href="javascript:;" onClick="deleteDepartment({{id}})">
+														<i class="bi-trash"></i> 삭제
+													</button>
+												</td>
+											</tr>
+											{{/departmentList}}
+											{{^departmentList}}
+											{{/departmentList}}
+										</tbody>
+									</table>
+								</div>
+								<div class="card-arrow">
+									<div class="card-arrow-top-left"></div>
+									<div class="card-arrow-top-right"></div>
+									<div class="card-arrow-bottom-left"></div>
+									<div class="card-arrow-bottom-right"></div>
+								</div>
+								<!-- 										<div class="hljs-container">
+											<pre>
+												<code>&lt;!-- required css / js --&gt;
+&lt;link href="/assets/plugins/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" /&gt;
+&lt;script src="/assets/plugins/bootstrap-table/dist/bootstrap-table.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- html --&gt;
+&lt;table class="table" data-toggle="table"
+  data-sort-class="table-active"
+  data-sortable="true"
+  data-search="true"
+  data-pagination="true"
+  data-show-refresh="true"
+  data-show-columns="true"
+  data-show-fullscreen="true"
+  data-height="460"&gt;
+...
+&lt;/table&gt;</code>
+											</pre>
+										</div> -->
+							</div>
+						</div>
+						<!-- End Header -->
+					</div>
+					<!-- End Card -->
+				</div>
+			</div>
+		</div>
+		<!-- End Content -->
+	</div>

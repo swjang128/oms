@@ -14,7 +14,7 @@
 	<div id="app" class="app">
 		<!-- 헤드바 -->
 		{{>plugin/head_bar}}
-		<!-- 사이드바 -->		
+		<!-- 사이드바 -->
 		{{>plugin/sidebar}}
 		<!-- BEGIN #content -->
 		<div id="content" class="app-content">
@@ -32,11 +32,219 @@
 									<li class="breadcrumb-item">인사</li>
 									<li class="breadcrumb-item active"><a href="javascript:location.reload();">{{menuName}}</a></li>
 								</ul>
+								<!-- BEGIN 계정 통계 -->
+								<div class="row">
+									<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+										<!-- Card -->
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="card-subtitle mb-2">전체 계정</h6>
+												<div class="row align-items-center gx-2">
+													<div class="col">
+														<span class="js-counter display-4 text-theme">{{totalAccount}}</span>
+														<span class="text-body fs-5 ms-1">(지난달: {{monthAgoAccount}})</span>
+													</div>
+													<div class="col-auto">
+														<span class="badge bg-soft-success text-success p-1">
+															<i class="bi-graph-up"></i> {{compareAccount}} %
+														</span>
+													</div>
+												</div>
+												<div class="card-arrow">
+													<div class="card-arrow-top-left"></div>
+													<div class="card-arrow-top-right"></div>
+													<div class="card-arrow-bottom-left"></div>
+													<div class="card-arrow-bottom-right"></div>
+												</div>
+											</div>
+										</div>
+										<!-- End Card -->
+									</div>
+									<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+										<!-- Card -->
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="card-subtitle mb-2">활성화된 계정</h6>
+												<div class="row align-items-center gx-2">
+													<div class="col">
+														<span class="js-counter display-4 text-primary">{{activeAccount}}</span>
+													</div>
+													<div class="col-auto">
+														<span class="badge bg-soft-success text-primary p-1">
+															<i class="bi-graph-up"></i> {{compareActiveAccount}} %
+														</span>
+													</div>
+												</div>
+												<div class="card-arrow">
+													<div class="card-arrow-top-left"></div>
+													<div class="card-arrow-top-right"></div>
+													<div class="card-arrow-bottom-left"></div>
+													<div class="card-arrow-bottom-right"></div>
+												</div>
+											</div>
+										</div>
+										<!-- End Card -->
+									</div>
+									<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+										<!-- Card -->
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="card-subtitle mb-2">만료된 계정</h6>
+												<div class="row align-items-center gx-2">
+													<div class="col">
+														<span class="js-counter display-4 text-warning">{{expiredAccount}}</span>
+													</div>
+													<div class="col-auto">
+														<span class="badge bg-soft-success text-warning p-1">
+															<i class="bi-graph-up"></i> {{compareExpiredAccount}} %
+														</span>
+													</div>
+												</div>
+												<div class="card-arrow">
+													<div class="card-arrow-top-left"></div>
+													<div class="card-arrow-top-right"></div>
+													<div class="card-arrow-bottom-left"></div>
+													<div class="card-arrow-bottom-right"></div>
+												</div>
+											</div>
+										</div>
+										<!-- End Card -->
+									</div>
+									<div class="col-sm-6 col-lg-3 mb-3 mb-lg-5">
+										<!-- Card -->
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="card-subtitle mb-2">정지된 계정</h6>
+												<div class="row align-items-center gx-2">
+													<div class="col">
+														<span class="js-counter display-4 text-danger">{{blockedAccount}}</span>
+													</div>
+													<div class="col-auto">
+														<span class="badge bg-soft-success text-danger p-1">
+															<i class="bi-graph-up"></i> {{compareBlockedAccount}} %
+														</span>
+													</div>
+												</div>
+												<div class="card-arrow">
+													<div class="card-arrow-top-left"></div>
+													<div class="card-arrow-top-right"></div>
+													<div class="card-arrow-bottom-left"></div>
+													<div class="card-arrow-bottom-right"></div>
+												</div>
+											</div>
+										</div>
+										<!-- End Card -->
+									</div>
+								</div>
+								<!-- END 계정 통계 -->
+								<!-- BEGIN부서+직급 관리 -->
+								<div class="row">
+									<div class="col-sm-6 col-lg-6 mb-3 mb-lg-5">
+										<!-- Card -->
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="card-subtitle mb-2">부서</h6>
+												<div class="row align-items-center gx-2">
+													<div class="col">
+														<span class="js-counter display-4 text-theme">{{totalDepartment}}</span>
+													</div>
+													<div class="col-auto">
+														<a class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#departmentModal">
+															<i class="bi-person-plus-fill me-1"></i> 부서관리
+														</a>
+													</div>
+													<div class="col-md-9 col-lg-6 column-md-divider px-md-4">
+														<div class="row justify-content-start mb-2">
+															<div class="col-auto">
+																<span class="legend-indicator bg-primary"></span>
+																사용: [
+																<span class="js-counter display-7 text-success">{{useDepartment}}</span>
+																]
+															</div>
+															<!-- End Col -->
+															<div class="col-auto">
+																<span class="legend-indicator bg-success"></span>
+																미사용: [
+																<span class="js-counter display-7 text-secondary">{{unUseDepartment}}</span>
+																]
+															</div>
+															<!-- End Col -->
+														</div>
+														<!-- End Row -->
+														<!-- Progress -->
+														<div class="progress rounded-pill">
+															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+														</div>
+														<!-- End Progress -->
+													</div>
+												</div>
+											</div>
+											<div class="card-arrow">
+												<div class="card-arrow-top-left"></div>
+												<div class="card-arrow-top-right"></div>
+												<div class="card-arrow-bottom-left"></div>
+												<div class="card-arrow-bottom-right"></div>
+											</div>
+										</div>
+										<!-- End Card -->
+									</div>
+									<div class="col-sm-6 col-lg-6 mb-3 mb-lg-5">
+										<!-- Card -->
+										<div class="card h-100">
+											<div class="card-body">
+												<h6 class="card-subtitle mb-2">직급</h6>
+												<div class="row align-items-center gx-2">
+													<div class="col">
+														<span class="js-counter display-4 text-theme" data-bs-toggle="modal" data-bs-target="#positionModal">{{totalPosition}}</span>
+													</div>
+													<div class="col-md-9 col-lg-6 column-md-divider px-md-4">
+														<div class="row justify-content-start mb-2">
+															<div class="col-auto">
+																<span class="legend-indicator bg-primary"></span>
+																사용: [
+																<span class="js-counter display-7 text-success">{{usePosition}}</span>
+																]
+															</div>
+															<!-- End Col -->
+															<div class="col-auto">
+																<span class="legend-indicator bg-success"></span>
+																미사용: [
+																<span class="js-counter display-7 text-secondary">{{unUsePosition}}</span>
+																]
+															</div>
+															<!-- End Col -->
+														</div>
+														<!-- End Row -->
+														<!-- Progress -->
+														<div class="progress rounded-pill">
+															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+														</div>
+														<!-- End Progress -->
+													</div>
+												</div>
+											</div>
+											<div class="card-arrow">
+												<div class="card-arrow-top-left"></div>
+												<div class="card-arrow-top-right"></div>
+												<div class="card-arrow-bottom-left"></div>
+												<div class="card-arrow-bottom-right"></div>
+											</div>
+										</div>
+										<!-- End Card -->
+									</div>
+								</div>
+								<!-- End 부서+직급 관리 -->
+
 								<!-- BEGIN 계정 목록 -->
 								<div id="bootstrapTable" class="mb-5">
 									<h4>계정 목록</h4>
 									<div class="card">
 										<div class="card-body">
+											<a class="btn btn-outline-primary" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#createAccountModal">
+												<i class="bi-person-plus-fill me-1"></i> 계정 등록
+											</a>
 											<table class="table" data-toggle="table" data-sort-class="table-active" data-sortable="true" data-search="true" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-height="460" data-click-to-select="true">
 												<thead>
 													<tr>
@@ -62,9 +270,7 @@
 														<td class="text-light">{{phone}}</td>
 														<td class="text-light">{{hireDate}}</td>
 													</tr>
-													{{/accountList}}
-													{{^accountList}}
-													{{/accountList}}
+													{{/accountList}} {{^accountList}} {{/accountList}}
 												</tbody>
 											</table>
 										</div>
@@ -74,7 +280,7 @@
 											<div class="card-arrow-bottom-left"></div>
 											<div class="card-arrow-bottom-right"></div>
 										</div>
-<!-- 										<div class="hljs-container">
+										<!-- 										<div class="hljs-container">
 											<pre>
 												<code>&lt;!-- required css / js --&gt;
 &lt;link href="/assets/plugins/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" /&gt;
@@ -120,12 +326,12 @@
 			<!-- END container -->
 		</div>
 		<!-- END #content -->
-		
+
 		<!-- 공통 Footer (로딩+탑스크롤+테마패널) -->
 		{{>plugin/footer}}
-		
+
 		<!-- 모달 -->
-		{{>modal/create_account}}
+		{{>modal/create_account}} {{>modal/department}} {{>modal/position}}
 	</div>
 	<!-- END #app -->
 
@@ -135,7 +341,7 @@
 	<!-- ================== END core-js ================== -->
 
 	<!-- ================== BEGIN page-js ================== -->
-	<script src="/assets/plugins/@highlightjs/cdn-/assets/highlight.min.js"></script>
+	<script src="/assets/plugins/@highlightjs/cdn-assets/highlight.min.js"></script>
 	<script src="/assets/js/demo/highlightjs.demo.js"></script>
 	<script src="/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
@@ -149,10 +355,12 @@
 	<script src="/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
 	<script src="/assets/plugins/bootstrap-table/dist/bootstrap-table.min.js"></script>
 	<script src="/assets/js/demo/table-plugins.demo.js"></script>
-	<script src="/assets/js/demo/sidebar-scrollspy.demo.js"></script>	
+	<script src="/assets/js/demo/sidebar-scrollspy.demo.js"></script>
 	<!-- ================== END page-js ================== -->
-	
+
 	<!-- ================== BEGIN custom-js ================== -->
 	<script src="/assets/js/account.js"></script>
+	<script src="/assets/js/department.js"></script>
+	<script src="/assets/js/position.js"></script>
 </body>
 </html>

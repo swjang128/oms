@@ -1,0 +1,154 @@
+<!-- ================== CONTENT ================== -->
+<div class="modal fade" id="positionModal" tabindex="-1" aria-labelledby="positionModalLabel" aria-hidden="true">
+	<!-- Content -->
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<!-- Page Header -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="positionModalTitle">직급 관리</h5>
+				<button type="button" class="btn-close" tabindex="-1" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="tab-content" id="positionModalContent">
+					<!-- End Page Header -->
+					<!-- Card -->
+					<div class="card">
+						<!-- Header -->
+						<div class="card-header card-header-content-md-between">
+							<div class="mb-2 mb-md-0">
+								<form>
+									<!-- Search -->
+									<div class="input-group input-group-merge input-group-flush">
+										<div class="input-group-prepend input-group-text">
+											<i class="bi-search"></i>
+										</div>
+										<input id="positionSearch" type="search" class="form-control" placeholder="직급 검색" aria-label="Search Position">
+									</div>
+									<!-- End Search -->
+								</form>
+							</div>
+							<div class="d-grid d-sm-flex justify-content-md-end align-items-sm-center gap-2">
+								<!-- Datatable Info -->
+								<div id="positionCounterInfo" style="display: none;">
+									<div class="d-flex align-items-center">
+										<span class="fs-5 me-3">
+											<span id="positionCounter"></span>개 선택
+										</span>
+										<a class="btn btn-danger btn-lg" href="javascript:;" onClick="deletePosition()">
+											<i class="bi-trash"></i> 삭제
+										</a>
+									</div>
+								</div>
+								<!-- End Datatable Info -->
+							</div>
+						</div>
+					</div>
+					<!-- End Header -->
+					<!-- Table -->
+					<div class="table-responsive datatable-custom position-relative">
+						<table id="positionTable" class="table table-lg table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+							<thead class="thead-light">
+								<tr>
+									<th class="table-column-pe-0">										
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="" id="positionCheckAll">
+											<label class="form-check-label" for="positionCheckAll"></label>
+										</div>
+									</th>
+									<th class="table-column-pe-0">직급명</th>
+									<th class="table-column-pe-0">사용여부</th>
+									<th class="table-column-pe-0">저장/삭제</th>
+								</tr>
+							</thead>
+							<tbody id="positionList">
+								<!-- 사용자 목록 -->
+								{{#positionList}}
+								<tr>
+									<td class="table-column-pe-0">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="{{id}}" id="position{{id}}" name="positionId">
+											<label class="form-check-label" for="position{{id}}"></label>
+										</div>
+									</td>
+									<td class="table-column-ps-0">
+										<span class="d-none">{{name}}</span>
+										<input type="text" class="form-control" id="positionName{{id}}" value="{{name}}" onKeyup="activatePositionSaveButton({{id}})" onChange="updatePositionNameCheck({{id}}, this.value)">
+									</td>
+					                <td name="positionUseYn">
+					                	<span class="d-none">{{useYn.key}}</span>
+										<div class="form-check form-switch">
+											<input class="form-check-input" type="checkbox" id="positionUseYn{{id}}" onChange="activatePositionSaveButton({{id}})">
+											<label class="form-check-label" for="positionUseYn{{id}}"></label>
+										</div>
+                					</td>
+									<td>
+										<button class="btn btn-info btn-sm" href="javascript:;" id="positionSaveButton{{id}}" onClick="updatePosition({{id}});" disabled>
+											<i class="bi-file-plus"></i> 저장
+										</button>
+										<a class="btn btn-danger btn-sm" href="javascript:;" onClick="deletePosition({{id}})">
+											<i class="bi-trash"></i> 삭제
+										</a>
+									</td>
+								</tr>
+								{{/positionList}}
+								{{^positionList}}{{/positionList}}
+								<!-- End 사용자 목록 -->
+							</tbody>
+							<tfoot>
+								<tr>
+									<td class="table-column-ps-0" colspan="4">
+										<div class="d-grid gap-2" id="createPositionRow">
+											<a class="btn btn-primary btn-lg" onClick="createPositionRow()">
+												<i class="bi-plus display-4"> </i><span class="display-4">등록</span>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<!-- End Table -->
+					<!-- Footer -->
+					<div class="card-footer">
+						<div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+							<div class="col-sm mb-2 mb-sm-0">
+								<div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+									<span class="me-2">표시:</span>
+									<!-- Select -->
+									<div class="tom-select-custom">
+										<select id="positionEntries" class="js-select form-select form-select-borderless w-auto" autocomplete="off" data-hs-tom-select-options='{
+										"searchInDropdown": false,
+										"hideSearch": true
+										}'>
+											<option value="10" selected>10</option>
+											<option value="15">15</option>
+											<option value="20">20</option>
+										</select>
+									</div>
+									<!-- End Select -->
+									<span class="text-secondary me-2">전체</span>
+									<!-- Pagination Quantity -->
+									<span id="positionWithPaginationInfoTotalQty"></span>
+									<span class="text-secondary me-2">개</span>
+								</div>
+							</div>
+							<!-- End Col -->							
+							<div class="col-sm-auto">
+								<div class="d-flex justify-content-center justify-content-sm-end">
+									<!-- Pagination -->
+									<nav id="positionPagination" aria-label="Activity pagination"></nav>
+								</div>
+							</div>
+							<!-- End Col -->
+						</div>
+						<!-- End Row -->
+					</div>
+					<!-- End Footer -->
+				</div>
+				<!-- End Card -->
+			</div>
+		</div>
+	</div>
+	<!-- End Content -->
+</div>
+<!-- ========== END MAIN CONTENT ========== -->

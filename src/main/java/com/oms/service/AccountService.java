@@ -192,6 +192,7 @@ public class AccountService {
 		try {			
 			account = accountRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 계정 정보가 없습니다. id: " + id));
 			accountDTO = new AccountDTO(account);
+			resultMap.put("account", accountDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			responseManager = ResponseManager.ACCOUNT_DOES_NOT_EXISTS;
@@ -200,7 +201,6 @@ public class AccountService {
 		resultMap.put("status", responseManager.status);
 		resultMap.put("result", responseManager.result);
 		resultMap.put("message", responseManager.message);
-		resultMap.put("account", accountDTO);		
 		return resultMap;
 	}
 
