@@ -1,9 +1,9 @@
 // ======================= Ready =======================//
 $(function() {
 	// 직급 사용유무에 따라 체크박스 값 표시 변경
-	$('td[name=positionUseYn]').each(function() {
+	$('td[name=positionUseYn]').each(function() {		
 		if ($(this).children(':first').text() == 'Y') {
-			$(this).children(':eq(1)').children(':first').prop('checked', true);
+			$(this).children(':eq(1)').children(':first').attr('checked', true);
 		}
 	});
 	

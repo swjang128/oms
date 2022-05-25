@@ -1,6 +1,4 @@
-/*********************
-* Document Ready *
-**********************/
+// ======================= Ready =======================//
 $(function() {
 	// 계정의 상태에 따라 Status, UserStatus의 색상 변경
 	$('span[name=accountStatus]').each(function() {
@@ -65,6 +63,7 @@ function openDropdown() {
 	}
 
 }
+
 
 /*********************
 * 기존 계정 정보 조회 *

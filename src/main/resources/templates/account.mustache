@@ -141,7 +141,7 @@
 								<div class="row">
 									<div class="col-sm-6 col-lg-6 mb-3 mb-lg-5">
 										<!-- Card -->
-										<div class="card h-100">
+										<div class="card h-100" data-bs-toggle="modal" data-bs-target="#departmentModal">
 											<div class="card-body">
 												<h6 class="card-subtitle mb-2">부서</h6>
 												<div class="row align-items-center gx-2">
@@ -149,9 +149,9 @@
 														<span class="js-counter display-4 text-theme">{{totalDepartment}}</span>
 													</div>
 													<div class="col-auto">
-														<a class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#departmentModal">
+														<!-- <a class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#departmentModal">
 															<i class="bi-person-plus-fill me-1"></i> 부서관리
-														</a>
+														</a> -->
 													</div>
 													<div class="col-md-9 col-lg-6 column-md-divider px-md-4">
 														<div class="row justify-content-start mb-2">
@@ -173,8 +173,8 @@
 														<!-- End Row -->
 														<!-- Progress -->
 														<div class="progress rounded-pill">
-															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
-															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate}}" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate}}" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
 														</div>
 														<!-- End Progress -->
 													</div>
@@ -218,8 +218,8 @@
 														<!-- End Row -->
 														<!-- Progress -->
 														<div class="progress rounded-pill">
-															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
-															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate}}" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate}}" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
 														</div>
 														<!-- End Progress -->
 													</div>
@@ -238,7 +238,7 @@
 								<!-- End 부서+직급 관리 -->
 
 								<!-- BEGIN 계정 목록 -->
-								<div id="bootstrapTable" class="mb-5">
+								<div id="accountTable" class="mb-5">
 									<h4>계정 목록</h4>
 									<div class="card">
 										<div class="card-body">
@@ -310,7 +310,7 @@
 								<!-- BEGIN #sidebar-bootstrap -->
 								<nav id="sidebar-bootstrap" class="navbar navbar-sticky d-none d-xl-block">
 									<nav class="nav">
-										<a class="nav-link" href="#bootstrapTable" data-toggle="scroll-to">Bootstrap table</a>
+										<a class="nav-link" href="#accountTable" data-toggle="scroll-to">Bootstrap table</a>
 									</nav>
 								</nav>
 								<!-- END #sidebar-bootstrap -->

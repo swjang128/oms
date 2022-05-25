@@ -1,12 +1,5 @@
-// ======================= Ready =======================//
+// ======================= Department Modal Init =======================//
 $(function() {
-	// 부서 사용유무에 따라 체크박스 값 표시 변경
-	$('td[name=departmentUseYn]').each(function() {
-		if ($(this).children(':first').text() == 'Y') {
-			$(this).children(':eq(1)').children(':first').prop('checked', true);
-		}
-	});
-
 	// 등록시간, 수정시간 포맷 변경
 	/*	$('td[name=departmentRegistTime]').each(function() {
 			$(this).text(moment($(this).text()).format('YYYY-MM-DD'));
@@ -14,7 +7,13 @@ $(function() {
 		$('td[name=departmentUpdateTime]').each(function() {
 			$(this).text(moment($(this).text()).format('YYYY-MM-DD'));
 		});*/
+});
 
+// 부서 사용유무에 따라 체크박스 값 표시 변경
+$('td[name=departmentUseYn]').each(function() {	
+	if ($(this).children(':first').text() == 'Y') {		
+		$(this).children(':eq(1)').children(':first').attr('checked', true);
+	}
 });
 
 // ======================= Functions =======================//
@@ -27,12 +26,14 @@ function activateDepartmentSaveButton(id) {
 	if ($('#departmentUseYn' + id).is(':checked') == true) {
 		departmentUse = 'Y';
 	}
+	
+	alert($('#departmentName' + id).val());
 	// 부서명 또는 사용여부에 변화가 생기면 부서 저장 버튼이 활성화
 	if ($('#departmentName' + id).val() != $('#departmentName' + id).parent().children(':first').text() ||
-		$('#departmentUseYn' + id).parent().parent().children(':first').text() != departmentUse) {
-		$('#departmentSaveButton' + id).attr('disabled', false);
+			$('#departmentUseYn' + id).parent().parent().children(':first').text() != departmentUse) {
+		$('#departmentSaveButton' + id).prop('disabled', false);
 	} else {
-		$('#departmentSaveButton' + id).attr('disabled', true);
+		$('#departmentSaveButton' + id).prop('disabled', true);
 	}
 }
 
@@ -49,7 +50,7 @@ function createDepartmentRow() {
 	$('#departmentList').append(`<tr class="bg-success">
 																<td class="table-column-pe-0"></td>
 																<td class="table-column-ps-0">
-																	<input type="text" class="ms-3 ps-2 border bg-light text-dark w-auto" id="departmentName`+ newId + `" placeholder="부서명을 입력하세요" onChange="departmentNameCheck(` + newId + `, this.value)">
+																	<input type="text" class="form-control" id="departmentName`+ newId + `" placeholder="부서명을 입력하세요" onChange="departmentNameCheck(` + newId + `, this.value)">
 																</td>
 																<td name="departmentUseYn">
 																	<div class="form-check form-switch">
