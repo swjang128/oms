@@ -173,8 +173,8 @@
 														<!-- End Row -->
 														<!-- Progress -->
 														<div class="progress rounded-pill">
-															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate}}" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
-															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate}}" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
 														</div>
 														<!-- End Progress -->
 													</div>
@@ -218,8 +218,8 @@
 														<!-- End Row -->
 														<!-- Progress -->
 														<div class="progress rounded-pill">
-															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate}}" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
-															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate}}" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
 														</div>
 														<!-- End Progress -->
 													</div>
@@ -238,37 +238,46 @@
 								<!-- End 부서+직급 관리 -->
 
 								<!-- BEGIN 계정 목록 -->
-								<div id="accountTable" class="mb-5">
+								<div id="datatable" class="mb-5">
 									<h4>계정 목록</h4>
 									<div class="card">
 										<div class="card-body">
-											<a class="btn btn-outline-primary" onClick="initAccountModal()" data-bs-toggle="modal" data-bs-target="#createAccountModal">
-												<i class="bi-person-plus-fill me-1"></i> 계정 등록
-											</a>
-											<table class="table" data-toggle="table" data-sort-class="table-active" data-sortable="true" data-search="true" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-show-fullscreen="true" data-height="460" data-click-to-select="true">
+											<table id="accountTable" class="table text-nowrap w-100">
 												<thead>
 													<tr>
-														<th data-field="id" data-checkbox="true"></th>
-														<th class="text-theme" data-sortable="true">이름</th>
-														<th class="text-theme" data-sortable="true">이메일</th>
-														<th class="text-theme" data-sortable="true">접속상태</th>
-														<th class="text-theme" data-sortable="true">계정상태</th>
-														<th class="text-theme" data-sortable="true">주소</th>
-														<th class="text-theme" data-sortable="true">연락처</th>
-														<th class="text-theme" data-sortable="true">입사일</th>
+														<th></th>
+														<th class="table-column-pe-0">
+															<div class="form-check">
+																<input class="form-check-input" type="checkbox" value="" id="accountCheckAll">
+																<label class="form-check-label" for="accountCheckAll"></label>
+															</div>
+														</th>
+														<th>이름</th>
+														<th>이메일</th>
+														<th>부서</th>
+														<th>직급</th>
+														<th>주소</th>
+														<th>연락처</th>
+														<th>입사일</th>
 													</tr>
 												</thead>
 												<tbody>
 													{{#accountList}}
 													<tr>
-														<td>{{id}}</td>
-														<td class="text-light">{{name}}</td>
-														<td class="text-light">{{email}}</td>
-														<td class="text-light">{{userStatus.value}}</td>
-														<td class="text-light">{{status.value}}</td>
-														<td class="text-light">{{address}} {{addressDetail}}</td>
-														<td class="text-light">{{phone}}</td>
-														<td class="text-light">{{hireDate}}</td>
+														<td></td>
+														<td>
+															<div class="form-check">
+																<input class="form-check-input" type="checkbox" value="{{id}}" id="{{id}}" name="accountRow">
+																<label class="form-check-label" for="{{id}}"></label>
+															</div>
+														</td>
+														<td>{{name}}</td>
+														<td>{{email}}</td>
+														<td>{{department}}</td>
+														<td>{{position}}</td>
+														<td>{{address}}</td>
+														<td>{{phone}}</td>
+														<td>{{hireDate}}</td>
 													</tr>
 													{{/accountList}} {{^accountList}} {{/accountList}}
 												</tbody>
@@ -280,42 +289,49 @@
 											<div class="card-arrow-bottom-left"></div>
 											<div class="card-arrow-bottom-right"></div>
 										</div>
-										<!-- 										<div class="hljs-container">
+										<div class="hljs-container">
 											<pre>
-												<code>&lt;!-- required css / js --&gt;
-&lt;link href="/assets/plugins/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" /&gt;
-&lt;script src="/assets/plugins/bootstrap-table/dist/bootstrap-table.min.js"&gt;&lt;/script&gt;
+												<code>&lt;!-- required css --&gt;
+&lt;link href="/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" /&gt;
+&lt;link href="/assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" /&gt;
+&lt;link href="/assets/plugins/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" /&gt;
+
+&lt;!-- required js --&gt;
+&lt;script src="/assets/plugins/datatables.net/js/jquery.dataTables.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-buttons/js/buttons.print.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"&gt;&lt;/script&gt;
 
 &lt;!-- html --&gt;
-&lt;table class="table" data-toggle="table"
-  data-sort-class="table-active"
-  data-sortable="true"
-  data-search="true"
-  data-pagination="true"
-  data-show-refresh="true"
-  data-show-columns="true"
-  data-show-fullscreen="true"
-  data-height="460"&gt;
-...
-&lt;/table&gt;</code>
+&lt;table id="datatableDefault" class="table text-nowrap w-100"&gt;
+  ...
+&lt;/table&gt;
+
+&lt;!-- script --&gt;
+&lt;script&gt;
+  $('#datatableDefault').DataTable({
+    dom: "&lt;'row mb-3'&lt;'col-sm-4'l&gt;&lt;'col-sm-8 text-end'&lt;'d-flex justify-content-end'fB&gt;&gt;&gt;t&lt;'d-flex align-items-center'&lt;'me-auto'i&gt;&lt;'mb-0'p&gt;&gt;",
+    lengthMenu: [ 10, 20, 30, 40, 50 ],
+    responsive: true,
+    buttons: [ 
+      { extend: 'print', className: 'btn btn-default' },
+      { extend: 'csv', className: 'btn btn-default' }
+    ]
+  });
+&lt;/script&gt;</code>
 											</pre>
-										</div> -->
+										</div>
 									</div>
 								</div>
 								<!-- END 계정목록 -->
 							</div>
 							<!-- END col-9-->
-							<!-- BEGIN col-3 -->
-							<div class="col-xl-3">
-								<!-- BEGIN #sidebar-bootstrap -->
-								<nav id="sidebar-bootstrap" class="navbar navbar-sticky d-none d-xl-block">
-									<nav class="nav">
-										<a class="nav-link" href="#accountTable" data-toggle="scroll-to">Bootstrap table</a>
-									</nav>
-								</nav>
-								<!-- END #sidebar-bootstrap -->
-							</div>
-							<!-- END col-3 -->
 						</div>
 						<!-- END row -->
 					</div>
@@ -329,7 +345,6 @@
 
 		<!-- 공통 Footer (로딩+탑스크롤+테마패널) -->
 		{{>plugin/footer}}
-
 		<!-- 모달 -->
 		{{>modal/create_account}} {{>modal/department}} {{>modal/position}}
 	</div>

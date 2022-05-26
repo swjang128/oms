@@ -11,7 +11,7 @@ var handleRenderTableData = function() {
 		lengthMenu: [ 10, 20, 30, 40, 50 ],
 		responsive: true,
 		buttons: [
-			{ extend: 'print', className: 'btn btn-outline-default btn-sm ms-2' },
+			{ extend: 'print', className: 'btn btn-outline-default btn-sm' },
 			{ extend: 'csv', className: 'btn btn-outline-default btn-sm' }
 		]
 	});

@@ -27,7 +27,6 @@ function activateDepartmentSaveButton(id) {
 		departmentUse = 'Y';
 	}
 	
-	alert($('#departmentName' + id).val());
 	// 부서명 또는 사용여부에 변화가 생기면 부서 저장 버튼이 활성화
 	if ($('#departmentName' + id).val() != $('#departmentName' + id).parent().children(':first').text() ||
 			$('#departmentUseYn' + id).parent().parent().children(':first').text() != departmentUse) {

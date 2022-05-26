@@ -165,7 +165,7 @@ $(document).ready(function() {
 				className: 'btn btn-sm btn-danger shadow-sm',
 				enabled: false,
 				action: function() {
-					deleteProduct();				
+					deleteProduct();
 				}
 			}
 		],
