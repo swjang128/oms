@@ -582,17 +582,15 @@ function createAccount() {
 		data: createData,
 		cache: false,
 		success: function(result) {
-			if (result.status == 200) {
+			if (result.status == 201) {
 				alert('계정을 정상적으로 등록하였습니다');
+				location.reload();
 			} else {
 				alert('내부 서버 오류가 발생하였습니다');
 			}
 		},
 		error: function() {
 			alert('서버와의 통신에 실패했습니다.');
-		},
-		complete: function() {
-			location.reload();
 		}
 	});
 }
