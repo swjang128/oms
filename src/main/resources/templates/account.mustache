@@ -44,11 +44,11 @@
 														<span class="js-counter display-4 text-theme">{{totalAccount}}</span>
 														<!-- <span class="text-body fs-5 ms-1">(지난달: {{monthAgoAccount}})</span> -->
 													</div>
-													<div class="col-auto">
+													<!-- <div class="col-auto">
 														<span class="badge bg-soft-success text-success p-1">
 															<i class="bi-graph-up"></i> {{compareAccount}} %
 														</span>
-													</div>
+													</div> -->
 												</div>
 												<div class="card-arrow">
 													<div class="card-arrow-top-left"></div>
@@ -242,6 +242,7 @@
 									<h4>계정 목록</h4>
 									<div class="card">
 										<div class="card-body">
+											<div class="table-responsive">
 											<table id="accountTable" class="table text-nowrap w-100">
 												<thead>
 													<tr>
@@ -282,6 +283,7 @@
 													{{/accountList}} {{^accountList}} {{/accountList}}
 												</tbody>
 											</table>
+											</div>
 										</div>
 										<div class="card-arrow">
 											<div class="card-arrow-top-left"></div>
