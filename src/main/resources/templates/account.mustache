@@ -173,8 +173,8 @@
 														<!-- End Row -->
 														<!-- Progress -->
 														<div class="progress rounded-pill">
-															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
-															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar" role="progressbar" style="width: {{useDepartmentRate}}" aria-valuenow="{{useDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUseDepartmentRate}}" aria-valuenow="{{unUseDepartment}}" aria-valuemin="0" aria-valuemax="{{totalDepartment}}"></div>
 														</div>
 														<!-- End Progress -->
 													</div>
@@ -218,8 +218,8 @@
 														<!-- End Row -->
 														<!-- Progress -->
 														<div class="progress rounded-pill">
-															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
-															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar" role="progressbar" style="width: {{usePositionRate}}" aria-valuenow="{{usePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
+															<div class="progress-bar bg-success" role="progressbar" style="width: {{unUsePositionRate}}" aria-valuenow="{{unUsePosition}}" aria-valuemin="0" aria-valuemax="{{totalPosition}}"></div>
 														</div>
 														<!-- End Progress -->
 													</div>
@@ -280,7 +280,7 @@
 														<td>{{phone}}</td>
 														<td>{{hireDate}}</td>
 													</tr>
-													{{/accountList}} {{^accountList}} {{/accountList}}
+													{{/accountList}}{{^accountList}}{{/accountList}}
 												</tbody>
 											</table>
 											</div>
@@ -348,7 +348,9 @@
 		<!-- 공통 Footer (로딩+탑스크롤+테마패널) -->
 		{{>plugin/footer}}
 		<!-- 모달 -->
-		{{>modal/create_account}} {{>modal/department}} {{>modal/position}}
+		{{>modal/create_account}}
+		{{>modal/department}}
+		{{>modal/position}}
 	</div>
 	<!-- END #app -->
 
