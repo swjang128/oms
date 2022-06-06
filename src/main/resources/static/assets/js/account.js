@@ -17,10 +17,10 @@ $(function() {
 			},
 			{ extend: 'print', text: '<i class="fas fa-print fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },
 			{ extend: 'csv', charset: 'UTF-8', bom: true, text: '<i class="fas fa-download fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },
-			{ extend: 'colvis', text: '<i class="fas fa-cog fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' }
+			/*{ extend: 'colvis', text: '<i class="fas fa-cog fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' }*/
 		],
 		columnDefs: [
-			{ targets: 0, data: 0, checkboxes: { selectRow: true }},	// 체크박스로 선택한 column[1]의 값을 데이터로 담음
+			{ targets: 0, data: 0, checkboxes: { selectRow: true }, orderable: false },	// 체크박스로 선택한 column[1]의 값을 데이터로 담음
 		],
 		select: {
 			style: 'multi',
