@@ -16,7 +16,7 @@ $(function() {
 				} 
 			},
 			{ extend: 'print', text: '<i class="fas fa-print fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },
-			{ extend: 'csv', charset: 'UTF-8', bom: true, text: '<i class="fas fa-download fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },
+			{ extend: 'csv', charset: 'UTF-8', bom: true, text: '<i class="fas fa-download fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' }
 			/*{ extend: 'colvis', text: '<i class="fas fa-cog fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' }*/
 		],
 		columnDefs: [
