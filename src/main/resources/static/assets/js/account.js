@@ -1,8 +1,6 @@
 // ======================= Ready =======================//
 $(function() {
-	/*******************
-	* 계정 테이블 설정 *
-	********************/
+	// 계정 테이블 설정 (DataTable)
 	var accountTable = $('#accountTable').DataTable({
 		dom: "<'row mb-3'<'col-md-4 mb-3 mb-md-0'l><'col-md-8 text-right'<'d-flex justify-content-end'fB>>>t<'row align-items-center'<'mr-auto col-md-6 mb-3 mb-md-0 mt-n2 'i><'mb-0 col-md-6'p>>",		
 		lengthMenu: [10, 25, 50],
@@ -10,21 +8,29 @@ $(function() {
 		buttons: [
 			{ 
 				extends: 'create', 
-				text: '<i class="fas fa-pencil fa-sm text-theme"></i>', 
-				className: 'btn btn-outline-default btn-sm', 
+				text: '<i class="fas fa-pencil fa-sm text-theme"></i>',
+				className: 'btn btn-outline-default btn-sm',
 				action: function() {
 					$('#createAccountModal').modal('show');
 					initAccountModal();
 				} 
 			},
 			{ extend: 'print', text: '<i class="fas fa-print fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },
-			{ extend: 'csv', charset: 'UTF-8', bom: true, text: '<i class="fas fa-download fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },			
+			{ extend: 'csv', charset: 'UTF-8', bom: true, text: '<i class="fas fa-download fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' },
 			{ extend: 'colvis', text: '<i class="fas fa-cog fa-sm text-theme"></i>', className: 'btn btn-outline-default btn-sm' }
 		],
 		columnDefs: [
-			{ targets: 0, data: 1, checkboxes: { selectRow: true }},	// 체크박스로 선택한 column[1]의 값을 데이터로 담음
-		]
+			{ targets: 0, data: 0, checkboxes: { selectRow: true }},	// 체크박스로 선택한 column[1]의 값을 데이터로 담음
+		],
+		select: {
+			style: 'multi',
+			selector: 'td:first-child input[type="checkbox"]',
+			classMap: {
+				checkAll: '#accountCheckAll'
+			}
+		}
 	});
+
 	
 	// 계정의 상태에 따라 Status, UserStatus의 색상 변경
 	$('span[name=accountStatus]').each(function() {
