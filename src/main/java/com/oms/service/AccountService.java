@@ -551,5 +551,6 @@ public class AccountService {
 		resultMap.put("result", responseManager.result);
 		return resultMap;
 	}
+
 }
 
