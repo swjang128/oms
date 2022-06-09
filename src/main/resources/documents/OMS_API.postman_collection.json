@@ -160,7 +160,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/department?use=N",
+							"raw": "http://10.0.100.15:9575/api/department",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -172,12 +172,6 @@
 							"path": [
 								"api",
 								"department"
-							],
-							"query": [
-								{
-									"key": "use",
-									"value": "N"
-								}
 							]
 						}
 					},
@@ -190,7 +184,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"인사\"\r\n}",
+							"raw": "{\r\n    \"name\": \"매장\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -579,10 +573,10 @@
 			]
 		},
 		{
-			"name": "Category",
+			"name": "Menu",
 			"item": [
 				{
-					"name": "카테고리 목록",
+					"name": "메뉴 목록",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -597,7 +591,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/category",
+							"raw": "http://10.0.100.15:9575/api/menu?use=Y",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -608,53 +602,25 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"category"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "하위 카테고리 조회",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+								"menu"
+							],
+							"query": [
 								{
-									"key": "token",
-									"value": "BDF797106CB98FEDD6D044D903C35B4D",
-									"type": "string"
+									"key": "use",
+									"value": "Y"
 								}
 							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://10.0.100.15:9575/api/category/0",
-							"protocol": "http",
-							"host": [
-								"10",
-								"0",
-								"100",
-								"15"
-							],
-							"port": "9575",
-							"path": [
-								"api",
-								"category",
-								"0"
-							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "카테고리 등록",
+					"name": "메뉴 등록",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member",
+							"raw": "http://10.0.100.15:9575/api/menu",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -665,19 +631,19 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member"
+								"menu"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "카테고리 수정",
+					"name": "메뉴 수정",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member",
+							"raw": "http://10.0.100.15:9575/api/menu",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -688,19 +654,19 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member"
+								"menu"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "카테고리 삭제",
+					"name": "메뉴 삭제",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://10.0.100.15:9575/api/member/4",
+							"raw": "http://10.0.100.15:9575/api/menu/4",
 							"protocol": "http",
 							"host": [
 								"10",
@@ -711,7 +677,7 @@
 							"port": "9575",
 							"path": [
 								"api",
-								"member",
+								"menu",
 								"4"
 							]
 						}
@@ -949,7 +915,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:9575/api/history?status=200,404&method=POST&endDate=2022-04-05 23:59:59",
+							"raw": "http://127.0.0.1:9575/api/history?status=200,404&host=swjang128@gmail.com&startDate=2022-03-31 00:00:00&endDate=2022-04-05 23:59:59",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -969,17 +935,16 @@
 								},
 								{
 									"key": "method",
-									"value": "POST"
+									"value": "POST",
+									"disabled": true
 								},
 								{
 									"key": "host",
-									"value": "swjang128@gmail.com",
-									"disabled": true
+									"value": "swjang128@gmail.com"
 								},
 								{
 									"key": "startDate",
-									"value": "2022-03-31 00:00:00",
-									"disabled": true
+									"value": "2022-03-31 00:00:00"
 								},
 								{
 									"key": "endDate",
@@ -1160,6 +1125,137 @@
 									"key": "use",
 									"value": "N"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team",
+			"item": [
+				{
+					"name": "팀 목록",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/team",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"team"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "팀 등록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"aaaaaaadddbc\",\r\n    \"type\": \"HW\",\r\n    \"category\": \"PC\",\r\n    \"price\": \"222\",\r\n    \"cost\": \"5000\",\r\n    \"rated\": \"7\",\r\n    \"stock\": \"34\",\r\n    \"releaseDate\": \"2021-12-02\",\r\n    \"discountRate\": \"11\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/team",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"team"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "팀 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"84\",\r\n    \"name\": \"수정된 상품명\",\r\n    \"type\": \"HW\",\r\n    \"category\": \"PC\",\r\n    \"price\": \"2222\",\r\n    \"cost\": \"111\",\r\n    \"rated\": \"0\",\r\n    \"stock\": \"44\",\r\n    \"releaseDate\": \"2022-01-21\",\r\n    \"discountRate\": \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/team",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"team"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "팀 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://10.0.100.15:9575/api/team/84",
+							"protocol": "http",
+							"host": [
+								"10",
+								"0",
+								"100",
+								"15"
+							],
+							"port": "9575",
+							"path": [
+								"api",
+								"team",
+								"84"
 							]
 						}
 					},
